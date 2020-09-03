@@ -1,0 +1,42 @@
+1 install
+
+nteract ~ jupyter ? yup https://www.reddit.com/r/Python/comments/6w1zh3/nteract_vs_jupyter_notebook/
+procedimento add ijulia uguale a per jupyter nb
+
+2 Variables and Printing
+
+#= =# === /*  */
+
+3 string
+
+errore notebook
+Notebook validation failed: Additional properties are not allowed ('outputs' was unexpected):
+{
+ "outputs": [],
+ "cell_type": "markdown",
+ "source": "# Strings\n\nTopics:\n1. How to get a string\n2. String interpolation\n3. String concatenation",
+ "metadata": {}
+}
+
+dichiara string con """ """ per usare "" all interno della string
+@assert var == value -> se var != value , manda errore
+
+4 data struct
+Notebook validation failed: Additional properties are not allowed ('outputs' was unexpected):
+{
+ "outputs": [],
+ "cell_type": "markdown",
+ "source": "# Data structures\n\nOnce we start working with many pieces of data at once, it will be convenient for us to store data in structures like arrays or dictionaries (rather than just relying on variables).<br>\n\nTypes of data structures covered:\n1. Tuples\n2. Dictionaries\n3. Arrays\n\n<br>\nAs an overview, tuples and arrays are both ordered sequences of elements (so we can index into them). Dictionaries and arrays are both mutable.\nWe'll explain this more below!",
+ "metadata": {}
+}
+
+tuple immutabili, ordinate
+
+array 
+ordinati, mutabili, tipi anche misti sse misti quando array viene dichiarato/init
+pop di default fa pop su ultimo elem
+si posson fare array di data struc non base (tipo arr di arr)
+array n dimensionali son array di n array (gli array non devon esser equal lunghezza)
+
+dict: coppie tipo key->value, coppie modificabili, dict modificabile, coppie non ordinate (riferimento tramite key), ha fun pop,
+
