@@ -34,7 +34,7 @@ tuple immutabili, ordinate
 
 array 
 ordinati, mutabili, tipi anche misti sse misti quando array viene dichiarato/init
-pop di default fa pop su ultimo elem
+pop! di default fa pop su ultimo elem
 si posson fare array di data struc non base (tipo arr di arr)
 array n dimensionali son array di n array (gli array non devon esser equal lunghezza)
 length(array) ritorna lunghezza length(["asd"]) ret 1
@@ -47,3 +47,31 @@ dict: coppie tipo key->value, coppie modificabili, dict modificabile, coppie non
 
 end per chiudere i blocchi?
 
+for doppio, zucchero sintattico
+for i in 1:10, j in 1:10
+esegue 10*10 volte, una per ogni comb di i  e j
+
+array comprehension?
+
+6 condizionali
+
+come js/c/etc ma senza parentesi e con un end alla fine (dopo eventuale blocco else)
+
+ha op condizionale ? come java: (condizione) ? (se vero) : (se falso)
+
+c'è && per concat condizioni, condizioni valutate ordinatamente (se metti un op dopo && op viene lanciata solo se il condizionale prima di && torna positivo)
+
+7 funzioni 
+
+dichiarate con kword function, o anche senza (tipo funzione)
+funzioni landa come java
+
+funzione != metodo
+
+julia manda errori su ambiguità overload
+
+convenzione: funzioni terminanti in ! modificano dati di input
+
+broadcasting
+ f(object) -> funzione viene lanciata con object come input
+ f.(object) -> funzione viene lanciata con ogni elemento di object come input diverso
