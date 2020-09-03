@@ -37,6 +37,13 @@ ordinati, mutabili, tipi anche misti sse misti quando array viene dichiarato/ini
 pop di default fa pop su ultimo elem
 si posson fare array di data struc non base (tipo arr di arr)
 array n dimensionali son array di n array (gli array non devon esser equal lunghezza)
+length(array) ritorna lunghezza length(["asd"]) ret 1
+indicizzati da 1, array[0] ritorna errore
 
 dict: coppie tipo key->value, coppie modificabili, dict modificabile, coppie non ordinate (riferimento tramite key), ha fun pop,
+
+
+5 loops
+
+end per chiudere i blocchi?
 
