@@ -75,3 +75,48 @@ convenzione: funzioni terminanti in ! modificano dati di input
 broadcasting
  f(object) -> funzione viene lanciata con object come input
  f.(object) -> funzione viene lanciata con ogni elemento di object come input diverso
+ 
+8 packages
+ 
+using Pkg
+Pkg.add("Plots")
+using Plots
+ segue schermata rosa bloccante essecutore julia del notebook aperto
+ finisce con
+ ┌ Info: Precompiling Plots [91a5bcdd-55d7-5caf-9e0b-520d859cae80]
+└ @ Base loading.jl:1278
+ 8(?) plotting
+ Notebook validation failed: Additional properties are not allowed ('outputs' was unexpected):
+{
+ "outputs": [],
+ "cell_type": "markdown",
+ "source": "# Plotting\n\n## Basics\nThere are a few different ways to plot in Julia (including calling PyPlot). <br>\n\nHere we'll show you how to use `Plots.jl`.  If it's not installed yet, you need to use the package manager to install it, and Julia will precompile it for you the first time you use it:",
+ "metadata": {}
+}
+
+ plot(x,y)
+ scatter!(x,y)
+ crea plot linea, ci aggiunge plot scatter
+ 
+  plot(x,y)
+  scatter(x,y)
+  crea plot linea, poi crea plot scatter
+  
+  
+  
+ 12? multiple dispatch  (vs dynamic dispatch)
+ 
+ methods( operatore ) ritorna lista metodi dell operatore
+ 
+ @which {formula con operatore}  ritorna quale metodo viene usato nella formula data
+ 
+ 13 BENCHMARKING
+ 
+ ##installazione mingw per avere gcc in windows: https://www.cs.umb.edu/cs444/gccWindows.html
+ 
+ 
+ 
+ 
+ per il futuro
+	dataframe.js
+	https://www.youtube.com/watch?v=eLVPC08NAJc
