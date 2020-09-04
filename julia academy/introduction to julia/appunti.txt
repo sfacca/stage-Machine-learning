@@ -78,7 +78,7 @@ broadcasting
  
 8 packages
  
-using Pkg
+using Pkg NB: case sensitive
 Pkg.add("Plots")
 using Plots
  segue schermata rosa bloccante essecutore julia del notebook aperto
@@ -114,9 +114,51 @@ using Plots
  
  ##installazione mingw per avere gcc in windows: https://www.cs.umb.edu/cs444/gccWindows.html
  
+ 1. salva fun da comparare in var diverse
+ 2. controlla che diano output uguali con input uguali con approx
+ 3. crea var bench = @benchmark $funzione(input)
+ 4. aggiungi bench a dizionario dizionario["descrizione bench"] = minimum(bench.times) / 1e6 <-ie6 per avere tempo in ms
+ 5. ripeti per ogni fun
+ 6. ordina dict
  
+ 14 algebra lineare base
  
+ NB: 
+ b = a -> b è pointer ad a, se cambio a cambio output di b
+ c = copy(a) ->  no
  
- per il futuro
+  .trasposizione
+  A' -> coniugata trasposta
+  A.' -> trasposta OPERATORE DISCONTINUATO
+  transpose(A) -< da transposta
+  
+  .moltiplicaz matrici
+  
+  A'A moltiplica matrici
+  
+
+  .sistema lineare  
+ x = ones(3)
+A = rand(1:4,3,3)
+b = A*x 
+A\b -< ritorna Ax=b
+	julia si comporta diversamente a seconda del rapporto colonne/righe della colonna dei parametri A
+	
+	
+	.op con vettori
+	
+	v::vettore
+	v'v -> scalare
+	v*transpose(v) -> matrice 
+	
+	
+15 fattorizazione
+
+
+ 
+ALTRO
 	dataframe.js
 	https://www.youtube.com/watch?v=eLVPC08NAJc
+	
+	regole stage/covid19 unive
+	https://www.unive.it/pag/7130/
