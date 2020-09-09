@@ -1,3 +1,4 @@
 .ipynb_checkpoints*
 /prisma/hdf5/tools
 /julia/julia for data science/downloads
+/julia/julia for data science/out
