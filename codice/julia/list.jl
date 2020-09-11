@@ -6,40 +6,23 @@
 
 
 
-export 
-    lpush!, lget, lappend!,
-
-end
 mutable struct lnode
     value::Any
     next::Union{lnode,Nothing}
+    lnode(v) = (x = new(); x.next = x; x.value = v; x)
+    lnode(v::Any,next::lnode) = (x = new(); x.next = next; x.value = v; x)
 end
 # per lista dopiam collegata basta aggiungere un campo parent::lnode 
 
 mutable struct List
     first::lnode
     last::lnode
+    List(nodo::lnode) = List(nodo,nodo)
+    List(first::lnode, last::lnode) = (x = new(); x.first = first; x.last=last; x)
 end
 # a seconda dell uso può esser utile aggiungere campi come length e puntatore a ultimo elemento
-#
-
-#=in genere liste vengono definite con tipo parametrico eg
-mutable struct lnode{T}
-    value::T
-    next::lnode{T}
-end
-
-mutable sturct List{T}
-    first::lnode{T}
-    last::lnode{T}
-end
-
-così poi, che ti serva lista di stringe o lista di interi, puoi avere lista con tipo ben definito usando la stessa struct
-mynodointero = lnode{Int64}(15,nothing)
-mylistadiinteri = List{Int64}(mynodointero,mynodointero)
-
-mynodostringa = etc
-=#
+# il vantaggio è che è una struttura ordinata nella quale ogni allocazione di nuovi dati impiega tempo costante 
+# (mentre, ad esempio, se devi aggiungere un elemento a un array pieno devi reallocarti tutto l'array allocandogli più spazio)
 
 
 function lpush!(list::List, value::Any)
@@ -87,17 +70,26 @@ function lget(list::List, value::Any)
             error("valore non trovato")
         end=#
     temp
-end    
+end  
+
+function dumpvalues(list::List)
+    tempnode = list.first
+    while (tempnode.next != list.first)
+        println(tempnode.value)
+        tempnode = tempnode.next
+    end
+    println(tempnode.value)
+end
+        
 # NB: se la lista è lista di int lget(lista,numero) usa lget sull indice invece il lget su valore
 
 
-# non so come o se è possibile mettere un null al posto di qualcos altro di tipo definito in julia, quindi per convenzione
-# ultimo elemento lista punta a primo elemento lista (lista circolare)
+# per convenzione ultimo elemento lista punta a primo elemento lista (lista circolare)
 
 
 function tryme()
-    mynode::lnode=lnode("secondo!",nothing)
-    myl::List = List(mynode, mynode)
+    mynode::lnode=lnode("secondo!")
+    myl::List = List(mynode)
     @show myl
     # aggiungiamo un nodo con valore terzo! alla fine della lista
     lappend!(myl, "terzo!")
@@ -105,6 +97,9 @@ function tryme()
     #aggiungiamo nodo primo! all inizio della lista
     lpush!(myl, "primo!")
     @show myl
+    mynode = myl.first
+    dumpvalues(myl)
+        
 end
 tryme()
 
