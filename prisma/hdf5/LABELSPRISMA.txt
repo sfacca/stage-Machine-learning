@@ -1,0 +1,29 @@
+id,name,parent
+1,"HDF5(root)GlobalAttribute ",
+2,"INFO",1
+3,"HDFEOS",1
+4,"KDP_AUX",1
+5,"Ancillary[NPixelAlong] as per copy from L1 product ",2
+6,"Header",2
+7,"SWATHS",3
+8,"StarTracker1",5
+9,"StarTracker2",5
+10,"GyroData",5
+11,"PVSData",5
+12,"GCP_Attributes",7
+13,"Geocoding Attributes ",7
+14,"Ancillary",13
+15,"PRS_L2D_HCO",7
+16,"PRS_L2D_PCO",7
+17,"Data Fields",15
+18,"Geolocation",15
+19,"Fields",15
+20,"Geometric",15
+21,"Fields",15
+22,"Geocoding",15
+23,"Model ",15
+24,"Data Fields",16
+25,"Geolocation",16
+26,"Fields",16
+27,"Geocoding",16
+28,"Model ",16

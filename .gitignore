@@ -1,5 +1,6 @@
 .ipynb_checkpoints*
 /prisma/hdf5/tools
+/prisma/hdf5/data
 /notebook/appunti/downloads
 /notebook/tutorial/downloads
 /notebook/appunti/out
