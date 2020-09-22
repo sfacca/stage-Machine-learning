@@ -52,7 +52,7 @@ function getrightmost(parent::hTree.lnode)
 end
 
 function addchild!(parent::hTree.lnode, name::String)
-    println("init addchild $name")
+    #println("init addchild $name")
     new = lnode(name)
     new.parent = parent
     if(parent.leftmost!=nothing)
