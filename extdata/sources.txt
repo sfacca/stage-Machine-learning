@@ -1,0 +1,1 @@
+md_indexes_list.txt <- "https://github.com/lbusett/prismaread/raw/master/inst/extdata/indexes_list.txt"
