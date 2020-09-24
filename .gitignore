@@ -7,4 +7,5 @@
 /notebook/tutorial/out
 /prisma/hdf5/downloads
 /prisma/hdf5/out
+/codice/julia/pr_convert.R
 .Rhistory*
