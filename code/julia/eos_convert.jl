@@ -171,7 +171,8 @@ module eos_convert
 
     # write ATCOR files if needed ----
     if ATCOR == TRUE && proc_lev == "1"
-        pr_make_atcor(f,
+        make_atcor(f,
+                  out_folder,
                   out_file,
                   ATCOR_wls,
                   wls,
