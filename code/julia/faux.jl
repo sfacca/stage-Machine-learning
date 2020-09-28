@@ -2,7 +2,7 @@
 
 module faux
 
-export seq_along, existsGroup, getAttr
+export seq_along, getAttr
 using HDF5
 
 
@@ -16,8 +16,8 @@ function getAttr(file, name::String)
     read(attrs(file), name)
 end
 
-function existsGroup(path::String,file::HDF5.HDF5File)
-    #0: path è /{gruppo}/{sottogruppo}/{etc}
-    #1 converte path in array di string per 
-
+function getData(file, name::String)
+    read(file,name)
 end
+
+end#end module

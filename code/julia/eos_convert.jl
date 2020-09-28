@@ -135,7 +135,7 @@ module eos_convert
     # If indexes need to be computed, retrieve the list of VNIR and SWIR ----
     # wavelengths required for the computataion and automatically fill
     # the selbands_vnir and selbands_swir variables
-    if indexes != nothing | cust_indexes != nothing 
+    if !isnothing(indexes) | !isnothing(cust_indexes) 
       if proc_lev in [c"1", "2B"]
           @warn "Spectral indexes are usually meant to be computed on "
           @warn  "reflectance data. Proceed with caution!"
@@ -229,7 +229,7 @@ module eos_convert
       end ################# todo: convert pr_create_vnir
     end
     # Build array of effectively processed bands/wl/fwhm  ----
-    if selbands_vnir != nothing # selbands_vnir != ∅ #incerto
+    if !isnothing(selbands_vnir) # selbands_vnir != ∅ #incerto
       seqbands_vnir = closestDistanceFunction(wl_vnir).(selbands_vnir)# fun ritorna una fun che viene applic a ogni elem di selbands_vnir
       # per ogni elemento di selbands_vnir ritorna, in un array, la distanza tra l elemento e la
       # banda più vicina ad esso in wl_vnir
@@ -255,7 +255,7 @@ module eos_convert
         out_file_swir = string(tempdir(), out_file, "_", source, ".tif")
     end     
 
-    if (SWIR || FULL ) && (selbands_swir == nothing || length(selbands_swir) != 0)
+    if (SWIR || FULL ) && (isnothing(selbands_swir) || length(selbands_swir) != 0)
       # procedura sotto è identica a quella nell if VNIR || FULL ma con swir invece che vnir 
       # -> si può creare fun a parte per rimpicciolire codice
       if isfile(out_file_swir) && overwrite == false
@@ -279,7 +279,7 @@ module eos_convert
                 selbands_swir=selbands_swir,
                 in_L2_file=in_L2_file)
       end
-      if selbands_swir != nothing# selbands_swir != ∅ #incerto
+      if !isnothing(selbands_swir) # selbands_swir != ∅ #incerto
         seqbands_swir = closestDistanceFunction(wl_swir).(selbands_swir)
         # fun ritorna una fun che viene applic a ogni elem di selbands_vnir
         # per ogni elemento di selbands_vnir ritorna, in un array, la distanza tra l elemento e la
@@ -297,7 +297,7 @@ module eos_convert
       end
     end
     # create FULL data cube and convert to raster ----
-    if FULL && indexes == nothing
+    if FULL && isnothing(indexes)
       out_file_full = string(out_folder, out_file, "_", source, "_FULL")
       out_file_full = attachExtension!(out_format, out_file_full)
 
@@ -386,7 +386,7 @@ module eos_convert
         rm(out_file_swir)
       end
 
-      if indexes != nothing || cust_indexes != nothing
+      if !isnothing(indexes) || !isnothing(cust_indexes)
         # now COMPUTE INDExEs if necessary ----
         pr_compute_indexes(in_file=out_file_full,
                 out_file=out_file,
@@ -433,7 +433,7 @@ module eos_convert
       end
     end
 
-    if proc_lev in ["2B", "2C", "2D"] || ( proc_lev == "1" && in_L2_file != nothing )
+    if proc_lev in ["2B", "2C", "2D"] || ( proc_lev == "1" && !isnothing(in_L2_file) )
         # Save ANGLES if requested ----
         out_file_ang = string(out_folder, out_file, "_", source, "_ANG")
         attachExtension!(outformat, out_file_ang)
@@ -568,7 +568,7 @@ module eos_convert
     # in this way we can use the same function,
     # and when creating indexes create a temporary full raster, containing  only
     # bands required for the selected indexes    
-    if indexes !=nothing
+    if !isnothing(indexes)
       aux_convert(in_file,
                   out_folder,
                   out_filebase,
