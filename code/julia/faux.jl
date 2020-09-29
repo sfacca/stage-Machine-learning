@@ -2,7 +2,7 @@
 
 module faux
 
-export seq_along, getAttr
+export seq_along, getAttr, closestDistanceFunction, getData
 using HDF5
 
 
@@ -18,6 +18,10 @@ end
 
 function getData(file, name::String)
     read(file,name)
+end
+
+function closestDistanceFunction(wvl::Array{Int64,1})
+    (x) -> (minimum(abs.(wvl .- x)))
 end
 
 end#end module

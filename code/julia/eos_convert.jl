@@ -2,6 +2,7 @@ module eos_convert
     
   export convert, getAttr
 
+  include("faux.jl")
   using HDF5
   using CSV# per leggere tabella indexes_list.txt
   using DataFrames
@@ -69,9 +70,7 @@ module eos_convert
       res# se non ho trovato uguali, res è ancora false
   end
   # O(length(x)+length(y))  
-  function closestDistanceFunction(wvl::Array{Int64,1})
-      (x) -> (minimum(abs.(wvl .- x)))
-  end
+  closestDistanceFunction = faux.closestDistanceFunction
 
   function closestWvl(wvl::Array{Int64,1}, x::Int64)
       y = abs.(wvl .- x)
