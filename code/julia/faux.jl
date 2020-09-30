@@ -2,7 +2,7 @@
 
 module faux
 
-export seq_along, getAttr, closestDistanceFunction, getData
+export seq_along, getAttr, closestDistanceFunction, getData, dirname, getIndexList, extractWvl
 using HDF5
 
 
@@ -22,6 +22,50 @@ end
 
 function closestDistanceFunction(wvl::Array{Int64,1})
     (x) -> (minimum(abs.(wvl .- x)))
+end
+
+function dirname(file)
+    c = length(path)
+    for i = 1:length(path)
+        if path[i]=="/"
+            c = i
+        end
+    end
+    file[1:c]
+end
+
+function getIndexList()
+    mkpath("downloads")
+    download("https://github.com/sfacca/stage-Machine-learning/raw/master/extdata/md_indexes_list.txt","downloads/indexes_list.txt")
+    index_list = CSV.read("downloads/indexes_list.txt")
+    select!(index_list, Not(:id))
+end
+
+function extractWvl(str::String)# prende stringa, ritorna array di int 
+    currnum = ""
+    res::Array{Int,1} = []
+    intc = ['1','2','3','4','5','6','7','8','9','0']
+    afterR = false
+    for char in str 
+        if afterR
+
+            if char in intc
+                currnum = currnum * 10
+                currnum = currnum + parse(Int, char)             
+                  
+            else
+                push!(res, currnum)
+                currnum = 0
+                afterR = false
+            end
+          
+        end
+        if char == 'R'
+            afterR = true
+        end
+    end
+    push!(res, currnum)  
+    res
 end
 
 end#end module

@@ -9,32 +9,7 @@ module eos_convert
   using DataFramesMeta
   using ArchGDAL
 
-  function extractWvl(str::String)# prende stringa, ritorna array di int 
-      currnum = ""
-      res::Array{Int,1} = []
-      intc = ['1','2','3','4','5','6','7','8','9','0']
-      afterR = false
-      for char in str 
-          if afterR
-
-              if char in intc
-                  currnum = currnum * 10
-                  currnum = currnum + parse(Int, char)             
-                    
-              else
-                  push!(res, currnum)
-                  currnum = 0
-                  afterR = false
-              end
-            
-          end
-          if char == 'R'
-              afterR = true
-          end
-      end
-      push!(res, currnum)  
-      res
-  end
+  function extractWvl = faux.extractWvl
 
   function seq_along(arr::Array{})
       res = [1:length(arr)...]
@@ -136,15 +111,11 @@ module eos_convert
     # the selbands_vnir and selbands_swir variables
     if !isnothing(indexes) | !isnothing(cust_indexes) 
       if proc_lev in [c"1", "2B"]
-          @warn "Spectral indexes are usually meant to be computed on "
+          @warn "Spectral indexes are usually meant to be computed on "          
           @warn  "reflectance data. Proceed with caution!"
       end
       
-      mkpath("downloads")
-      download("https://github.com/sfacca/stage-Machine-learning/raw/master/extdata/md_indexes_list.txt",
-      "downloads/indexes_list.txt")
-      index_list = CSV.read("downloads/indexes_list.txt")
-      select!(index_list, Not(:id))
+      index_list = faux.getIndexList()
       # av_indexes= index_list[:Formula]
       #########################################################################
       av_indexes = select(index_list, [:Name,:Formula])        
