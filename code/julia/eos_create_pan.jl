@@ -60,7 +60,7 @@ function create_pan(f,# input data he5 from caller
                 geo.xmin - 2.5 + (5*length(rast_pan[1,:])),
                 geo.ymin - 2.5 + (5*length(rast_pan[:,1]))
             ]
-            reshape!(ex,2,2)            
+            ex = reshape(ex,2,2)            
             
             #ex <- raster::extent(ex)
             #rast_pan <- raster::setExtent(rast_pan, ex, keepres = FALSE)
