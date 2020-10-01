@@ -2,8 +2,27 @@
 
 module faux
 
-export seq_along, getAttr, closestDistanceFunction, getData, dirname, getIndexList, extractWvl
+export seq_along, getAttr, closestDistanceFunction, getData, dirname, getIndexList, extractWvl, fileSansExt, diffLag
 using HDF5
+
+function fileSansExt(path)
+    c = length(path)
+    for i = 1:length(path)
+        if path[i] == .
+            c=i
+        end
+    end
+    path[1:c]
+end
+
+
+function diffLag(x,lag)
+    res = Array(0,length(x)-lag)
+    for i = 1:(length(x)-lag)
+        res[i] = x[i]-x[i+lag]
+    end
+    res
+end
 
 
 function seq_along(arr::Array{})

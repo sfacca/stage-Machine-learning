@@ -62,7 +62,7 @@ function compute_indexes(in_file, #  path of the file to be used for computing i
     sel_indexes = filter(x->x in indexes, av_indexes)
     bad_indexes = filter(x->x ∉ names(av_indexes), indexes)
 
-    if length(bad_indexes)
+    if length(bad_indexes) > 0
         @warn string("index(es) ", indexes[bad_indexes]," are not in the current list of ","available indexes and will not be computed!")
     end
 
@@ -97,60 +97,47 @@ function compute_indexes(in_file, #  path of the file to be used for computing i
                     which_bands = faux.closestDistanceFunction(req_wls).(rast_wls_comp)
 
 
-                    for nn in faux.seq_along(req_wls)
-                        #=indform 
-                   
-                    
-                          <- gsub(req_wls[nn],
-                                          paste0("[,", which_bands[nn], "]"),
-                                          indform)
-                        indstring <- gsub(req_wls[nn],
-                                          round(rast_wls_comp[nn], digits = 4),
-                                          indstring)=#
+                    for nn = 1:length(req_wls)
+                        indform = replace(indform, req_wls[nn] => string("[,",which_bands[nn], "]"))
+                        replace!(indstring,req_wls[nn]=>round(rast_wls_comp[nn],digits = 4))
                     end
+
+                    replace!(indform,"R"=>"x")
+                    indstrings[names(tot_indexes)[ind]] = indstring
+
 #=
-                    indform <- gsub("R", "x", indform)
-                    indstrings[[names(tot_indexes)[[ind]]]] <- indstring
                     out <- raster::raster(in_rast)
                     bs <-  raster::blockSize(out)
                     out <- raster::writeStart(out,
                                               filename = out_indfile,
                                               overwrite = TRUE,
                                               options = c("COMPRESS=LZW"),
-                                              datatype = "FLT4S")
-
-
-                    for (i in 1:bs$n) {
-                        message("Writing Block: ", i, " of: ", bs$n)
-                        x <- raster::getValues(in_rast_comp, row = bs$row[i],
-                                               nrows = bs$nrows[i])
-                        if (inherits(x, "numeric")) {
-                            x <- x
-                        } else {
-                            x <- eval(parse(text = indform))
-                        }
-                        out <- raster::writeValues(out, x, bs$row[i])
-                    }
-                    out <- raster::writeStop(out)
-                }=#
+                                              datatype = "FLT4S")=#
+                    for i = 1:bs.n
+                        println("Writing Block: ", i, " of: ", bs.n)
+                        #x <- raster::getValues(in_rast_comp, row = bs$row[i],nrows = bs$nrows[i])
+                        if !isa(x, Number)
+                            x = string(indform)#???????????
+                        end
+                        #out <- raster::writeValues(out, x, bs$row[i])
+                    end
+                    #out <- raster::writeStop(out)
                 end
-              #=  
-            } else {
-                message("Output ", names(indexes)[[ind]],
+            else
+                println("Output ", names(indexes)[[ind]],
                         " file already exists - use overwrite = TRUE or change
                     output file name to reprocess")
-            }
-
-        } else {
-            warning("Index ", names(indexes)[[ind]],
+            end
+        else
+            @warn string("Index ", names(indexes)[[ind]],
                     " is not in the current list of available indexes and will",
                     " not be computed. ")
-        }
+        end
+    end
 
-    }=#
-
-
-    
+    indstrings_dt = CSV.read(indstrings)
+    out_file_formulas = string(faux.fileSansExt(in_file),".formulas")
+    CSV.write(indstrings_dt,out_file_formulas,writeheader = false); 
    
 
 

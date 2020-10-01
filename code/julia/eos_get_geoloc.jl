@@ -1,4 +1,4 @@
-module get_geoloc
+module eos_get_geoloc
 
 include("faux.jl")
 

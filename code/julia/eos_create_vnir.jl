@@ -1,4 +1,4 @@
-module create_vnir
+module eos_create_vnir
 
 
 include("faux.jl")
