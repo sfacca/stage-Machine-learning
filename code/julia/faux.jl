@@ -8,18 +8,22 @@ using HDF5
 function fileSansExt(path)
     c = length(path)
     for i = 1:length(path)
-        if path[i] == .
-            c=i
+        
+        if path[i] == '.'
+            c=i-1
         end
+    end
+    if c==0
+        c=1
     end
     path[1:c]
 end
 
 
 function diffLag(x,lag)
-    res = Array(0,length(x)-lag)
+    res = zeros(length(x)-lag)
     for i = 1:(length(x)-lag)
-        res[i] = x[i]-x[i+lag]
+        res[i] = abs(x[i]-x[i+lag])
     end
     res
 end

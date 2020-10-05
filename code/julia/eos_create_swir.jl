@@ -1,20 +1,16 @@
-module eos_create_vnir
+module eos_create_swir
 
 
 include("faux.jl")
 include("eos_create.jl")
-#fun aux crea e salva datacbue vnir
+#fun aux crea e salva datacbue swir
 #
 
-#=sched
-1. converti create vnir 
-2. vedi create_swir
-3. si può tramutare creatye vnir in create_generico?
-=#
 
-export create_vnir
 
-function create_vnir(
+export create_swir
+
+function create_swir(
     f,
     proc_lev,
     source,#string ["HC0" | "HRC"], Considered Data Cub
@@ -43,9 +39,9 @@ function create_vnir(
         apply_errmatrix,
         ERR_MATRIX,
         selbands_vnir,
-        in_L2_file,type = "VNIR")
+        in_L2_file,type = "SWIR")
 
-end #end funzione create vnir
+end #end funzione create swir
 
 
 end #end module
