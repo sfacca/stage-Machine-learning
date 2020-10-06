@@ -11,9 +11,12 @@ module eos_convert
 
   function extractWvl = faux.extractWvl
 
-  function seq_along(arr::Array{})
-      res = [1:length(arr)...]
-      res
+  
+  function getIndexList()
+    mkpath("downloads")
+    download("https://github.com/sfacca/stage-Machine-learning/raw/master/extdata/md_indexes_list.txt","downloads/indexes_list.txt")
+    index_list = CSV.read("downloads/indexes_list.txt")
+    select!(index_list, Not(:id))
   end
 
 
@@ -61,23 +64,28 @@ module eos_convert
       content
   end
 
-  function aux_convert(in_file, out_folder,
-    out_filebase, out_format, base_georef,
-    fill_gaps, VNIR,
-    SWIR, FULL,
-    source, join_priority,
-    ATCOR, ATCOR_wls,
-    PAN, CLOUD,
-    LC, GLINT,
-    ANGLES, LATLON,
-    ERR_MATRIX, apply_errmatrix,
-    overwrite,in_L2_file,
-    selbands_vnir, selbands_swir,
-    indexes,
-    cust_indexes,
-    keep_index_cube)
+  function aux_convert(in_file,##NB: in_file dev esser già aperto, a diff di pr_convert 
+      out_folder,
+      out_filebase, out_format, base_georef,
+      fill_gaps, VNIR,
+      SWIR, FULL,
+      source, join_priority,
+      ATCOR, ATCOR_wls,
+      PAN, CLOUD,
+      LC, GLINT,
+      ANGLES, LATLON,
+      ERR_MATRIX, apply_errmatrix,
+      overwrite,in_L2_file,
+      selbands_vnir, selbands_swir,
+      indexes,
+      cust_indexes,
+      keep_index_cube)
+
     out_folder = string(out_folder, "/")
-    ##NB: input_file dev esser già aperto, a diff di pr_convert
+
+    ##raccolta attributi
+    #NB prodotti di macchine diverse possono avere nomi attributi diversi?
+    
     proc_lev = getAttr(in_file, "Processing_Level")
     if out_filebase == "auto"
         out_filebase = "out/$in_file"
@@ -110,12 +118,11 @@ module eos_convert
     # wavelengths required for the computataion and automatically fill
     # the selbands_vnir and selbands_swir variables
     if !isnothing(indexes) | !isnothing(cust_indexes) 
-      if proc_lev in [c"1", "2B"]
-          @warn "Spectral indexes are usually meant to be computed on "          
-          @warn  "reflectance data. Proceed with caution!"
+      if proc_lev in ["1", "2B"]
+          @warn "Spectral indexes are usually meant to be computed on reflectance data. Proceed with caution!"          
       end
       
-      index_list = faux.getIndexList()
+      index_list = getIndexList()
       # av_indexes= index_list[:Formula]
       #########################################################################
       av_indexes = select(index_list, [:Name,:Formula])        
@@ -176,11 +183,8 @@ module eos_convert
         println("VNIR file already exists - use overwrite = TRUE or change output file name to reprocess")
       # rast_vnir = (funzione che prende filename o oggetto raster e ritorna ogg rasterstack)
       # raster stack ≈ raster dataset ?############# TODO, DA VEDERE SU pr_create_vnir
-      #= 
-      vedere se riesci a fare un array data frame (per un pixel a scelta e 
-      per più pixel a scelta sulla base delle coordinate) che riporti coordinate 
-      pixel + banda (sia tutte sia a scelta dell'utente) + riflettanza; un 
-      grafico x::bande y::riflettanza; [?esportazione poi in csv?] =#
+      #=
+       =#
       else
         pr_create_vnir(f,
           proc_lev,
@@ -196,7 +200,7 @@ module eos_convert
           ERR_MATRIX,
           selbands_vnir=selbands_vnir,
           in_L2_file=in_L2_file)
-      end ################# todo: convert pr_create_vnir
+      end
     end
     # Build array of effectively processed bands/wl/fwhm  ----
     if !isnothing(selbands_vnir) # selbands_vnir != ∅ #incerto
@@ -204,11 +208,11 @@ module eos_convert
       # per ogni elemento di selbands_vnir ritorna, in un array, la distanza tra l elemento e la
       # banda più vicina ad esso in wl_vnir
     else
-      # 1. crea array seqbands_vnir = 1:66
+      # 1. crea array seqbands_vnir = 1:numero bande vnir
       # 2. se wl_vnir[i] ==0 -> seqbands_vnir[i] = 0
       # 3. rimuovi tutti gli elem == 0 da seqbands_vnir
-      seqbands_vnir = [1:66...]
-      for i in i:66
+      seqbands_vnir = [1:length(wl_vnir)...]
+      for i in i:length(wl_vnir)
           if wl_vnir[i] == 0
               seqbands_vnir[i] = 0      
           end
@@ -255,8 +259,8 @@ module eos_convert
         # per ogni elemento di selbands_vnir ritorna, in un array, la distanza tra l elemento e la
         # banda più vicina ad esso in wl_vnir
       else
-        seqbands_swir = [1:173...]
-        for i in i:173
+        seqbands_swir = [1:length(wl_swir)...]
+        for i in i:length(wl_swir)
           if wl_swir[i] == 0
               seqbands_swir[i] = 0      
           end
@@ -330,7 +334,7 @@ module eos_convert
             @warn "FULL file not created because neither SWIR nor VNIR created"
         end
         # Write ENVI header if needed ----
-        if out_format == "ENVI"##############DA CONTROLLARE
+        if out_format == "ENVI"
           out_hdr = string(out_file_full, ".hdr")
           myHdr = string("band names = {", join(names(rast_tot), ","), "}", "\n")# stringa header
           write(out_hdr, myHdr)
