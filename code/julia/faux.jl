@@ -2,7 +2,7 @@
 
 module faux
 
-export seq_along, getAttr, closestDistanceFunction, getData, dirname, getIndexList, extractWvl, fileSansExt, diffLag
+export seq_along, getAttr, closestDistanceFunction, getData, dirname, extractWvl, fileSansExt, diffLag
 using HDF5
 
 function fileSansExt(path)
@@ -57,12 +57,7 @@ function dirname(file)
     file[1:c]
 end
 
-function getIndexList()
-    mkpath("downloads")
-    download("https://github.com/sfacca/stage-Machine-learning/raw/master/extdata/md_indexes_list.txt","downloads/indexes_list.txt")
-    index_list = CSV.read("downloads/indexes_list.txt")
-    select!(index_list, Not(:id))
-end
+
 
 function extractWvl(str::String)# prende stringa, ritorna array di int 
     currnum = ""

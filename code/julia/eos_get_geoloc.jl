@@ -17,6 +17,20 @@ HCO = Co-registered Hyperspectral Cube
 PRC = Radiometric Calibrated Panchromatic Cube <= solo in l1
 PCO = Co-registered Panchromatic Cube
 =#
+function minimum(x::Number,y::Number)
+    if x<y
+        x
+    else
+        y
+    end
+end
+function maximum(x::Number,y::Number)
+    if x>y
+        x
+    else
+        y
+    end
+end
 
 
 
@@ -50,6 +64,7 @@ function get_geoloc(f,
 
     geopath = string("/HDFEOS/SWATHS/PRS_L$(proc_lev)_",source,"/Geolocation Fields/")
 
+    8+4+5+4+5
     
 
     lat = faux.getData(file,string(geopath,"Latitude",wvl))
