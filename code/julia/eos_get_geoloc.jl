@@ -64,7 +64,6 @@ function get_geoloc(f,
 
     geopath = string("/HDFEOS/SWATHS/PRS_L$(proc_lev)_",source,"/Geolocation Fields/")
 
-    8+4+5+4+5
     
 
     lat = faux.getData(file,string(geopath,"Latitude",wvl))
