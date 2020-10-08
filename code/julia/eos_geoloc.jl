@@ -1,10 +1,11 @@
-module eos_get_geoloc
+module eos_geoloc
 
 include("faux.jl")
 
 using HDF5
+using ArchGDAL
 
-export get_geoloc
+export getGeoloc, getGtf, getCrs, get
 #=
 produce tupla geo:
     lat: matrice latitudini
@@ -34,7 +35,7 @@ end
 
 
 
-function get_geoloc(f,
+function getGeoloc(f,
     proc_lev,
     source,#vedi sopra
     wvl        = nothing,#VNIR,SWIR,PAN
@@ -43,7 +44,7 @@ function get_geoloc(f,
     if isnothing(wvl)
         wvl = "VNIR"
     end
-    if proc_lev == "1" && wvl in ["SWIR","VNIR"]
+    if proc_lev == "1" && wvl in ["SWIR","VNIR","PAN"]
         wvl = string("_",wvl)
     else
         wvl=""#prodotti lvl>1 han solo una coppia di dataset Latitude/Longitude
@@ -109,5 +110,49 @@ function get_geoloc(f,
     end
     return out
 end#end get geoloc
+
+function getGtf(geo, proc_lev)
+    if proc_lev[1] != "2"
+        ulpixel = (x=geo.xmin,y=geo.ymax)
+        width = length(geo.lat[:,1])
+        height = length(geo.lat[1,:])
+        #calcoliamo risoluzione come distanza tra 
+        res = (geo.xmin - geo.xmax)/width# \approx (geo.ymin - geo.ymax)/height
+
+        #archgdal prende geoloc come array:
+        gtf = [
+            ulpixel.x,#distanza in mt sull asse delle x del pixel topleft dall origine
+            res,
+            0,#per rotazione
+            ulpixel.y,#distanza in mt sull asse delle y del pixel topleft dall origine
+            0,
+            -res
+        ]
+        gtf = convert(Array{Float64,1}, gtf)
+    else
+        throw(error("processing level $proc_lev files not supported yet"))
+    end
+    gtf     
+end
+
+function getCrs(geo,proc_lev)
+    if proc_lev == 1
+        throw(error("processing level $proc_lev not supported yet"))
+    else
+        crs = ArchGDAL.toWKT(ArchGDAL.importEPSG(geo.proj_epsg))
+    end    
+    crs
+end
+
+function get(f,type)
+    proc_lev = faux.getAttr(f,"Processing_Level")
+    if type == "PAN"
+        source = "PCO"
+    else
+        source = "HCO"        
+    end
+    geo = getGeoloc(f,proc_lev,source,type)
+    (gtf =getGtf(geo,proc_lev), crs = getCrs(geo,proc_lev))
+end
 
 end#end modulo

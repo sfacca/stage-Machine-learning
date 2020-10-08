@@ -1,14 +1,18 @@
-module eos_create_vnir
+module eos_create
 
 
 include("faux.jl")
-#fun aux crea e salva datacbue vnir
+include("eos_geoloc.jl")
+include("eos_errcube.jl")
+#fun aux crea e salva datacbue
 #
 
-#=sched
-1. converti create vnir 
-2. vedi create_swir
-3. si può tramutare creatye vnir in create_generico?
+#=
+1. legge cubo dal file
+2. tiene solo bande selezionate (o le più vicine per wvl)
+3. toglie valori errati (se apply_errmatrix==true)
+4. converte ratios 0-65535 in reflettanze
+5. salva cubo come raster.tif
 =#
 
 export create_cube
@@ -32,13 +36,13 @@ function create_cube(
 
     geo = get_geoloc(f, proc_lev, source, wvl = type, in_L2_file)
 
-    type = titlecase(type)#
-    if title in [ "VNIR", "SWIR"]
+    type = uppercase(type)#
+    if type in [ "VNIR", "SWIR"]#todo: PAN, LATLON
         #ok
     else
-        @warn "parametro type: $type non va bene, dev essere vnir o swir"
-        return 1
+        throw(error("parametro type: $type non va bene, dev essere vnir o swir")) 
     end
+
     typelcase = titlecase(type, strict = true)
 
     if proc_lev == 1
@@ -51,9 +55,11 @@ function create_cube(
         end        
     else
         cube= faux.getData(f,string("HDFEOS/SWATHS/PRS_L", proc_lev,"_",source, "/Data Fields/$(type)_Cube"))
-        max = faux.getAttr(f, "L2Scale$(typelcase)Max")
-        min = faux.getAttr(f, "L2Scale$(typelcase)Min")
-        if any(apply_errmatrix)|| any(ERR_MATRIX) 
+
+        # converte ratio (0,65535) in reflectance 
+        cube = faux.ratioToReflectance(f,cube,type)
+        
+        if any(apply_errmatrix) || any(ERR_MATRIX) 
             err_cube = faux.getData(f,string("HDFEOS/SWATHS/PRS_L", proc_lev,"_",source, "/Data Fields/$(type)_PIXEL_L2_ERR_MATRIX"))
         end
     end
@@ -80,7 +86,7 @@ function create_cube(
 
     for band_i in seqbands
         if wl[band_i] != 0#skip 0-wavelength bands
-            if proc_lev in ["1","2B","2C"]
+            if proc_lev in ["1","2B","2C"]#=
                 # on L1, 2B or 2C, apply bowtie georeferencing if requested ----
                 band # =  raster::raster((vnir_cube[,order[band_vnir],]),crs = "+proj=longlat +datum=WGS84")
                 if base_georef
@@ -88,7 +94,7 @@ function create_cube(
                     lat = geo.lat
                     lon = geo.lon
                     if proc_lev =="1"
-                        band = (band/vnir_scale) - vnir_offset
+                        band = (band/scale) - offset
                     end
                     band = pr_basegeo(band,lon,lat,fill_gaps)
                     if apply_errmatrix || ERR_MATRIX
@@ -128,31 +134,40 @@ function create_cube(
                             end                                
                         end
                     end
-                end
+                end=#
+                throw(error("processing level $proc_lev not supported yet"))
             else
                 if proc_lev == "2D"
                     println("Importing Band: ", band_i," (",wl[band_i], ") of: 66")
-                    outcrs = string("+proj=utm +zone=", geo$proj_code)
-                    if geo.proj_epsg[3] == 7
-                        outcrs = string(outcrs," +south")
-                    end
-                    outcrs = string(outcrs," +datum=WGS84 +units=m +no_defs")
+
+                    crs = eos_geoloc.getCrs(geo,proc_lev)
+                    band = cube[:,order[band_i],:]
+
                     #=
                     band <- raster::raster(
                             (vnir_cube[,order_vnir[band_vnir], ]),
                             crs = outcrs)
                     =#
+                    # archgdal non usa extent
                     # traspose the band to get it correctly oriented and set
                     # extent
                     #band <- raster::t(band)
-                    #band <- pr_setext_L2D(geo, band)
+                    #band <- pr_setext_L2D(geo, band) archgdal non usa extent
+                    #########################
+
                     if apply_errmatrix || ERR_MATRIX
+                        
+                        #setta valori con errori a nothing
+                        count = errcube.apply!(ERR_MATRIX,band,[0])
+                        @warn "tolto $count pixel con errori"
+
                         #=satband <- raster::raster(
                                 err_cube[,order_vnir[band_vnir], ],
                                 crs = outcrs)
                             satband <- raster::t(satband)
                             satband <- pr_setext_L2D(geo, satband) =#
                     end
+                    
                     if apply_errmatrix
                         for i = 1:length(satband)#band[satband > 0] <- NA
                             if satband[i]&&i<=length(band)
@@ -217,11 +232,7 @@ function create_cube(
     println("- Writing VNIR raster -")
 
     pr_rastwrite_lines(rast,
-                    out_file,
-                    out_format,
-                    proc_lev,
-                    scale_min = min,
-                    scale_max = max)
+                    out_file)
 
 
     if (ERR_MATRIX) 

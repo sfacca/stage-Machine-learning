@@ -2,7 +2,7 @@ module eos_demo
 
 using ArchGDAL; const AG = ArchGDAL 
 
-include("eos_get_geoloc.jl")
+include("eos_geoloc.jl")
 include("faux.jl")
 include("HDF5filesDict.jl")
 
@@ -53,7 +53,9 @@ function demo(f::String, out::String, overwrite = false)
         return nothing
     end
 
-    geo = eos_get_geoloc.get_geoloc(f,proc_lev,"PCO","PAN",nothing)
+    geo = eos_geoloc.get(f,"PAN")
+    #=
+    (f,proc_lev,"PCO","PAN",nothing)
     
     ulpixel = (x=geo.xmin,y=geo.ymax)
     width = length(geo.lat[:,1])
@@ -72,12 +74,18 @@ function demo(f::String, out::String, overwrite = false)
     ]
     gtf = convert(Array{Float64,1}, gtf)
     # creiamo stringa crs
-    crs = AG.toWKT(AG.importEPSG(geo.proj_epsg))
+    crs = AG.toWKT(AG.importEPSG(geo.proj_epsg))=#
     
     #prendo cubo
 
     cube = faux.getData(f,"HDFEOS/SWATHS/PRS_L2D_PCO/Data Fields/Cube")
-
+    dims = size(cube)
+    width = dims[1]
+    if length(dims)==2
+        height=dims[2]
+    else
+        height=dims[3]
+    end
     AG.create(
             out,
             driver = AG.getdriver("GTiff"),
@@ -88,8 +96,8 @@ function demo(f::String, out::String, overwrite = false)
         ) do dataset
             println( "creato $out")
             AG.write!(dataset, cube, 1)
-            AG.setgeotransform!(dataset, gtf)
-            AG.setproj!(dataset, crs)
+            AG.setgeotransform!(dataset, geo.gtf)
+            AG.setproj!(dataset, geo.crs)
         end
 
 

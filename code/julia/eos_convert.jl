@@ -7,7 +7,7 @@ module eos_convert
   using CSV# per leggere tabella indexes_list.txt
   using DataFrames
   using DataFramesMeta
-  using ArchGDAL
+  using ArchGDAL; const AG = ArchGDAL
 
   function extractWvl = faux.extractWvl
 
@@ -49,6 +49,11 @@ module eos_convert
   end
   # O(length(x)+length(y))  
   closestDistanceFunction = faux.closestDistanceFunction
+
+  closestElementFunction = faux.closestElementFunction
+
+
+  function makeJoinedRaster()
 
   function closestWvl(wvl::Array{Int64,1}, x::Int64)
       y = abs.(wvl .- x)
@@ -123,7 +128,6 @@ module eos_convert
       end
       
       index_list = getIndexList()
-      # av_indexes= index_list[:Formula]
       #########################################################################
       av_indexes = select(index_list, [:Name,:Formula])        
       sel_indexes = filter(row -> row.Name ∈ indexes, av_indexes)# filter è poco performante?
@@ -181,10 +185,7 @@ module eos_convert
       println("- Importing VNIR Cube -")
       if isfile(out_file_vnir) && overwrite != true
         println("VNIR file already exists - use overwrite = TRUE or change output file name to reprocess")
-      # rast_vnir = (funzione che prende filename o oggetto raster e ritorna ogg rasterstack)
-      # raster stack ≈ raster dataset ?############# TODO, DA VEDERE SU pr_create_vnir
-      #=
-       =#
+        rast_vnir = AG.read(out_file_vnir)      
       else
         pr_create_vnir(f,
           proc_lev,
@@ -204,9 +205,7 @@ module eos_convert
     end
     # Build array of effectively processed bands/wl/fwhm  ----
     if !isnothing(selbands_vnir) # selbands_vnir != ∅ #incerto
-      seqbands_vnir = closestDistanceFunction(wl_vnir).(selbands_vnir)# fun ritorna una fun che viene applic a ogni elem di selbands_vnir
-      # per ogni elemento di selbands_vnir ritorna, in un array, la distanza tra l elemento e la
-      # banda più vicina ad esso in wl_vnir
+      seqbands_vnir = faux.closestElements(selbands_vnir,wl_vnir)
     else
       # 1. crea array seqbands_vnir = 1:numero bande vnir
       # 2. se wl_vnir[i] ==0 -> seqbands_vnir[i] = 0
@@ -234,8 +233,7 @@ module eos_convert
       # -> si può creare fun a parte per rimpicciolire codice
       if isfile(out_file_swir) && overwrite == false
         println("SWIR file already exists - use overwrite = TRUE or change output file name to reprocess")
-        # rast_swir = (funzione che prende filename o oggetto raster e ritorna ogg rasterstack)
-        # raster stack ≈ raster dataset ?############# TODO, DA VEDERE SU pr_create_vnir 
+        rast_swir = AG.read(out_file_swir)
       else
         println("- Importing SWIR Cube - ") 
         pr_create_swir(f,
@@ -292,9 +290,10 @@ module eos_convert
         println("- Creating FULL raster -")
         # Save hyperspectral cube
         if isfile(out_file_vnir) && isfile(out_file_swir)
-          # rast vnir = raster stack letto da out_file_vnir
-          # rast_swir = raster stack letto da out_file_swir
+          rast_vnir = AG.read(out_file_vnir) 
+          rast_swir = AG.read(out_file_swir)
           if join_priority == "SWIR"
+
             # rast_tot = crea raster sovrapponendo rast swir a rast vnir 
             # (toglie layer vnir con bande superiuori alla banda swir minore)
             aux_vnir = filter(x -> x < min_swir, wl_vnir)

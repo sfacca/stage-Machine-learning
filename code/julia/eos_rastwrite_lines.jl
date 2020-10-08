@@ -2,54 +2,59 @@ module rastwrite_lines
 
 include("faux.jl")
 using HDF5
+using ArchGDAL
 
 export rastwrite_lines
 
-function rastwrite_lines(rast_in,
+
+#scrive cubo in raster
+function rastwrite_lines(cube,
         out_file,
-        out_format = "tif",
-        proc_lev = "1",
-        scale_min = NULL,
-        scale_max = NULL,
-        join = FALSE)
-    #=
-    if (se rast_in ha >1 numero di layers)
-        out <- raster::brick(rast_in, values = FALSE)
+        gtf=nothing,
+        crs=nothing
+        )
+
+    out_file = string(out_file,".tif")
+    dims = size(cube)
+    width = dims[1]
+
+    if length(dims)==2#se cubo è a due dimensioni, cubo è una banda
+        height = dims[2]
+        bandsnum = 1
     else
-        out <- raster::raster(rast_in)
-    end=#    
-    #bs =  raster::blockSize(out)
+        height = dims[3]
+        bandsnum = dims[2]
+    end   
 
-    if proc_lev == "ERR"
-        datatype = "INT1U"
-    end
 
-    #= ??????????????????????
-    if proc_lev[1] == "1"
-        datatype = "FLT4S"
-    else
-        datatype = "FLT4S"
-    end
-    =#
-    datatype = "FLT4S"
-
-#=
-    out <- raster::writeStart(out,
-                              filename = out_file,
-                              overwrite = TRUE,
-                              options = c("COMPRESS=LZW"),
-                              datatype = datatype)
-                              =#
-
-    for i in 1:bs.n
-        println("Writing Block: ", i, " of: ", bs.n)
-        #v <- raster::getValues(rast_in, row = bs$row[i], nrows = bs$nrows[i] )
-        if proc_lev[1] == "2" && !join
-            v <- scale_min + (v * (scale_max - scale_min)) / 65535
+    ArchGDAL.create(
+        out_file,
+        driver = ArchGDAL.getdriver("GTiff"),
+        width=width,
+        height=height,
+        nbands=bandsnum,
+        dtype=typeof(cube[1])
+    ) do dataset
+        if length(dims)==2
+            ArchGDAL.write!(dataset, cube, 1)
+        else
+            for i = 1:bandsnum
+                ArchGDAL.write!(dataset, cube[:,i,:], i)
+            end
         end
-        #out <- raster::writeValues(out, v, bs$row[i])
+
+        if isnothing(gtf)
+            println("no geotransform array")
+        else
+            ArchGDAL.setgeotransform!(dataset, gtf)
+        end
+
+        if isnothing(crs)
+            println("no coordinate reference system string")
+        else
+            ArchGDAL.setproj!(dataset, crs)    
+        end
+
     end
-    
-    #out <- raster::writeStop(out)
-    nothing
+
 end
