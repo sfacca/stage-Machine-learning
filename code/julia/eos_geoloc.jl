@@ -117,7 +117,7 @@ function getGtf(geo, proc_lev)
         width = length(geo.lat[:,1])
         height = length(geo.lat[1,:])
         #calcoliamo risoluzione come distanza tra 
-        res = (geo.xmin - geo.xmax)/width# \approx (geo.ymin - geo.ymax)/height
+        res = abs((geo.xmin - geo.xmax)/width)# \approx (geo.ymin - geo.ymax)/height
 
         #archgdal prende geoloc come array:
         gtf = [
@@ -129,6 +129,7 @@ function getGtf(geo, proc_lev)
             -res
         ]
         gtf = convert(Array{Float64,1}, gtf)
+        println("geotransform array: $gtf")
     else
         throw(error("processing level $proc_lev files not supported yet"))
     end
@@ -140,6 +141,7 @@ function getCrs(geo,proc_lev)
         throw(error("processing level $proc_lev not supported yet"))
     else
         crs = ArchGDAL.toWKT(ArchGDAL.importEPSG(geo.proj_epsg))
+        println("crs: $crs")
     end    
     crs
 end
