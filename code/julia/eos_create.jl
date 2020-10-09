@@ -1,11 +1,12 @@
 module eos_create
 
-
 include("faux.jl")
 include("eos_geoloc.jl")
 include("eos_errcube.jl")
-#fun aux crea e salva datacbue
-#
+include("eos_rastwrite_lines.jl")
+using CSV
+using DataFrames
+#fun aux crea e salva datacube
 
 #=
 1. legge cubo dal file
@@ -14,28 +15,27 @@ include("eos_errcube.jl")
 4. converte ratios 0-65535 in reflettanze
 5. salva cubo come raster.tif
 =#
-
 export create_cube
 
 function create_cube(
-    f,
-    proc_lev,
-    source,#string ["HC0" | "HRC"], Considered Data Cub
-    out_file,
-    out_format,
-    base_georef,
-    fill_gaps,
-    wl,
-    order,
-    fwhm,
-    apply_errmatrix,
-    ERR_MATRIX,
-    selbands = NULL,
-    in_L2_file = NULL,
-    type)#string = [ VNIR , SWIR ]
-
-    geo = get_geoloc(f, proc_lev, source, wvl = type, in_L2_file)
-
+        f,
+        proc_lev,
+        source,#string ["HC0" | "HRC"], Considered Data Cub
+        out_file,
+        wl,#NB: ORDERED wl = raw_wvl[order]
+        order,
+        fwhm,#NB: riordinate con ordine order
+        type="VNIR",
+        ERR_MATRIX=nothing,        
+        apply_errmatrix=false,
+        selbands = nothing,
+        in_L2_file = nothing
+        )#string = [ VNIR , SWIR ]
+        
+    println("####### create_cube start #########")
+    
+    #geo = get_geoloc(f, proc_lev, source, wvl = type, in_L2_file)
+    println("eos_create_$type")
     type = uppercase(type)#
     if type in [ "VNIR", "SWIR"]#todo: PAN, LATLON
         #ok
@@ -46,44 +46,56 @@ function create_cube(
     typelcase = titlecase(type, strict = true)
 
     if proc_lev == 1
+        println("processing level 1")
         cube = faux.getData(f,string("HDFEOS/SWATHS/PRS_L1_",source,"/Data Fields/$(type)_Cube"))#sparsa?
         scale= faux.getAttr(f,"ScaleFactor_$(typelcase)")
         offset= faux.getAttr(f,"Offset_$(typelcase)")
 
-        if any(apply_errmatrix)||any(ERR_MATRIX)
+        if apply_errmatrix
+            println("prendo cubo errori")
             err_cube= faux.getData(f,string("HDFEOS/SWATHS/PRS_L1_", source,"/Data Fields/$(type)_PIXEL_SAT_ERR_MATRIX/"))
         end        
     else
-        cube= faux.getData(f,string("HDFEOS/SWATHS/PRS_L", proc_lev,"_",source, "/Data Fields/$(type)_Cube"))
-
+        println("processing level: $proc_lev")
+        cpath = string("HDFEOS/SWATHS/PRS_L", proc_lev,"_",source, "/Data Fields/$(type)_Cube")
+        println("prendo cubo da $f $cpath")
+        cube= faux.getData(f,cpath)
         # converte ratio (0,65535) in reflectance 
-        cube = faux.ratioToReflectance(f,cube,type)
+        #cube = faux.ratioToReflectance(f,cube,type)
         
-        if any(apply_errmatrix) || any(ERR_MATRIX) 
+        if apply_errmatrix 
             err_cube = faux.getData(f,string("HDFEOS/SWATHS/PRS_L", proc_lev,"_",source, "/Data Fields/$(type)_PIXEL_L2_ERR_MATRIX"))
         end
     end
 
 
-    # Get the different bands in order of wvl, and convert to `raster` bands----
-    # Also georeference if needed
+    # Get the different bands in order of wvl
     ind = 1
 
     maxbands = 0
     if type == "VNIR" 
+        println("prendo vnir")
         range = 1:66
     else
+        println("prendo swir")
         range = 1:173
     end
 
 
     
-    if isnothing(selbands)        
+    if isnothing(selbands)  
+        println("no selbands, prendo tutto")      
         seqbands = [range...]
     else
-        seqbands = faux.closestDistanceFunction(wl_vnir).selbands
+        seqbands = faux.closestElements(selbands,wl)
     end
 
+    #estrae matrici delle bande in seqbands e le aggiunge a un cubo di nome rast
+    #NB: una banda i del cubo preso dall'hdf è cube[:,i,:] mentre una banda in rast sarà rast[:,:,i]
+    #cerchiamo di usare cubi con indice di banda in mezzo solo qua per coerenza
+
+
+    rast = nothing
     for band_i in seqbands
         if wl[band_i] != 0#skip 0-wavelength bands
             if proc_lev in ["1","2B","2C"]#=
@@ -138,34 +150,16 @@ function create_cube(
                 throw(error("processing level $proc_lev not supported yet"))
             else
                 if proc_lev == "2D"
-                    println("Importing Band: ", band_i," (",wl[band_i], ") of: 66")
-
-                    crs = eos_geoloc.getCrs(geo,proc_lev)
+                    println("Importing Band: ", band_i," (",wl[band_i], ") of: $range")
+                    
                     band = cube[:,order[band_i],:]
 
-                    #=
-                    band <- raster::raster(
-                            (vnir_cube[,order_vnir[band_vnir], ]),
-                            crs = outcrs)
-                    =#
-                    # archgdal non usa extent
-                    # traspose the band to get it correctly oriented and set
-                    # extent
-                    #band <- raster::t(band)
-                    #band <- pr_setext_L2D(geo, band) archgdal non usa extent
-                    #########################
-
-                    if apply_errmatrix || ERR_MATRIX
+                    if apply_errmatrix || !isnothing(ERR_MATRIX)                    
                         
                         #setta valori con errori a nothing
                         count = errcube.apply!(ERR_MATRIX,band,[0])
                         @warn "tolto $count pixel con errori"
-
-                        #=satband <- raster::raster(
-                                err_cube[,order_vnir[band_vnir], ],
-                                crs = outcrs)
-                            satband <- raster::t(satband)
-                            satband <- pr_setext_L2D(geo, satband) =#
+                        
                     end
                     
                     if apply_errmatrix
@@ -177,99 +171,73 @@ function create_cube(
                     end
                 end
             end
+            
             if ind == 1
-                rast = band
-                if ERR_MATRIX
-                    rast = satband
-                end
-                
+                #println("first band is cube")
+                rast = copy(band)                
             else
-                #rast <- raster::stack(rast, band)
-                if ERR_MATRIX
-                    #rast_err <- raster::stack(rast_err, satband)
-                end
+                #println("appending band to cube")
+                rast = cat(rast,band,dims=3)  
+                #println("cube has $(size(rast)) dims")              
             end
             ind = ind +1
         else
             println("Band: ", band_i, " not present")
         end
-    end
-
-    # Write the cube ----
-
-    # create arrays of wavelengths to be used for creation of envi header and
-    # bandnames
-
-    if isnothing(selbands)
-        orbands = seqbands
-        for i = 1:length(wl)
-            if wl[i]==0 && i <= length(seqbands)
-                orbands[i]=nothing
-            end
-        end
-        orbands = filter(x->!isnothing(x),orbands)
-
-        rename!(rast, "b".*string.(orbands))
-        wl_sub = filter(x->x!=0,wl)
-        fwhm_sub = fwhm
-        for i = 1:length(wl)
-            if wl[i]==0 && i <= length(fwhm_sub)
-                fwhm_sub[i]=nothing
-            end
-        end
-        filter!(x->!uisnothing(x),fwhm_sub)
-    else
-        orbands = seqbands
-        rename!(rast, "b".*string.(orbands))
-        wl_sub = wl[seqbands]
-        fwhm_sub = fwhm[seqbands]
-    end
+    end 
+    println("cube has $(size(rast)) dims")            
+   
 
     cube = nothing
     bands = nothing
     #garbage collect
 
-    println("- Writing VNIR raster -")
+    println("- Writing raster -")
 
-    pr_rastwrite_lines(rast,
-                    out_file)
+    # crea geoloc
+    geo = eos_geoloc.get(f,type)
+
+    #scrive file
+    out_file = string(out_file,"_",type)
+    rastwrite_lines.write(rast, out_file, geo.gtf, geo.crs)
 
 
-    if (ERR_MATRIX) 
+    #scrittura parti aggiuntive
+
+    #raster errori
+    if !isnothing(ERR_MATRIX) 
         println("- Writing ERR raster -")
 
         out_file_err = string(out_file,"_ERR")
         pr_rastwrite_lines(rast_err,
-                        out_file_err,
-                        out_format,
-                        "ERR",
-                        scale_min = NULL,
-                        scale_max = NULL)
+                        out_file_err
+                        )
         rast_err=nothing
-    end
-
-    if out_format == "ENVI"
-        out_hdr = string(out_file,".hdr")        
-        write(out_file,string("band names = {", join(rast_err,","),"}","\n"))
-        write(out_hdr,string("wavelength = {", join(round(wl_sub, digits=4),","),"}"))        
-        write(out_hdr,string("fwhm = {", join(round(fwhm_sub, digits = 4), ","), "}"))        
-        write(out_hdr,"wavelength units = Nanometers")
-        write(out_hdr,"sensor type = PRISMA")##### cosa prisma
-    end
-
+    end  
     rast_err = nothing
-    
-    out_file_txt = string(out_file_vnir,".wvl")
 
+    #
+    out_file_txt = string(out_file,".wvl")   
+    if isnothing(selbands)    
+        wl_sub = filter(x->x!=0,wl)
+        myind = faux.indexesOfNonZero(wl)
+        orbands = seqbands[myind]
+        fwhm_sub = fwhm[myind]
+    else
+        orbands = seqbands        
+        wl_sub  = wl[seqbands]
+        fwhm_sub = fwhm[seqbands]
+    end
+    println("creating and writing dataframe of selected bands with wavelengths and bandwidths")
     myDf = DataFrame(
         band = faux.seq_along(wl_sub),
         orband = orbands,
         wl = wl_sub,
         fwhm = fwhm_sub
     )
-    using CSV
+    
     CSV.write(out_file_txt,myDf)
-
+    println("####### create_cube end #########")
 end #end funzione create vnir
 
 

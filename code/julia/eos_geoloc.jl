@@ -41,6 +41,8 @@ function getGeoloc(f,
     wvl        = nothing,#VNIR,SWIR,PAN
     in_L2_file = nothing)
 
+    println("getting geoloc info")
+
     if isnothing(wvl)
         wvl = "VNIR"
     end
@@ -112,12 +114,13 @@ function getGeoloc(f,
 end#end get geoloc
 
 function getGtf(geo, proc_lev)
+    println("building geotranform array")
     if proc_lev[1] != "2"
         ulpixel = (x=geo.xmin,y=geo.ymax)
         width = length(geo.lat[:,1])
         height = length(geo.lat[1,:])
         #calcoliamo risoluzione come distanza tra 
-        res = abs((geo.xmin - geo.xmax)/width)# \approx (geo.ymin - geo.ymax)/height
+        res = (geo.xmax - geo.xmin)/width# \approx (geo.ymin - geo.ymax)/height
 
         #archgdal prende geoloc come array:
         gtf = [
@@ -129,7 +132,6 @@ function getGtf(geo, proc_lev)
             -res
         ]
         gtf = convert(Array{Float64,1}, gtf)
-        println("geotransform array: $gtf")
     else
         throw(error("processing level $proc_lev files not supported yet"))
     end
@@ -137,6 +139,7 @@ function getGtf(geo, proc_lev)
 end
 
 function getCrs(geo,proc_lev)
+    println("building coordinate reference system string")
     if proc_lev == 1
         throw(error("processing level $proc_lev not supported yet"))
     else
@@ -147,6 +150,7 @@ function getCrs(geo,proc_lev)
 end
 
 function get(f,type)
+    
     proc_lev = faux.getAttr(f,"Processing_Level")
     if type == "PAN"
         source = "PCO"

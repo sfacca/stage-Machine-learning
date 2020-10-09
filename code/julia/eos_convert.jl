@@ -104,9 +104,9 @@ module eos_convert
     fwhm_swir = getAttr(in_file, "List_Fwhm_Swir")
 
     # get additional metadata
-    sunzen  = getAttr(f, "Sun_zenith_angle")
-    sunaz  = getAttr(f, "Sun_azimuth_angle")
-    acqtime  = getAttr(f, "Product_StartTime")
+    sunzen  = getAttr(in_file, "Sun_zenith_angle")
+    sunaz  = getAttr(in_file, "Sun_azimuth_angle")
+    acqtime  = getAttr(in_file, "Product_StartTime")
 
     # riordinazioni
     order_vnir = sortperm(wl_vnir)# permut

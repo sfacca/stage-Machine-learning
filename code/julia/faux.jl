@@ -3,7 +3,7 @@
 module faux
 
 export seq_along, getAttr, closestDistanceFunction, getData, dirname, extractWvl, fileSansExt
-export diffLag, dnToReflectance, closestElements, ratioToReflectance
+export diffLag, dnToReflectance, closestElements, ratioToReflectance, indexesOfNonZero
 
 using HDF5
 
@@ -70,6 +70,17 @@ function closestElements(sel::Array{Float64,1},wvl::Array{Float64,1})#NB: wvl è
                 end
                 break
             end
+        end
+    end
+    res
+end
+
+function indexesOfNonZero(arr)
+    res = []
+    index = 1
+    for i = 1:length(arr)
+        if arr[i]!=0
+            push!(res,i)            
         end
     end
     res
