@@ -15,35 +15,70 @@ include("eos_create.jl")
 export create_vnir
 
 function create_vnir(
-    f,
-    proc_lev,
-    source,#string ["HC0" | "HRC"], Considered Data Cub
-    out_file_vnir,
-    out_format,
-    base_georef,
-    fill_gaps,
-    wl_vnir,
-    order_vnir,
-    fwhm_vnir,
-    apply_errmatrix,
-    ERR_MATRIX,
-    selbands_vnir = NULL,
-    in_L2_file = NULL)
-
-    create_cube(f,
+        f,
         proc_lev,
         source,#string ["HC0" | "HRC"], Considered Data Cub
-        out_file_vnir,
-        out_format,
-        base_georef,
-        fill_gaps,
-        wl_vnir,
-        order_vnir,
-        fwhm_vnir,
+        out_file,
+        wl,#NB: ORDERED wl = raw_wvl[order]
+        order,
+        fwhm,#NB: riordinate con ordine order       
+        )
+    eos_create.create_cube(
+        f,
+        proc_lev,
+        source,#string ["HC0" | "HRC"], Considered Data Cub
+        out_file,
+        wl,#NB: ORDERED wl = raw_wvl[order]
+        order,
+        fwhm,#NB: riordinate con ordine order
+        "VNIR"       
+        )    
+end
+
+function create_vnir(
+        f,
+        proc_lev,
+        source,#string ["HC0" | "HRC"], Considered Data Cub
+        out_file,
+        wl,
+        order,
+        fwhm,
         apply_errmatrix,
         ERR_MATRIX,
-        selbands_vnir,
-        in_L2_file,type = "VNIR")
+        selbands_vnir = NULL,
+        in_L2_file = NULL)
+
+        eos_create.create_cube(
+            f,
+            proc_lev,
+            source,#string ["HC0" | "HRC"], Considered Data Cub
+            out_file,
+            wl,#NB: ORDERED wl = raw_wvl[order]
+            order,
+            fwhm,#NB: riordinate con ordine order
+            "VNIR",
+            ERR_MATRIX,
+            apply_errmatrix,
+            selbands_vnir,
+            in_L2_file       
+            )#string = [ VNIR , SWIR ]
+
+        #=function create_cube(
+        f,
+        proc_lev,
+        source,#string ["HC0" | "HRC"], Considered Data Cub
+        out_file,
+        wl,#NB: ORDERED wl = raw_wvl[order]
+        order,
+        fwhm,#NB: riordinate con ordine order
+        type="VNIR",
+        ERR_MATRIX=nothing,        
+        apply_errmatrix=false,
+        selbands = nothing,
+        in_L2_file = nothing
+        )#string = [ VNIR , SWIR ]=#
+    
+    
 
 end #end funzione create vnir
 

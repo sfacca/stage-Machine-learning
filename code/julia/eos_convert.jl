@@ -3,11 +3,13 @@ module eos_convert
   export convert, getAttr
 
   include("faux.jl")
+  include("eos_create_swir.jl")
+  include("eos_create_vnir.jl")
   using HDF5
   using CSV# per leggere tabella indexes_list.txt
   using DataFrames
   using DataFramesMeta
-  using ArchGDAL; const AG = ArchGDAL
+  using ArchGDAL
 
   function extractWvl = faux.extractWvl
 
@@ -69,11 +71,11 @@ module eos_convert
       content
   end
 
-  function aux_convert(in_file,##NB: in_file dev esser già aperto, a diff di pr_convert 
-      out_folder,
-      out_filebase, out_format, base_georef,
-      fill_gaps, VNIR,
-      SWIR, FULL,
+  function aux_convert(in_file,##NB: in_file dev esser già aperto, a diff di pr_convert      
+      fill_gaps, 
+      VNIR,
+      SWIR, 
+      FULL,
       source, join_priority,
       ATCOR, ATCOR_wls,
       PAN, CLOUD,
@@ -83,10 +85,13 @@ module eos_convert
       overwrite,in_L2_file,
       selbands_vnir, selbands_swir,
       indexes,
-      cust_indexes,
-      keep_index_cube)
+      cust_indexes,      
+      keep_index_cube,
+      base_georef=nothing
+      )
 
-    out_folder = string(out_folder, "/")
+    out_folder = faux.dirname(in_file.filename)
+    filename = faux.filename(in_file.filename)
 
     ##raccolta attributi
     #NB prodotti di macchine diverse possono avere nomi attributi diversi?
@@ -185,7 +190,7 @@ module eos_convert
       println("- Importing VNIR Cube -")
       if isfile(out_file_vnir) && overwrite != true
         println("VNIR file already exists - use overwrite = TRUE or change output file name to reprocess")
-        rast_vnir = AG.read(out_file_vnir)      
+        rast_vnir = ArchGDAL.read(out_file_vnir)      
       else
         pr_create_vnir(f,
           proc_lev,
@@ -199,8 +204,8 @@ module eos_convert
           fwhm_vnir,
           apply_errmatrix,
           ERR_MATRIX,
-          selbands_vnir=selbands_vnir,
-          in_L2_file=in_L2_file)
+          selbands_vnir,
+          in_L2_file)
       end
     end
     # Build array of effectively processed bands/wl/fwhm  ----
@@ -233,23 +238,17 @@ module eos_convert
       # -> si può creare fun a parte per rimpicciolire codice
       if isfile(out_file_swir) && overwrite == false
         println("SWIR file already exists - use overwrite = TRUE or change output file name to reprocess")
-        rast_swir = AG.read(out_file_swir)
+        rast_swir = ArchGDAL.read(out_file_swir)
       else
-        println("- Importing SWIR Cube - ") 
-        pr_create_swir(f,
-                proc_lev,
-                source,
-                out_file_swir,
-                out_format,
-                base_georef,
-                fill_gaps,
-                wl_swir,
-                order_swir,
-                fwhm_swir,
-                apply_errmatrix,
-                ERR_MATRIX,
-                selbands_swir=selbands_swir,
-                in_L2_file=in_L2_file)
+        println("- Creating SWIR Cube - ") 
+        eos_create_swir.create_swir(
+          f,
+          source,
+          proc_lev,
+          out_file_swir,
+          wl_swir,
+          order_swir,
+          fwhm_swir)
       end
       if !isnothing(selbands_swir) # selbands_swir != ∅ #incerto
         seqbands_swir = closestDistanceFunction(wl_swir).(selbands_swir)
@@ -290,8 +289,8 @@ module eos_convert
         println("- Creating FULL raster -")
         # Save hyperspectral cube
         if isfile(out_file_vnir) && isfile(out_file_swir)
-          rast_vnir = AG.read(out_file_vnir) 
-          rast_swir = AG.read(out_file_swir)
+          rast_vnir = ArchGDAL.read(out_file_vnir) 
+          rast_swir = ArchGDAL.read(out_file_swir)
           if join_priority == "SWIR"
 
             # rast_tot = crea raster sovrapponendo rast swir a rast vnir 

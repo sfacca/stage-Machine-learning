@@ -3,7 +3,7 @@
 module faux
 
 export seq_along, getAttr, closestDistanceFunction, getData, dirname, extractWvl, fileSansExt
-export diffLag, dnToReflectance, closestElements, ratioToReflectance, indexesOfNonZero
+export diffLag, dnToReflectance, closestElements, ratioToReflectance, indexesOfNonZero, filename
 
 using HDF5
 
@@ -105,15 +105,26 @@ function closestDistanceFunction(wvl::Array{Float32,1})
     (x) -> (minimum(abs.(wvl .- x)))
 end
 
-function dirname(file)
+function dirname(path)
     c = length(path)
     for i = 1:length(path)
         if path[i]=="/"
             c = i
         end
     end
-    file[1:c]
+    path[1:c]
 end
+
+function filename(path)
+    c = length(path)
+    for i = 1:length(path)
+        if path[i]=='/'
+            c = i+1
+        end
+    end
+    path[c:end]
+end
+
 
 
 

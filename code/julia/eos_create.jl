@@ -1,4 +1,4 @@
-module eos_create
+
 
 include("faux.jl")
 include("eos_geoloc.jl")
@@ -15,7 +15,6 @@ using DataFrames
 4. converte ratios 0-65535 in reflettanze
 5. salva cubo come raster.tif
 =#
-export create_cube
 
 function create_cube(
         f,
@@ -241,4 +240,3 @@ function create_cube(
 end #end funzione create vnir
 
 
-end #end module
