@@ -63,20 +63,6 @@ function create_vnir(
             in_L2_file       
             )#string = [ VNIR , SWIR ]
 
-        #=function create_cube(
-        f,
-        proc_lev,
-        source,#string ["HC0" | "HRC"], Considered Data Cub
-        out_file,
-        wl,#NB: ORDERED wl = raw_wvl[order]
-        order,
-        fwhm,#NB: riordinate con ordine order
-        type="VNIR",
-        ERR_MATRIX=nothing,        
-        apply_errmatrix=false,
-        selbands = nothing,
-        in_L2_file = nothing
-        )#string = [ VNIR , SWIR ]=#
     
     
 

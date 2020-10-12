@@ -155,8 +155,9 @@ module eos_convert
         FULL = true
     end
 
+    #=
     # write ATCOR files if needed ----
-    if ATCOR == TRUE && proc_lev == "1"
+    if ATCOR == true && proc_lev == "1"
         make_atcor(f,
                   out_folder,
                   out_file,
@@ -167,7 +168,7 @@ module eos_convert
                   order_swir,
                   join_priority,
                   source)
-    end
+    end=#
 
     # create the "META" ancillary txt file----   
     out_file_angles = string(out_folder, out_file, source, "_ANGLES.txt")
@@ -190,7 +191,9 @@ module eos_convert
       println("- Importing VNIR Cube -")
       if isfile(out_file_vnir) && overwrite != true
         println("VNIR file already exists - use overwrite = TRUE or change output file name to reprocess")
-        rast_vnir = ArchGDAL.read(out_file_vnir)      
+        ArchGDAL.read(out_file_vnir) do vnirds
+
+        end     
       else
         pr_create_vnir(f,
           proc_lev,
@@ -241,7 +244,7 @@ module eos_convert
         rast_swir = ArchGDAL.read(out_file_swir)
       else
         println("- Creating SWIR Cube - ") 
-        eos_create_swir.create_swir(
+        out_file_swir = eos_create_swir.create_swir(
           f,
           source,
           proc_lev,
@@ -250,11 +253,10 @@ module eos_convert
           order_swir,
           fwhm_swir)
       end
-      if !isnothing(selbands_swir) # selbands_swir != ∅ #incerto
-        seqbands_swir = closestDistanceFunction(wl_swir).(selbands_swir)
-        # fun ritorna una fun che viene applic a ogni elem di selbands_vnir
-        # per ogni elemento di selbands_vnir ritorna, in un array, la distanza tra l elemento e la
-        # banda più vicina ad esso in wl_vnir
+      if !isnothing(selbands_swir) # selbands_swir != ∅ 
+
+        seqbands_swir = faux.closestElements(selbands_swir,wl_swir)
+        # fun ritorna indici delle wvl in wl_swir più vicine alle wvl in selbands_swir
       else
         seqbands_swir = [1:length(wl_swir)...]
         for i in i:length(wl_swir)
@@ -314,18 +316,18 @@ module eos_convert
           rast_vnir = nothing
           rast_swir = nothing
           # garbage collect todo
-        elseif isfile(out_file_vnir) && isfile(out_file_swir) == false
+        elseif isfile(out_file_vnir) && !isfile(out_file_swir)
           # legge raster stack da out_file_vnir e lo carica in rast_vnir
           println("SWIR file not created - FULL file will be equal to VNIR one")
           cp(out_file_vnir, out_file_full, force=true)
-          rast_tot = rast_vnir
+          rast_tot = ArchGDAL.read(out_file_full)
           wl_tot = wl_vnir
           fwhm_tot = fwhm_vnir
         elseif isfile(out_file_swir) && isfile(out_file_vnir) == false
           # rast_swir = raster stack da file out_file_swir
           println("VNIR file not created - FULL file will be equal to SWIR one")
           cp(out_file_swir, out_file_full, force=true)
-          rast_tot = rast_swir
+          rast_tot = ArchGDAL.read(out_file_full)
           wl_tot = wl_swir
           fwhm_tot = fwhm_swir
         else

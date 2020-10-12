@@ -1,12 +1,9 @@
-module make_atcor
 
 include("faux.jl")
 using CSV
 using DataFrames
 using HDF5
 
-
-export make_atcor
 #fun ausiliaria per creaz file necessari per correz atmosf
 #ATmospheric CORrection
 
@@ -85,43 +82,53 @@ function make_atcor(f,#file aperto di un hdf
                 
                 else #file NON è lvlk1
                     vnir_wl_mat = faux.getData(file, "//KDP_AUX/Cw_Vnir_Matrix")#prendo matrice intera NB: molti 0, sparse? 
-                    vnir_wl_mat = vnir_wl_mat[:,order_vnir]#ordino righe secondo order_vnir
-                    vnir_wl_mat = vnir_wl_mat[:,(vnir_wl_mat[1,:].!=0)]#tolgo colonne che inzian con 0
+                    # tolgo righe 0
+                    vnir_wl_mat = faux.matCrop(vnir_wl_mat)
+                    vnir_wl_mat = vnir_wl_mat[order_vnir,:]#ordino righe secondo order_vnir
+                    v#nir_wl_mat = vnir_wl_mat[:,(vnir_wl_mat[1,:].!=0)]
                     #stessa cosa per vnir fwhm
                     vnir_fwhm_mat = faux.getData(file, "KDP_AUX/Fwhm_Vnir_Matrix")#prendo matrice intera NB: molti 0, sparse?
-                    vnir_fwhm_mat = vnir_fwhm_mat[:,order_vnir]#ordino colonne secondo order_vnir
-                    vnir_fwhm_mat = vnir_fwhm_mat[:,(vnir_fwhm_mat[1,:].!=0)]#tolgo colonne con i dove [1,i]==0
+                    # tolgo righe 0
+                    vnir_fwhm_mat = faux.matCrop(vnir_fwhm_mat)
+                    vnir_fwhm_mat = vnir_fwhm_mat[order_vnir,:]#ordino colonne secondo order_vnir
+                    #vnir_fwhm_mat = vnir_fwhm_mat[:,(vnir_fwhm_mat[1,:].!=0)]
                     #stessa cosa per swir
                     swir_wl_mat = faux.getData(file, "//KDP_AUX/Cw_Swir_Matrix")
-                    swir_wl_mat = swir_wl_mat[:,order_swir]
-                    swir_wl_mat = swir_wl_mat[:,(swir_wl_mat[1,:].!=0)]
+                    # tolgo righe 0
+                    swir_wl_mat = faux.matCrop(swir_wl_mat)
+                    swir_wl_mat = swir_wl_mat[order_swir,:]
+                    #swir_wl_mat = swir_wl_mat[:,(swir_wl_mat[1,:].!=0)]
                     swir_fwhm_mat = faux.getData(file, "//KDP_AUX/Fwhm_Swir_Matrix")
-                    swir_fwhm_mat = swir_fwhm_mat[:,order_swir]
-                    swir_fwhm_mat = swir_fwhm_mat[:,(swir_fwhm_mat[1,:].!=0)]
+                    # tolgo righe 0
+                    #swir_fwhm_mat = swir_fwhm_mat[:,(swir_fwhm_mat[1,:].!=0)] funzione è più veloce
+                    swir_fwhm_mat = faux.matCrop(swir_fwhm_mat)
+                    swir_fwhm_mat = swir_fwhm_mat[order_swir,:]
+                    
                 end#fine parte per file non lvl 1
                 #parte comune
                 if join_priority=="VNIR"
-                    max_vnir_wl_col = maximum(vnir_wl_mat[1,:])
-                    #toglie colonne il cui primo elem è minuguale del primo elem colonne vnir massimo
-                    swir_wl_mat = swir_wl_mat[:,(swir_wl_mat[1,:].>max_vnir_wl_col)]
-                    #idem per fwhm
-                    swir_fwhm_mat = swir_fwhm_mat[:,(swir_wl_mat[1,:] .>max_vnir_wl_col)]
-                else #se priority non è vnir sovrascrive vnir
-                    min_swir_wl_col = minimum(swir_wl_mat[1,:])
-                    vnir_wl_mat = vnir_wl_mat[:,(vnir_wl_mat[1,:].<min_swir_wl_col)]
-                    vnir_fwhm_mat = vnir_fwhm_mat[:,(vnir_wl_mat[1,:].<min_swir_wl_col)]#ma qua la matrice  vnir wl non ha già solo capi col >= min?
+                    max_vnir_wl_col = maximum(vnir_wl_mat[:,1])
+                    #toglie righe il cui primo elem è minuguale del primo elem righe vnir massimo
+                    swir_fwhm_mat = swir_fwhm_mat[(swir_wl_mat[:,1] .>max_vnir_wl_col),:]
+                    swir_wl_mat = swir_wl_mat[(swir_wl_mat[:,1].>max_vnir_wl_col),:]
                     
+                else #se priority non è vnir sovrascrive vnir
+                    min_swir_wl_col = minimum(swir_wl_mat[:,1])
+                    vnir_fwhm_mat = vnir_fwhm_mat[(vnir_wl_mat[:,1].<min_swir_wl_col),:]
+                    vnir_wl_mat = vnir_wl_mat[(vnir_wl_mat[:,1].<min_swir_wl_col),:]
+                    
+
                 end #fine parte per sovrascrivere con priorità
 
                 #ingloba vnir swir in matrici uniche
-                wl_mat_tot = [vnir_wl_mat, swir_wl_mat]
-                fwhm_mat_tot = [vnir_fwhm_mat, swir_fwhm_mat]
+                wl_mat_tot = vcat(vnir_wl_mat, swir_wl_mat)
+                fwhm_mat_tot = vcat(vnir_fwhm_mat, swir_fwhm_mat)
                 
                 for col in ATCOR_wls
                     mkpath(string(ATCOR_fold,strip(col)))
                     out_file_wvl = string(ATCOR_fold, strip(col),out_file,"_atcor_wvl_",strip(col),".wvl")
                     out = DataFrame(
-                        channel_number = 1:length(wl_mat_tot[1,:]),#numero colonne wl mat tot
+                        channel_number = 1:length(wl_mat_tot[:,:]),#numero righe wl mat tot
                         channel_center_wavelength = round(wl_mat_tot[col,:]/1000, digits=6),
                         bandwidth = round(fwhm_mat_tot[col,:], digits = 6)
                     )
@@ -143,7 +150,7 @@ function make_atcor(f,#file aperto di un hdf
             else
                 println("CW matrix dataset not existing - creation of additional ATCOR files ignored")                        
             end# fine if/else exists //KDP_AUX/Cw_Vnir_Matrix
-        else
+        else#se source non è HCO
             println("Creation of ATCOR files related to specific columns 
             is only useful for HRC datasets - creation of additional 
             ATCOR files skipped ")
@@ -151,8 +158,6 @@ function make_atcor(f,#file aperto di un hdf
     end#fine id atcor_wls != nothing
 
 end#fine make_atcor
-
-end#fine modulo
 
 
 

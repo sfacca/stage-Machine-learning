@@ -4,8 +4,25 @@ module faux
 
 export seq_along, getAttr, closestDistanceFunction, getData, dirname, extractWvl, fileSansExt
 export diffLag, dnToReflectance, closestElements, ratioToReflectance, indexesOfNonZero, filename
+export matCrop, getCube
 
 using HDF5
+using ArchGDAL
+
+function matCrop(mat)
+    first = 0
+    last = 0
+    numrows= size(mat)[1]
+    for i in 1:numrows
+        if mat[i,1]!=0
+            last = i
+            if first ==0
+                first = i
+            end        
+        end    
+    end
+    mat[first:last,:]
+end
 
 function fileSansExt(path)
     c = length(path)
@@ -154,5 +171,69 @@ function extractWvl(str::String)# prende stringa, ritorna array di int
     push!(res, currnum)  
     res
 end
+
+#fun prende bande da first a last da un gdal dataset (aperto con archgdal.read(filename))
+#e le ritorna in un cubo di dati
+function getCube(dataset::ArchGDAL.AbstractDataset,inizio::Union{Int,Nothing}=nothing,fine::Union{Int,Nothing}=nothing)
+    if fine !=0
+        cube = nothing
+        first = true
+        nbands = ArchGDAL.nraster(dataset)
+        if isnothing(inizio)||inizio>nbands||inizio==0
+            inizio=1
+        end
+        if isnothing(fine)||fine>nbands
+            fine=nbands
+        end
+        
+        raster = ArchGDAL.read(dataset)
+        println("reading bands $inizio to $fine , this might take a while...")
+
+        for i = inizio:fine
+            #println("reading bands nr $i of $fine")
+            
+            if first
+                #println("band is first")
+                #cube = copy(ArchGDAL.read(ArchGDAL.getband(dataset,i)))
+                cube = ArchGDAL.read(ArchGDAL.getband(dataset,i))
+                first = false
+            else
+                #println("appending band $i to cube")
+                cube =  cat(cube,ArchGDAL.read(ArchGDAL.getband(dataset,i)),dims=3)
+            end
+        end
+        println("finished reading bands")        
+    else
+        cube =nothing
+    end
+    cube
+end
+#=
+function getBands(dataset::ArchGDAL.AbstractDataset,inizio::Union{Int,Nothing}=nothing,fine::Union{Int,Nothing}=nothing)
+    
+    first = true
+    nbands = ArchGDAL.nraster(dataset)
+    if isnothing(inizio)||inizio>nbands
+        inizio=1
+    end
+    if isnothing(fine)
+        fine=nbands
+    end
+    bands= Array{ArchGDAL.IRasterBand, 1}(undef, fine-inizio)
+    raster = ArchGDAL.read(dataset)
+    for i = 1:nbands
+        #println("reading bands nr $i of $fine")
+        
+        if first
+            #println("band is first")
+            cube = copy(ArchGDAL.read(ArchGDAL.getband(dataset,i)))
+            first = false
+        else
+            #println("appending band $i to cube")
+            cube =  cat(cube,ArchGDAL.read(ArchGDAL.getband(dataset,i)),dims=3)
+        end
+    end
+    cube
+end=#
 
 end#end module

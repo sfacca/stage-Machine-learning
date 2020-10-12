@@ -237,6 +237,7 @@ function create_cube(
     
     CSV.write(out_file_txt,myDf)
     println("####### create_cube end #########")
+    out_file
 end #end funzione create vnir
 
 
