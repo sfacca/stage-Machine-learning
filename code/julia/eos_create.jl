@@ -16,6 +16,8 @@ using DataFrames
 5. salva cubo come raster.tif
 =#
 
+
+
 function create_cube(
         f,
         proc_lev,
@@ -208,7 +210,7 @@ function create_cube(
         println("- Writing ERR raster -")
 
         out_file_err = string(out_file,"_ERR")
-        pr_rastwrite_lines(rast_err,
+        rastwrite_lines.write(rast_err,
                         out_file_err
                         )
         rast_err=nothing

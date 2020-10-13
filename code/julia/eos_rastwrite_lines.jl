@@ -63,7 +63,7 @@ function write(cube,
         end
         println("finished writing on $out_file")
     end
-
+    out_file
 end
 
 

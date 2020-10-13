@@ -33,9 +33,10 @@ function fileSansExt(path)
         end
     end
     if c==0
-        c=1
+        ""
+    else
+        path[1:c]
     end
-    path[1:c]
 end
 
 function dnToReflectanceFunction(scalemin::Float32,scalemax::Float32)

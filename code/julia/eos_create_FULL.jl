@@ -5,7 +5,7 @@ include("faux.jl")
 include("eos_rastwrite_lines.jl")
 
 
-function create_full(basename,priority="VNIR",overwrite=false, geo)
+function create_full(basename,priority="VNIR",overwrite=false, geo = nothing)
 
     problems = Array{String,1}(undef,0)
     error=false
@@ -66,11 +66,10 @@ function create_full(basename,priority="VNIR",overwrite=false, geo)
                     break
                 end
             end
-
         end
 
-        swir_copied = bandswir[index:end,:]
-        vnir_copied = bandvnir        
+        swir_copied = bandswir[swir_start:swir_finish,:]
+        vnir_copied = bandvnir[vnir_start:vnir_finish,:]        
 
         swir_copied[:type]="SWIR"
         vnir_copied[:type]="VNIR"
@@ -82,20 +81,20 @@ function create_full(basename,priority="VNIR",overwrite=false, geo)
         crs=nothing
         vnir_cube = nothing
 
-        warnings = Array{String1,}(undef,0)        
+        warnings = Array{String,1}(undef,0)        
 
         if isfile(string(basename,"_SWIR.tif"))
-            ArchGDAL.read(string(basename,"_SWIR.tif")) do dataset
-                global swir_cube = faux.getCube(dataset,swir_start,swir_finish)#prendo swir solo da index
-            end
+            dataset = ArchGDAL.read(string(basename,"_SWIR.tif"))
+            swir_cube = faux.getCube(dataset,swir_start,swir_finish)#prendo swir solo da index
+            
         else
             push!(warnings,"file $(string(basename,"_SWIR.tif")) is missing")
         end
 
         if isfile(string(basename,"_VNIR.tif"))
-            ArchGDAL.read(string(basename,"_VNIR.tif")) do dataset
-                global vnir_cube = faux.getCube(dataset,vnir_start,vnir_finish)#prendo tutto vnir
-            end
+            dataset = ArchGDAL.read(string(basename,"_VNIR.tif"))
+            vnir_cube = faux.getCube(dataset,vnir_start,vnir_finish)#prendo tutto vnir
+            
         else
             push!(warnings,"file $(string(basename,"_VNIR.tif")) is missing")
 
@@ -105,20 +104,30 @@ function create_full(basename,priority="VNIR",overwrite=false, geo)
             
         if isnothing(vnir_cube)
             if isnothing(swir_cube)
+                push!(warnings,"swir_cube and vnir_cube are nothing")
                 cube = nothing
             else
+                push!(warnings,"vnir_cube is nothing")
                 cube = swir_cube
             end
-        else if isnothing(swir_cube)
+        elseif isnothing(swir_cube)
+            push!(warnings,"swir_cube is nothing")
             cube = vnir_cube
         else
             cube = cat(vnir_cube,swir_cube,dims=3)
         end
 
-        crs = geo.crs
-        gtf = geo.gtf
+        if !isnothing(geo)
+            crs = geo.crs
+            gtf = geo.gtf
+        else
+            crs = nothing
+            gtf = nothing
+        end
+        
 
-        out_file_full = string(basename,"_FULL.tif")
+
+        out_file_full = string(basename,"_FULL")
         if !isnothing(cube)
             rastwrite_lines.write(cube,
                 out_file_full,

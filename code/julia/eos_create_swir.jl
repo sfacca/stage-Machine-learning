@@ -8,24 +8,24 @@ include("eos_create.jl")
 
 
 function create_swir(
-    f,
-    proc_lev,
-    source,#string ["HC0" | "HRC"], Considered Data Cub
-    out_file,
-    wl,#NB: ORDERED wl = raw_wvl[order]
-    order,
-    fwhm,#NB: riordinate con ordine order       
-    )
-eos_create.create_cube(
-    f,
-    proc_lev,
-    source,#string ["HC0" | "HRC"], Considered Data Cub
-    out_file,
-    wl,#NB: ORDERED wl = raw_wvl[order]
-    order,
-    fwhm,#NB: riordinate con ordine order
-    "SWIR"       
-    )    
+        f,
+        proc_lev,
+        source,#string ["HC0" | "HRC"], Considered Data Cub
+        out_file,
+        wl,#NB: ORDERED wl = raw_wvl[order]
+        order,
+        fwhm,#NB: riordinate con ordine order       
+        )
+    create_cube(
+        f,
+        proc_lev,
+        source,#string ["HC0" | "HRC"], Considered Data Cub
+        out_file,
+        wl,#NB: ORDERED wl = raw_wvl[order]
+        order,
+        fwhm,#NB: riordinate con ordine order
+        "SWIR"       
+        )    
 end
 
 function create_swir(
@@ -38,10 +38,10 @@ function create_swir(
         fwhm,
         apply_errmatrix,
         ERR_MATRIX,
-        selbands_vnir = NULL,
-        in_L2_file = NULL)
+        selbands_vnir = nothing,
+        in_L2_file = nothing)
 
-    eos_create.create_cube(
+    create_cube(
         f,
         proc_lev,
         source,#string ["HC0" | "HRC"], Considered Data Cub
@@ -74,10 +74,3 @@ in_L2_file = nothing
 
 end #end funzione create swir
 
-function create_swir(f)
-    proc_lev = faux.getAttr(f,"Processing_Level")
-    source = "HCO"
-    out_file_swir = "out/SWIR"
-    out_format = "GTiff"
-    
-end

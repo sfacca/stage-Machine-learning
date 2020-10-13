@@ -1,17 +1,17 @@
 module eos_convert
     
-  export convert, getAttr
+  export convert
 
   include("faux.jl")
   include("eos_create_swir.jl")
   include("eos_create_vnir.jl")
+  include("eos_create_FULL.jl")
+  include("eos_create_pan.jl")
   using HDF5
   using CSV# per leggere tabella indexes_list.txt
   using DataFrames
   using DataFramesMeta
   using ArchGDAL
-
-  function extractWvl = faux.extractWvl
 
   
   function getIndexList()
@@ -52,10 +52,10 @@ module eos_convert
   # O(length(x)+length(y))  
   closestDistanceFunction = faux.closestDistanceFunction
 
-  closestElementFunction = faux.closestElementFunction
+  
 
-
-  function makeJoinedRaster()
+  extractWvl = faux.extractWvl
+  
 
   function closestWvl(wvl::Array{Int64,1}, x::Int64)
       y = abs.(wvl .- x)
@@ -71,37 +71,32 @@ module eos_convert
       content
   end
 
-  function aux_convert(in_file,##NB: in_file dev esser già aperto, a diff di pr_convert      
-      fill_gaps, 
-      VNIR,
-      SWIR, 
-      FULL,
-      source, join_priority,
-      ATCOR, ATCOR_wls,
-      PAN, CLOUD,
-      LC, GLINT,
-      ANGLES, LATLON,
-      ERR_MATRIX, apply_errmatrix,
-      overwrite,in_L2_file,
-      selbands_vnir, selbands_swir,
-      indexes,
-      cust_indexes,      
-      keep_index_cube,
-      base_georef=nothing
-      )
+  function convert(in_file,##NB: in_file dev esser già aperto, a diff di pr_convert    
+      out_file,      
+      source="HCO",      
+      PAN=true,#boolean: true-> crea tif pancroatico
+      VNIR=true,#boolean: true-> crea tif cubo vnir
+      SWIR=true, #boolean: true-> crea tif pancroatico
+      FULL=true,#boolean: true-> crea tif pancroatico
+      join_priority="VNIR",
+      overwrite=false,
+      selbands_vnir=nothing, 
+      selbands_swir=nothing,
+      indexes=nothing,
+      cust_indexes=nothing)
 
-    out_folder = faux.dirname(in_file.filename)
-    filename = faux.filename(in_file.filename)
+      
+    out_folder = faux.dirname(out_file)
+    mkpath(out_folder)
+    #=
+    out_filename = faux.filename(out_file)=#
+    basefile = faux.fileSansExt(out_file)
 
     ##raccolta attributi
     #NB prodotti di macchine diverse possono avere nomi attributi diversi?
     
     proc_lev = getAttr(in_file, "Processing_Level")
-    if out_filebase == "auto"
-        out_filebase = "out/$in_file"
-    end
-    out_file = out_filebase
-
+    
     # Get wavelengths and fwhms ----
     wl_vnir = getAttr(in_file, "List_Cw_Vnir")
     wl_swir = getAttr(in_file, "List_Cw_Swir")
@@ -152,7 +147,10 @@ module eos_convert
             selbands_vnir = filter(item -> item <= min_swir, selbands_vnir)# bande vnir selez sono solo quelle minori della swir minore
         end
       end     
-        FULL = true
+      #FULL = true
+    else
+      selbands_swir=nothing
+      selbands_vnir=nothing
     end
 
     #=
@@ -168,319 +166,61 @@ module eos_convert
                   order_swir,
                   join_priority,
                   source)
-    end=#
+    end=#   
+    
 
     # create the "META" ancillary txt file----   
-    out_file_angles = string(out_folder, out_file, source, "_ANGLES.txt")
+    out_file_angles = string(basefile, "_ANGLES.txt")
     ang_df = DataFrame(date=acqtime, sunzen=sunzen, sunaz=sunaz)
-    CSV.write(out_file_angles, ang_df, delim=' ', quotechar='"', quotestrings=true)
+    CSV.write(out_file_angles, ang_df)
+
+    
+
+    
+   
+    
 
     # get VNIR data cube and convert to raster ----
     if VNIR
-      out_file_vnir = string(out_folder, out_file, source_"_VNIR")
-      if out_format == "GTiff"
-          out_file_vnir = string(out_file_vnir, ".tif")
+      out_file_vnir = string(basefile,"_VNIR.tif")
+      if isfile(out_file_vnir) && overwrite==false
+        println("file $out_file_vnir already exists, set overwrite to true")
       else
-          out_file_vnir = string(out_file_vnir, ".envi")
+        out_file_vnir = create_vnir(in_file,proc_lev,source,basefile,wl_vnir,
+          order_vnir,fwhm_vnir,false,nothing,selbands_vnir)
       end
-    else
-        out_file_vnir = string(tempdir(), out_file, source_"_VNIR", ".tif")   #######TEMPDIR LIFETIME?   
     end
 
-    if VNIR || FULL
-      println("- Importing VNIR Cube -")
-      if isfile(out_file_vnir) && overwrite != true
-        println("VNIR file already exists - use overwrite = TRUE or change output file name to reprocess")
-        ArchGDAL.read(out_file_vnir) do vnirds
-
-        end     
-      else
-        pr_create_vnir(f,
-          proc_lev,
-          source,
-          out_file_vnir,
-          out_format,
-          base_georef,
-          fill_gaps,
-          wl_vnir,
-          order_vnir,
-          fwhm_vnir,
-          apply_errmatrix,
-          ERR_MATRIX,
-          selbands_vnir,
-          in_L2_file)
-      end
-    end
-    # Build array of effectively processed bands/wl/fwhm  ----
-    if !isnothing(selbands_vnir) # selbands_vnir != ∅ #incerto
-      seqbands_vnir = faux.closestElements(selbands_vnir,wl_vnir)
-    else
-      # 1. crea array seqbands_vnir = 1:numero bande vnir
-      # 2. se wl_vnir[i] ==0 -> seqbands_vnir[i] = 0
-      # 3. rimuovi tutti gli elem == 0 da seqbands_vnir
-      seqbands_vnir = [1:length(wl_vnir)...]
-      for i in i:length(wl_vnir)
-          if wl_vnir[i] == 0
-              seqbands_vnir[i] = 0      
-          end
-      end
-      seqbands_vnir = filter(x -> x != 0, seqbands_vnir)
-    end
-    wl_vnir = wl_vnir[seqbands_vnir]
-    fwhm_vnir = fwhm_vnir[seqbands_vnir]
     # get SWIR data cube and convert to raster ----   
     if SWIR
-        out_file_swir = string(out_folder, out_file, "_", source, "_SWIR")
-        out_file_swir = attachExtension!(out_format, out_file_swir)  
-    else
-        out_file_swir = string(tempdir(), out_file, "_", source, ".tif")
-    end     
-
-    if (SWIR || FULL ) && (isnothing(selbands_swir) || length(selbands_swir) != 0)
-      # procedura sotto è identica a quella nell if VNIR || FULL ma con swir invece che vnir 
-      # -> si può creare fun a parte per rimpicciolire codice
-      if isfile(out_file_swir) && overwrite == false
-        println("SWIR file already exists - use overwrite = TRUE or change output file name to reprocess")
-        rast_swir = ArchGDAL.read(out_file_swir)
+      out_file_swir = string(basefile,"_SWIR.tif")
+      if isfile(out_file_swir) && overwrite==false
+        println("file $out_file_swir already exists, set overwrite to true")
       else
-        println("- Creating SWIR Cube - ") 
-        out_file_swir = eos_create_swir.create_swir(
-          f,
-          source,
-          proc_lev,
-          out_file_swir,
-          wl_swir,
-          order_swir,
-          fwhm_swir)
+        out_file_vnir = create_swir(in_file,proc_lev,source,basefile,wl_swir,
+          order_swir,fwhm_swir,false,nothing,selbands_swir)
       end
-      if !isnothing(selbands_swir) # selbands_swir != ∅ 
+    end  
 
-        seqbands_swir = faux.closestElements(selbands_swir,wl_swir)
-        # fun ritorna indici delle wvl in wl_swir più vicine alle wvl in selbands_swir
-      else
-        seqbands_swir = [1:length(wl_swir)...]
-        for i in i:length(wl_swir)
-          if wl_swir[i] == 0
-              seqbands_swir[i] = 0      
-          end
-        end
-        seqbands_swir = filter(x -> x != 0, seqbands_swir)
-        wl_swir = wl_swir[seqbands_swir]
-        fwhm_swir = fwhm_swir[seqbands_swir]
-      end
-    end
-    # create FULL data cube and convert to raster ----
-    if FULL && isnothing(indexes)
-      out_file_full = string(out_folder, out_file, "_", source, "_FULL")
-      out_file_full = attachExtension!(out_format, out_file_full)
-
-    else
-      if keep_index_cube
-        out_file_full = string(out_folder, out_file, "_", source, "_INDEXES")
-        out_file_full = attachExtension!(out_format, out_file_full)
-      else
-        out_file_full = string(tempdir(), out_file, "_", source, "_INDEXES", ".tif")
-      end
-    end
-        #    Create and write the FULL hyperspectral cube if needed ----
+    
+    
+    
+    #    Create and write the FULL hyperspectral cube if needed ----
     if FULL
-      if isfile(out_file_full) && overwrite == false
-        println("FULL file already exists - use overwrite = TRUE or change
-        output file name to reprocess")
-      else
-        println("- Creating FULL raster -")
-        # Save hyperspectral cube
-        if isfile(out_file_vnir) && isfile(out_file_swir)
-          rast_vnir = ArchGDAL.read(out_file_vnir) 
-          rast_swir = ArchGDAL.read(out_file_swir)
-          if join_priority == "SWIR"
-
-            # rast_tot = crea raster sovrapponendo rast swir a rast vnir 
-            # (toglie layer vnir con bande superiuori alla banda swir minore)
-            aux_vnir = filter(x -> x < min_swir, wl_vnir)
-            wl_tot = vcat(aux_vnir, wl_swir)
-            # wl tot = bande swir inferiori alla banda vnir minore + bande swir 
-            fwhm_tot = vcat(fwhm_vnir[aux_vnir], fwhm_swir)
-            # mette nome ai layer(?) di rast_tot con pattern b[banda vnir]_v;b[banda swir]_s
-          else
-            # rast_tot = 
-            # fa la stessa cosa ma, nelle sovrapposizioni delle bande, le bande vnir prendono 
-            # precedenza sulle swir
-            aux_swir = filter(x -> x > max_vnir, wl_swir)
-            wl_tot = vcat(wl_vnir, aux_swir)
-            fwhm_tot = vcat(fwhm_vnir, fwhm_swir[aux_swir])
-            # mette nome ai layer(?) di rast_tot con pattern b[banda vnir]_v;b[banda swir]_s      
-          end
-          println("- Writing FULL raster -")
-          pr_rastwrite_lines(rast_tot, out_file_full, out_format, proc_lev,join=TRUE)#########TODO
-          rast_vnir = nothing
-          rast_swir = nothing
-          # garbage collect todo
-        elseif isfile(out_file_vnir) && !isfile(out_file_swir)
-          # legge raster stack da out_file_vnir e lo carica in rast_vnir
-          println("SWIR file not created - FULL file will be equal to VNIR one")
-          cp(out_file_vnir, out_file_full, force=true)
-          rast_tot = ArchGDAL.read(out_file_full)
-          wl_tot = wl_vnir
-          fwhm_tot = fwhm_vnir
-        elseif isfile(out_file_swir) && isfile(out_file_vnir) == false
-          # rast_swir = raster stack da file out_file_swir
-          println("VNIR file not created - FULL file will be equal to SWIR one")
-          cp(out_file_swir, out_file_full, force=true)
-          rast_tot = ArchGDAL.read(out_file_full)
-          wl_tot = wl_swir
-          fwhm_tot = fwhm_swir
-        else
-            @warn "FULL file not created because neither SWIR nor VNIR created"
-        end
-        # Write ENVI header if needed ----
-        if out_format == "ENVI"
-          out_hdr = string(out_file_full, ".hdr")
-          myHdr = string("band names = {", join(names(rast_tot), ","), "}", "\n")# stringa header
-          write(out_hdr, myHdr)
-          write(out_hdr,string("wavelength = {", join(wl_tot, ",") , "}"))
-          write(out_hdr,string("fwhm = {", join(fwhm_tot, ","), "}","\n"))
-          write(out_hdr, "wavelength units = Nanometers")
-          write(out_hdr, "sensor type = PRISMA")
-        end
-        out_file_txt = string(out_file_full, ".wvl")
-        orb = names(rast_tot)[2:length(names(rast_tot))]
-        tempdf = DataFrame(band=seq_along(wl_tot),orband=orb,wl=wl_tot,fwhm=fwhm_tot)
-        CSV.write(out_file_txt,tempdf)
-        tempdf = nothing
-        rast_tot = nothing
-        # garbage collect here
-      end
-      # If only FULL selected, remove files related to VNIR and sWIR cubes if
-        # existing
-      if !VNIR
-        rm(out_file_vnir)
-      end
-      if !SWIR
-        rm(out_file_swir)
-      end
-
-      if !isnothing(indexes) || !isnothing(cust_indexes)
-        # now COMPUTE INDExEs if necessary ----
-        pr_compute_indexes(in_file=out_file_full,
-                out_file=out_file,
-                out_format=out_format,
-                indexes=indexes,
-                cust_indexes=cust_indexes,
-                overwrite=overwrite)
-      end
-    end
-    # Save PAN if requested ----
-    out_file_pan = string(out_folder, out_file, "_", source, "_PAN")
-    attachExtension!(out_format, out_file_pan)
-    if isfile(out_file_pan) && overwrite == false
-        println("PAN file already exists - use overwrite = TRUE or change output
-        file name to reprocess")
-    else
-      if PAN
-        pr_create_pan(f,
-            proc_lev,
-            source,
-            out_file_pan,
-            out_format,
-            base_georef,
-            fill_gaps,
-            in_L2_file=in_L2_file)
-      end
-    end
-    # Save LATLON if requested ----
-
-    out_file_latlon = string(out_folder, out_file, "_", source, "_LATLON")
-    attachExtension!(outformat, out_file_latlon)
-
-    if isfile(out_file_latlon)
-      println("LATLON file already exists - use overwrite = TRUE or change output file name to reprocess")
-    else
-      if LATLON
-        pr_create_latlon(f,
-              proc_lev,
-              out_file_latlon,
-              out_format,
-              base_georef,
-              fill_gaps,
-              in_L2_file=in_L2_file)
-      end
+      #get geo  
+      out_file_full = string(basefile)    
+      geo = eos_geoloc.get(in_file,"VNIR")#
+      out_file_full = create_full(basefile,join_priority,overwrite,geo)
     end
 
-    if proc_lev in ["2B", "2C", "2D"] || ( proc_lev == "1" && !isnothing(in_L2_file) )
-        # Save ANGLES if requested ----
-        out_file_ang = string(out_folder, out_file, "_", source, "_ANG")
-        attachExtension!(outformat, out_file_ang)
-        if isfile(out_file_ang) && overwrite == false
-          println("ANG file already exists - use overwrite = TRUE or change output file name to reprocess")
-        else
-          if ANGLES
-            pr_create_angles(f,
-              proc_lev,
-              out_file_ang,
-              out_format,
-              base_georef,
-              fill_gaps,
-              in_L2_file=in_L2_file)
-          end
-        end
-      end
 
-      if proc_lev == 1 ####### ATTENZIONE: proc_lev trattato come string in altri if ma come int qua?
-        # Save CLD if requested ----
-        out_file_cld = string(out_folder, out_file, "_", source, "_CLD")
-        attachExtension!(outformat, out_file_cld)
-        if isfile(out_file_cld)
-          println("CLD file already exists - use overwrite = TRUE or change ")
-          println("output file name to reprocess")
-        else
-          if CLOUD
-            pr_create_additional(f,
-                    type="CLD",
-                    out_file_cld,
-                    out_format,
-                    base_georef,
-                    fill_gaps,
-                    in_L2_file=in_L2_file)
-          end
-        end
-        # Save GLINT if requested ----
-        out_file_glnt = string(out_folder, out_file, "_", source, "_GLINT")
-        attachExtension!(out_format, out_file_glnt)
-
-        if isfile(out_file_glnt) && overwrite == false
-          println("GLINT file already exists - use overwrite = TRUE or change output file name to reprocess")
-        else
-          if GLINT
-            pr_create_additional(f,
-                    type="GLINT",
-                    out_file_glnt,
-                    out_format,
-                    base_georef,
-                    fill_gaps,
-                    in_L2_file=in_L2_file)
-          end
-        end
-        # Save LC if requested ----
-        out_file_lc = string(out_folder, out_file, "_", source, "_LC")
-        attachExtension!(out_format, out_file_lc)
-        if LC
-          if isfile(out_file_lc) && overwrite == false
-            println("LC file already exists - use overwrite = TRUE or change output file name to reprocess")
-          else
-            pr_create_additional(f,
-                      type="LC",
-                      out_file_lc,
-                      out_format,
-                      base_georef,
-                      fill_gaps,
-                      in_L2_file=in_L2_file)
-          end
-        end
-      end
+    # Save PAN if requested ----    
+    if PAN
+      out_file_pan = create_pan(in_file,proc_lev,basefile)
     end
+
   end
-
+#=
   function convert(in_file,
       out_folder,
       out_filebase="auto",
@@ -572,6 +312,6 @@ module eos_convert
                   cust_indexes  = cust_indexes,
                   keep_index_cube = keep_index_cube)
     end
-  end
+  end=#
 
 end

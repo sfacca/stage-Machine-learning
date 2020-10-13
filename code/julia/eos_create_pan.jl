@@ -1,8 +1,59 @@
-module eos_create_pan
 
+
+
+include("eos_geoloc.jl")
+include("eos_rastwrite_lines.jl")
 include("faux.jl")
+
+using ArchGDAL
 #   helper function used to process and save the PAN data cube
-export create_pan
+
+
+function create_pan(
+        f,
+        proc_lev,
+        out_file,
+        overwrite=false      
+        )
+
+    out_file = string(out_file,"_PAN")
+    out = string(out_file,".tif")
+    if isfile(out) 
+        println( "$out già esistente")
+        if overwrite
+            println("deleting $out")
+            rm(out)
+        end
+    end
+
+    if proc_lev != "2D"
+        println("errore: file non è prodotto lvl 2d")
+        return nothing
+    end
+
+    geo = eos_geoloc.get(f,"PAN") 
+    
+    #prendo cubo
+
+    cube = faux.getData(f,"HDFEOS/SWATHS/PRS_L$(proc_lev)_PCO/Data Fields/Cube")
+    dims = size(cube)
+    width = dims[1]
+    if length(dims)==2
+        height=dims[2]
+    else
+        height=dims[3]
+    end
+
+
+    #scrivo cubo
+
+    rastwrite_lines.write(cube,
+        out_file,
+        geo.gtf,
+        geo.crs
+    )
+
+end
 
 
 
@@ -67,7 +118,7 @@ function create_pan(f,# input data he5 from caller
         end
     end
     pan_cube = nothing
-    #garbage collect
+    #garbArchGDALe collect
 
     println("- Writing PAN raster -")
 
@@ -76,9 +127,6 @@ function create_pan(f,# input data he5 from caller
                        scale_max = panscale_max)
     rast_pan=nothing
     geo=nothing
-    #garbage collect
+    #garbArchGDALe collect
 
 end
-
-
-end#fine module
