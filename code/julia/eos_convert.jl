@@ -1,6 +1,6 @@
 module eos_convert
     
-  export convert
+  export maketif
 
   include("faux.jl")
   include("eos_create_swir.jl")
@@ -51,9 +51,6 @@ module eos_convert
   end
   # O(length(x)+length(y))  
   closestDistanceFunction = faux.closestDistanceFunction
-
-  
-
   extractWvl = faux.extractWvl
   
 
@@ -71,8 +68,8 @@ module eos_convert
       content
   end
 
-  function convert(in_file,##NB: in_file dev esser già aperto, a diff di pr_convert    
-      out_file,      
+  function maketif(in_file,##NB: in_file dev esser già aperto, a diff di pr_convert    
+      out_file::String;      
       source="HCO",      
       PAN=true,#boolean: true-> crea tif pancroatico
       VNIR=true,#boolean: true-> crea tif cubo vnir
@@ -86,15 +83,19 @@ module eos_convert
       cust_indexes=nothing)
 
       
-    out_folder = faux.dirname(out_file)
+    @show out_folder = faux.dirname(out_file)
+    println("creating folder $out_folder")
     mkpath(out_folder)
+    println("made folder")
+
+    
     #=
     out_filename = faux.filename(out_file)=#
     basefile = faux.fileSansExt(out_file)
 
     ##raccolta attributi
     #NB prodotti di macchine diverse possono avere nomi attributi diversi?
-    
+    println("loading attributes...")
     proc_lev = getAttr(in_file, "Processing_Level")
     
     # Get wavelengths and fwhms ----
@@ -119,10 +120,26 @@ module eos_convert
     fwhms = vcat(fwhm_vnir, fwhm_swir)
     wls = vcat(wl_vnir, wl_swir)
 
+
+    #type check selbands
+    if !isnothing(selbands_vnir) && typeof(selbands_vnir[1])!= Float32
+      selbands_vnir = Base.convert(Array{Float32,1},selbands_vnir)
+    end
+    if !isnothing(selbands_swir) && typeof(selbands_swir[1])!= Float32
+      selbands_swir = Base.convert(Array{Float32,1},selbands_swir)
+    end
+
+    
+
     # If indexes need to be computed, retrieve the list of VNIR and SWIR ----
     # wavelengths required for the computataion and automatically fill
     # the selbands_vnir and selbands_swir variables
-    if !isnothing(indexes) | !isnothing(cust_indexes) 
+    #=
+
+    max_vnir = maximum(wl_vnir)
+    min_swir = minimum(filter(item -> item != 0, wl_swir))# var ausiliaria
+    
+    if !isnothing(indexes) || !isnothing(cust_indexes) 
       if proc_lev in ["1", "2B"]
           @warn "Spectral indexes are usually meant to be computed on reflectance data. Proceed with caution!"          
       end
@@ -151,7 +168,8 @@ module eos_convert
     else
       selbands_swir=nothing
       selbands_vnir=nothing
-    end
+    end=#
+    
 
     #=
     # write ATCOR files if needed ----
@@ -179,23 +197,33 @@ module eos_convert
     
    
     
-
+    println("building VNIR raster...")
     # get VNIR data cube and convert to raster ----
     if VNIR
       out_file_vnir = string(basefile,"_VNIR.tif")
       if isfile(out_file_vnir) && overwrite==false
         println("file $out_file_vnir already exists, set overwrite to true")
       else
+        rm(out_file_vnir)
         out_file_vnir = create_vnir(in_file,proc_lev,source,basefile,wl_vnir,
-          order_vnir,fwhm_vnir,false,nothing,selbands_vnir)
+          order_vnir,fwhm_vnir,false,nothing,selbands_vnir,nothing)
       end
     end
 
     # get SWIR data cube and convert to raster ----   
     if SWIR
       out_file_swir = string(basefile,"_SWIR.tif")
-      if isfile(out_file_swir) && overwrite==false
-        println("file $out_file_swir already exists, set overwrite to true")
+      if isfile(out_file_swir) 
+        println("file $out_file_swir already exists")
+        if overwrite
+          println("deletinf $out_file_swir")
+          rm(out_file_swir)
+          out_file_vnir = create_swir(in_file,proc_lev,source,basefile,wl_swir,
+           order_swir,fwhm_swir,false,nothing,selbands_swir)          
+        else
+          println("set overwrite to true")
+        end       
+        
       else
         out_file_vnir = create_swir(in_file,proc_lev,source,basefile,wl_swir,
           order_swir,fwhm_swir,false,nothing,selbands_swir)

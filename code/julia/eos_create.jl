@@ -25,7 +25,7 @@ function create_cube(
         out_file,
         wl,#NB: ORDERED wl = raw_wvl[order]
         order,
-        fwhm,#NB: riordinate con ordine order
+        fwhm;#NB: riordinate con ordine order
         type="VNIR",
         ERR_MATRIX=nothing,        
         apply_errmatrix=false,
@@ -88,7 +88,10 @@ function create_cube(
         println("no selbands, prendo tutto")      
         seqbands = [range...]
     else
+        sort!(selbands)
+        println("$type wavelengths requested: $selbands")
         seqbands = faux.closestElements(selbands,wl)
+        println("closest $type wavelengths: $(wl[seqbands])")
     end
 
     #estrae matrici delle bande in seqbands e le aggiunge a un cubo di nome rast
@@ -97,6 +100,7 @@ function create_cube(
 
 
     rast = nothing
+    println("creating cube...")
     for band_i in seqbands
         if wl[band_i] != 0#skip 0-wavelength bands
             if proc_lev in ["1","2B","2C"]#=
@@ -186,6 +190,7 @@ function create_cube(
             println("Band: ", band_i, " not present")
         end
     end 
+    println("cube created")
     println("cube has $(size(rast)) dims")            
    
 

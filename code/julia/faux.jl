@@ -39,7 +39,7 @@ function fileSansExt(path)
     end
 end
 
-function dnToReflectanceFunction(scalemin::Float32,scalemax::Float32)
+function dnToReflectanceFunction(scalemin::Number,scalemax::Number)
     (x)->(scalemin+x*(scalemax-scalemin))/65535
 end
 
@@ -73,7 +73,8 @@ function diffLag(x,lag)
     res
 end
 
-function closestElements(sel::Array{Float64,1},wvl::Array{Float64,1})#NB: wvl è array ordinato
+function closestElements(sel::Array{Float32,1},wvl::Array{Float32,1})#NB: wvl è array ordinato
+
     if length(wvl) == 1
         return Array{UInt8,1}(ones,length(sel))
     end
@@ -126,7 +127,7 @@ end
 function dirname(path)
     c = length(path)
     for i = 1:length(path)
-        if path[i]=="/"
+        if path[i]=='/'
             c = i
         end
     end
