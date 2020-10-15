@@ -7,6 +7,7 @@ module eos_convert
   include("eos_create_vnir.jl")
   include("eos_create_FULL.jl")
   include("eos_create_pan.jl")
+  include("eos_create.jl")
   using HDF5
   using CSV# per leggere tabella indexes_list.txt
   using DataFrames
@@ -192,59 +193,30 @@ module eos_convert
     ang_df = DataFrame(date=acqtime, sunzen=sunzen, sunaz=sunaz)
     CSV.write(out_file_angles, ang_df)
 
-    
 
-    
+    # get VNIR data cube and convert to raster ----
+    println("building VNIR raster...")
+    out_file_vnir = create_cube(in_file,proc_lev,source,basefile,wl_vnir,order_vnir,fwhm_vnir;overwrite =overwrite,type="VNIR",selbands=selbands_vnir)
    
     
-    println("building VNIR raster...")
-    # get VNIR data cube and convert to raster ----
-    if VNIR
-      out_file_vnir = string(basefile,"_VNIR.tif")
-      if isfile(out_file_vnir) && overwrite==false
-        println("file $out_file_vnir already exists, set overwrite to true")
-      else
-        rm(out_file_vnir)
-        out_file_vnir = create_vnir(in_file,proc_lev,source,basefile,wl_vnir,
-          order_vnir,fwhm_vnir,false,nothing,selbands_vnir,nothing)
-      end
-    end
 
-    # get SWIR data cube and convert to raster ----   
-    if SWIR
-      out_file_swir = string(basefile,"_SWIR.tif")
-      if isfile(out_file_swir) 
-        println("file $out_file_swir already exists")
-        if overwrite
-          println("deletinf $out_file_swir")
-          rm(out_file_swir)
-          out_file_vnir = create_swir(in_file,proc_lev,source,basefile,wl_swir,
-           order_swir,fwhm_swir,false,nothing,selbands_swir)          
-        else
-          println("set overwrite to true")
-        end       
-        
-      else
-        out_file_vnir = create_swir(in_file,proc_lev,source,basefile,wl_swir,
-          order_swir,fwhm_swir,false,nothing,selbands_swir)
-      end
-    end  
-
+    # get SWIR data cube and convert to raster ---- 
+    println("building VNIR raster...") 
+    out_file_swir = create_cube(in_file,proc_lev,source,basefile,wl_swir,order_swir,fwhm_swir;type="SWIR",selbands=selbands_swir)      
     
     
     
     #    Create and write the FULL hyperspectral cube if needed ----
     if FULL
-      #get geo  
-      out_file_full = string(basefile)    
+      #get geo   
       geo = eos_geoloc.get(in_file,"VNIR")#
       out_file_full = create_full(basefile,join_priority,overwrite,geo)
     end
 
 
     # Save PAN if requested ----    
-    if PAN
-      out_file_pan = create_pan(in_file,proc_lev,basefile)
+    if PAN      
+      out_file_pan = create_pan(in_file,proc_lev,basefile;overwrite=overwrite)
     end
 
   end

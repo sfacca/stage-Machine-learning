@@ -4,20 +4,40 @@ include("faux.jl")
 using HDF5
 using ArchGDAL
 
-export rastwrite_lines
+export write
 
 
 #scrive cubo in raster
 function write(cube,
-        out_file,
+        out_file;
         gtf=nothing,
-        crs=nothing
+        crs=nothing,
+        overwrite=false
         )
 
 
     println("preparing to write tiff")
 
     out_file = string(out_file,".tif")
+    if isfile(out_file)
+        println("file $out_file already exists")
+        if overwrite
+            println("overwrite set, removing file")
+            rm(out_file)
+            actuallyWrite(cube,out_file;gtf=gtf,crs=crs)
+        else
+            println("set overwrite to true to overwrite")
+        end
+    else
+        actuallyWrite(cube,out_file;gtf=gtf,crs=crs)
+    end    
+end
+
+function actuallyWrite(cube,
+        out_file;
+        gtf=nothing,
+        crs=nothing)
+
     dims = size(cube)
     width = dims[1]
 
@@ -64,7 +84,8 @@ function write(cube,
         println("finished writing on $out_file")
     end
     out_file
-end
 
+
+end
 
 end

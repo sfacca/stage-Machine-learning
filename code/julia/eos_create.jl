@@ -26,6 +26,7 @@ function create_cube(
         wl,#NB: ORDERED wl = raw_wvl[order]
         order,
         fwhm;#NB: riordinate con ordine order
+        overwrite=false,
         type="VNIR",
         ERR_MATRIX=nothing,        
         apply_errmatrix=false,
@@ -205,7 +206,7 @@ function create_cube(
 
     #scrive file
     out_file = string(out_file,"_",type)
-    rastwrite_lines.write(rast, out_file, geo.gtf, geo.crs)
+    rastwrite_lines.write(rast, out_file; gtf=geo.gtf, crs=geo.crs,overwrite=overwrite)
 
 
     #scrittura parti aggiuntive
@@ -216,7 +217,8 @@ function create_cube(
 
         out_file_err = string(out_file,"_ERR")
         rastwrite_lines.write(rast_err,
-                        out_file_err
+                        out_file_err;
+                        overwrite=overwrite
                         )
         rast_err=nothing
     end  

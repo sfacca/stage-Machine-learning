@@ -13,19 +13,9 @@ using ArchGDAL
 function create_pan(
         f,
         proc_lev,
-        out_file,
+        out_file;
         overwrite=false      
         )
-
-    out_file = string(out_file,"_PAN")
-    out = string(out_file,".tif")
-    if isfile(out) 
-        println( "$out già esistente")
-        if overwrite
-            println("deleting $out")
-            rm(out)
-        end
-    end
 
     if proc_lev != "2D"
         println("errore: file non è prodotto lvl 2d")
@@ -45,20 +35,21 @@ function create_pan(
         height=dims[3]
     end
 
-
+    out_file = string(out_file,"_PAN")
     #scrivo cubo
 
     rastwrite_lines.write(cube,
-        out_file,
-        geo.gtf,
-        geo.crs
+        out_file;
+        gtf=geo.gtf,
+        crs=geo.crs,
+        overwrite=overwrite
     )
 
 end
 
 
 
-
+#=
 function create_pan(f,# input data he5 from caller
     proc_lev,#proc_lev `character` Processing level (e.g., "1", "2B")
     source,#
@@ -130,4 +121,4 @@ function create_pan(f,# input data he5 from caller
     geo=nothing
     #garbArchGDALe collect
 
-end
+end=#

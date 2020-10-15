@@ -73,6 +73,8 @@ function diffLag(x,lag)
     res
 end
 
+
+
 function closestElements(sel::Array{Float32,1},wvl::Array{Float32,1})#NB: wvl è array ordinato
 
     if length(wvl) == 1
@@ -88,6 +90,8 @@ function closestElements(sel::Array{Float32,1},wvl::Array{Float32,1})#NB: wvl è
                     res[i]=j-1
                 end
                 break
+            elseif j==length(wvl)
+                res[i]=j
             end
         end
     end

@@ -144,7 +144,7 @@ function getCrs(geo,proc_lev)
         throw(error("processing level $proc_lev not supported yet"))
     else
         crs = ArchGDAL.toWKT(ArchGDAL.importEPSG(geo.proj_epsg))
-        println("crs: $crs")
+        
     end    
     crs
 end

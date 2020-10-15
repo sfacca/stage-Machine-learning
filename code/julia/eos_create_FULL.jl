@@ -130,9 +130,10 @@ function create_full(basename,priority="VNIR",overwrite=false, geo = nothing)
         out_file_full = string(basename,"_FULL")
         if !isnothing(cube)
             rastwrite_lines.write(cube,
-                out_file_full,
-                gtf,
-                crs
+                out_file_full;
+                gtf=gtf,
+                crs=crs,
+                overwrite=overwrite
                 )
         else
             @warn "no cube, printing warnings"
