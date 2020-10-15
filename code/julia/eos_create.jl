@@ -3,6 +3,7 @@
 include("faux.jl")
 include("eos_geoloc.jl")
 include("eos_errcube.jl")
+include("eos_create_err.jl")
 include("eos_rastwrite_lines.jl")
 using CSV
 using DataFrames
@@ -31,7 +32,8 @@ function create_cube(
         ERR_MATRIX=nothing,        
         apply_errmatrix=false,
         selbands = nothing,
-        in_L2_file = nothing
+        in_L2_file = nothing,
+        allowed_errors=nothing
         )#string = [ VNIR , SWIR ]
         
     println("####### create_cube start #########")
@@ -43,6 +45,12 @@ function create_cube(
         #ok
     else
         throw(error("parametro type: $type non va bene, dev essere vnir o swir")) 
+    end
+
+    if isnothing(allowed_errors)
+        apply_errmatrix=false
+    else
+        apply_errmatrix=true
     end
 
     typelcase = titlecase(type, strict = true)
@@ -100,6 +108,8 @@ function create_cube(
     #cerchiamo di usare cubi con indice di banda in mezzo solo qua per coerenza
 
 
+    err_bands = zeros(Int,length(seqbands))
+    err_index = 1
     rast = nothing
     println("creating cube...")
     for band_i in seqbands
@@ -160,20 +170,20 @@ function create_cube(
                     
                     band = cube[:,order[band_i],:]
 
-                    if apply_errmatrix || !isnothing(ERR_MATRIX)                    
-                        
+                    if apply_errmatrix && !isnothing(ERR_MATRIX)
+                                          
+                        println("applico ERR_MATRIX")
                         #setta valori con errori a nothing
                         count = errcube.apply!(ERR_MATRIX,band,[0])
-                        @warn "tolto $count pixel con errori"
+                        println("tolto $count pixel con errori")
                         
                     end
                     
                     if apply_errmatrix
-                        for i = 1:length(satband)#band[satband > 0] <- NA
-                            if satband[i]&&i<=length(band)
-                                band[i] = nothing
-                            end                                
-                        end
+                        println("applico cubo errori")
+                        count = errcube.apply!(err_cube[:,order[band_i],:],band,allowed_errors)
+                        err_bands[ind] = band_i
+                        println("tolto $count pixel con errori")
                     end
                 end
             end
@@ -192,7 +202,10 @@ function create_cube(
         end
     end 
     println("cube created")
-    println("cube has $(size(rast)) dims")            
+    println("cube has $(size(rast)) dims")    
+    
+    
+    
    
 
     cube = nothing
@@ -220,8 +233,13 @@ function create_cube(
                         out_file_err;
                         overwrite=overwrite
                         )
-        rast_err=nothing
-    end  
+        
+    end 
+
+    if apply_errmatrix && length(err_bands)>0
+        println("building err cube with bands $err_bands")
+        create_err(err_bands,err_cube,out_file;geo=geo,overwrite=overwrite)
+    end
     rast_err = nothing
 
     #

@@ -22,16 +22,6 @@ module eos_convert
     select!(index_list, Not(:id))
   end
 
-
-  function attachExtension!(outformat::String, path::String)
-      if outformat == "GTiff"
-          path = string(path, ".tif")
-      else
-          path = string(path, ".envi")
-      end
-      path
-  end
-
   function checkCommon(x::Array{Int,1}, y::Array{Int,1})# NB: x,y SORTED in maniera crescente, unici, ritorna true se almeno un elem di x è in y
       res = false
       i = 1
@@ -70,7 +60,8 @@ module eos_convert
   end
 
   function maketif(in_file,##NB: in_file dev esser già aperto, a diff di pr_convert    
-      out_file::String;      
+      out_file::String;
+      allowed_errors = nothing,      
       source="HCO",      
       PAN=true,#boolean: true-> crea tif pancroatico
       VNIR=true,#boolean: true-> crea tif cubo vnir
@@ -129,63 +120,6 @@ module eos_convert
     if !isnothing(selbands_swir) && typeof(selbands_swir[1])!= Float32
       selbands_swir = Base.convert(Array{Float32,1},selbands_swir)
     end
-
-    
-
-    # If indexes need to be computed, retrieve the list of VNIR and SWIR ----
-    # wavelengths required for the computataion and automatically fill
-    # the selbands_vnir and selbands_swir variables
-    #=
-
-    max_vnir = maximum(wl_vnir)
-    min_swir = minimum(filter(item -> item != 0, wl_swir))# var ausiliaria
-    
-    if !isnothing(indexes) || !isnothing(cust_indexes) 
-      if proc_lev in ["1", "2B"]
-          @warn "Spectral indexes are usually meant to be computed on reflectance data. Proceed with caution!"          
-      end
-      
-      index_list = getIndexList()
-      #########################################################################
-      av_indexes = select(index_list, [:Name,:Formula])        
-      sel_indexes = filter(row -> row.Name ∈ indexes, av_indexes)# filter è poco performante?
-      tot_indexes = vcat(sel_indexes, cust_indexes)
-      # when computing indexes, find out the required wavelengths
-      # on vnir and swir
-      # req_wls : array di int unici, in ordine cresc, ogni int è il numero di una banda dalle formula di tot_indexes
-      req_wvl = sort(unique(vcat(extractWvl.(tot_indexes[:Formula])...)))# req_wvl IS SORTED      
-      max_vnir = maximum(wl_vnir)# var ausiliaria
-      min_swir = minimum(filter(item -> item != 0, wl_swir))# var ausiliaria
-      selbands_vnir = filter(item -> item <= max_vnir, req_wls)# bande minori della banda vnir + alta
-      selbands_swir = filter(item -> item >= min_swir, req_wls)# bande maggiori della banda swir non0 più piccola
-      if checkCommon(selbands_swir, selbands_vnir)# if selected vnir bands overlap selected swir bands:
-        if (join_priority == "VNIR")# parametro di input
-            selbands_swir = filter(item -> item >= max_vnir, selbands_swir)# selbands_swir sono solo quelle + grandi del vnir maggiore
-        else 
-            selbands_vnir = filter(item -> item <= min_swir, selbands_vnir)# bande vnir selez sono solo quelle minori della swir minore
-        end
-      end     
-      #FULL = true
-    else
-      selbands_swir=nothing
-      selbands_vnir=nothing
-    end=#
-    
-
-    #=
-    # write ATCOR files if needed ----
-    if ATCOR == true && proc_lev == "1"
-        make_atcor(f,
-                  out_folder,
-                  out_file,
-                  ATCOR_wls,
-                  wls,
-                  fwhms,
-                  order_vnir,
-                  order_swir,
-                  join_priority,
-                  source)
-    end=#   
     
 
     # create the "META" ancillary txt file----   
@@ -195,14 +129,20 @@ module eos_convert
 
 
     # get VNIR data cube and convert to raster ----
-    println("building VNIR raster...")
-    out_file_vnir = create_cube(in_file,proc_lev,source,basefile,wl_vnir,order_vnir,fwhm_vnir;overwrite =overwrite,type="VNIR",selbands=selbands_vnir)
+    if VNIR
+      println("building VNIR raster...")
+      out_file_vnir = create_cube(in_file,proc_lev,source,basefile,wl_vnir,order_vnir,fwhm_vnir;
+        overwrite =overwrite,type="VNIR",selbands=selbands_vnir, allowed_errors=allowed_errors)
+    end
    
     
 
     # get SWIR data cube and convert to raster ---- 
-    println("building VNIR raster...") 
-    out_file_swir = create_cube(in_file,proc_lev,source,basefile,wl_swir,order_swir,fwhm_swir;type="SWIR",selbands=selbands_swir)      
+    if SWIR
+      println("building VNIR raster...") 
+      out_file_swir = create_cube(in_file,proc_lev,source,basefile,wl_swir,order_swir,fwhm_swir;
+        overwrite =overwrite,type="SWIR",selbands=selbands_swir, allowed_errors=allowed_errors)  
+    end    
     
     
     
@@ -220,98 +160,5 @@ module eos_convert
     end
 
   end
-#=
-  function convert(in_file,
-      out_folder,
-      out_filebase="auto",
-      out_format="ENVI",
-      base_georef=true,
-      fill_gaps=false,
-      VNIR=false,
-      SWIR=false,
-      FULL=false,
-      source="HCO",
-      join_priority="SWIR",
-      ATCOR=false,
-      ATCOR_wls=nothing,
-      PAN=false,
-      CLOUD=false,
-      LC=false,
-      GLINT=false,
-      ANGLES=false,
-      LATLON=false,
-      ERR_MATRIX=false,
-      apply_errmatrix=false,
-      overwrite=false,
-      in_L2_file=nothing,
-      selbands_vnir=nothing,
-      selbands_swir=nothing,
-      indexes=nothing,
-      cust_indexes=nothing,
-      keep_index_cube=false)
-
-    # definisce funzione interna
-      
-
-    # chiama funzione interna
-    # first run: ignore indexes ----
-    auxconvert(in_file,out_folder,out_filebase,out_format,base_georef,fill_gaps,VNIR,
-        SWIR,
-        FULL,
-        source,
-        join_priority,
-        ATCOR,
-        ATCOR_wls,
-        PAN,
-        CLOUD,
-        LC,
-        GLINT,
-        ANGLES,
-        LATLON,
-        ERR_MATRIX,
-        apply_errmatrix,
-        overwrite,
-        in_L2_file,
-        selbands_vnir,
-        selbands_swir,
-        indexes=NULL,
-        cust_indexes=NULL,
-        keep_index_cube=FALSE)
-
-    # second run: create indexes -----
-    # in this way we can use the same function,
-    # and when creating indexes create a temporary full raster, containing  only
-    # bands required for the selected indexes    
-    if !isnothing(indexes)
-      aux_convert(in_file,
-                  out_folder,
-                  out_filebase,
-                  out_format,
-                  base_georef,
-                  fill_gaps,
-                  VNIR = FALSE,
-                  SWIR = FALSE,
-                  FULL = FALSE,
-                  source,
-                  join_priority,
-                  ATCOR = FALSE,
-                  ATCOR_wls,
-                  PAN = FALSE,
-                  CLOUD = FALSE,
-                  LC = FALSE,
-                  GLINT = FALSE,
-                  ANGLES = FALSE,
-                  LATLON = FALSE,
-                  ERR_MATRIX = FALSE,
-                  apply_errmatrix,
-                  overwrite,
-                  in_L2_file,
-                  selbands_vnir = NULL,
-                  selbands_swir = NULL,
-                  indexes       = indexes,
-                  cust_indexes  = cust_indexes,
-                  keep_index_cube = keep_index_cube)
-    end
-  end=#
 
 end
