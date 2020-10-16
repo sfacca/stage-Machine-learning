@@ -14,7 +14,7 @@ function apply!(err,target,allowed)
     for i = 1:length(target)
         if err[i] in allowed
         else
-            target[i] = 0#come identifico pixel errati?
+            target[i] = 0#come identifico pixel errati? vedi issue
             count = count +1
         end
     end
