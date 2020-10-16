@@ -1,5 +1,5 @@
 module eos_convert
-    
+
   export maketif
 
   include("faux.jl")
@@ -14,7 +14,7 @@ module eos_convert
   using DataFramesMeta
   using ArchGDAL
 
-  
+
   function getIndexList()
     mkpath("downloads")
     download("https://github.com/sfacca/stage-Machine-learning/raw/master/extdata/md_indexes_list.txt","downloads/indexes_list.txt")
@@ -29,7 +29,7 @@ module eos_convert
 
           while elemx > y[i] && i < length(y)# se elem di x è maggiore dell elem di y, scorro y
               i = i + 1
-          end    
+          end
 
           if elemx == y[i]# se elemx = elemy -> interrompo ciclo ritornano true
               res = true
@@ -40,10 +40,10 @@ module eos_convert
       end
       res# se non ho trovato uguali, res è ancora false
   end
-  # O(length(x)+length(y))  
+  # O(length(x)+length(y))
   closestDistanceFunction = faux.closestDistanceFunction
   extractWvl = faux.extractWvl
-  
+
 
   function closestWvl(wvl::Array{Int64,1}, x::Int64)
       y = abs.(wvl .- x)
@@ -59,28 +59,28 @@ module eos_convert
       content
   end
 
-  function maketif(in_file,##NB: in_file dev esser già aperto, a diff di pr_convert    
+  function maketif(in_file,##NB: in_file dev esser già aperto, a diff di pr_convert
       out_file::String;
-      allowed_errors = nothing,      
-      source="HCO",      
-      PAN=true,#boolean: true-> crea tif pancroatico
+      allowed_errors = nothing,
+      source="HCO",
+      PAN=true,#boolean: true-> crea tif pancromatico
       VNIR=true,#boolean: true-> crea tif cubo vnir
-      SWIR=true, #boolean: true-> crea tif pancroatico
-      FULL=true,#boolean: true-> crea tif pancroatico
+      SWIR=true, #boolean: true-> crea tif pancromatico
+      FULL=true,#boolean: true-> crea tif pancromatico
       join_priority="VNIR",
       overwrite=false,
-      selbands_vnir=nothing, 
+      selbands_vnir=nothing,
       selbands_swir=nothing,
       indexes=nothing,
       cust_indexes=nothing)
 
-      
+
     @show out_folder = faux.dirname(out_file)
     println("creating folder $out_folder")
     mkpath(out_folder)
     println("made folder")
 
-    
+
     #=
     out_filename = faux.filename(out_file)=#
     basefile = faux.fileSansExt(out_file)
@@ -89,7 +89,7 @@ module eos_convert
     #NB prodotti di macchine diverse possono avere nomi attributi diversi?
     println("loading attributes...")
     proc_lev = getAttr(in_file, "Processing_Level")
-    
+
     # Get wavelengths and fwhms ----
     wl_vnir = getAttr(in_file, "List_Cw_Vnir")
     wl_swir = getAttr(in_file, "List_Cw_Swir")
@@ -103,10 +103,10 @@ module eos_convert
 
     # riordinazioni
     order_vnir = sortperm(wl_vnir)# permut
-    wl_vnir = wl_vnir[order_vnir]    
+    wl_vnir = wl_vnir[order_vnir]
     order_swir = sortperm(wl_swir)
-    wl_swir = wl_swir[order_swir]      
-    fwhm_vnir = fwhm_vnir[order_vnir]    
+    wl_swir = wl_swir[order_swir]
+    fwhm_vnir = fwhm_vnir[order_vnir]
     fwhm_swir = fwhm_swir[order_swir]
     # join
     fwhms = vcat(fwhm_vnir, fwhm_swir)
@@ -120,9 +120,9 @@ module eos_convert
     if !isnothing(selbands_swir) && typeof(selbands_swir[1])!= Float32
       selbands_swir = Base.convert(Array{Float32,1},selbands_swir)
     end
-    
 
-    # create the "META" ancillary txt file----   
+
+    # create the "META" ancillary txt file----
     out_file_angles = string(basefile, "_ANGLES.txt")
     ang_df = DataFrame(date=acqtime, sunzen=sunzen, sunaz=sunaz)
     CSV.write(out_file_angles, ang_df)
@@ -134,28 +134,28 @@ module eos_convert
       out_file_vnir = create_cube(in_file,proc_lev,source,basefile,wl_vnir,order_vnir,fwhm_vnir;
         overwrite =overwrite,type="VNIR",selbands=selbands_vnir, allowed_errors=allowed_errors)
     end
-   
-    
 
-    # get SWIR data cube and convert to raster ---- 
+
+
+    # get SWIR data cube and convert to raster ----
     if SWIR
-      println("building VNIR raster...") 
+      println("building VNIR raster...")
       out_file_swir = create_cube(in_file,proc_lev,source,basefile,wl_swir,order_swir,fwhm_swir;
-        overwrite =overwrite,type="SWIR",selbands=selbands_swir, allowed_errors=allowed_errors)  
-    end    
-    
-    
-    
+        overwrite =overwrite,type="SWIR",selbands=selbands_swir, allowed_errors=allowed_errors)
+    end
+
+
+
     #    Create and write the FULL hyperspectral cube if needed ----
     if FULL
-      #get geo   
+      #get geo
       geo = eos_geoloc.get(in_file,"VNIR")#
       out_file_full = create_full(basefile,join_priority,overwrite,geo)
     end
 
 
-    # Save PAN if requested ----    
-    if PAN      
+    # Save PAN if requested ----
+    if PAN
       out_file_pan = create_pan(in_file,proc_lev,basefile;overwrite=overwrite)
     end
 
