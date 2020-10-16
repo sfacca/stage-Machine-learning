@@ -3,8 +3,6 @@ module eos_convert
   export maketif
 
   include("faux.jl")
-  include("eos_create_swir.jl")
-  include("eos_create_vnir.jl")
   include("eos_create_FULL.jl")
   include("eos_create_pan.jl")
   include("eos_create.jl")
@@ -15,31 +13,9 @@ module eos_convert
   using ArchGDAL
 
 
-  function getIndexList()
-    mkpath("downloads")
-    download("https://github.com/sfacca/stage-Machine-learning/raw/master/extdata/md_indexes_list.txt","downloads/indexes_list.txt")
-    index_list = CSV.read("downloads/indexes_list.txt")
-    select!(index_list, Not(:id))
-  end
+  
 
-  function checkCommon(x::Array{Int,1}, y::Array{Int,1})# NB: x,y SORTED in maniera crescente, unici, ritorna true se almeno un elem di x è in y
-      res = false
-      i = 1
-      for elemx in x
-
-          while elemx > y[i] && i < length(y)# se elem di x è maggiore dell elem di y, scorro y
-              i = i + 1
-          end
-
-          if elemx == y[i]# se elemx = elemy -> interrompo ciclo ritornano true
-              res = true
-              break
-          end
-
-      # se elemx < elemy, scorro x
-      end
-      res# se non ho trovato uguali, res è ancora false
-  end
+  
   # O(length(x)+length(y))
   closestDistanceFunction = faux.closestDistanceFunction
   extractWvl = faux.extractWvl
@@ -81,12 +57,9 @@ module eos_convert
     println("made folder")
 
 
-    #=
-    out_filename = faux.filename(out_file)=#
     basefile = faux.fileSansExt(out_file)
 
     ##raccolta attributi
-    #NB prodotti di macchine diverse possono avere nomi attributi diversi?
     println("loading attributes...")
     proc_lev = getAttr(in_file, "Processing_Level")
 
@@ -108,6 +81,7 @@ module eos_convert
     wl_swir = wl_swir[order_swir]
     fwhm_vnir = fwhm_vnir[order_vnir]
     fwhm_swir = fwhm_swir[order_swir]
+
     # join
     fwhms = vcat(fwhm_vnir, fwhm_swir)
     wls = vcat(wl_vnir, wl_swir)

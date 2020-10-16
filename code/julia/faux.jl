@@ -214,32 +214,13 @@ function getCube(dataset::ArchGDAL.AbstractDataset,inizio::Union{Int,Nothing}=no
     end
     cube
 end
-#=
-function getBands(dataset::ArchGDAL.AbstractDataset,inizio::Union{Int,Nothing}=nothing,fine::Union{Int,Nothing}=nothing)
-    
-    first = true
-    nbands = ArchGDAL.nraster(dataset)
-    if isnothing(inizio)||inizio>nbands
-        inizio=1
-    end
-    if isnothing(fine)
-        fine=nbands
-    end
-    bands= Array{ArchGDAL.IRasterBand, 1}(undef, fine-inizio)
-    raster = ArchGDAL.read(dataset)
-    for i = 1:nbands
-        #println("reading bands nr $i of $fine")
-        
-        if first
-            #println("band is first")
-            cube = copy(ArchGDAL.read(ArchGDAL.getband(dataset,i)))
-            first = false
-        else
-            #println("appending band $i to cube")
-            cube =  cat(cube,ArchGDAL.read(ArchGDAL.getband(dataset,i)),dims=3)
-        end
-    end
-    cube
-end=#
+
+
+function getIndexList()
+    mkpath("downloads")
+    download("https://github.com/sfacca/stage-Machine-learning/raw/master/extdata/md_indexes_list.txt","downloads/indexes_list.txt")
+    index_list = CSV.read("downloads/indexes_list.txt")
+    select!(index_list, Not(:id))
+end
 
 end#end module

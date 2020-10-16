@@ -6,13 +6,7 @@ export viewfile
 
 function viewfile(x)
     println("call viewfile")
-   #=for i in x 
-        if typeof(i)==HDF5Group
-            viewgroup(i)
-        else
-            println(typeof(i))
-        end
-    end=#
+   
     viewgroup(x)
     #dump(x)
 end

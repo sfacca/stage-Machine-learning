@@ -54,27 +54,6 @@ function demo(f::String, out::String, overwrite = false)
     end
 
     geo = eos_geoloc.get(f,"PAN")
-    #=
-    (f,proc_lev,"PCO","PAN",nothing)
-    
-    ulpixel = (x=geo.xmin,y=geo.ymax)
-    width = length(geo.lat[:,1])
-    height = length(geo.lat[1,:])
-    #calcoliamo risoluzione come distanza tra 
-    res = (geo.xmin - geo.xmax)/width# \approx (geo.ymin - geo.ymax)/height
-
-    #archgdal prende geoloc come array:
-    gtf = [
-        ulpixel.x,#distanza in mt sull asse delle x del pixel topleft dall origine
-        res,
-        0,#per rotazione
-        ulpixel.y,#distanza in mt sull asse delle y del pixel topleft dall origine
-        0,
-        -res
-    ]
-    gtf = convert(Array{Float64,1}, gtf)
-    # creiamo stringa crs
-    crs = AG.toWKT(AG.importEPSG(geo.proj_epsg))=#
     
     #prendo cubo
 

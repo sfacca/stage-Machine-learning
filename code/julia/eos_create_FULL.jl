@@ -13,7 +13,7 @@ function create_full(basename,priority="VNIR",overwrite=false, geo = nothing)
     if !isfile(string(basename,"_VNIR.wvl"))
         println("manca file $(string(basename,"_VNIR.wvl"))")
         error=true
-        push!("manca file $(string(basename,"_VNIR.wvl"))")
+        push!(problems,"manca file $(string(basename,"_VNIR.wvl"))")
     else
         bandvnir = CSV.read(string(basename,"_VNIR.wvl"))
     end
@@ -21,15 +21,15 @@ function create_full(basename,priority="VNIR",overwrite=false, geo = nothing)
     if !isfile(string(basename,"_SWIR.wvl"))
         println("manca file $(string(basename,"_SWIR.wvl"))")
         error=true
-        push!("manca file $(string(basename,"_SWIR.wvl"))")
+        push!(problems,"manca file $(string(basename,"_SWIR.wvl"))")
     else
         bandswir = CSV.read(string(basename,"_SWIR.wvl"))
     end
 
     if isfile(string(basename,"_FULL.tif")) && overwrite==false
-        println("file $(string(basename,"_FULL.tif"))already exists and overwrite is false")
+        println("file $(string(basename,"_FULL.tif")) already exists and overwrite is false")
         error=true
-        push!("file $(string(basename,"_FULL.tif"))already exists and overwrite is false")
+        push!(problems,"file $(string(basename,"_FULL.tif")) already exists and overwrite is false")
     end
 
 
