@@ -19,35 +19,35 @@ PRC = Radiometric Calibrated Panchromatic Cube <= solo in l1
 PCO = Co-registered Panchromatic Cube
 =#
 function minimum(x::Number,y::Number)
-    if x<y
+    if x < y
         x
     else
         y
     end
 end
 function maximum(x::Number,y::Number)
-    if x>y
+    if x > y
         x
     else
         y
     end
 end
 
-
-
-function getGeoloc(f,
-    proc_lev,
-    source,#vedi sopra
-    wvl        = nothing,#VNIR,SWIR,PAN
-    in_L2_file = nothing)
-
+function getGeoloc(
+                    f,
+                    proc_lev,
+                    source,#vedi sopra
+                    wvl        = nothing,#VNIR,SWIR,PAN
+                    in_L2_file = nothing
+    )
     println("getting geoloc info")
 
     if isnothing(wvl)
         wvl = "VNIR"
     end
+
     if proc_lev == "1" && wvl in ["SWIR","VNIR","PAN"]
-        wvl = string("_",wvl)
+        wvl = string("_", wvl)
     else
         wvl=""#prodotti lvl>1 han solo una coppia di dataset Latitude/Longitude
     end  
@@ -57,17 +57,16 @@ function getGeoloc(f,
         try
             f2 = HDF5.h5open(in_L2_file,"r+")
         catch e
-            println("Unable to open the input accessory L2 file as a hdf5 file. Verify your inputs. Aborting!")
-            e
+            println("Unable to open the input accessory L2 file as a hdf5 file. 
+                    Verify your inputs. Aborting!")
+            return e
         end
         file = f2
     else#se no prendo da l1
         file = f
     end
 
-    geopath = string("/HDFEOS/SWATHS/PRS_L$(proc_lev)_",source,"/Geolocation Fields/")
-
-    
+    geopath = string("/HDFEOS/SWATHS/PRS_L$(proc_lev)_",source,"/Geolocation Fields/")    
 
     lat = faux.getData(file,string(geopath,"Latitude",wvl))
     lon = faux.getData(file,string(geopath,"Longitude",wvl))
@@ -81,7 +80,7 @@ function getGeoloc(f,
         xmin = minimum(
             faux.getAttr(f, "Product_ULcorner_easting"),
             faux.getAttr(f, "Product_LLcorner_easting")
-            )           
+        )           
         xmax  = maximum(
             faux.getAttr(f, "Product_LRcorner_easting"),
             faux.getAttr(f, "Product_URcorner_easting")
@@ -89,34 +88,34 @@ function getGeoloc(f,
         ymin = minimum(
             faux.getAttr(f, "Product_LLcorner_northing"),
             faux.getAttr(f, "Product_LRcorner_northing")
-            )
+        )
         ymax = maximum(
             faux.getAttr(f, "Product_ULcorner_northing"),
             faux.getAttr(f, "Product_URcorner_northing")
         ) 
 
-        out = (xmin = xmin,
-                    xmax = xmax,
-                    ymin = ymin,
-                    ymax = ymax,
-                    proj_code = proj_code,
-                    proj_name = proj_name,
-                    proj_epsg = proj_epsg,
-                    lat = lat,
-                    lon = lon)
-        
-    else
-        
-        out = (lat = lat, lon = lon)
-        
+        out = (
+                xmin = xmin,
+                xmax = xmax,
+                ymin = ymin,
+                ymax = ymax,
+                proj_code = proj_code,
+                proj_name = proj_name,
+                proj_epsg = proj_epsg,
+                lat = lat,
+                lon = lon
+        )        
+    else       
+        out = (lat = lat, lon = lon)        
     end
+
     return out
 end#end get geoloc
 
 function getGtf(geo, proc_lev)
     println("building geotranform array")
     if proc_lev[1] != "2"
-        ulpixel = (x=geo.xmin,y=geo.ymax)
+        ulpixel = (x=geo.xmin, y=geo.ymax)
         width = length(geo.lat[:,1])
         height = length(geo.lat[1,:])
         #calcoliamo risoluzione come distanza tra 
@@ -135,30 +134,29 @@ function getGtf(geo, proc_lev)
     else
         throw(error("processing level $proc_lev files not supported yet"))
     end
-    gtf     
+    return gtf     
 end
 
-function getCrs(geo,proc_lev)
+function getCrs(geo, proc_lev)
     println("building coordinate reference system string")
     if proc_lev == 1
         throw(error("processing level $proc_lev not supported yet"))
     else
-        crs = ArchGDAL.toWKT(ArchGDAL.importEPSG(geo.proj_epsg))
-        
+        crs = ArchGDAL.toWKT(ArchGDAL.importEPSG(geo.proj_epsg))        
     end    
-    crs
+    return crs
 end
 
-function get(f,type)
-    
-    proc_lev = faux.getAttr(f,"Processing_Level")
+function get(f, type)    
+    proc_lev = faux.getAttr(f, "Processing_Level")
     if type == "PAN"
         source = "PCO"
     else
         source = "HCO"        
     end
+
     geo = getGeoloc(f,proc_lev,source,type)
-    (gtf =getGtf(geo,proc_lev), crs = getCrs(geo,proc_lev))
+    return (gtf =getGtf(geo,proc_lev), crs = getCrs(geo,proc_lev))
 end
 
-end#end modulo
+end#end module

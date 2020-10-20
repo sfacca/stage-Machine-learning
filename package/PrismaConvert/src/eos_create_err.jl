@@ -1,10 +1,10 @@
 include("eos_rastwrite_lines.jl")
 
-function create_err(indexes,err_cube,whose_err;geo=nothing,overwrite=false)
+function create_err(indexes, err_cube, whose_err; geo=nothing, overwrite=false)
 
     if isnothing(geo)
         crs = nothing
-        gtf=nothing
+        gtf = nothing
     else
         crs = geo.crs
         gtf = geo.gtf
@@ -17,14 +17,13 @@ function create_err(indexes,err_cube,whose_err;geo=nothing,overwrite=false)
         if ind == 1
             rast = copy(err_cube[:,i,:])
         else
-            rast = cat(rast,err_cube[:,i,:],dims=3) 
+            rast = cat(rast, err_cube[:,i,:], dims=3) 
         end
         ind = ind + 1
     end
 
-
-    out_file = string(whose_err,"_ERR")
+    out_file = string(whose_err, "_ERR")
 
     println("created error cube of $(size(rast)) dimensions")
-    rastwrite_lines.write(rast,out_file;gtf=gtf,crs=crs,overwrite=overwrite)
+    rastwrite_lines.write(rast, out_file; gtf=gtf, crs=crs, overwrite=overwrite)
 end

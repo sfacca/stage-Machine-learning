@@ -13,27 +13,21 @@ export maketif
   using DataFramesMeta
   using ArchGDAL
 
-
-  
-
-  
   # O(length(x)+length(y))
   closestDistanceFunction = faux.closestDistanceFunction
   extractWvl = faux.extractWvl
 
-
   function closestWvl(wvl::Array{Int64,1}, x::Int64)
       y = abs.(wvl .- x)
     # lapply(selbands_vnir, FUN = function(x) which.min(abs(wl_vnir - x))))
-      minimum(abs.(wvl .- x))
+      return minimum(abs.(wvl .- x))
   end
 
   function getAttr(file, name::String)
       # name è attributo globale del file(aperto) hdf5 file
       # ritorna campo valore name
       atts = attrs(file)
-      content = read(atts, name)
-      content
+      return read(atts, name)      
   end
 
   function maketif(in_file,##NB: in_file dev esser già aperto, a diff di pr_convert
@@ -52,11 +46,10 @@ export maketif
       cust_indexes=nothing)
 
 
-    @show out_folder = faux.dirname(out_file)
+    @show (out_folder = faux.dirname(out_file))
     println("creating folder $out_folder")
     mkpath(out_folder)
     println("made folder")
-
 
     basefile = faux.fileSansExt(out_file)
 
@@ -87,13 +80,12 @@ export maketif
     fwhms = vcat(fwhm_vnir, fwhm_swir)
     wls = vcat(wl_vnir, wl_swir)
 
-
     #type check selbands
-    if !isnothing(selbands_vnir) && typeof(selbands_vnir[1])!= Float32
-      selbands_vnir = Base.convert(Array{Float32,1},selbands_vnir)
+    if !isnothing(selbands_vnir) && typeof(selbands_vnir[1]) != Float32
+      selbands_vnir = Base.convert(Array{Float32,1}, selbands_vnir)
     end
-    if !isnothing(selbands_swir) && typeof(selbands_swir[1])!= Float32
-      selbands_swir = Base.convert(Array{Float32,1},selbands_swir)
+    if !isnothing(selbands_swir) && typeof(selbands_swir[1]) != Float32
+      selbands_swir = Base.convert(Array{Float32,1}, selbands_swir)
     end
 
 
@@ -106,32 +98,31 @@ export maketif
     # get VNIR data cube and convert to raster ----
     if VNIR
       println("building VNIR raster...")
-      out_file_vnir = create_cube(in_file,proc_lev,source,basefile,wl_vnir,order_vnir,fwhm_vnir;
-        overwrite =overwrite,type="VNIR",selbands=selbands_vnir, allowed_errors=allowed_errors)
+      out_file_vnir = create_cube(
+        in_file, proc_lev, source, basefile, wl_vnir, order_vnir, fwhm_vnir;
+        overwrite = overwrite, type="VNIR", selbands = selbands_vnir, allowed_errors = allowed_errors
+      )
     end
-
-
 
     # get SWIR data cube and convert to raster ----
     if SWIR
       println("building VNIR raster...")
-      out_file_swir = create_cube(in_file,proc_lev,source,basefile,wl_swir,order_swir,fwhm_swir;
-        overwrite =overwrite,type="SWIR",selbands=selbands_swir, allowed_errors=allowed_errors)
+      out_file_swir = create_cube(
+        in_file, proc_lev, source, basefile, wl_swir, order_swir, fwhm_swir;
+        overwrite = overwrite, type="SWIR", selbands = selbands_swir, allowed_errors = allowed_errors
+      )
     end
-
-
 
     #    Create and write the FULL hyperspectral cube if needed ----
     if FULL
       #get geo
-      geo = eos_geoloc.get(in_file,"VNIR")#
-      out_file_full = create_full(basefile,join_priority,overwrite,geo)
+      geo = eos_geoloc.get(in_file, "VNIR")
+      out_file_full = create_full(basefile, join_priority, overwrite, geo)
     end
-
 
     # Save PAN if requested ----
     if PAN
-      out_file_pan = create_pan(in_file,proc_lev,basefile;overwrite=overwrite)
+      out_file_pan = create_pan(in_file, proc_lev, basefile; overwrite = overwrite)
     end
 
   end

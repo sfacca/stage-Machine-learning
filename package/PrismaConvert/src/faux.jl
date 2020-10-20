@@ -12,11 +12,11 @@ using ArchGDAL
 function matCrop(mat)
     first = 0
     last = 0
-    numrows= size(mat)[1]
+    numrows = size(mat)[1]
     for i in 1:numrows
         if mat[i,1]!=0
             last = i
-            if first ==0
+            if first == 0
                 first = i
             end        
         end    
@@ -26,26 +26,26 @@ end
 
 function fileSansExt(path)
     c = length(path)
-    for i = 1:length(path)
+    for i in 1:length(path)
         
         if path[i] == '.'
-            c=i-1
+            c = i - 1
         end
     end
-    if c==0
-        ""
+    if c == 0
+        "" 
     else
         path[1:c]
     end
 end
 
-function dnToReflectanceFunction(scalemin::Number,scalemax::Number)
-    (x)->(scalemin+x*(scalemax-scalemin))/65535
+function dnToReflectanceFunction(scalemin::Number, scalemax::Number)
+    (x) -> ( scalemin + x * ( scalemax - scalemin ))/65535
 end
 
 
-function ratioToReflectance(f,cube,type)
-    proc_lev = getAttr(f,"Processing_Level")
+function ratioToReflectance(f, cube, type)
+    proc_lev = getAttr(f, "Processing_Level")
     if proc_lev == 1
         throw(error("processing level 1 files not supported yet"))
     end
@@ -59,18 +59,18 @@ function ratioToReflectance(f,cube,type)
         source = "HCO"
     end
 
-    scalemin = getAttr(f,"L2Scale$(titlecase(type))Min")
-    scalemax = getAttr(f,"L2Scale$(titlecase(type))Max")
+    scalemin = getAttr(f, "L2Scale$(titlecase(type))Min")
+    scalemax = getAttr(f, "L2Scale$(titlecase(type))Max")
 
-    dnToReflectanceFunction(scalemin,scalemax).(cube)
+    dnToReflectanceFunction(scalemin, scalemax).(cube)
 end
 
-function diffLag(x,lag)
-    res = zeros(length(x)-lag)
-    for i = 1:(length(x)-lag)
-        res[i] = abs(x[i]-x[i+lag])
+function diffLag(x, lag)
+    res = zeros(length(x) - lag)
+    for i in 1:(length(x) - lag)
+        res[i] = abs(x[i] - x[i+lag])
     end
-    res
+    return res
 end
 
 
@@ -81,39 +81,39 @@ function closestElements(sel::Array{Float32,1},wvl::Array{Float32,1})#NB: wvl è
         return Array{UInt8,1}(ones,length(sel))
     end
     res = [1:length(sel)...]
-    for i = 1:length(sel)
+    for i in 1:length(sel)
         for j = 2:length(wvl)
             if sel[i] < wvl[j]
-                if abs(sel[i]-wvl[j])<abs(sel[i]-wvl[j-1])
-                    res[i]=j
+                if abs(sel[i] - wvl[j]) < abs(sel[i] - wvl[j-1])
+                    res[i] = j
                 else
-                    res[i]=j-1
+                    res[i] = j - 1
                 end
                 break
-            elseif j==length(wvl)
-                res[i]=j
+            elseif j == length(wvl)
+                res[i] = j
             end
         end
     end
-    res
+    return res
 end
 
 function indexesOfNonZero(arr)
     res = []
     index = 1
     for i = 1:length(arr)
-        if arr[i]!=0
-            push!(res,i)            
+        if arr[i] != 0
+            push!(res, i)            
         end
     end
-    res
+    return res
 end
 
 
 function seq_along(arr::Array{})
-    res = [1:length(arr)...]
-    res
+    [1:length(arr)...]    
 end
+
 # name è attributo globale del file(aperto) hdf5 file
 # ritorna campo valore name
 function getAttr(file, name::String)    
@@ -121,7 +121,7 @@ function getAttr(file, name::String)
 end
 
 function getData(file, name::String)
-    read(file,name)
+    read(file, name)
 end
 
 function closestDistanceFunction(wvl::Array{Float32,1})
@@ -131,25 +131,22 @@ end
 function dirname(path)
     c = length(path)
     for i = 1:length(path)
-        if path[i]=='/'
+        if path[i] == '/'
             c = i
         end
     end
-    path[1:c]
+    return path[1:c]
 end
 
 function filename(path)
     c = length(path)
     for i = 1:length(path)
-        if path[i]=='/'
-            c = i+1
+        if path[i] == '/'
+            c = i + 1
         end
     end
-    path[c:end]
+    return path[c:end]
 end
-
-
-
 
 function extractWvl(str::String)# prende stringa, ritorna array di int 
     currnum = ""
@@ -158,44 +155,45 @@ function extractWvl(str::String)# prende stringa, ritorna array di int
     afterR = false
     for char in str 
         if afterR
-
             if char in intc
                 currnum = currnum * 10
-                currnum = currnum + parse(Int, char)             
-                  
+                currnum = currnum + parse(Int, char)           
             else
                 push!(res, currnum)
                 currnum = 0
                 afterR = false
-            end
-          
+            end          
         end
         if char == 'R'
             afterR = true
         end
     end
     push!(res, currnum)  
-    res
+    return res
 end
 
 #fun prende bande da first a last da un gdal dataset (aperto con archgdal.read(filename))
 #e le ritorna in un cubo di dati
-function getCube(dataset::ArchGDAL.AbstractDataset,inizio::Union{Int,Nothing}=nothing,fine::Union{Int,Nothing}=nothing)
-    if fine !=0
+function getCube(
+        dataset::ArchGDAL.AbstractDataset, 
+        inizio::Union{Int,Nothing}=nothing, 
+        fine::Union{Int,Nothing}=nothing
+    )
+    if fine != 0
         cube = nothing
         first = true
         nbands = ArchGDAL.nraster(dataset)
-        if isnothing(inizio)||inizio>nbands||inizio==0
-            inizio=1
+        if isnothing(inizio) || inizio>nbands || inizio == 0
+            inizio = 1
         end
-        if isnothing(fine)||fine>nbands
-            fine=nbands
+        if isnothing(fine) || fine > nbands
+            fine = nbands
         end
         
         raster = ArchGDAL.read(dataset)
         println("reading bands $inizio to $fine , this might take a while...")
 
-        for i = inizio:fine
+        for i in inizio:fine
             #println("reading bands nr $i of $fine")
             
             if first
@@ -210,9 +208,9 @@ function getCube(dataset::ArchGDAL.AbstractDataset,inizio::Union{Int,Nothing}=no
         end
         println("finished reading bands")        
     else
-        cube =nothing
+        cube = nothing
     end
-    cube
+    return cube
 end
 
 

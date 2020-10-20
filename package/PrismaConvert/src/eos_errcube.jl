@@ -13,12 +13,13 @@ function apply!(err,target,allowed)
     count = 0
     for i = 1:length(target)
         if err[i] in allowed
+            # do nothing
         else
             target[i] = 0#come identifico pixel errati? vedi issue
-            count = count +1
+            count = count + 1
         end
     end
-    count
+    return count
 end
 
 end

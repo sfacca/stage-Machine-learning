@@ -6,7 +6,6 @@ using ArchGDAL
 
 export write
 
-
 #scrive cubo in raster
 function write(cube,
         out_file;
@@ -14,7 +13,6 @@ function write(cube,
         crs=nothing,
         overwrite=false
         )
-
 
     println("preparing to write tiff")
 
@@ -30,7 +28,7 @@ function write(cube,
         end
     else
         actuallyWrite(cube,out_file;gtf=gtf,crs=crs)
-    end    
+    end        
 end
 
 function actuallyWrite(cube,
@@ -47,8 +45,7 @@ function actuallyWrite(cube,
     else
         height = dims[2]
         bandsnum = dims[3]
-    end   
-
+    end
 
     ArchGDAL.create(
         out_file,
@@ -83,9 +80,7 @@ function actuallyWrite(cube,
         end
         println("finished writing on $out_file")
     end
-    out_file
-
-
+    return out_file
 end
 
 end
