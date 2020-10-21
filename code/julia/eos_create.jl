@@ -114,55 +114,7 @@ function create_cube(
     println("creating cube...")
     for band_i in seqbands
         if wl[band_i] != 0#skip 0-wavelength bands
-            if proc_lev in ["1","2B","2C"]#=
-                # on L1, 2B or 2C, apply bowtie georeferencing if requested ----
-                band # =  raster::raster((vnir_cube[,order[band_vnir],]),crs = "+proj=longlat +datum=WGS84")
-                if base_georef
-                    println(string("Importing Band: ", band_i," (",wl[band_i], ") of:  and applying bowtie georeferencing"))
-                    lat = geo.lat
-                    lon = geo.lon
-                    if proc_lev =="1"
-                        band = (band/scale) - offset
-                    end
-                    band = pr_basegeo(band,lon,lat,fill_gaps)
-                    if apply_errmatrix || ERR_MATRIX
-                        satband # =raster::raster((err_cube[,order_vnir[band_vnir], ]),crs = "+proj=longlat +datum=WGS84")
-                        satband = pr_basegeo(satband,lon,lat,fill_gaps)
-                    end
-                    if apply_errmatrix
-                        for i = 1:length(satband)#band[satband > 0] <- NA
-                            if satband[i]&&i<=length(band)
-                                band[i] = nothing
-                            end                                
-                        end
-                    end
-                else
-                    println("Importing Band: ", band_i," (",wl[band_i], ") of: 66")
-                    if proc_lev == "1"
-                        band = (band/vnir_scale)-vnir_offset
-                    end
-                    #=
-                    # flip the band to get it north/south
-                        band <- raster::flip(band, 1)
-                        raster::projection(band) <- NA
-                    =#
-                    if apply_errmatrix || ERR_MATRIX
-                        #=
-                        satband <- raster::raster(
-                                (err_cube[,order_vnir[band_vnir], ]),
-                                crs = "+proj=longlat +datum=WGS84")
-                            satband <- raster::flip(satband, 1)
-                            raster::projection(satband) <- NA
-                        =#
-                    end
-                    if apply_errmatrix
-                        for i = 1:length(satband)#band[satband > 0] <- NA
-                            if satband[i]&&i<=length(band)
-                                band[i] = nothing
-                            end                                
-                        end
-                    end
-                end=#
+            if proc_lev in ["1","2B","2C"]
                 throw(error("processing level $proc_lev not supported yet"))
             else
                 if proc_lev == "2D"
@@ -198,7 +150,7 @@ function create_cube(
             end
             ind = ind +1
         else
-            println("Band: ", band_i, " not present")
+            println("Band: ", band_i, " not present, index: ",ind)
         end
     end 
     println("cube created")
@@ -235,7 +187,7 @@ function create_cube(
                         )
         
     end 
-
+    err_bands = filter(x->x!=0,err_bands)
     if apply_errmatrix && length(err_bands)>0
         println("building err cube with bands $err_bands")
         create_err(err_bands,err_cube,out_file;geo=geo,overwrite=overwrite)
