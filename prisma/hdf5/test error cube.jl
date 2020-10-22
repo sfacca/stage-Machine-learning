@@ -40,11 +40,17 @@ end
 # ╔═╡ c8ef5690-1397-11eb-0955-838f21f5a020
 md"prendo una matrice da cubo errori da una determinata banda"
 
+# ╔═╡ d0d602a0-1469-11eb-34f8-f5d61bb58ce2
+wavelengths = faux.getAttr(in_file,"List_Cw_Vnir")
+
 # ╔═╡ f7ed92e0-139c-11eb-0ab5-e18177e1725c
-@bind index html"<input type=range min=1 max=66>"
+begin
+	index = 35
+	@bind index html"<input type=range min=1 max=66>"	
+end
 
 # ╔═╡ 433ebb70-139d-11eb-2e24-ab3fc8b4938b
-md" banda $index "
+md" banda $index wavelength: $(wavelengths[index])"
 
 # ╔═╡ 13fd3490-1398-11eb-2d7d-9b053f0eadd6
 err_mat = faux.getData(in_file,"HDFEOS/SWATHS/PRS_L2D_HCO/Data Fields/VNIR_PIXEL_L2_ERR_MATRIX")[:,index,:];	
@@ -59,7 +65,7 @@ vnir_mat = faux.getData(in_file,"HDFEOS/SWATHS/PRS_L2D_HCO/Data Fields/VNIR_Cube
 md"stampo entrambe nello stesso tif, prima senza geoloc"
 
 # ╔═╡ d6824dfe-1399-11eb-0ca3-9f37748620e8
-out_all = "out/err_test/all"
+out_all = "out/err_test2/all"
 
 # ╔═╡ 6344d9c0-139a-11eb-0932-03def818a3c8
 mkpath(faux.dirname(out_all))
@@ -127,6 +133,26 @@ md"risultato: il tif generato con eos_create.maketif ha le bande invertite 1:n -
 
 la matrice di errori n del tif generato da eos\_create sembrerebbe riferirsi alla banda nbands-n del tif vnir generato da eos\_create"
 
+# ╔═╡ dcb581e0-1464-11eb-2654-f157c154c84e
+md"10->60  
+
+60->10  
+
+35->35  
+
+15->55
+
+66->4"
+
+# ╔═╡ 9207dd90-146a-11eb-3801-09e901be8f69
+md"causa: 
+1. wavelengths in List_Cw_Vnir sono in ordine decrescente.
+2. eos convert tiene wavelengths in ordine crescente
+3. confusione di indici"
+
+# ╔═╡ 63cdcf10-147a-11eb-3573-6d7fcbc845b1
+
+
 # ╔═╡ Cell order:
 # ╟─a92f5810-1391-11eb-3df3-0196bd34d502
 # ╟─c69f8c70-1392-11eb-243c-1b233cd17c4a
@@ -136,8 +162,9 @@ la matrice di errori n del tif generato da eos\_create sembrerebbe riferirsi all
 # ╠═825b19d0-1397-11eb-221a-c94fe17e8ff4
 # ╠═9375ea60-1397-11eb-3009-bba0fe507feb
 # ╟─c8ef5690-1397-11eb-0955-838f21f5a020
-# ╟─f7ed92e0-139c-11eb-0ab5-e18177e1725c
-# ╟─433ebb70-139d-11eb-2e24-ab3fc8b4938b
+# ╠═d0d602a0-1469-11eb-34f8-f5d61bb58ce2
+# ╠═f7ed92e0-139c-11eb-0ab5-e18177e1725c
+# ╠═433ebb70-139d-11eb-2e24-ab3fc8b4938b
 # ╠═13fd3490-1398-11eb-2d7d-9b053f0eadd6
 # ╟─5c041420-1398-11eb-29b9-1d6625c2bc60
 # ╠═56cca120-1398-11eb-098c-31abc14dd460
@@ -159,3 +186,6 @@ la matrice di errori n del tif generato da eos\_create sembrerebbe riferirsi all
 # ╠═059397f0-13b1-11eb-32ef-bbf6a64997db
 # ╠═70ae1c90-13b1-11eb-2907-796153e836b4
 # ╟─ea29e520-13b3-11eb-15ff-2f23a4c4f470
+# ╠═dcb581e0-1464-11eb-2654-f157c154c84e
+# ╠═9207dd90-146a-11eb-3801-09e901be8f69
+# ╠═63cdcf10-147a-11eb-3573-6d7fcbc845b1

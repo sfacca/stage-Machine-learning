@@ -4,7 +4,7 @@ module faux
 
 export seq_along, getAttr, closestDistanceFunction, getData, dirname, extractWvl, fileSansExt
 export diffLag, dnToReflectance, closestElements, ratioToReflectance, indexesOfNonZero, filename
-export matCrop, getCube
+export matCrop, getCube, undoPerm
 
 using HDF5
 using ArchGDAL
@@ -147,6 +147,20 @@ function filename(path)
     end
     path[c:end]
 end
+
+function undoPerm(arr,perm)
+    res = zeros(typeof(arr[1]),length(arr))
+    if length(arr) != length(perm)
+        println("errore input lunghezze diverse")
+        return nothing
+    else
+        for i in 1:length(arr)
+            res[sort[i]]=arr[i]
+        end
+        return res
+    end 
+end
+
 
 
 

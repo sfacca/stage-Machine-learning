@@ -189,7 +189,7 @@ function create_cube(
         orbands = seqbands[myind]
         fwhm_sub = fwhm[myind]
     else
-        orbands = seqbands        
+        orbands = seqbands[order]        
         wl_sub  = wl[seqbands]
         fwhm_sub = fwhm[seqbands]
     end

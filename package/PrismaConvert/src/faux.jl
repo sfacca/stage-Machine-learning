@@ -213,6 +213,10 @@ function getCube(
     return cube
 end
 
+function getOrbands(seqbands,order)
+    
+end
+
 
 function getIndexList()
     mkpath("downloads")

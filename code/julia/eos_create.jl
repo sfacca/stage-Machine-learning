@@ -81,7 +81,7 @@ function create_cube(
 
     # Get the different bands in order of wvl
     ind = 1
-
+    
     maxbands = 0
     if type == "VNIR" 
         println("prendo vnir")
@@ -108,50 +108,48 @@ function create_cube(
     #cerchiamo di usare cubi con indice di banda in mezzo solo qua per coerenza
 
 
+
     err_bands = zeros(Int,length(seqbands))
     err_index = 1
     rast = nothing
     println("creating cube...")
-    for band_i in seqbands
-        if wl[band_i] != 0#skip 0-wavelength bands
-            if proc_lev in ["1","2B","2C"]
-                throw(error("processing level $proc_lev not supported yet"))
-            else
-                if proc_lev == "2D"
-                    println("Importing Band: ", band_i," (",wl[band_i], ") of: $range")
-                    
-                    band = cube[:,order[band_i],:]
+    for i in 1:length(seqbands)
+        band_i = seqbands[i]        
+        if proc_lev in ["1","2B","2C"]
+            throw(error("processing level $proc_lev not supported yet"))
+        else
+            if proc_lev == "2D"
+                #println("Importing Band: ", band_i," (",wl[band_i], ") of: $range")
+                
+                band = cube[:,order[band_i],:]
 
-                    if apply_errmatrix && !isnothing(ERR_MATRIX)
-                                          
-                        println("applico ERR_MATRIX")
-                        #setta valori con errori a nothing
-                        count = errcube.apply!(ERR_MATRIX,band,[0])
-                        println("tolto $count pixel con errori")
-                        
-                    end
+                if apply_errmatrix && !isnothing(ERR_MATRIX)
+                                        
+                    println("applico ERR_MATRIX")
+                    #setta valori con errori a nothing
+                    count = errcube.apply!(ERR_MATRIX,band,[0])
+                    println("tolto $count pixel con errori")
                     
-                    if apply_errmatrix
-                        println("applico cubo errori")
-                        count = errcube.apply!(err_cube[:,order[band_i],:],band,allowed_errors)
-                        err_bands[ind] = band_i
-                        println("tolto $count pixel con errori")
-                    end
+                end
+                
+                if apply_errmatrix
+                    println("applico cubo errori")
+                    count = errcube.apply!(err_cube[:,order[band_i],:],band,allowed_errors)
+                    err_bands[ind] = order[band_i]
+                    println("tolto $count pixel con errori")
                 end
             end
-            
-            if ind == 1
-                #println("first band is cube")
-                rast = copy(band)                
-            else
-                #println("appending band to cube")
-                rast = cat(rast,band,dims=3)  
-                #println("cube has $(size(rast)) dims")              
-            end
-            ind = ind +1
-        else
-            println("Band: ", band_i, " not present, index: ",ind)
         end
+        
+        if ind == 1
+            #println("first band is cube")
+            rast = copy(band)                
+        else
+            #println("appending band to cube")
+            rast = cat(rast,band,dims=3)  
+            #println("cube has $(size(rast)) dims")              
+        end
+        ind = ind +1
     end 
     println("cube created")
     println("cube has $(size(rast)) dims")    
@@ -183,6 +181,8 @@ function create_cube(
         out_file_err = string(out_file,"_ERR")
         rastwrite_lines.write(rast_err,
                         out_file_err;
+                        gtf=geo.gtf, 
+                        crs=geo.crs,
                         overwrite=overwrite
                         )
         
@@ -195,14 +195,15 @@ function create_cube(
     rast_err = nothing
 
     #
+
     out_file_txt = string(out_file,".wvl")   
     if isnothing(selbands)    
         wl_sub = filter(x->x!=0,wl)
         myind = faux.indexesOfNonZero(wl)
-        orbands = seqbands[myind]
+        orbands = order[seqbands[myind]]
         fwhm_sub = fwhm[myind]
     else
-        orbands = seqbands        
+        orbands = order[seqbands]        
         wl_sub  = wl[seqbands]
         fwhm_sub = fwhm[seqbands]
     end
