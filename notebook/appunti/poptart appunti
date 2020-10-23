@@ -1,0 +1,133 @@
+### A Pluto.jl notebook ###
+# v0.12.4
+
+using Markdown
+using InteractiveUtils
+
+# ╔═╡ 7136f950-152a-11eb-08c0-7754905c6791
+using Poptart
+
+# ╔═╡ 204b4ed0-152d-11eb-3bdc-cf02e27db8fe
+using Poptart.Desktop
+
+# ╔═╡ 4489bb70-1531-11eb-01b4-73d056ff5095
+using CImGui
+
+# ╔═╡ 4bafb802-1531-11eb-2f41-5970b388ab3b
+using Printf
+
+# ╔═╡ 65509910-152b-11eb-2c86-ab42162bbc09
+begin
+	include("../../code/julia/eos_convert.jl")
+	include("../../code/julia/HDF5filesDict.jl")
+end
+
+# ╔═╡ 3e59aa10-1551-11eb-057e-4f6f5cd5d4a8
+md"* https://wookay.github.io/docs/Poptart.jl/Desktop/  "
+
+# ╔═╡ 3e584a80-1551-11eb-0f7e-3977f608e760
+
+
+# ╔═╡ c1f300f0-152a-11eb-2870-0f51bae6b04f
+md"setup funzioni ausiliarie"
+
+# ╔═╡ af833242-152b-11eb-275f-3f77ccd39520
+function runConvert(in_file,#<- browse bar
+      out_file::String;#<- text input box
+      allowed_errors = nothing,#<- 4 tick boxes
+      source="HCO",#<- binary dot switch
+      PAN=true,#<- binary dot switch
+      VNIR=true,#<- binary dot switch
+      SWIR=true, #<- binary dot switch
+      FULL=true,#<- binary dot switch
+      join_priority="VNIR",#<- binary dot switch
+      overwrite=false#<- binary dot switch
+	)
+	
+	
+end
+
+# ╔═╡ b988e770-1531-11eb-2e93-9b7fc6f84777
+md"setup grafica"
+
+# ╔═╡ 07e9da4e-152d-11eb-2ebf-3f5b2890f480
+begin
+	frame = (width=500, height=400)
+	window1 = Window(title="eos_convert", frame=frame, flags=CImGui.ImGuiWindowFlags_NoMove)
+    app = Application(windows=[window1], title="App", frame=frame)
+	
+	#input/output files
+	infiletext = Poptart.Desktop.InputText(label="input file")
+	outfiletext = Poptart.Desktop.InputText(label="output file")
+	
+	#error checking	
+	
+	check0 = Checkbox(label="0",value=true)
+	check1 = Checkbox(label="1",value=true)
+	check2 = Checkbox(label="2",value=true)
+	check3 = Checkbox(label="3",value=true)	
+	global errsPopup = Popup(label="allowed errors", items=[check0,check1,check2,check3])
+	
+	function showErrs()
+		OpenPopup(errsPopup)
+	end
+	checkerrors = Button(title="check errors", async=false, callback=showErrs)
+	
+	#source
+	sourceHCO = Poptart.Desktop.Checkbox(label="HCO?",value=true)
+	sourceHRC = Poptart.Desktop.Checkbox(label="HRC?",value=false)
+	
+	#what to build
+	PAN = Poptart.Desktop.Checkbox(label="PAN?",value=true)
+	VNIR = Poptart.Desktop.Checkbox(label="VNIR?",value=true)
+	SWIR = Poptart.Desktop.Checkbox(label="SWIR?",value=true)
+	FULL = Poptart.Desktop.Checkbox(label="FULL?",value=true)
+	outputs = Group(items=[PAN,VNIR,SWIR,FULL])
+	
+	#priority
+	joinPVnir = Poptart.Desktop.Checkbox(label="Vnir?",value=true)
+	joinPSwir = Poptart.Desktop.Checkbox(label="Swir?",value=false)	
+	
+	Desktop.didClick(joinPVnir) do
+		println(joinPSwir.value)
+		global joinPSwir=false
+	end
+	Desktop.didClick(joinPSwir) do event
+		global joinPVnir=false
+	end
+	
+	priority = Group(items=[joinPVnir, joinPSwir])
+	#overwrite
+	overwriteCB = Poptart.Desktop.Checkbox(label="Overwrite?",value=false)
+	
+	#run
+	runButton = Button(title="convert")
+	
+	#add buttons to windo
+	
+	push!(window1.items,  infiletext, outfiletext, checkerrors, sourceHCO, sourceHRC, outputs, priority, overwriteCB, runButton)
+	
+	
+	
+end
+
+# ╔═╡ 1843cbe0-152d-11eb-3152-b5add2a8f8e7
+?didClick
+
+# ╔═╡ 45c60c00-1531-11eb-2fb9-e12469726d11
+?CImGui.ImGuiWindowFlags_NoMove
+
+# ╔═╡ Cell order:
+# ╟─3e59aa10-1551-11eb-057e-4f6f5cd5d4a8
+# ╟─3e584a80-1551-11eb-0f7e-3977f608e760
+# ╠═7136f950-152a-11eb-08c0-7754905c6791
+# ╠═204b4ed0-152d-11eb-3bdc-cf02e27db8fe
+# ╠═4489bb70-1531-11eb-01b4-73d056ff5095
+# ╠═4bafb802-1531-11eb-2f41-5970b388ab3b
+# ╠═65509910-152b-11eb-2c86-ab42162bbc09
+# ╠═c1f300f0-152a-11eb-2870-0f51bae6b04f
+# ╠═af833242-152b-11eb-275f-3f77ccd39520
+# ╠═b988e770-1531-11eb-2e93-9b7fc6f84777
+# ╠═07e9da4e-152d-11eb-2ebf-3f5b2890f480
+# ╠═1843cbe0-152d-11eb-3152-b5add2a8f8e7
+# ╠═45c60c00-1531-11eb-2fb9-e12469726d11
