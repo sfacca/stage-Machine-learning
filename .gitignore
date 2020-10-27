@@ -8,5 +8,6 @@
 /prisma/hdf5/downloads
 /prisma/hdf5/out
 /code/prismaread
+/code/julia/out
 /.vscode
 .Rhistory*

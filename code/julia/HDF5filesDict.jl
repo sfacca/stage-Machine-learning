@@ -32,6 +32,7 @@ function closeall(dict)
     end
     dict.counter = 0
     println("chiuso $n file")
+    return n
 end
 
 function open(dict,file::String,mode::String)
