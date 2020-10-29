@@ -147,7 +147,7 @@ end
 foo()
 
 # ╔═╡ 45c60c00-1531-11eb-2fb9-e12469726d11
-?CImGui.ImGuiWindowFlags_NoMove
+?CImGui.ImGuiWindowFlags_NoMove # si può provare anche con apropos(CImGui.ImGuiWindowFlags_NoMove)
 
 # ╔═╡ Cell order:
 # ╟─3e59aa10-1551-11eb-057e-4f6f5cd5d4a8
