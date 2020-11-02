@@ -7,9 +7,6 @@ using InteractiveUtils
 # ╔═╡ 9b9bb260-1937-11eb-2d86-816ff68ce05b
 using CMDimData
 
-# ╔═╡ 3af4a040-193a-11eb-094f-f7208784354d
-using CMDimData.EasyPlot
-
 # ╔═╡ 3fe5945e-193a-11eb-2e35-a911f88ded2c
 using CMDimData.MDDatasets
 
@@ -18,6 +15,9 @@ using InspectDR
 
 # ╔═╡ 6bf5ab10-1937-11eb-14ab-9f0d0337f110
 md"EasyData è deprecato, usiamo  CMDimData.jl"
+
+# ╔═╡ 3af4a040-193a-11eb-094f-f7208784354d
+#using CMDimData.EasyPlot
 
 # ╔═╡ c4e7f9c0-1ad7-11eb-34a4-d7ad4edcbe11
 #CMDimData.@includepkg EasyPlotInspect
@@ -86,7 +86,7 @@ set(wfrm, dfltline, dfltglyph)
 # ╔═╡ f1d7d730-1ad6-11eb-3514-65b8aff71e8e
 #==Return plot to user (call evalfile(...))
 ===============================================================================#
-myplot
+typeof(myplot)
 
 # ╔═╡ 5430d7b0-1ad7-11eb-03a1-dba14cb2c6b0
 pushdisplay(EasyPlotInspect.PlotDisplay())
