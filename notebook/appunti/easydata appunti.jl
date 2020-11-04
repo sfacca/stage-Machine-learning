@@ -7,6 +7,9 @@ using InteractiveUtils
 # ╔═╡ 9b9bb260-1937-11eb-2d86-816ff68ce05b
 using CMDimData
 
+# ╔═╡ 3af4a040-193a-11eb-094f-f7208784354d
+using CMDimData.EasyPlot
+
 # ╔═╡ 3fe5945e-193a-11eb-2e35-a911f88ded2c
 using CMDimData.MDDatasets
 
@@ -16,11 +19,8 @@ using InspectDR
 # ╔═╡ 6bf5ab10-1937-11eb-14ab-9f0d0337f110
 md"EasyData è deprecato, usiamo  CMDimData.jl"
 
-# ╔═╡ 3af4a040-193a-11eb-094f-f7208784354d
-#using CMDimData.EasyPlot
-
 # ╔═╡ c4e7f9c0-1ad7-11eb-34a4-d7ad4edcbe11
-#CMDimData.@includepkg EasyPlotInspect
+CMDimData.@includepkg EasyPlotInspect
 
 # ╔═╡ d8101380-1937-11eb-0e6e-03cb3841ab3e
 md"### funzionalità principali
@@ -63,7 +63,7 @@ end
 # ╔═╡ f1c846d0-1ad6-11eb-3f1a-f7924a5fa369
 #==Generate EasyPlot
 ===============================================================================#
-myplot = EasyPlot.new(title = "Sample Plot")
+myplot = EasyPlot.new()
 
 # ╔═╡ f1c93130-1ad6-11eb-286f-fd85c66e83ee
 subplot = add(myplot, linlin, alabels, title = "Polynomial Equations")
@@ -95,10 +95,10 @@ pushdisplay(EasyPlotInspect.PlotDisplay())
 display
 
 # ╔═╡ a07783d0-1ad7-11eb-3710-3b7b0b68a8d8
-
+cons()
 
 # ╔═╡ a69908b0-1ad7-11eb-3269-e53e1bc21ec6
-
+method_exists()
 
 # ╔═╡ Cell order:
 # ╟─6bf5ab10-1937-11eb-14ab-9f0d0337f110
