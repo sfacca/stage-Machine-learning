@@ -10,12 +10,6 @@ using Clang
 # ╔═╡ 776cca82-1a01-11eb-2475-a3269f3c61d2
 using Clang.LibClang.Clang_jll
 
-# ╔═╡ b89bf240-1deb-11eb-087f-0724f15f1fb7
-using CEnum
-
-# ╔═╡ e8f68960-1a02-11eb-1308-772f279c20b9
-include("./out/libHDF5_common.jl")
-
 # ╔═╡ 0336fd70-1a0b-11eb-2b6f-cdcc9b8552a1
 md"* https://notebook.community/mdcfrancis/Clang.jl/examples/parsing_c_with_clangjl/notebook
 * https://github.com/JuliaInterop/Clang.jl"
@@ -27,62 +21,42 @@ libclang è piccola api c per una piccola parte di clang
 
 si può accedere a clang completo tramite Cxx.jl"
 
-# ╔═╡ 69a4afa0-1dec-11eb-128e-5b018e42346f
-ctx = DefaultContext()
-
 # ╔═╡ 8e30d720-1a0b-11eb-3943-e9bbcc20a252
 md" header presi da risultato di https://github.com/sfacca/stage-Machine-learning/blob/master/prisma/hdf5/installazione%20api%20hdf%20eos5.markdown"
 
-# ╔═╡ c14e5d80-1a01-11eb-35c9-a7b845a6238f
-LIBHDF_INCLUDE = string(@__DIR__, "\\out\\hdf")
+# ╔═╡ 9a3edbf0-2052-11eb-1bff-57c0bd90eaed
+trans_unit = parse_header("out/aften/common.h")
 
-# ╔═╡ 1e8e968e-1a02-11eb-29aa-071d52acb592
-LIBHDF_HEADERS = [joinpath(LIBHDF_INCLUDE, header) for header in readdir(LIBHDF_INCLUDE) if endswith(header, ".h")]
+# ╔═╡ aa932830-2052-11eb-377c-7f0532dc2376
+root_cursor = getcursor(trans_unit)
 
-# ╔═╡ 63099040-1a02-11eb-17c1-5900d46a1035
-wcHDF = init(; headers = LIBHDF_HEADERS,
-            output_file = joinpath(@__DIR__, "out/libHDF5_api.jl"),
-            common_file = joinpath(@__DIR__, "out/libHDF5_common.jl"),
-            clang_includes = [LIBHDF_INCLUDE],
-            clang_args = [joinpath(LIBHDF_INCLUDE, "..")],
-            header_wrapped = (root, current)->root == current,
-            header_library = x->"libHDF5",
-            clang_diagnostics = true,
-            )
+# ╔═╡ aa941292-2052-11eb-0511-4f6edfbdd1fc
+struct_cursor = search(root_cursor, "ExStruct")
 
-# ╔═╡ 2ffacc62-1a0b-11eb-2178-87c0fa64d604
-wcHDF.options
+# ╔═╡ 567b2450-2052-11eb-0cbf-d5469c99f0ee
+for c in struct_cursor  # print children
+           println("Cursor: ", c, "\n  Kind: ", kind(c), "\n  Name: ", name(c), "\n  Type: ")
+end
 
-# ╔═╡ 069b3190-1df1-11eb-20cd-21bc6f898789
-dump(wcHDF)
+# ╔═╡ a1ba1d10-2055-11eb-182c-3fd978e5709a
+print_buffer()
 
-# ╔═╡ ce7f2d32-1a02-11eb-2718-9359a5d3590d
-run(wcHDF)
+# ╔═╡ e6b4517e-2058-11eb-2c32-e773cd3f4e37
+println("######################")
 
 # ╔═╡ d1b0e0f0-1a09-11eb-35e8-ffa8930b3d1b
 md"* https://support.hdfgroup.org/HDF5/doc/H5.user/Datatypes.html"
-
-# ╔═╡ 03aedd80-1de5-11eb-273c-093dd3fc1198
-typedef int hid_t
-
-# ╔═╡ 1114aeae-1f8d-11eb-05cb-5b42a571b45b
-
 
 # ╔═╡ Cell order:
 # ╠═0336fd70-1a0b-11eb-2b6f-cdcc9b8552a1
 # ╠═828f45e2-19fd-11eb-33f6-57f0a02f1d3b
 # ╠═776cca82-1a01-11eb-2475-a3269f3c61d2
 # ╟─92698020-19fd-11eb-2eb1-3f578220f627
-# ╠═69a4afa0-1dec-11eb-128e-5b018e42346f
 # ╟─8e30d720-1a0b-11eb-3943-e9bbcc20a252
-# ╠═c14e5d80-1a01-11eb-35c9-a7b845a6238f
-# ╠═1e8e968e-1a02-11eb-29aa-071d52acb592
-# ╠═63099040-1a02-11eb-17c1-5900d46a1035
-# ╠═2ffacc62-1a0b-11eb-2178-87c0fa64d604
-# ╠═069b3190-1df1-11eb-20cd-21bc6f898789
-# ╠═ce7f2d32-1a02-11eb-2718-9359a5d3590d
-# ╠═b89bf240-1deb-11eb-087f-0724f15f1fb7
-# ╠═e8f68960-1a02-11eb-1308-772f279c20b9
+# ╠═9a3edbf0-2052-11eb-1bff-57c0bd90eaed
+# ╠═aa932830-2052-11eb-377c-7f0532dc2376
+# ╠═aa941292-2052-11eb-0511-4f6edfbdd1fc
+# ╠═567b2450-2052-11eb-0cbf-d5469c99f0ee
+# ╠═a1ba1d10-2055-11eb-182c-3fd978e5709a
+# ╠═e6b4517e-2058-11eb-2c32-e773cd3f4e37
 # ╟─d1b0e0f0-1a09-11eb-35e8-ffa8930b3d1b
-# ╠═03aedd80-1de5-11eb-273c-093dd3fc1198
-# ╠═1114aeae-1f8d-11eb-05cb-5b42a571b45b
