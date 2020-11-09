@@ -39,7 +39,7 @@ for c in struct_cursor  # print children
 end
 
 # ╔═╡ a1ba1d10-2055-11eb-182c-3fd978e5709a
-print_buffer()
+print_buffer
 
 # ╔═╡ e6b4517e-2058-11eb-2c32-e773cd3f4e37
 println("######################")
