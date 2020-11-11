@@ -1,6 +1,6 @@
 module SkewDist
 
-using Distributions, StatsFuns, MultivariateStats, PDMats, Optim, Roots, LinearAlgebra
+using Distributions, StatsFuns, MultivariateStats, PDMats, Optim, Roots, LinearAlgebra, JuMP
 import Base: length, mean, show, rand, var, cov, *
 import Distributions: sampler, _rand!, pdf, _logpdf, _logpdf!, dof, cdf, quantile, minimum, maximum, mgf
 
