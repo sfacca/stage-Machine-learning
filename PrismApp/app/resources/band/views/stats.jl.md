@@ -1,0 +1,1 @@
+visualizza iinfo sulla banda

@@ -47,16 +47,18 @@ function sim_fn(; quad_size::Int = 10, cell_size::Int = 1, intensity::Int = 1, s
 exp_M::Int = intensity * quad_size^2       # Expected population size in quadrat
 breaks = collect(0:cell_size:quad_size) # boundaries of grid cells
 n_cell = (quad_size / cell_size)^2    # Number of cells in the quadrat
-mid_pt = breaks[-length(breaks)] + 0.5 * cell_size # cell mid-points
+mid_pt = breaks[length(breaks)] + 0.5 * cell_size # cell mid-points
 
 # Simulate three processes: point process, cell abundance summary and cell occurrence summary
 # (1) Generate and plot the mother of everything: point pattern
-M = rpois(1, exp_M)          # Realized population size in quadrat is Poisson
+M = Int(rpois(1, exp_M)[1])         # Realized population size in quadrat is Poisson
 u1 = runif(M, 0, quad_size)  # x coordinate of each individual
 u2 = runif(M, 0, quad_size)  # y coordinate of each individual
 
 # (2) Generate abundance data
 # Summarize point pattern per cell: abundance (N) is number of points per cell
+N = cut(breaks,u1,extend=true),cut(breaks,u2,extend=true)
+
 N <- as.matrix(table(cut(u1, breaks=breaks), cut(u2, breaks= breaks)))
 #=
 c
@@ -156,4 +158,3 @@ end #fine funzione sim_fn
 using Profile
 Profile.init(delay=0.5)
 Juno.@profiler sim_fn()
-
