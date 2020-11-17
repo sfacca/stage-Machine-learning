@@ -10,9 +10,6 @@ using Rmath
 # ╔═╡ 4412c4e0-25d3-11eb-34a2-5772272d69b6
 using DataFrames
 
-# ╔═╡ 391fff40-28fc-11eb-0b59-317dfdea800b
-using DataArrays
-
 # ╔═╡ 38096490-25da-11eb-39e9-63a222b79521
 using Tables
 
@@ -105,7 +102,6 @@ cccc
 # ╔═╡ Cell order:
 # ╠═d9c5d0e0-250b-11eb-2b97-35768254f887
 # ╠═4412c4e0-25d3-11eb-34a2-5772272d69b6
-# ╠═391fff40-28fc-11eb-0b59-317dfdea800b
 # ╠═da824630-25d3-11eb-2b00-af159839340d
 # ╠═ea334d90-25d3-11eb-3d68-ff106d9d6f97
 # ╠═ea3374a0-25d3-11eb-0124-979af72dfac9
