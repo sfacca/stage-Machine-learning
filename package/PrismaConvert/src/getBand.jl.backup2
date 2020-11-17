@@ -1,0 +1,14 @@
+using HDF5, CSV
+include("faux.jl")
+
+function getBand(n,f;type="VNIR",out="out") 
+    mkpath(out)
+    cw = faux.getAttr(f, "List_Cw_$(titlecase(type, strict = true))")[n]
+    fwhm = faux.getAttr(f, "List_Fwhm_$(titlecase(type, strict = true))")[n]
+    CSV.write()
+    faux.getData(f, "HDFEOS/SWATHS/PRS_L2D_HCO/Data Fields/$(type)_Cube")[:,n,:]      
+end
+
+function writeBand(band,path)
+
+end

@@ -1,6 +1,6 @@
 module H5fileController
   # Build something great
-  using Genie.Renderer
+  using Genie.Renderer, Genie.Router
 
 
 
@@ -10,11 +10,11 @@ module H5fileController
     html(path"app/resources/h5file/views/open.jl.md", layout = path"app/layouts/app.jl.html")
   end
 
-  function fileH5(f)
-    html(path"app/resources/h5file/views/file.jl.md", file=f, layout = path"app/layouts/app.jl.html")
+  function fileH5(filepath)
+    html(path"app/resources/h5file/views/file.jl.md", path=filepath, layout = path"app/layouts/app.jl.html")
   end
 
-  function editH5(f)
-    html(path"app/resources/h5file/views/edit.jl.md", file=f, layout = path"app/layouts/app.jl.html")
+  function editH5(filepath)
+    html(path"app/resources/h5file/views/edit.jl.md", path=filepath, layout = path"app/layouts/app.jl.html")
   end
 end

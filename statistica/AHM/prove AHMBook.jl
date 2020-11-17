@@ -10,6 +10,9 @@ using Rmath
 # ╔═╡ 4412c4e0-25d3-11eb-34a2-5772272d69b6
 using DataFrames
 
+# ╔═╡ 391fff40-28fc-11eb-0b59-317dfdea800b
+using DataArrays
+
 # ╔═╡ 38096490-25da-11eb-39e9-63a222b79521
 using Tables
 
@@ -56,6 +59,9 @@ u2 = runif(M, 0, quad_size)
 # ╔═╡ 67e82f22-25da-11eb-03be-aba4581a1410
 cu1= cut(0.0:cell_size:quad_size,u1,extend=true)
 
+# ╔═╡ 882d8900-28fb-11eb-00d0-1f96c1ccf5bd
+
+
 # ╔═╡ 1073e40e-25de-11eb-3048-f10ffcc6f8cf
 length(u1)
 
@@ -99,6 +105,7 @@ cccc
 # ╔═╡ Cell order:
 # ╠═d9c5d0e0-250b-11eb-2b97-35768254f887
 # ╠═4412c4e0-25d3-11eb-34a2-5772272d69b6
+# ╠═391fff40-28fc-11eb-0b59-317dfdea800b
 # ╠═da824630-25d3-11eb-2b00-af159839340d
 # ╠═ea334d90-25d3-11eb-3d68-ff106d9d6f97
 # ╠═ea3374a0-25d3-11eb-0124-979af72dfac9
@@ -113,6 +120,7 @@ cccc
 # ╠═f2a79c10-25d3-11eb-361f-4bdc84830c9d
 # ╠═f2aa3420-25d3-11eb-17ad-bbef0ae7d080
 # ╠═67e82f22-25da-11eb-03be-aba4581a1410
+# ╠═882d8900-28fb-11eb-00d0-1f96c1ccf5bd
 # ╠═1073e40e-25de-11eb-3048-f10ffcc6f8cf
 # ╠═e0236bf0-25dd-11eb-2c84-154dcebe40cf
 # ╠═c9536ce0-25dd-11eb-08dd-d5638d81151a
