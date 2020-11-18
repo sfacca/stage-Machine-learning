@@ -16,8 +16,9 @@ intensity: The average number of points (animals or plants) per unit area.
 show.plot: If TRUE, the results are plotted. Set to FALSE when running simulations.
 =#
 
+
 using Rmath #rpois, runif
-using DataFrames #cut
+using CategoricalArrays #cut
 
 function sim_fn(; quad_size::Int = 10, cell_size::Int = 1, intensity::Int = 1, show_plot::Bool = true)
 
