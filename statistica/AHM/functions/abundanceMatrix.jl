@@ -36,7 +36,6 @@ function abundanceMatrix(a::AbstractArray{T,1},b::AbstractArray{T,1}, rangeA::Ab
 		res[mapA[a[i]],mapB[b[i]]] += 1
 	end
 	
-	println("building named array...")
 	NamedArray(res, (rangeA,rangeB))
 end
 
