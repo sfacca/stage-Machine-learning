@@ -24,7 +24,7 @@ using StatsPlots #plotting
 
 include("abundanceMatrix.jl")
 
-function sim_fn(; quad_size::Int = 10, cell_size::Int = 1, intensity::Int = 1, show_plot::Bool = true)
+function sim_fn(; quad_size::Int = 10, cell_size::Int = 1, intensity = 1, show_plot::Bool = true)
 
       
    # Functions for the book Applied Hierarchical Modeling in Ecology (AHM)
@@ -49,7 +49,7 @@ function sim_fn(; quad_size::Int = 10, cell_size::Int = 1, intensity::Int = 1, s
    # to speed things up.
 
    # Compute some preliminaries
-   exp_M::Int = intensity * quad_size^2       # Expected population size in quadrat
+   exp_M = intensity * quad_size^2       # Expected population size in quadrat
    breaks = collect(0:cell_size:quad_size) # boundaries of grid cells
    n_cell = (quad_size / cell_size)^2    # Number of cells in the quadrat
    mid_pt = [a + 0.5*cell_size for a in breaks[1:(end-1)]] # cell mid-points
