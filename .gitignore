@@ -1,13 +1,11 @@
 .ipynb_checkpoints*
 /prisma/hdf5/tools
 /prisma/hdf5/data
-/notebook/appunti/downloads
-/notebook/tutorial/downloads
 /notebook/appunti/out
 /notebook/tutorial/out
-/prisma/hdf5/downloads
 /prisma/hdf5/out
 /code/prismaread
 /code/julia/out
 /.vscode
+downloads*
 .Rhistory*
