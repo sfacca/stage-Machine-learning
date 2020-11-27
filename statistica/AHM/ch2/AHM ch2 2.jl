@@ -1,11 +1,14 @@
 ### A Pluto.jl notebook ###
-# v0.12.11
+# v0.12.12
 
 using Markdown
 using InteractiveUtils
 
 # ╔═╡ f7a04e50-2e58-11eb-37b3-cffa98a875d5
 using Rmath, Optim
+
+# ╔═╡ 5e9798a0-30d6-11eb-005b-95de85ee73ca
+using ArchGDAL
 
 # ╔═╡ 3013e7b0-2e59-11eb-0a53-1b101c374842
 #   Applied hierarchical modeling in ecology
@@ -278,4 +281,5 @@ Mhlik <- function(parms){
 # ╠═b7a716f0-2e7e-11eb-00bb-5756264de346
 # ╠═c304c9c0-2e7e-11eb-0f73-c5c82045efd5
 # ╠═fd6e3fb2-2e7e-11eb-092f-a327f4ad4b9d
+# ╠═5e9798a0-30d6-11eb-005b-95de85ee73ca
 # ╠═29c75b30-2e59-11eb-2abb-1514bd995fd2
