@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.12.12
+# v0.12.15
 
 using Markdown
 using InteractiveUtils
@@ -8,7 +8,13 @@ using InteractiveUtils
 using Rmath, Optim
 
 # ╔═╡ 5e9798a0-30d6-11eb-005b-95de85ee73ca
-using ArchGDAL
+using NamedArrays, Plots
+
+# ╔═╡ 422a3030-33f4-11eb-0527-a966ea0f1910
+using GLM, DataFrames
+
+# ╔═╡ 8207c870-33fe-11eb-29ec-d96ea2479e8e
+using LinearAlgebra
 
 # ╔═╡ 3013e7b0-2e59-11eb-0a53-1b101c374842
 #   Applied hierarchical modeling in ecology
@@ -76,11 +82,11 @@ function auxNegLogLike(a)
 	negLogLike(a, z, vegHt)
 end
 
-# ╔═╡ f8b48e60-2e61-11eb-1e4f-517eda5ff288
-opt_out = optimize(x->negLogLike(x, z, vegHt), starting_values)
+# ╔═╡ 1db45780-33fe-11eb-2b9c-95a084577202
+func = TwiceDifferentiable(x->negLogLike(x, z, vegHt), starting_values)
 
-# ╔═╡ 4110bc10-2e71-11eb-3dfa-e7106e15d97f
-dump(opt_out)
+# ╔═╡ f8b48e60-2e61-11eb-1e4f-517eda5ff288
+opt_out = optimize(func, starting_values)
 
 # ╔═╡ 2783e6f0-2e71-11eb-3e53-a595a3084f34
 mles = opt_out.minimizer # MLEs are pretty close to truth
@@ -102,38 +108,116 @@ mat[argmin(nll)]
 # Produce a likelihood surface, shown in Fig. 2-2.
 
 
+# ╔═╡ ba936000-33e5-11eb-25a0-37c89fd7b5f6
+matr = NamedArray(
+	Array{typeof(nll[1]),2}(
+		undef,
+		length(unique([a[2] for a in mat])),
+		length(unique([a[1] for a in mat]))
+		),
+	(
+		unique([a[2] for a in mat]), 
+		unique([a[1] for a in mat])
+		),
+	("Y","X")
+)
+
+# ╔═╡ 7bc30d80-33e5-11eb-3ba4-51998e273543
+for i in 1:length(mat)
+	matr[mat[i][2],mat[i][1]]=nll[i]
+end
+
+# ╔═╡ d996fe40-33e9-11eb-3293-b9f717138dae
+matr
+
+# ╔═╡ 0a95d770-33ed-11eb-0e60-c70b9f18158a
+gr()
+
+# ╔═╡ 585cfe80-33ec-11eb-2414-978569726031
+heatmap(
+	matr.dicts[1].keys,
+	matr.dicts[2].keys,
+	matr.array,
+	c=[:grey, :yellow, :red], 
+	title="Negative log-likelihood",
+	xlabel="Intercept (beta0)",
+	ylabel="Slope (beta1)")
+
+# ╔═╡ f20b2150-33f2-11eb-39c0-0f8bf6e05614
+contour!(matr.dicts[1].keys,matr.dicts[2].keys,matr.array,levels=50:100:2000, linecolor=:black, contour_labels = true)
+
+# ╔═╡ 45a39f80-33f4-11eb-27ad-7992d5784788
+# Alternative 2: Use glm as a shortcut
+
+# ╔═╡ a8a19292-33f4-11eb-20be-f3acb0924c9b
+length(z)
+
+# ╔═╡ aadbf230-33f4-11eb-1adf-5f2c6b2ebf78
+length(vegHt)
+
+# ╔═╡ 7af22b20-33f4-11eb-2ca7-6f5773a99002
+glm_df = DataFrame(z=z,vegHt=vegHt)
+
+# ╔═╡ d04f0080-33f3-11eb-3f7b-49914ecd7b6c
+fm = glm(@formula(z ~ vegHt), glm_df, Binomial())
+
+# ╔═╡ b30d4ece-33f5-11eb-2fe5-edab8ebc26a0
+md" Add 3 sets of MLEs into plot   
+1. Add MLE from function minimisation"
+
+# ╔═╡ b72d5e5e-33f5-11eb-27ec-a99eb622ea09
+scatter!(
+	[mles[1]], 
+	[mles[2]],
+	color=:black,
+	legend=false
+)
+
+# ╔═╡ 4cb3c2c0-33f7-11eb-2c49-d9e43807a870
+plot!([-10,10],[mles[2],mles[2]],color=:black)
+
+# ╔═╡ 2bdd6e10-33f8-11eb-38a7-fd09899b6684
+plot!([mles[1],mles[1]],[-10,10],color=:black)
+
+# ╔═╡ 690814f0-33fa-11eb-3d0b-09835bd7a9c9
+md"
+2. Add MLE from grid search
+"
+
+# ╔═╡ 6a183750-33f8-11eb-1fbb-e3b15654dd27
+
+scatter!(
+	[mat[argmin(nll)][1]],[mat[argmin(nll)][2]],markersize=1,color=:green
+)
+
+# ╔═╡ 76dbf7e2-33fa-11eb-38d9-61aa3949d7cf
+md"
+3. Add MLE from glm function
+"
+
+# ╔═╡ 6f2fa9c0-33f9-11eb-2c95-911802794722
+
+scatter!([coef(fm)[1]], [coef(fm)[2]],markersize=1,color=:red)
+
+
+# ╔═╡ 43d698ee-33fa-11eb-1b2b-99609807848d
+md"
+Note they are essentially all the same (as they should be)
+"
+
+# ╔═╡ 301977d0-33fd-11eb-1c80-f1a19d5202c1
+Vc = inv(Optim.hessian!(func, starting_values))# Get variance-covariance matrix
+
+# ╔═╡ 5053a1a0-33fe-11eb-1b6c-cdc80b7379da
+ASE = sqrt.(diag(Vc))# Extract asymptotic SEs
+
+# ╔═╡ b66c6940-33fe-11eb-09ed-d561e2b9c9d6
+fm
+
+# ╔═╡ 5c8db540-33ff-11eb-2b3a-8bdbbf095416
+
+
 # ╔═╡ 29c75b30-2e59-11eb-2abb-1514bd995fd2
-
-# Produce a likelihood surface, shown in Fig. 2-2.
-library(raster)
-r <- rasterFromXYZ(data.frame(x = mat[,1], y = mat[,2], z = nll))
-mapPalette <- colorRampPalette(rev(c("grey", "yellow", "red")))
-plot(r, col = mapPalette(100), main = "Negative log-likelihood",
-       xlab = "Intercept (beta0)", ylab = "Slope (beta1)")
-contour(r, add = TRUE, levels = seq(50, 2000, 100))
-
-# Alternative 2: Use canned R function glm as a shortcut
-(fm <- glm(z ~ vegHt, family = binomial)$coef)
-
-# Add 3 sets of MLEs into plot
-# 1. Add MLE from function minimisation
-points(mles[1], mles[2], pch = 1, lwd = 2)
-abline(mles[2],0)  # Put a line through the Slope value
-lines(c(mles[1],mles[1]),c(-10,10))
-# 2. Add MLE from grid search
-points(mat[which(nll == min(nll)),1], mat[which(nll == min(nll)),2],
-       pch = 1, lwd = 2)
-# 3. Add MLE from glm function
-points(fm[1], fm[2], pch = 1, lwd = 2)
-
-# Note they are essentially all the same (as they should be)
-
-Vc <- solve(opt.out$hessian)         # Get variance-covariance matrix
-ASE <- sqrt(diag(Vc))                # Extract asymptotic SEs
-print(ASE)
-
-# Compare to SEs reported by glm() function (output thinned)
-summary(glm(z ~ vegHt, family = binomial))
 
 # Make a table with estimates, SEs, and 95% CI
 mle.table <- data.frame(Est=mles,
@@ -273,8 +357,8 @@ Mhlik <- function(parms){
 # ╠═9aca085e-2e5d-11eb-2bb7-c7e6a7c6f41e
 # ╠═a9285100-2e5d-11eb-1477-69f5b204fa6e
 # ╠═eed94af0-2e63-11eb-184c-7716a5cd1eee
+# ╠═1db45780-33fe-11eb-2b9c-95a084577202
 # ╠═f8b48e60-2e61-11eb-1e4f-517eda5ff288
-# ╠═4110bc10-2e71-11eb-3dfa-e7106e15d97f
 # ╠═2783e6f0-2e71-11eb-3e53-a595a3084f34
 # ╠═b68fed80-2e71-11eb-10f0-fb7a9f245357
 # ╠═adba0090-2e7d-11eb-337c-45f3aec503bd
@@ -282,4 +366,30 @@ Mhlik <- function(parms){
 # ╠═c304c9c0-2e7e-11eb-0f73-c5c82045efd5
 # ╠═fd6e3fb2-2e7e-11eb-092f-a327f4ad4b9d
 # ╠═5e9798a0-30d6-11eb-005b-95de85ee73ca
+# ╠═ba936000-33e5-11eb-25a0-37c89fd7b5f6
+# ╠═7bc30d80-33e5-11eb-3ba4-51998e273543
+# ╠═d996fe40-33e9-11eb-3293-b9f717138dae
+# ╠═0a95d770-33ed-11eb-0e60-c70b9f18158a
+# ╠═585cfe80-33ec-11eb-2414-978569726031
+# ╠═f20b2150-33f2-11eb-39c0-0f8bf6e05614
+# ╠═45a39f80-33f4-11eb-27ad-7992d5784788
+# ╠═422a3030-33f4-11eb-0527-a966ea0f1910
+# ╠═a8a19292-33f4-11eb-20be-f3acb0924c9b
+# ╠═aadbf230-33f4-11eb-1adf-5f2c6b2ebf78
+# ╠═7af22b20-33f4-11eb-2ca7-6f5773a99002
+# ╠═d04f0080-33f3-11eb-3f7b-49914ecd7b6c
+# ╠═b30d4ece-33f5-11eb-2fe5-edab8ebc26a0
+# ╠═b72d5e5e-33f5-11eb-27ec-a99eb622ea09
+# ╠═4cb3c2c0-33f7-11eb-2c49-d9e43807a870
+# ╠═2bdd6e10-33f8-11eb-38a7-fd09899b6684
+# ╟─690814f0-33fa-11eb-3d0b-09835bd7a9c9
+# ╠═6a183750-33f8-11eb-1fbb-e3b15654dd27
+# ╟─76dbf7e2-33fa-11eb-38d9-61aa3949d7cf
+# ╠═6f2fa9c0-33f9-11eb-2c95-911802794722
+# ╟─43d698ee-33fa-11eb-1b2b-99609807848d
+# ╠═301977d0-33fd-11eb-1c80-f1a19d5202c1
+# ╠═8207c870-33fe-11eb-29ec-d96ea2479e8e
+# ╠═5053a1a0-33fe-11eb-1b6c-cdc80b7379da
+# ╠═b66c6940-33fe-11eb-09ed-d561e2b9c9d6
+# ╠═5c8db540-33ff-11eb-2b3a-8bdbbf095416
 # ╠═29c75b30-2e59-11eb-2abb-1514bd995fd2

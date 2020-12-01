@@ -1,0 +1,150 @@
+### A Pluto.jl notebook ###
+# v0.12.15
+
+using Markdown
+using InteractiveUtils
+
+# ╔═╡ 3732d590-33ce-11eb-17d4-cb4238b802af
+using Statistics, StatsBase, LinearAlgebra, DataFrames, CSV
+
+# ╔═╡ 5b0c50c0-33d0-11eb-352a-a502428081f6
+mkpath("downloads")
+
+# ╔═╡ 5f51c2a0-33d0-11eb-37ec-ed4935ade3ff
+download("https://github.com/h-Klok/StatsWithJuliaBook/raw/master/data/3featureData.csv","downloads/3featureData.csv")
+
+# ╔═╡ 4fd40040-33d0-11eb-1b0d-31222880e7a2
+df = CSV.read("downloads/3featureData.csv",header=false, DataFrame)
+
+# ╔═╡ 4fff5600-33d0-11eb-14e1-f9d415d24213
+n, p = size(df)
+
+# ╔═╡ ba72ec40-33d0-11eb-37e9-b574017683eb
+X = convert(Array{Float64,2},df)
+
+# ╔═╡ a1bf1200-33d0-11eb-27eb-8717ed778aa9
+md"Number of features: $p
+
+Number of observations: $n
+
+Dimensions of data matrix: $(size(X))"
+
+# ╔═╡ 5008a4d0-33d0-11eb-1577-d3f2a7d308f8
+xbarA = (1/n)*X'*ones(n)
+
+# ╔═╡ 500bb210-33d0-11eb-0e46-ddb086052867
+xbarB = [mean(X[:,i]) for i in 1:p]
+
+# ╔═╡ 500c2740-33d0-11eb-2970-65052e65087d
+xbarC = sum(X,dims=1)/n
+
+# ╔═╡ cde28240-33d0-11eb-0dff-e37cc3d4ff97
+md"
+Alternative calculations of (sample) mean vector: 
+* $(xbarA)
+* $(xbarB)
+* $(string(xbarC))
+"
+
+# ╔═╡ 5012b6f0-33d0-11eb-06d1-47e5d7b78d51
+Y = (I-ones(n,n)/n)*X
+
+# ╔═╡ 53feefd0-33d1-11eb-13ab-975615be0103
+md"
+Y is the de-meaned data: $(mean(Y,dims=1))
+"
+
+# ╔═╡ 50188350-33d0-11eb-280e-31172fe86eb8
+covA = (X .- xbarA')'*(X .- xbarA')/(n-1)
+
+# ╔═╡ 501af450-33d0-11eb-1b55-13dd25019784
+covB = Y'*Y/(n-1)
+
+# ╔═╡ 501d8c60-33d0-11eb-2c40-bbf958a23671
+covC = [cov(X[:,i], X[:,j]) for i in 1:p, j in 1:p]
+
+# ╔═╡ 501e28a0-33d0-11eb-0241-e1861de1c942
+covD = [cor(X[:,i], X[:,j])*std(X[:,i])*std(X[:,j]) for i in 1:p, j in 1:p]
+
+# ╔═╡ 50226e60-33d0-11eb-1a21-2794d4a6a3d9
+covE = cov(X)
+
+# ╔═╡ 9c0496e0-33d1-11eb-0f33-491943abc73b
+md"Alternative calculations of (sample) covariance matrix: "
+
+# ╔═╡ 502813b0-33d0-11eb-1bb6-0f362922a21b
+covA, covB, covC, covD, covE
+
+# ╔═╡ 502af9e0-33d0-11eb-00f2-dde0366b4015
+ZmatA = [(X[i,j] - mean(X[:,j]))/std(X[:,j]) for i in 1:n, j in 1:p ]
+
+# ╔═╡ 502eca70-33d0-11eb-3754-f52e9c7fbb59
+ZmatB = hcat([zscore(X[:,j]) for j in 1:p]...)
+
+# ╔═╡ b0f2b690-33d1-11eb-35b1-432a0e973dac
+md"
+Alternate computation of Z-scores yields same matrix: $(maximum(norm(ZmatA-ZmatB)))
+"
+
+# ╔═╡ 5033ac70-33d0-11eb-0953-4dc9bbacc895
+Z = ZmatA
+
+# ╔═╡ 5037f22e-33d0-11eb-2c2a-674958124e51
+corA = covA ./ [std(X[:,i])*std(X[:,j]) for i in 1:p, j in 1:p]
+
+# ╔═╡ 503c10e0-33d0-11eb-2adf-e3d26f134616
+corB = covA ./ (std(X,dims = 1)'*std(X,dims = 1))
+
+# ╔═╡ 503e0cb0-33d0-11eb-3478-47bb532b4f0b
+corC = [cor(X[:,i],X[:,j]) for i in 1:p, j in 1:p]
+
+# ╔═╡ 5042797e-33d0-11eb-3cf6-97802b0d4d52
+corD = Z'*Z/(n-1)
+
+# ╔═╡ 504315c0-33d0-11eb-13be-31d5fec56313
+corE = cov(Z)
+
+# ╔═╡ 50478292-33d0-11eb-1a4c-47b128e68062
+corF = cor(X)
+
+# ╔═╡ c389c6e0-33d1-11eb-2d93-cd62f9f886c4
+md"
+Alternative calculations of (sample) correlation matrix: 
+"
+
+# ╔═╡ ce850e62-33d1-11eb-336f-e9bdc00ad107
+corA, corB, corC, corD, corE, corF
+
+# ╔═╡ Cell order:
+# ╠═3732d590-33ce-11eb-17d4-cb4238b802af
+# ╠═5b0c50c0-33d0-11eb-352a-a502428081f6
+# ╠═5f51c2a0-33d0-11eb-37ec-ed4935ade3ff
+# ╠═4fd40040-33d0-11eb-1b0d-31222880e7a2
+# ╠═4fff5600-33d0-11eb-14e1-f9d415d24213
+# ╠═ba72ec40-33d0-11eb-37e9-b574017683eb
+# ╟─a1bf1200-33d0-11eb-27eb-8717ed778aa9
+# ╠═5008a4d0-33d0-11eb-1577-d3f2a7d308f8
+# ╠═500bb210-33d0-11eb-0e46-ddb086052867
+# ╠═500c2740-33d0-11eb-2970-65052e65087d
+# ╠═cde28240-33d0-11eb-0dff-e37cc3d4ff97
+# ╠═5012b6f0-33d0-11eb-06d1-47e5d7b78d51
+# ╟─53feefd0-33d1-11eb-13ab-975615be0103
+# ╠═50188350-33d0-11eb-280e-31172fe86eb8
+# ╠═501af450-33d0-11eb-1b55-13dd25019784
+# ╠═501d8c60-33d0-11eb-2c40-bbf958a23671
+# ╠═501e28a0-33d0-11eb-0241-e1861de1c942
+# ╠═50226e60-33d0-11eb-1a21-2794d4a6a3d9
+# ╟─9c0496e0-33d1-11eb-0f33-491943abc73b
+# ╠═502813b0-33d0-11eb-1bb6-0f362922a21b
+# ╠═502af9e0-33d0-11eb-00f2-dde0366b4015
+# ╠═502eca70-33d0-11eb-3754-f52e9c7fbb59
+# ╟─b0f2b690-33d1-11eb-35b1-432a0e973dac
+# ╠═5033ac70-33d0-11eb-0953-4dc9bbacc895
+# ╠═5037f22e-33d0-11eb-2c2a-674958124e51
+# ╠═503c10e0-33d0-11eb-2adf-e3d26f134616
+# ╠═503e0cb0-33d0-11eb-3478-47bb532b4f0b
+# ╠═5042797e-33d0-11eb-3cf6-97802b0d4d52
+# ╠═504315c0-33d0-11eb-13be-31d5fec56313
+# ╠═50478292-33d0-11eb-1a4c-47b128e68062
+# ╟─c389c6e0-33d1-11eb-2d93-cd62f9f886c4
+# ╠═ce850e62-33d1-11eb-336f-e9bdc00ad107
