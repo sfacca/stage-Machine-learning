@@ -54,24 +54,38 @@ vegHt = runif(M, 1, 3) # uniform from 1 to 3
 # ╔═╡ ac2c97b0-2e5a-11eb-2a8f-35091c8349e0
 ψ = plogis.(β⁰.+β¹*vegHt) # apply inverse logit
 
+# ╔═╡ 482444ee-34ba-11eb-1583-c5c74770651a
+plogis(0.1)
+
 # ╔═╡ 26987782-2e5b-11eb-248f-1382d65c6351
 # Now we go to 100 sites and observe presence or absence
-z = rbinom.(M, 1, ψ)[1]
+z = [rbinom(M, 1, i) for i in ψ][1]
 
 # ╔═╡ 34761e6e-2e5b-11eb-230d-5f0169661a3a
 # Definition of negative log-likelihood.
-function negLogLike(β, y, x)
+function negLogLikeDBINOM(β, y, x)
 	ψ = plogis.(β[1].+β[2]*x)
 	likelihood = dbinom.(y, 1, ψ)
     return (-sum(log.(likelihood)))
 end
 
+# ╔═╡ 11b6baf2-349d-11eb-169b-9d828f167bdd
+# Definition of negative log-likelihood.
+function negLogLike(β, y, x)
+	ψ = plogis.(β[1].+β[2]*x)
+	likelihood = ψ.^y .* (1 .- ψ).^(1 .- y)
+    return ((-sum(log.(likelihood))))
+end
+
 # ╔═╡ 573d34b0-2e5c-11eb-37f5-b5ac9ddeb580
 # Look at (negative) log-likelihood for 2 parameter sets
-negLogLike([0,0], z, vegHt)
+negLogLike([0.0,0.0], z, vegHt)
 
 # ╔═╡ 9aca085e-2e5d-11eb-2bb7-c7e6a7c6f41e
-negLogLike([-3,2], z, vegHt) # Lower is better!
+negLogLike([-3.0,2.0], z, vegHt) # Lower is better!
+
+# ╔═╡ c96eb810-34ba-11eb-20de-2384ef21a8b8
+
 
 # ╔═╡ a9285100-2e5d-11eb-1477-69f5b204fa6e
 # Let's minimize it formally by function minimisation
@@ -83,13 +97,19 @@ function auxNegLogLike(a)
 end
 
 # ╔═╡ 1db45780-33fe-11eb-2b9c-95a084577202
-func = TwiceDifferentiable(x->negLogLike(x, z, vegHt), starting_values)
+func = TwiceDifferentiable(x->auxNegLogLike(x), [1.0,1.0])
 
 # ╔═╡ f8b48e60-2e61-11eb-1e4f-517eda5ff288
-opt_out = optimize(func, starting_values)
+opt_out = optimize(func, [0.0,0.0], NelderMead())
+
+# ╔═╡ 0081e6d0-34aa-11eb-3834-3712252a4fdb
+
 
 # ╔═╡ 2783e6f0-2e71-11eb-3e53-a595a3084f34
 mles = opt_out.minimizer # MLEs are pretty close to truth
+
+# ╔═╡ 92493470-34b8-11eb-1a0e-35cc202315f2
+negLogLike(mles,z,vegHt)
 
 # ╔═╡ b68fed80-2e71-11eb-10f0-fb7a9f245357
 # Alternative 1: Brute-force grid search for MLEs
@@ -146,6 +166,9 @@ heatmap(
 # ╔═╡ f20b2150-33f2-11eb-39c0-0f8bf6e05614
 contour!(matr.dicts[1].keys,matr.dicts[2].keys,matr.array,levels=50:100:2000, linecolor=:black, contour_labels = true)
 
+# ╔═╡ b5fecfc0-34c1-11eb-3103-b19eb5a48fe3
+scatter!([-3],[2], legend=false)
+
 # ╔═╡ 45a39f80-33f4-11eb-27ad-7992d5784788
 # Alternative 2: Use glm as a shortcut
 
@@ -197,8 +220,17 @@ md"
 
 # ╔═╡ 6f2fa9c0-33f9-11eb-2c95-911802794722
 
-scatter!([coef(fm)[1]], [coef(fm)[2]],markersize=1,color=:red)
+scatter!([coef(fm)[1]], [coef(fm)[2]],markersize=1.0,color=:red)
 
+
+# ╔═╡ 35520af0-34bb-11eb-30a1-3fcd0d737e7b
+coef(fm)[1]
+
+# ╔═╡ 3726079e-34bb-11eb-07bd-7939ed6d150d
+coef(fm)[2]
+
+# ╔═╡ 3c721410-34bb-11eb-110a-2f6716186c83
+mles
 
 # ╔═╡ 43d698ee-33fa-11eb-1b2b-99609807848d
 md"
@@ -214,17 +246,52 @@ ASE = sqrt.(diag(Vc))# Extract asymptotic SEs
 # ╔═╡ b66c6940-33fe-11eb-09ed-d561e2b9c9d6
 fm
 
-# ╔═╡ 5c8db540-33ff-11eb-2b3a-8bdbbf095416
+# ╔═╡ 414b08a0-3495-11eb-16dd-41deffb5677a
+md"
+Make a table with estimates, SEs, and 95% CI
+"
 
+# ╔═╡ 5c8db540-33ff-11eb-2b3a-8bdbbf095416
+mle_table = DataFrame(
+	Est=mles,
+	ASE = ASE
+)
+
+# ╔═╡ 58c85eb0-3495-11eb-203d-6f862ce74439
+mle_table[:, :lower] = mle_table[:,:Est] - 1.96*mle_table[:,:ASE]
+
+# ╔═╡ a74f84f0-3495-11eb-11ae-91b491e2f71e
+mle_table[:, :upper] = mle_table[:,:Est] + 1.96*mle_table[:,:ASE]
+
+# ╔═╡ c0956600-3495-11eb-0e92-797d8df4b37a
+mle_table
+
+# ╔═╡ c616da50-3495-11eb-28cb-4f68de8e06f6
+md"
+ Plot the actual and estimated response curves
+"
+
+# ╔═╡ cc9d6290-3495-11eb-1433-f1da26204477
+scatter(vegHt, z, xlab="Vegetation height", ylab="Occurrence probability", legend=false)
+
+# ╔═╡ f53c8e10-3495-11eb-0cd0-85e32c5ad13f
+plot!(
+	(x)->(plogis(β⁰ + β¹ * x)), 1.1, 3, color=:black
+)
+
+# ╔═╡ 485140d0-3498-11eb-18d9-e31539175590
+plot!(
+	(x)->(plogis(mles[1] + (mles[2]*x))), 1.1, 3, color=:blue
+)
+
+# ╔═╡ fb2bf7ae-349b-11eb-35f4-4bd134594d0a
+
+
+# ╔═╡ 352df610-3498-11eb-3558-d9a33909b8bb
+mles
 
 # ╔═╡ 29c75b30-2e59-11eb-2abb-1514bd995fd2
 
-# Make a table with estimates, SEs, and 95% CI
-mle.table <- data.frame(Est=mles,
-                        ASE = sqrt(diag(solve(opt.out$hessian))))
-mle.table$lower <- mle.table$Est - 1.96*mle.table$ASE
-mle.table$upper <- mle.table$Est + 1.96*mle.table$ASE
-mle.table
 
 # Plot the actual and estimated response curves
 plot(vegHt, z, xlab="Vegetation height", ylab="Occurrence probability")
@@ -351,14 +418,19 @@ Mhlik <- function(parms){
 # ╠═8011b2f2-2e5a-11eb-2c37-cd96c02524b2
 # ╠═ac2c70a0-2e5a-11eb-07fd-0b498ddd2921
 # ╠═ac2c97b0-2e5a-11eb-2a8f-35091c8349e0
+# ╠═482444ee-34ba-11eb-1583-c5c74770651a
 # ╠═26987782-2e5b-11eb-248f-1382d65c6351
 # ╠═34761e6e-2e5b-11eb-230d-5f0169661a3a
+# ╠═11b6baf2-349d-11eb-169b-9d828f167bdd
 # ╠═573d34b0-2e5c-11eb-37f5-b5ac9ddeb580
 # ╠═9aca085e-2e5d-11eb-2bb7-c7e6a7c6f41e
+# ╠═c96eb810-34ba-11eb-20de-2384ef21a8b8
 # ╠═a9285100-2e5d-11eb-1477-69f5b204fa6e
 # ╠═eed94af0-2e63-11eb-184c-7716a5cd1eee
 # ╠═1db45780-33fe-11eb-2b9c-95a084577202
 # ╠═f8b48e60-2e61-11eb-1e4f-517eda5ff288
+# ╠═92493470-34b8-11eb-1a0e-35cc202315f2
+# ╠═0081e6d0-34aa-11eb-3834-3712252a4fdb
 # ╠═2783e6f0-2e71-11eb-3e53-a595a3084f34
 # ╠═b68fed80-2e71-11eb-10f0-fb7a9f245357
 # ╠═adba0090-2e7d-11eb-337c-45f3aec503bd
@@ -372,6 +444,7 @@ Mhlik <- function(parms){
 # ╠═0a95d770-33ed-11eb-0e60-c70b9f18158a
 # ╠═585cfe80-33ec-11eb-2414-978569726031
 # ╠═f20b2150-33f2-11eb-39c0-0f8bf6e05614
+# ╠═b5fecfc0-34c1-11eb-3103-b19eb5a48fe3
 # ╠═45a39f80-33f4-11eb-27ad-7992d5784788
 # ╠═422a3030-33f4-11eb-0527-a966ea0f1910
 # ╠═a8a19292-33f4-11eb-20be-f3acb0924c9b
@@ -386,10 +459,23 @@ Mhlik <- function(parms){
 # ╠═6a183750-33f8-11eb-1fbb-e3b15654dd27
 # ╟─76dbf7e2-33fa-11eb-38d9-61aa3949d7cf
 # ╠═6f2fa9c0-33f9-11eb-2c95-911802794722
+# ╠═35520af0-34bb-11eb-30a1-3fcd0d737e7b
+# ╠═3726079e-34bb-11eb-07bd-7939ed6d150d
+# ╠═3c721410-34bb-11eb-110a-2f6716186c83
 # ╟─43d698ee-33fa-11eb-1b2b-99609807848d
 # ╠═301977d0-33fd-11eb-1c80-f1a19d5202c1
 # ╠═8207c870-33fe-11eb-29ec-d96ea2479e8e
 # ╠═5053a1a0-33fe-11eb-1b6c-cdc80b7379da
 # ╠═b66c6940-33fe-11eb-09ed-d561e2b9c9d6
+# ╟─414b08a0-3495-11eb-16dd-41deffb5677a
 # ╠═5c8db540-33ff-11eb-2b3a-8bdbbf095416
+# ╠═58c85eb0-3495-11eb-203d-6f862ce74439
+# ╠═a74f84f0-3495-11eb-11ae-91b491e2f71e
+# ╠═c0956600-3495-11eb-0e92-797d8df4b37a
+# ╟─c616da50-3495-11eb-28cb-4f68de8e06f6
+# ╠═cc9d6290-3495-11eb-1433-f1da26204477
+# ╠═f53c8e10-3495-11eb-0cd0-85e32c5ad13f
+# ╠═485140d0-3498-11eb-18d9-e31539175590
+# ╠═fb2bf7ae-349b-11eb-35f4-4bd134594d0a
+# ╠═352df610-3498-11eb-3558-d9a33909b8bb
 # ╠═29c75b30-2e59-11eb-2abb-1514bd995fd2
