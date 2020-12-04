@@ -7,5 +7,6 @@
 /code/prismaread
 /code/julia/out
 /.vscode
+test/out
 downloads*
 .Rhistory*

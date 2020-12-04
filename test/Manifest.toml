@@ -408,7 +408,7 @@ uuid = "de0858da-6303-5e67-8744-51eddeeeb8d7"
 
 [[PrismaConvert]]
 deps = ["ArchGDAL", "CImGui", "CSV", "DataFrames", "DataFramesMeta", "HDF5", "Poptart"]
-git-tree-sha1 = "b0b115745cedf2999344f72cc892defeb0badd55"
+git-tree-sha1 = "d52d7cd43301b5295ed41e50b85699774221752b"
 repo-rev = "main"
 repo-url = "https://github.com/sfacca/PrismaConvert"
 uuid = "959ffa20-442d-4f33-8a8b-fb952af99db5"
