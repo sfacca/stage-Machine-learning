@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.12.15
+# v0.12.16
 
 using Markdown
 using InteractiveUtils
@@ -37,28 +37,31 @@ using LinearAlgebra
 # Simulate a covariate called vegHt for 100 sites
 
 # ╔═╡ 383bc3e0-2e59-11eb-0f19-7797017090fa
-M = 100        # Number of sites surveyed
+M = 200        # Number of sites surveyed
 
 # ╔═╡ 3d419f90-2e59-11eb-11ab-5f865ae24e9d
 vegHt = runif(M, 1, 3) # uniform from 1 to 3
 
-# ╔═╡ 8011b2f2-2e5a-11eb-2c37-cd96c02524b2
-# Suppose that occupancy probability increases with vegHt
-# The relationship is described by an intercept of -3 and
-#    a slope parameter of 2 on the logit scale
-β⁰ = -3
+# ╔═╡ 6777fee0-38b7-11eb-2efa-1b6bc6823a01
+md"
+Suppose that occupancy probability increases with vegHt     
 
-# ╔═╡ ac2c70a0-2e5a-11eb-07fd-0b498ddd2921
-β¹ = 2
+The relationship is described by an intercept of -3 and    
+
+a slope parameter of 2 on the logit scale        
+"
+
+# ╔═╡ 62fa3ef0-38b7-11eb-3e2f-1fc6aca5c4fd
+begin 
+	β⁰ = 2
+	β¹ = 3
+end
 
 # ╔═╡ ac2c97b0-2e5a-11eb-2a8f-35091c8349e0
 ψ = plogis.(β⁰.+β¹*vegHt) # apply inverse logit
 
-# ╔═╡ 482444ee-34ba-11eb-1583-c5c74770651a
-plogis(0.1)
-
 # ╔═╡ 26987782-2e5b-11eb-248f-1382d65c6351
-# Now we go to 100 sites and observe presence or absence
+# Now we go to M sites and observe presence or absence
 z = [rbinom(M, 1, i) for i in ψ][1]
 
 # ╔═╡ 34761e6e-2e5b-11eb-230d-5f0169661a3a
@@ -415,10 +418,9 @@ Mhlik <- function(parms){
 # ╠═3013e7b0-2e59-11eb-0a53-1b101c374842
 # ╠═383bc3e0-2e59-11eb-0f19-7797017090fa
 # ╠═3d419f90-2e59-11eb-11ab-5f865ae24e9d
-# ╠═8011b2f2-2e5a-11eb-2c37-cd96c02524b2
-# ╠═ac2c70a0-2e5a-11eb-07fd-0b498ddd2921
+# ╟─6777fee0-38b7-11eb-2efa-1b6bc6823a01
+# ╠═62fa3ef0-38b7-11eb-3e2f-1fc6aca5c4fd
 # ╠═ac2c97b0-2e5a-11eb-2a8f-35091c8349e0
-# ╠═482444ee-34ba-11eb-1583-c5c74770651a
 # ╠═26987782-2e5b-11eb-248f-1382d65c6351
 # ╠═34761e6e-2e5b-11eb-230d-5f0169661a3a
 # ╠═11b6baf2-349d-11eb-169b-9d828f167bdd
