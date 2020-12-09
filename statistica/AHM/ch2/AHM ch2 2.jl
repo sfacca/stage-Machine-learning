@@ -53,8 +53,8 @@ a slope parameter of 2 on the logit scale
 
 # ╔═╡ 62fa3ef0-38b7-11eb-3e2f-1fc6aca5c4fd
 begin 
-	β⁰ = 2
-	β¹ = 3
+	global β⁰ = 2
+	global β¹ = -3
 end
 
 # ╔═╡ ac2c97b0-2e5a-11eb-2a8f-35091c8349e0
