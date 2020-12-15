@@ -16,6 +16,9 @@ using GLM, DataFrames
 # ╔═╡ 8207c870-33fe-11eb-29ec-d96ea2479e8e
 using LinearAlgebra
 
+# ╔═╡ 8df9e1a0-3ef7-11eb-1548-9da618eb3f6d
+using Statistics
+
 # ╔═╡ 3013e7b0-2e59-11eb-0a53-1b101c374842
 #   Applied hierarchical modeling in ecology
 #   Modeling distribution, abundance and species richness using R and BUGS
@@ -100,7 +103,7 @@ function auxNegLogLike(a)
 end
 
 # ╔═╡ 1db45780-33fe-11eb-2b9c-95a084577202
-func = TwiceDifferentiable(x->auxNegLogLike(x), [1.0,1.0])
+func = TwiceDifferentiable(auxNegLogLike, [0.0,0.0])
 
 # ╔═╡ f8b48e60-2e61-11eb-1e4f-517eda5ff288
 opt_out = optimize(func, [0.0,0.0], NelderMead())
@@ -293,9 +296,8 @@ plot!(
 # ╔═╡ 352df610-3498-11eb-3558-d9a33909b8bb
 mles
 
-# ╔═╡ 29c75b30-2e59-11eb-2abb-1514bd995fd2
-
-
+# ╔═╡ 092098e2-3eeb-11eb-25cc-0333e8bfbddf
+#=
 # Plot the actual and estimated response curves
 plot(vegHt, z, xlab="Vegetation height", ylab="Occurrence probability")
 plot(function(x) plogis(beta0 + beta1 * x), 1.1, 3, add=TRUE, lwd=2)
@@ -304,67 +306,72 @@ plot(function(x) plogis(mles[1] + mles[2] * x), 1.1, 3, add=TRUE,
 legend(1.1, 0.9, c("Actual", "Estimate"), col=c("black", "blue"), lty=1,
        lwd=2)
 
+=#
 
-# 2.4.5 Bootstrapping
-# ------------------------------------------------------------------------
-nboot <- 1000   # Obtain 1000 bootstrap samples
-boot.out <- matrix(NA, nrow=nboot, ncol=3)
-dimnames(boot.out) <- list(NULL, c("beta0", "beta1", "psi.bar"))
+# ╔═╡ 113dedc0-3eeb-11eb-3bf4-7b6c3197489f
+md"### 2.4.5 Bootstrapping"
 
-for(i in 1:1000){
-   # Simulate data
-   psi <- plogis(mles[1] + mles[2] * vegHt)
-   z <- rbinom(M, 1, psi)
+# ╔═╡ 190b9c00-3eeb-11eb-29c6-85ab06e7905f
+nboot = 1000
 
-   # Fit model
-   tmp <- optim(mles, negLogLike, y=z, x=vegHt, hessian=TRUE)$par
-   psi.mean <- plogis(tmp[1] + tmp[2] * mean(vegHt))
-   boot.out[i,] <- c(tmp, psi.mean)
-}
+# ╔═╡ 36d97630-3eeb-11eb-13b1-a10d1d4b1af1
+boot_out = Array{Number,2}(undef,nboot,3)
 
-SE.boot <- sqrt(apply(boot.out, 2, var))  # Get bootstrap SE
-names(SE.boot) <- c("beta0", "beta1", "psi.bar")
+# ╔═╡ 56f7b290-3ef7-11eb-1e56-f515df4f3d4c
+optimize(auxNegLogLike, mles).minimizer
 
-# 95% bootstrapped confidence intervals
-apply(boot.out,2,quantile,c(0.025,0.975))
+# ╔═╡ 397c0d80-3eeb-11eb-2b1e-b19d4011ab10
+for i in 1:1000
+	#simulate data
+	ψ = plogis.(mles[1] .+ mles[2] * vegHt)
+	z = rbinom.(M, 1, ψ)
+	
+	#fit
+	tmp = optimize(auxNegLogLike, mles).minimizer
+	ψmean = plogis(tmp[1] + tmp[2] * mean(vegHt))
+	boot_out[i,:] = [tmp[1],tmp[2], ψmean]
+end
 
-# Boostrap SEs
-SE.boot
+# ╔═╡ 9b80dd10-3ef7-11eb-18d9-a955c5e77051
+boot_out
 
-# Compare these with the ASEs for regression parameters
-mle.table
+# ╔═╡ b72ebd72-3ef7-11eb-12a4-1367450addbf
+SE_boot = [sqrt(var(boot_out[:,1])),sqrt(var(boot_out[:,2])),sqrt(var(boot_out[:,3]))]
 
+# ╔═╡ 2a282e60-3ef8-11eb-2b34-1b15aebc2916
+[quantile(boot_out[:,1],[0.025,0.975]), quantile(boot_out[:,2],[0.025,0.975]), quantile(boot_out[:,3],[0.025,0.975])]
 
-# 2.4.6 Likelihood analysis of hierarchical models (no code)
-# ------------------------------------------------------------------------
+# ╔═╡ 724fdc60-3ef8-11eb-3041-e3374b8012aa
+SE_boot
 
-# 2.4.6.1 Discrete random variable
-# ------------------------------------------------------------------------
-set.seed(2014)
-M <- 100                             # number of sites
-vegHt <- runif(M, 1, 3)              # uniform from 1 to 3
-psi <- plogis(beta0 + beta1 * vegHt) # occupancy probability
-z <- rbinom(M, 1, psi)               # realised presence/absence
-p <- 0.6                             # detection probability
-J <- 3                               # sample each site 3 times
-y <-rbinom(M, J, p*z)                # observed detection frequency
+# ╔═╡ 75d559a0-3ef8-11eb-3083-4dadfbd3a95b
+mle_table
 
+# ╔═╡ b37944a0-3ef9-11eb-0464-cf0fcf246c53
+md"
+### 2.4.6.1 Discrete random variable
+ ------------------------------------------------------------------------"
+
+# ╔═╡ 840df1d0-3ef8-11eb-159e-59659ebd8c2f
+begin
+	p = 0.6 # detection probability
+	J = 3.0 # sample each site 3 times
+	y = rbinom.(M, J, p*z) # observed detection frequency
+end
+
+# ╔═╡ cb9ec190-3ef9-11eb-31ef-3364b9500dcf
 # Define negative log-likelihood.
-negLogLikeocc <- function(beta, y, x, J) {
-    beta0 <- beta[1]
-    beta1 <- beta[2]
-    p <- plogis(beta[3])
-    psi <- plogis(beta0 + beta1*x)
-    marg.likelihood <- dbinom(y, J, p)*psi + ifelse(y==0,1,0)*(1-psi)
-    return(-sum(log(marg.likelihood)))
-}
+function negLogLikeocc(β, y, x, J)
+	p = plogis(β[3])
+	ψ = plogis.(β[1] .+ β[2]*x)
+	m_likelihood = dbinom.(y[1], J, p) .* ψ .+ ifelse(y==0,1,0) .* (1 .- ψ)
+	-sum(log.(m_likelihood))
+end
 
-starting.values <- c(beta0=0, beta1=0,logitp=0)
-(opt.out <- optim(starting.values, negLogLikeocc, y=y, x=vegHt,J=J,
-                 hessian=TRUE))
+# ╔═╡ c84e8520-3ef9-11eb-1024-09ae6591b6b2
+op_out_discr = optimize((x)->(negLogLikeocc(x,y,vegHt,J)),[0.0,0.0,0.0])
 
-sqrt(diag(solve(opt.out$hessian)))
-
+# ╔═╡ 1f391f10-3efc-11eb-3655-0b9fceb95ae1
 
 # 2.4.6.2 A continuous latent variable
 # ------------------------------------------------------------------------
@@ -379,10 +386,24 @@ sqrt(diag(solve(opt.out$hessian)))
 # }
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+# ╔═╡ 61e28d0e-3efc-11eb-387b-f56683979eb9
 # nx = encounter frequencies, number inds. encountered 1, 2, ..., 14 times
-nx <- c(34, 16, 10, 4, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0)
-nind <- sum(nx)      # Number of individuals observed
-J <- 14              # Number of sample occasions
+begin
+	nx = [34, 16, 10, 4, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0]
+	nind = sum(nx)      # Number of individuals observed
+	J2 = 14.0              # Number of sample occasions
+end
+
+# ╔═╡ 7a85c580-3efc-11eb-31b1-cfaab52cddca
+function Mhlik(parms)
+	μ = parms[1]
+	σ = exp(parms[2])
+	n₀ = exp(parms[3])
+	
+	marg = 
+
+# ╔═╡ 29c75b30-2e59-11eb-2abb-1514bd995fd2
+
 
 # Model Mh likelihood
 Mhlik <- function(parms){
@@ -480,4 +501,23 @@ Mhlik <- function(parms){
 # ╠═485140d0-3498-11eb-18d9-e31539175590
 # ╠═fb2bf7ae-349b-11eb-35f4-4bd134594d0a
 # ╠═352df610-3498-11eb-3558-d9a33909b8bb
+# ╠═092098e2-3eeb-11eb-25cc-0333e8bfbddf
+# ╟─113dedc0-3eeb-11eb-3bf4-7b6c3197489f
+# ╠═190b9c00-3eeb-11eb-29c6-85ab06e7905f
+# ╠═36d97630-3eeb-11eb-13b1-a10d1d4b1af1
+# ╠═56f7b290-3ef7-11eb-1e56-f515df4f3d4c
+# ╠═8df9e1a0-3ef7-11eb-1548-9da618eb3f6d
+# ╠═397c0d80-3eeb-11eb-2b1e-b19d4011ab10
+# ╠═9b80dd10-3ef7-11eb-18d9-a955c5e77051
+# ╠═b72ebd72-3ef7-11eb-12a4-1367450addbf
+# ╠═2a282e60-3ef8-11eb-2b34-1b15aebc2916
+# ╠═724fdc60-3ef8-11eb-3041-e3374b8012aa
+# ╠═75d559a0-3ef8-11eb-3083-4dadfbd3a95b
+# ╟─b37944a0-3ef9-11eb-0464-cf0fcf246c53
+# ╠═840df1d0-3ef8-11eb-159e-59659ebd8c2f
+# ╠═cb9ec190-3ef9-11eb-31ef-3364b9500dcf
+# ╠═c84e8520-3ef9-11eb-1024-09ae6591b6b2
+# ╠═1f391f10-3efc-11eb-3655-0b9fceb95ae1
+# ╠═61e28d0e-3efc-11eb-387b-f56683979eb9
+# ╠═7a85c580-3efc-11eb-31b1-cfaab52cddca
 # ╠═29c75b30-2e59-11eb-2abb-1514bd995fd2
