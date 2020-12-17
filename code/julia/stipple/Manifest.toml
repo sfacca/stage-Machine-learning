@@ -285,6 +285,12 @@ uuid = "3fa0cd96-eef1-5676-8a61-b3b8758bbffb"
 deps = ["Serialization"]
 uuid = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
 
+[[Reactive]]
+deps = ["DataStructures", "Distributed", "Test"]
+git-tree-sha1 = "5862d915387ebb954016f50a88e34f79a9e5fcd2"
+uuid = "a223df75-4e93-5b7c-acf9-bdd599c0f4de"
+version = "0.8.3"
+
 [[Reexport]]
 deps = ["Pkg"]
 git-tree-sha1 = "7b1d07f411bc8ddb7977ec7f377b97b158514fe0"
@@ -341,6 +347,12 @@ deps = ["FilePathsBase", "Genie", "JSON", "Logging", "Observables", "Pkg", "Reex
 git-tree-sha1 = "a86f088b30184761353f62af34b0eb6745232fbe"
 uuid = "4acbeb90-81a0-11ea-1966-bdaff8155998"
 version = "0.7.1"
+
+[[StippleCharts]]
+deps = ["DataFrames", "Genie", "Stipple"]
+git-tree-sha1 = "ed31454bce0335ea134c6bb2ddd1d8e113e91aa8"
+uuid = "30ddb3f0-912f-4f34-9804-e4bb31290777"
+version = "0.4.0"
 
 [[StippleUI]]
 deps = ["DataFrames", "Genie", "JSON", "Stipple"]
