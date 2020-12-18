@@ -58,19 +58,21 @@ landing_model = Stipple.init(Model())
 
 # ╔═╡ c0968c40-3fbe-11eb-225e-5327555f4c34
 #listeners dont refresh
-on(landing_model.input) do _
-  if (landing_model.input[] == 1)
+on(landing_model.input) do _  
+	#=
+	if (landing_model.input[] == 1)
 		println("route to page 1")
 	elseif (landing_model.input[] == 2)		
 		println("route to page 1")
-	end
-    println("routing to page: $(landing_model.input)")
-		
+end=#
+	
+	println("routing to page: $(landing_model.input[])")
+
 		# 1. send id/pwd to server
 		# 2. wait for reply
 		# 3. req main page using prev response
-		
-    landing_model.input[] = 0
+
+	#landing_model.input[] = 0
 		# model.input -> observable
 		# model.input[] -> content
 end
@@ -83,11 +85,11 @@ function ui()
 	  header([
 					button("logout")
 				
-				]; class="st-header q-pa-sm"	
+				]; class="st-header q-pa-sm", align="right"	
 			)
 			
       col([
-					row(button("button 1", @click("input = 1")))
+					row(button("button 01", @click("input = true")))
 					
 					row(button("button 2", @click("input = 2")))
 					])
@@ -101,6 +103,8 @@ function ui()
         button("Login", @click("process = true")) 
 					#action triggered when process var is changed to true
       ])
+			
+			tab()
     ]
   ) |> Stipple.html
 end
