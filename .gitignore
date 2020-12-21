@@ -11,3 +11,34 @@ test/out
 downloads*
 .Rhistory*
 *out/
+
+code/julia/stipple/loginApp/build/*
+code/julia/stipple/loginApp/cache/*
+code/julia/stipple/loginApp/log/*
+code/julia/stipple/loginApp/sessions/*
+
+# Numerous always-ignore extensions
+*.diff
+*.err
+*.orig
+*.log
+*.rej
+*.swo
+*.swp
+*.vi
+*~
+*.sass-cache
+
+# OS or Editor folders
+.DS_Store
+.cache
+.project
+.settings
+.tmproj
+nbproject
+Thumbs.db
+*.sublime-project
+*.sublime-workspace
+.vscode
+.tags*
+.tags
