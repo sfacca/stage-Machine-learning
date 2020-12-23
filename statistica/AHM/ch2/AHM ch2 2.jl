@@ -19,6 +19,12 @@ using LinearAlgebra
 # ╔═╡ 8df9e1a0-3ef7-11eb-1548-9da618eb3f6d
 using Statistics
 
+# ╔═╡ b48fe26e-4554-11eb-06bf-813c510040aa
+using QuadGK #integration
+
+# ╔═╡ 995cda90-4558-11eb-214a-c3baa47782f1
+using SpecialFunctions #lgamma
+
 # ╔═╡ 3013e7b0-2e59-11eb-0a53-1b101c374842
 #   Applied hierarchical modeling in ecology
 #   Modeling distribution, abundance and species richness using R and BUGS
@@ -389,50 +395,51 @@ op_out_discr = optimize((x)->(negLogLikeocc(x,y,vegHt,J)),[0.0,0.0,0.0])
 # ╔═╡ 61e28d0e-3efc-11eb-387b-f56683979eb9
 # nx = encounter frequencies, number inds. encountered 1, 2, ..., 14 times
 begin
-	nx = [34, 16, 10, 4, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0]
+	nx = [34.0, 16.0, 10.0, 4.0, 2.0, 2.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
 	nind = sum(nx)      # Number of individuals observed
 	J2 = 14.0              # Number of sample occasions
 end
+
+# ╔═╡ d9a52a40-455c-11eb-314a-fdb8beeb6c95
+size([34, 16, 10, 4, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0])
+
+# ╔═╡ 3982bff0-455c-11eb-0132-41508454fa3e
+size(nx)
+
+# ╔═╡ 512662b0-455c-11eb-13c5-f75a5e9f1284
+function pushfirst(arr::Array{T,1}, elem::T) where {T}
+	res = copy(arr)
+	pushfirst!(res, elem)
+end
+
+# ╔═╡ 474a1fc2-455c-11eb-05ca-91ce2b004d5a
+pushfirst
 
 # ╔═╡ 7a85c580-3efc-11eb-31b1-cfaab52cddca
 function Mhlik(parms)
 	μ = parms[1]
 	σ = exp(parms[2])
 	n₀ = exp(parms[3])
+	marg = Array{Any,1}(undef,Int(round(J2))+1)
+	err = Array{Any,1}(undef,Int(round(J2))+1)
+	for j in 0:Int(round(J2))
+		marg[j+1], err[j+1] = quadgk(x ->(dbinom(j, J, plogis(x)) * dnorm(x, μ, σ)), -Inf, +Inf, rtol=1e-8)
+	end
+	round(-1*(lgamma(n₀ + nind + 1) - lgamma(n₀ + 1) + sum(pushfirst(nx, n₀) .* log.((marg)))))
+end
 	
-	marg = 
 
-# ╔═╡ 29c75b30-2e59-11eb-2abb-1514bd995fd2
+# ╔═╡ 9d0e7410-455c-11eb-236d-512d275e5494
+size(nx)
 
+# ╔═╡ 3c15bc50-455b-11eb-063a-2bce852d3e5e
+pushfirst!
 
-# Model Mh likelihood
-Mhlik <- function(parms){
-   mu <- parms[1]
-   sigma <- exp(parms[2])
-   # n0 = number of UNobserved individuals: N = nind + n0
-   n0 <- exp(parms[3])
+# ╔═╡ 1a8e5c90-455b-11eb-2bb9-ffbf2956476c
+pushfirst!([2,3,4], 1)
 
-  # Compute the marginal probabilities for each possible value j=0,..,14
-   marg <- rep(NA,J+1)
-   for(j in 0:J){
-      marg[j+1] <- integrate(
-      function(x){dbinom(j, J, plogis(x)) * dnorm(x, mu, sigma)},
-       lower=-Inf,upper=Inf)$value
-   }
-
-  # The negative log likelihood involves combinatorial terms computed
-  # using lgamma()
-  -1*(lgamma(n0 + nind + 1) - lgamma(n0 + 1) + sum(c(n0, nx) * log(marg)))
-}
-(tmp <- nlm(Mhlik, c(-1, 0, log(10)), hessian=TRUE))
-
-
-(SE <- sqrt( (exp(tmp$estimate[3])^2)* diag(solve(tmp$hessian))[3] ) )
-
-
-# 2.4.7 The R package ‘unmarked’ (no code)
-# ------------------------------------------------------------------------
-
+# ╔═╡ ac8a3770-4558-11eb-01d2-b9c6e36d3dc6
+tmp = optimize(Mhlik, [-1.0, 0.0 ,log(10)])
 
 # ╔═╡ Cell order:
 # ╠═f7a04e50-2e58-11eb-37b3-cffa98a875d5
@@ -519,5 +526,14 @@ Mhlik <- function(parms){
 # ╠═c84e8520-3ef9-11eb-1024-09ae6591b6b2
 # ╠═1f391f10-3efc-11eb-3655-0b9fceb95ae1
 # ╠═61e28d0e-3efc-11eb-387b-f56683979eb9
+# ╠═b48fe26e-4554-11eb-06bf-813c510040aa
+# ╠═995cda90-4558-11eb-214a-c3baa47782f1
+# ╠═d9a52a40-455c-11eb-314a-fdb8beeb6c95
+# ╠═3982bff0-455c-11eb-0132-41508454fa3e
+# ╠═512662b0-455c-11eb-13c5-f75a5e9f1284
+# ╠═474a1fc2-455c-11eb-05ca-91ce2b004d5a
 # ╠═7a85c580-3efc-11eb-31b1-cfaab52cddca
-# ╠═29c75b30-2e59-11eb-2abb-1514bd995fd2
+# ╠═9d0e7410-455c-11eb-236d-512d275e5494
+# ╠═3c15bc50-455b-11eb-063a-2bce852d3e5e
+# ╠═1a8e5c90-455b-11eb-2bb9-ffbf2956476c
+# ╠═ac8a3770-4558-11eb-01d2-b9c6e36d3dc6
