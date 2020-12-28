@@ -16,6 +16,9 @@ using Plots
 # ╔═╡ 6559c82e-45fc-11eb-3335-0b72269bbb37
 using KernelDensity, Distributions
 
+# ╔═╡ 131c2330-4929-11eb-2e13-23c404fe031c
+using StatPlots
+
 # ╔═╡ 8cb407b0-45e8-11eb-3da7-d5f640306dee
 include("AHM ch2 4.jl")
 
@@ -230,18 +233,19 @@ begin
 
 end
 
-# ╔═╡ e57e9a7e-4611-11eb-22d2-5375d91d3d21
-# 2.6.7 Bayesian analysis of hierarchical models
-# ------------------------------------------------------------------------
-
-# The occupancy model
-# '''''''''''''''''''
-
-# Simulate the data set
+# ╔═╡ 7c91ca50-461c-11eb-3bfb-557cdc476ec9
 begin
+	# 2.6.7 Bayesian analysis of hierarchical models
+	# ------------------------------------------------------------------------
+
+	# The occupancy model
+	# '''''''''''''''''''
+
+	# Simulate the data set
+	
 	bM = 100                        # number of sites
 	bvegHt = runif(bM, 1, 3)         # uniform from 1 to 3
-	bpsi = plogis.(-3 .+ 2 .* bvegHt)     # occupancy probability
+	global bpsi = plogis.(-3 .+ 2 .* bvegHt)     # occupancy probability
 	bz = [rbinom(1, 1, i)[1] for i in bpsi] # realised presence/absence
 	#bz = rbinom.(bM, 1, bpsi)          
 	bp = 0.6                        # detection probability
@@ -256,60 +260,61 @@ begin
 	bout = Array{Float64,2}(undef, bniter, 3)
 	
 	bz = [ifelse(i>0, 1, 0) for i in by]
-	bp = 0.2
-end
-
-
-# ╔═╡ 7d1fb272-461c-11eb-3296-25b4256f4581
-begin
 	# Initialize parameters, likelihood, and priors
 	bstarting_values = [0, 0]
-	bbeta0 = bstarting_values[1]
-	bbeta1 = bstarting_values[2]
+	global bbeta0 = bstarting_values[1]
+	global bbeta1 = bstarting_values[2]
+	
+	global bp = 0.2
 	
 	# NOTE: using logistic reg. likelihood function here!
-	loglike = -1*negLogLike([beta0, beta1], z, vegHt)
-	logprior = dnorm.([beta0, beta1], 0, 10, true)
+	global loglike = -1 * negLogLike([bbeta0, bbeta1], bz, bvegHt)	
+	global logprior = dnorm.([bbeta0, bbeta1], 0, 10, true)
 	# Run MCMC algorithm
-	for i in 1:niter
+	for i in 1:bniter
 		# PART 1 of algorithm -- same as before
 		# Update intercept (beta0)
 		# propose candidate values of beta
 		bbeta0_cand = rnorm(1, bbeta0, 0.3)[1] # 0.3 is tuning parameter
 		# evaluate likelihood and priors for candidates
-		bloglike_cand = -1*negLogLike([bbeta0_cand, bbeta1], bz, bvegHt)
+		bloglike_cand = -1 * negLogLike([bbeta0_cand, bbeta1], bz, bvegHt)
 		blogprior_cand = dnorm(bbeta0_cand, 0, 10, true)
 		# Compute Metropolis acceptance probability (r)
 		br = exp((bloglike_cand+blogprior_cand) - (loglike + logprior[1]))
 		# Keep candidate if it meets the criterion
 
 		if runif(1)[1] < br
-			bbeta0 = bbeta0_cand
-			loglike = bloglike_cand
-			logprior[1] = blogprior_cand
+			global bbeta0 = bbeta0_cand
+			global loglike = bloglike_cand
+			global logprior[1] = blogprior_cand
 		end
 
 		# Update slope (beta1)
-		bbeta1_cand = rnorm(1, bbeta1, 0.3) # 0.3 is tuning parameter
+		bbeta1_cand = rnorm(1, bbeta1, 0.3)[1] # 0.3 is tuning parameter
 		# evaluate likelihood and priors for candidates
-		bloglike_cand = -1*negLogLike([bbeta0,bbeta1_cand], bz, bvegHt)
+		bloglike_cand = - negLogLike([bbeta0,bbeta1_cand], bz, bvegHt)
 		blogprior_cand = dnorm(bbeta1_cand, 0, 10, true)
 		# Compute Metropolis acceptance probability r
 		br = exp((bloglike_cand+blogprior_cand) - (loglike + logprior[2]))
 		# Keep the candidates if they meet the criterion
 
-		if runif(1)[1] < r
-			bbeta1 = bbeta1_cand
-			loglike = bloglike_cand
-			logprior[2] = blogprior_cand
+		if runif(1)[1] < br
+			global bbeta1 = bbeta1_cand
+			global loglike = bloglike_cand
+			global logprior[2] = blogprior_cand
 		end
 
 		# Part 2 of the algorithm
 		# update z. Note we only need to update z if y=0.
 		# The full conditional has known form
-		bpsi = plogis.(bbeta0 .+ bbeta1 .* bvegHt)
-		bpsi_cond = dbinom(0,bJ,bp) * bpsi /(dbinom(0, bJ, bp) * bpsi + (1-bpsi))
-		bz[y==0] = rbinom(sum(by==0), 1, bpsi_cond[y==0])
+		
+		global bpsi = plogis.(bbeta0 .+ bbeta1 .* bvegHt)
+		bpsi_cond = dbinom(0,bJ,bp) .* bpsi /(dbinom(0, bJ, bp) .* bpsi + (1 .- bpsi))
+		#println("zeros in by at: $(findall((x)->(x==0),by))")
+		bz[findall((x)->(x==0),by)] = [
+			rbinom(1, 1, i)[1] for i in bpsi_cond[findall((x)->(x==0),by)]
+			]	
+		
 		loglike = -1 * negLogLike([bbeta0, bbeta1], bz, bvegHt)
 
 		# Part 3: update p
@@ -320,94 +325,24 @@ begin
 		## if(runif(1) < exp(loglike.p.cand-loglike.p))
 		##    p<-p.cand
 		## This bit draws p directly from its full conditional
-		bp = rbeta(1, 1+ sum(by), sum(bz)*bJ +1 - sum(by) )
+		
+		global bp = rbeta(1, 1+ sum(by), sum(bz)*bJ +1 - sum(by) )[1]
 
 		# Save MCMC samples
-		out[i,:] = [bbeta0,bbeta1,bp]
+		#=
+		println("===========================================")
+		println("out row $i : $(out[i,:])")
+		println("result of comput: $([bbeta0,bbeta1,bp])")
+		println("===========================================")
+		=#
+		bout[i,:] = [bbeta0,bbeta1,bp]
 	end
-	
 end
 
-# ╔═╡ 8db9e150-461c-11eb-057c-17a6119c2b52
-bbeta0_cand = rnorm(1, bbeta0, 0.3)[1] # 0.3 is tuning parameter
-
-# ╔═╡ 7c91ca50-461c-11eb-3bfb-557cdc476ec9
-
-
-# ╔═╡ 749b0de0-45e8-11eb-2a30-513af5f3e9f7
-#=
-
-
-# Run MCMC algorithm
-for(i in 1:niter) {
-   if(i %% 1000 ==0 ) # report progress
-   cat("iter", i, "\n")
-
-   # PART 1 of algorithm -- same as before
-   # Update intercept (beta0)
-   # propose candidate values of beta
-   beta0.cand <- rnorm(1, beta0, 0.3) # 0.3 is tuning parameter
-   # evaluate likelihood and priors for candidates
-   loglike.cand <- -1*negLogLike(c(beta0.cand, beta1), z, vegHt)
-   logprior.cand <- dnorm(beta0.cand, 0, 10, log=TRUE)
-   # Compute Metropolis acceptance probability (r)
-   r <- exp((loglike.cand+logprior.cand) - (loglike + logprior[1]))
-   # Keep candidate if it meets the criterion
-   if(runif(1) < r){
-      beta0 <- beta0.cand
-      loglike <- loglike.cand
-      logprior[1] <- logprior.cand
-   }
-   # Update slope (beta1)
-   beta1.cand <- rnorm(1, beta1, 0.3) # 0.3 is tuning parameter
-   # evaluate likelihood and priors for candidates
-   loglike.cand <- -1*negLogLike(c(beta0,beta1.cand), z, vegHt)
-   logprior.cand <- dnorm(beta1.cand, 0, 10, log=TRUE)
-   # Compute Metropolis acceptance probability r
-   r <- exp((loglike.cand+logprior.cand) - (loglike + logprior[2]))
-   # Keep the candidates if they meet the criterion
-   if(runif(1) < r) {
-      beta1 <- beta1.cand
-      loglike <- loglike.cand
-      logprior[2] <- logprior.cand
-   }
-
-   # Part 2 of the algorithm
-   # update z. Note we only need to update z if y=0.
-   # The full conditional has known form
-
-   psi <- plogis(beta0 + beta1 * vegHt)
-   psi.cond <- dbinom(0,J,p) * psi /(dbinom(0, J, p) * psi + (1-psi))
-   z[y==0] <- rbinom(sum(y==0), 1, psi.cond[y==0])
-   loglike <- -1 * negLogLike(c(beta0, beta1), z, vegHt)
-
-   # Part 3: update p
-  ## The commented code will update p using Metropolis
-  ## loglike.p <- sum(log(dbinom(y[z==1],J,p)))
-  ## p.cand <- runif(1, 0, 1)
-  ## loglike.p.cand <- sum(log(dbinom(y[z==1], J, p.cand)))
-  ## if(runif(1) < exp(loglike.p.cand-loglike.p))
-  ##    p<-p.cand
-  ## This bit draws p directly from its full conditional
-   p <- rbeta(1, 1+ sum(y), sum(z)*J +1 - sum(y) )
-
-   # Save MCMC samples
-   out[i,] <- c(beta0,beta1,p)
-}
-
+# ╔═╡ 2ba91be0-4926-11eb-171f-8310280d17c7
 # Plot bivariate representation of joint posterior
-pairs(out)
 
-# Trace/history plots for each parameter (Fig. 2.8)
-op <- par(mfrow=c(2,1))
-plot(out[,1], type="l", xlab="Iteration", ylab="beta0")
-abline(h = mean(out[,1]), col = "blue", lwd = 2)
-abline(h = -3, col = "red", lwd = 2)
-plot(out[,2], type="l", xlab="Iteration", ylab="beta1")
-abline(h = mean(out[,2]), col = "blue", lwd = 2)
-abline(h = 2, col = "red", lwd = 2)
-par(op)
-=#
+corrplot(bout)
 
 # ╔═╡ Cell order:
 # ╠═7a1d6c90-45e8-11eb-378d-65dcc8bb06db
@@ -440,8 +375,6 @@ par(op)
 # ╠═02d745b0-4607-11eb-031b-29cb5640d721
 # ╠═460bb8d0-460b-11eb-0fd1-71906159180c
 # ╠═a0ff7460-460c-11eb-2273-19f5046fe2cb
-# ╠═e57e9a7e-4611-11eb-22d2-5375d91d3d21
-# ╠═8db9e150-461c-11eb-057c-17a6119c2b52
-# ╠═7d1fb272-461c-11eb-3296-25b4256f4581
 # ╠═7c91ca50-461c-11eb-3bfb-557cdc476ec9
-# ╠═749b0de0-45e8-11eb-2a30-513af5f3e9f7
+# ╠═131c2330-4929-11eb-2e13-23c404fe031c
+# ╠═2ba91be0-4926-11eb-171f-8310280d17c7
