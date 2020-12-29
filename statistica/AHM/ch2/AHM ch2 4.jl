@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.12.16
+# v0.12.18
 
 using Markdown
 using InteractiveUtils
@@ -46,7 +46,7 @@ using SpecialFunctions #lgamma
 # Simulate a covariate called vegHt for 100 sites
 
 # ╔═╡ 383bc3e0-2e59-11eb-0f19-7797017090fa
-M = 200        # Number of sites surveyed
+M = 100        # Number of sites surveyed
 
 # ╔═╡ 3d419f90-2e59-11eb-11ab-5f865ae24e9d
 vegHt = runif(M, 1, 3) # uniform from 1 to 3
@@ -362,8 +362,11 @@ md"
 begin
 	p = 0.6 # detection probability
 	J = 3.0 # sample each site 3 times
-	y = rbinom.(M, J, p*z) # observed detection frequency
+	y = [rbinom(1, J, i)[1] for i in p*z]# observed detection frequency
 end
+
+# ╔═╡ e292d5d0-49ee-11eb-337e-bf0fed662377
+typeof(y)
 
 # ╔═╡ cb9ec190-3ef9-11eb-31ef-3364b9500dcf
 # Define negative log-likelihood.
@@ -522,6 +525,7 @@ tmp = optimize(Mhlik, [-1.0, 0.0 ,log(10)])
 # ╠═75d559a0-3ef8-11eb-3083-4dadfbd3a95b
 # ╟─b37944a0-3ef9-11eb-0464-cf0fcf246c53
 # ╠═840df1d0-3ef8-11eb-159e-59659ebd8c2f
+# ╠═e292d5d0-49ee-11eb-337e-bf0fed662377
 # ╠═cb9ec190-3ef9-11eb-31ef-3364b9500dcf
 # ╠═c84e8520-3ef9-11eb-1024-09ae6591b6b2
 # ╠═1f391f10-3efc-11eb-3655-0b9fceb95ae1
