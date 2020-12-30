@@ -7,6 +7,24 @@ using InteractiveUtils
 # ╔═╡ f4844bc0-49f8-11eb-1e81-1193c6324479
 using DataFrames, CategoricalArrays, Plots, GLM
 
+# ╔═╡ e2eca800-4ad2-11eb-2fcc-d71c2c0823ce
+using StatsModels
+
+# ╔═╡ a3a2bee2-4ab5-11eb-1640-c376d219c2fd
+function level(asd, i)
+	return findfirst((x)->x==asd[i],levels(asd))
+end
+
+# ╔═╡ 6cc72aa0-4ab5-11eb-1638-295a1bdf5660
+function lev_to_ind(arr)
+	res = Array{Int,1}(undef,length(arr))
+	for i in 1:length(arr)
+		res[i] = level(arr, i)
+	end
+	CategoricalArray(res)
+end
+			
+
 # ╔═╡ 3d7c02ae-49f3-11eb-3d83-d93c5c67b7f0
 #   Applied hierarchical modeling in ecology
 #   Modeling distribution, abundance and species richness using R and BUGS
@@ -32,9 +50,13 @@ begin
 	mites = [0, 3, 2, 1, 0, 7, 0, 9, 6] # Number of ectoparasites
 	color = [0.45, 0.47, 0.54, 0.42, 0.54, 0.46, 0.49, 0.42, 0.57] # Color intensity
 	damage = [0,2,0,0,4,2,1,0,1]                 # Number of wings damaged
-	
+	poplevs = lev_to_ind(pop)
+	sexlevs = lev_to_ind(sex)
 end
 
+
+# ╔═╡ 9a5e2810-4ab5-11eb-1652-d5b5ef159625
+level(sex, 2)
 
 # ╔═╡ 06c08a82-49fc-11eb-3177-9fef55e3c247
 begin
@@ -63,7 +85,9 @@ data = DataFrame(
 	sex = sex,
 	mites = mites,
 	color = color,
-	damage = damage
+	damage = damage,
+	#poplevs = poplevs,
+	#sexlevs = sexlevs
 )
 
 # ╔═╡ c052a500-49fc-11eb-12e1-ad0fb43b3431
@@ -73,6 +97,9 @@ data = DataFrame(
 # 3.2.1 Linear models with main effects of one factor and one continuous covariate
 # --------------------------------------------------------------------------------
 fm1 = lm(@formula(wing ~ pop + body), data)
+
+# ╔═╡ 8df3b5ce-4ad9-11eb-074f-41f520d2af2f
+
 
 # ╔═╡ 9e1cfc80-49ff-11eb-1d0d-e718536b8200
 fm2 = lm(@formula(wing ~ 0 + pop + body), data)# no intercept
@@ -86,58 +113,128 @@ predict(fm1)
 # ╔═╡ 7617cda0-4a2c-11eb-3724-e7b94f13274f
 predict(fm2)
 
+# ╔═╡ 7d52dfc0-4aa3-11eb-1f7d-55e0c023931c
+ModelMatrix(ModelFrame(@formula(wing ~ pop + body), data))
+
+# ╔═╡ 998a7a00-4ad9-11eb-2819-292113d00a3e
+lm(@formula(wing ~ pop + body), data)
+
+# ╔═╡ a380a3d2-4aa8-11eb-1818-adbab59f41e6
+ModelMatrix(ModelFrame(@formula(wing ~ 0 + pop + body), data))
+
+# ╔═╡ d160581e-4aaa-11eb-10cf-a7f69ba8a4a4
+function mapColors(arr, colors)
+	res = Array{String,1}(undef, length(arr))
+	lev = levels(arr)
+	for i in 1:length(arr)
+		for j in 1:length(lev)
+			if arr[i] == lev[j]
+				res[i] = colors[j]
+			end
+		end
+	end
+	res
+end
+
+# ╔═╡ 9cffcea0-4aad-11eb-0df7-8bc9c2b26da5
+#[:none, :auto, :circle, :rect, :star5, :diamond, :hexagon, :cross, :xcross, :utriangle, :dtriangle, :rtriangle, :ltriangle, :pentagon, :heptagon, :octagon, :star4, :star6, :star7, :star8, :vline, :hline, :+, :x]
+
 # ╔═╡ fddf88f0-4a26-11eb-2905-991b214ebb2e
-wing
+begin
+	colors = ["red","green","blue"]
+	plot()
+	scatter(		
+		body[findall(x->x=="F", sex)], wing[findall(x->x=="F", sex)],
+		color = mapColors(
+			pop[findall(x->x=="F", sex)],colors
+			), 
+		markershape = :dtriangle,
+		legend = false
+	)
+	scatter!(
+		body[findall(x->x=="M", sex)], wing[findall(x->x=="M", sex)],
+		xlab = "Body length", ylab = "Wing span", 
+		color = mapColors(
+			pop[findall(x->x=="M", sex)],colors
+			)
+	)
+	Plots.abline!(coef(fm2)[4], coef(fm2)[1], color = colors[1])
+	Plots.abline!(coef(fm2)[4], coef(fm2)[2], color = colors[2])# catalonia
+	Plots.abline!(coef(fm2)[4], coef(fm2)[3], color = colors[3])
+end
+
+# ╔═╡ 05504f10-4ab4-11eb-186f-63c5fb28a842
+# 3.2.2 Linear models with interaction between one factor and one continuous covariate
+# ------------------------------------------------------------------------
+ModelMatrix(ModelFrame(@formula(wing ~ pop * body), data))
+
+# ╔═╡ 49ee3a0e-4ab4-11eb-02c2-676b37039973
+ModelMatrix(ModelFrame(@formula(wing ~ 0 + pop & body + pop), data))
+
+# ╔═╡ 52a7eea0-4ab7-11eb-2691-e5b9dcd2e2b9
+fm3 = lm(@formula(wing ~ 0 + pop & body + pop), data)
+
+# ╔═╡ 7a1231ae-4ab9-11eb-0859-073aaa1709b6
+# Plot
+begin
+	#@colors = ["red","green","blue"]
+	plot()
+	scatter(		
+		body[findall(x->x=="F", sex)], wing[findall(x->x=="F", sex)],
+		color = mapColors(
+			pop[findall(x->x=="F", sex)],colors
+			), 
+		markershape = :dtriangle,
+		legend = false
+	)
+	scatter!(
+		body[findall(x->x=="M", sex)], wing[findall(x->x=="M", sex)],
+		xlab = "Body length", ylab = "Wing span", 
+		color = mapColors(
+			pop[findall(x->x=="M", sex)],colors
+			)
+	)
+	Plots.abline!(coef(fm3)[4], coef(fm3)[1], color = colors[1])
+	Plots.abline!(coef(fm3)[5], coef(fm3)[2], color = colors[2])# catalonia
+	Plots.abline!(coef(fm3)[6], coef(fm3)[3], color = colors[3])
+end
+
+# ╔═╡ 521b5750-4abd-11eb-1d15-53e756d795ad
+# Create new design matrix
+DM0 = ModelMatrix(ModelFrame(@formula(wing ~ 0 + pop & body + pop), data))
+	
+
+# ╔═╡ e58d4380-4ad2-11eb-0c5a-8d9b628ae7d6
+modelmatrix()
+
+# ╔═╡ 6ac657f0-4abd-11eb-2ec2-110df6b6676e
+DM0.m[7:9,5] = DM0.m[7:9,6]                 # Combine slopes for Ar and Cat
+
+# ╔═╡ 933b6630-4abd-11eb-288e-775a4c374260
+begin
+	DM1 = deepcopy(DM0)
+	DM1.m = DM0.m[:, 1:5] # Delete former slope column for Cat
+end
+
+# ╔═╡ f33baad2-4ad7-11eb-1c6b-3be289ce80cc
+DM1.assign
+
+# ╔═╡ 52fd5ea0-4ad8-11eb-02b3-f32823d34b26
+DM1.m
+
+# ╔═╡ 3a5df590-4abe-11eb-1f57-1bfba5f192d0
+# Fit model with partial interaction
+fm4 <- lm(@formula(wing ~ DM1), data)
+
+
+# ╔═╡ ebd70a80-4aca-11eb-3b8c-053386ffd555
+
+
+# ╔═╡ afb038b0-4ac0-11eb-17b5-c31eafa82bce
+names(fm3).mm
 
 # ╔═╡ dd8730f0-49f2-11eb-28d1-cd41eac67b57
 #=
-
-
-# 3.2 Linear models
-# =================
-
-# 3.2.1 Linear models with main effects of one factor and one continuous covariate
-# --------------------------------------------------------------------------------
-summary(fm1 <- lm(wing ~ pop + body))
-
-summary(fm2 <- lm(wing ~ pop-1 + body))
-
-cbind(model.matrix(~pop+body) %*% fm1$coef, predict(fm1)) # Compare two solutions
-
-model.matrix(~ pop + body) # Effects parameterisation
-
-model.matrix(~ pop-1 + body) # Means parameterization
-
-op <- par(mfrow = c(1, 3), mar = c(5,4,2,2), cex = 1.2, cex.main = 1)
-plot(body[sex == "M"], wing[sex == "M"], col = colorM, xlim = c(6.5, 9.5),
-    ylim = c(10, 14), lwd = 2, frame.plot = FALSE, las = 1, pch = 17,
-    xlab = "Body length", ylab = "Wing span")
-points(body[sex == "F"], wing[sex == "F"], col = colorF, pch = 16)
-abline(coef(fm2)[1], coef(fm2)[4], col = "red", lwd = 2)
-abline(coef(fm2)[2], coef(fm2)[4], col = "blue", lwd = 2)
-abline(coef(fm2)[3], coef(fm2)[4], col = "green", lwd = 2)
-text(6.8, 14, "A", cex = 1.5)
-
-
-# 3.2.2 Linear models with interaction between one factor and one continuous covariate
-# ------------------------------------------------------------------------
-
-model.matrix(~ pop*body)  # Effects parameterisation
-
-model.matrix(~ pop*body-1-body)  # Means parameterisation
-
-summary(fm3 <- lm(wing ~ pop*body-1-body))
-
-# Plot
-plot(body[sex == "M"], wing[sex == "M"], col = colorM, xlim = c(6.5, 9.5),
-    ylim = c(10, 14), lwd = 2, frame.plot = FALSE, las = 1, pch = 17,
-    xlab = "Body length", ylab = "")
-points(body[sex == "F"], wing[sex == "F"], col = colorF, pch = 16)
-abline(coef(fm3)[1], coef(fm3)[4], col = "red", lwd = 2)
-abline(coef(fm3)[2], coef(fm3)[5], col = "blue", lwd = 2)
-abline(coef(fm3)[3], coef(fm3)[6], col = "green", lwd = 2)
-text(6.8, 14, "B", cex = 1.5)
-
 # Create new design matrix
 (DM0 <- model.matrix(~ pop*body-1-body)) # Original DM for means param
 DM0[7:9,5] <- DM0[7:9,6]                 # Combine slopes for Ar and Cat
@@ -296,14 +393,37 @@ damage <- rep(c(0,2,0,0,4,2,1,0,1), clone.size)
 # ╔═╡ Cell order:
 # ╠═f4844bc0-49f8-11eb-1e81-1193c6324479
 # ╠═3d7c02ae-49f3-11eb-3d83-d93c5c67b7f0
+# ╠═9a5e2810-4ab5-11eb-1652-d5b5ef159625
+# ╠═a3a2bee2-4ab5-11eb-1640-c376d219c2fd
+# ╠═6cc72aa0-4ab5-11eb-1638-295a1bdf5660
 # ╠═06c08a82-49fc-11eb-3177-9fef55e3c247
 # ╠═47c8a48e-49fc-11eb-1d34-f10971aa0601
 # ╠═6008ae60-49fc-11eb-3631-c78f0553dac7
 # ╠═67659210-49ff-11eb-3a51-93bb33ced33f
 # ╠═c052a500-49fc-11eb-12e1-ad0fb43b3431
+# ╠═8df3b5ce-4ad9-11eb-074f-41f520d2af2f
 # ╠═9e1cfc80-49ff-11eb-1d0d-e718536b8200
 # ╠═ae5f7e60-4a13-11eb-3b60-89f77dddcacd
 # ╠═f4c647e0-4a26-11eb-39b2-75125641d6fb
 # ╠═7617cda0-4a2c-11eb-3724-e7b94f13274f
+# ╠═7d52dfc0-4aa3-11eb-1f7d-55e0c023931c
+# ╠═998a7a00-4ad9-11eb-2819-292113d00a3e
+# ╠═a380a3d2-4aa8-11eb-1818-adbab59f41e6
+# ╠═d160581e-4aaa-11eb-10cf-a7f69ba8a4a4
+# ╠═9cffcea0-4aad-11eb-0df7-8bc9c2b26da5
 # ╠═fddf88f0-4a26-11eb-2905-991b214ebb2e
+# ╠═05504f10-4ab4-11eb-186f-63c5fb28a842
+# ╠═49ee3a0e-4ab4-11eb-02c2-676b37039973
+# ╠═52a7eea0-4ab7-11eb-2691-e5b9dcd2e2b9
+# ╠═7a1231ae-4ab9-11eb-0859-073aaa1709b6
+# ╠═521b5750-4abd-11eb-1d15-53e756d795ad
+# ╠═e2eca800-4ad2-11eb-2fcc-d71c2c0823ce
+# ╠═e58d4380-4ad2-11eb-0c5a-8d9b628ae7d6
+# ╠═6ac657f0-4abd-11eb-2ec2-110df6b6676e
+# ╠═933b6630-4abd-11eb-288e-775a4c374260
+# ╠═f33baad2-4ad7-11eb-1c6b-3be289ce80cc
+# ╠═52fd5ea0-4ad8-11eb-02b3-f32823d34b26
+# ╠═3a5df590-4abe-11eb-1f57-1bfba5f192d0
+# ╠═ebd70a80-4aca-11eb-3b8c-053386ffd555
+# ╠═afb038b0-4ac0-11eb-17b5-c31eafa82bce
 # ╠═dd8730f0-49f2-11eb-28d1-cd41eac67b57
