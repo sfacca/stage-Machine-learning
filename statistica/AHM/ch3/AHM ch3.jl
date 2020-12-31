@@ -10,6 +10,9 @@ using DataFrames, CategoricalArrays, Plots, GLM
 # ╔═╡ e2eca800-4ad2-11eb-2fcc-d71c2c0823ce
 using StatsModels
 
+# ╔═╡ d8d81a20-4b9a-11eb-3d16-117a74b7e431
+
+
 # ╔═╡ a3a2bee2-4ab5-11eb-1640-c376d219c2fd
 function level(asd, i)
 	return findfirst((x)->x==asd[i],levels(asd))
@@ -122,6 +125,12 @@ lm(@formula(wing ~ pop + body), data)
 # ╔═╡ a380a3d2-4aa8-11eb-1818-adbab59f41e6
 ModelMatrix(ModelFrame(@formula(wing ~ 0 + pop + body), data))
 
+# ╔═╡ dfb62e80-4b69-11eb-2e9a-174cf63f67e2
+ModelMatrix(ModelFrame(@formula(wing ~ pop * body), data))
+
+# ╔═╡ edc67e30-4b69-11eb-146f-a9e059d6b6b4
+ModelMatrix(ModelFrame(@formula(wing ~ pop & body), data))
+
 # ╔═╡ d160581e-4aaa-11eb-10cf-a7f69ba8a4a4
 function mapColors(arr, colors)
 	res = Array{String,1}(undef, length(arr))
@@ -204,8 +213,28 @@ end
 DM0 = ModelMatrix(ModelFrame(@formula(wing ~ 0 + pop & body + pop), data))
 	
 
+# ╔═╡ 96639870-4b92-11eb-30f7-c7ead405f68e
+schem = schema(@formula(wing ~ 0 + pop & body + pop) ,data)
+
 # ╔═╡ e58d4380-4ad2-11eb-0c5a-8d9b628ae7d6
-modelmatrix()
+#=
+# instead of ModelMatrix(ModelFrame(f::FormulaTerm, data, model=MyModel))
+sch = schema(f, data)
+f = apply_schema(f, sch, MyModel)
+response, predictors = modelcols(f, data)
+=#
+begin
+	f = @formula(wing ~ 0 + pop & body + pop)
+	sch = schema(f, data)
+	f = apply_schema(f, sch)
+	response, predictors = modelcols(f, data)
+	predictors[1:3,3] = predictors[1:3,4]
+	predictors = predictors[:,1:3]
+	response, predictors
+end
+
+# ╔═╡ a3601910-4b90-11eb-1873-c1f3887de9a8
+f
 
 # ╔═╡ 6ac657f0-4abd-11eb-2ec2-110df6b6676e
 DM0.m[7:9,5] = DM0.m[7:9,6]                 # Combine slopes for Ar and Cat
@@ -230,8 +259,8 @@ fm4 <- lm(@formula(wing ~ DM1), data)
 # ╔═╡ ebd70a80-4aca-11eb-3b8c-053386ffd555
 
 
-# ╔═╡ afb038b0-4ac0-11eb-17b5-c31eafa82bce
-names(fm3).mm
+# ╔═╡ 544556a2-4b96-11eb-0aca-4f05eded2a14
+
 
 # ╔═╡ dd8730f0-49f2-11eb-28d1-cd41eac67b57
 #=
@@ -390,8 +419,12 @@ damage <- rep(c(0,2,0,0,4,2,1,0,1), clone.size)
 
 =#
 
+# ╔═╡ 57bcf130-4b96-11eb-0db4-7d31c4d58c64
+
+
 # ╔═╡ Cell order:
 # ╠═f4844bc0-49f8-11eb-1e81-1193c6324479
+# ╠═d8d81a20-4b9a-11eb-3d16-117a74b7e431
 # ╠═3d7c02ae-49f3-11eb-3d83-d93c5c67b7f0
 # ╠═9a5e2810-4ab5-11eb-1652-d5b5ef159625
 # ╠═a3a2bee2-4ab5-11eb-1640-c376d219c2fd
@@ -409,6 +442,8 @@ damage <- rep(c(0,2,0,0,4,2,1,0,1), clone.size)
 # ╠═7d52dfc0-4aa3-11eb-1f7d-55e0c023931c
 # ╠═998a7a00-4ad9-11eb-2819-292113d00a3e
 # ╠═a380a3d2-4aa8-11eb-1818-adbab59f41e6
+# ╠═dfb62e80-4b69-11eb-2e9a-174cf63f67e2
+# ╠═edc67e30-4b69-11eb-146f-a9e059d6b6b4
 # ╠═d160581e-4aaa-11eb-10cf-a7f69ba8a4a4
 # ╠═9cffcea0-4aad-11eb-0df7-8bc9c2b26da5
 # ╠═fddf88f0-4a26-11eb-2905-991b214ebb2e
@@ -417,13 +452,16 @@ damage <- rep(c(0,2,0,0,4,2,1,0,1), clone.size)
 # ╠═52a7eea0-4ab7-11eb-2691-e5b9dcd2e2b9
 # ╠═7a1231ae-4ab9-11eb-0859-073aaa1709b6
 # ╠═521b5750-4abd-11eb-1d15-53e756d795ad
+# ╠═96639870-4b92-11eb-30f7-c7ead405f68e
 # ╠═e2eca800-4ad2-11eb-2fcc-d71c2c0823ce
 # ╠═e58d4380-4ad2-11eb-0c5a-8d9b628ae7d6
+# ╠═a3601910-4b90-11eb-1873-c1f3887de9a8
 # ╠═6ac657f0-4abd-11eb-2ec2-110df6b6676e
 # ╠═933b6630-4abd-11eb-288e-775a4c374260
 # ╠═f33baad2-4ad7-11eb-1c6b-3be289ce80cc
 # ╠═52fd5ea0-4ad8-11eb-02b3-f32823d34b26
 # ╠═3a5df590-4abe-11eb-1f57-1bfba5f192d0
 # ╠═ebd70a80-4aca-11eb-3b8c-053386ffd555
-# ╠═afb038b0-4ac0-11eb-17b5-c31eafa82bce
+# ╠═544556a2-4b96-11eb-0aca-4f05eded2a14
 # ╠═dd8730f0-49f2-11eb-28d1-cd41eac67b57
+# ╠═57bcf130-4b96-11eb-0db4-7d31c4d58c64
