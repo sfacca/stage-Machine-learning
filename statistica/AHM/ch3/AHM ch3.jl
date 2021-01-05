@@ -10,6 +10,9 @@ using DataFrames, CategoricalArrays, Plots, GLM
 # ╔═╡ e2eca800-4ad2-11eb-2fcc-d71c2c0823ce
 using StatsModels
 
+# ╔═╡ 7fc77a62-4ea2-11eb-2280-05d2861f4fb4
+using MixedModels
+
 # ╔═╡ d8d81a20-4b9a-11eb-3d16-117a74b7e431
 
 
@@ -234,7 +237,7 @@ begin
 end
 
 # ╔═╡ a3601910-4b90-11eb-1873-c1f3887de9a8
-f
+fit
 
 # ╔═╡ 6ac657f0-4abd-11eb-2ec2-110df6b6676e
 DM0.m[7:9,5] = DM0.m[7:9,6]                 # Combine slopes for Ar and Cat
@@ -248,176 +251,103 @@ end
 # ╔═╡ f33baad2-4ad7-11eb-1c6b-3be289ce80cc
 DM1.assign
 
-# ╔═╡ 52fd5ea0-4ad8-11eb-02b3-f32823d34b26
-DM1.m
-
 # ╔═╡ 3a5df590-4abe-11eb-1f57-1bfba5f192d0
 # Fit model with partial interaction
 fm4 <- lm(@formula(wing ~ DM1), data)
 
 
 # ╔═╡ ebd70a80-4aca-11eb-3b8c-053386ffd555
-
-
-# ╔═╡ 544556a2-4b96-11eb-0aca-4f05eded2a14
-
-
-# ╔═╡ dd8730f0-49f2-11eb-28d1-cd41eac67b57
-#=
-# Create new design matrix
-(DM0 <- model.matrix(~ pop*body-1-body)) # Original DM for means param
-DM0[7:9,5] <- DM0[7:9,6]                 # Combine slopes for Ar and Cat
-(DM1 <- DM0[, -6])                       # Delete former slope column for Cat
-
-# Fit model with partial interaction
-summary(fm4 <- lm(wing ~ DM1-1))
-
-# Do significance test
-anova(fm3, fm4)             # F test between two models
-
-# Plot
-plot(body[sex == "M"], wing[sex == "M"], col = colorM, xlim = c(6.5, 9.5),
-    ylim = c(10, 14), lwd = 2, frame.plot = FALSE, las = 1, pch = 17,
-    xlab = "Body length", ylab = "")
-points(body[sex == "F"], wing[sex == "F"], col = colorF, pch = 16)
-abline(coef(fm4)[1], coef(fm4)[4], col = "red", lwd = 2)
-abline(coef(fm4)[2], coef(fm4)[5], col = "blue", lwd = 2)
-abline(coef(fm4)[3], coef(fm4)[5], col = "green", lwd = 2)
-text(6.8, 14, "C", cex = 1.5)
-par(op)
-
 # 3.2.3 Linear models with two factors
 # ------------------------------------------------------------------------
-model.matrix(~ pop+sex)  # Design matrix of main-effects 2-way ANOVA
 
-# Fit linear model with that design matrix
-summary(fm5 <- lm(wing ~ pop + sex))
+# ╔═╡ 544556a2-4b96-11eb-0aca-4f05eded2a14
+fm5 = lm(@formula(wing ~ pop + sex), data)
 
-model.matrix(~ pop+sex-1)  # Design matrix of the main-effects 2-way ANOVA
+# ╔═╡ 9778af80-4e93-11eb-021a-83a9794dbfd1
+fm6 = lm(@formula(wing ~ 0 + pop + sex), data)
 
-# Fit linear model with that design matrix
-summary(fm6 <- lm(wing ~ pop + sex-1))
-
-# Variant 1: Effects parameterisation (R default)
-model.matrix(~ pop*sex)
-#model.matrix(~ pop + sex + pop:sex)     # Same
-
-# Variant 2: Means param. for pop, effects param. for sex
-model.matrix(~ pop*sex-1)
-
-# Variant 3 (output slightly trimmed): full means parameterisation
-model.matrix(~ pop:sex-1)
-
-
+# ╔═╡ ad16e550-4e93-11eb-2126-4b3a920a2f7f
 # 3.2.4 Linear models with two continuous covariates and including polynomials
 # ------------------------------------------------------------------------
-model.matrix(~ body + color)  # main-effects of covariates
+fm7 = lm(@formula(wing ~ body + color), data)
 
-summary(fm7 <- lm(wing ~ body + color))  # Fit that model
+# ╔═╡ dabc88c0-4e93-11eb-3e3b-e176341614fe
+ModelMatrix(ModelFrame(@formula(wing ~  body*color), data))
 
-model.matrix(~ body*color)  # Interaction between two covariates
+# ╔═╡ 002393ae-4e94-11eb-039d-cfe417983f1d
+fm8 = lm(@formula(wing ~  body*color), data)
 
-summary(fm8 <- lm(wing ~ body*color))  # Fit that model
+# ╔═╡ 0a7e0750-4e94-11eb-1db7-4bb5898e6f5c
 
 # Cubic polynomial of body in R
-body2 <- body^2           # Squared body length
-body3 <- body^3           # Cubed body length
-model.matrix(~ body + body2 + body3)
+begin
+	body2 = body .^2
+	body3 = body .^3
+	data[!,:body2] = body2
+	data[!,:body3] = body3
+	ModelMatrix(ModelFrame(@formula(wing ~ body + body2 + body3), data))
+end
 
-summary(fm9 <- lm(wing ~ body + body2 + body3))  # Fit that model
-# summary(fm9 <- lm(wing ~ body + I(body^2) + I(body^3))) # same
+# ╔═╡ 30cba1b0-4e94-11eb-1afd-01595f395702
+fm9 = lm(@formula(wing ~ body + body2 + body3), data)
 
-
+# ╔═╡ 5825a300-4e94-11eb-2881-4fbe19a1c359
 
 # 3.3 Generalised linear models (GLMs)
 # ====================================
 
+
+# ╔═╡ 62274842-4e94-11eb-1d92-1d160aa50ad1
+
 # 3.3.1 Poisson generalised linear model (GLM) for unbounded counts
 # ------------------------------------------------------------------------
-summary(fm10 <- glm(mites ~ pop-1 + body, family = poisson))
+fm10 = glm(@formula(mites ~ 0 + pop + body), data, Poisson())
 
-
+# ╔═╡ 94523ace-4e96-11eb-2914-f110e3f4e574
 # 3.3.2 Offsets in the Poisson GLM
 # ------------------------------------------------------------------------
-summary(fm10a <- glm(mites ~ pop-1 + wing, offset = log(body), family = poisson))
-# summary(fm10a <- glm(mites ~ offset(log(body)) + pop-1 + wing, family = poisson))     # same
+@formula(mites ~ pop-1 + wing + offset(log), data)
 
-
-# 3.3.3 Overdispersion and underdispersion (no code)
-# 3.3.4 Zero-inflation (no code)
-
+# ╔═╡ 10cf6710-4e9a-11eb-2894-7572b040adb6
 # 3.3.5 Bernoulli GLM: logistic regression for a binary response
 # ------------------------------------------------------------------------
-presence <- ifelse(mites > 0, 1, 0)  # convert abundance to presence/absence
-summary(fm11 <- glm(presence ~ pop-1 + body, family = binomial))
+begin
+	mites_presence = [ ifelse(i>0,1,0) for i in mites]	
+	data[!,:mites_presence] = mites_presence
+end		
 
+# ╔═╡ 5378bbbe-4e9f-11eb-3123-110774c7aaa3
+fm11 = glm(@formula(mites_presence ~ 0 + pop + body), data, Binomial())
+
+# ╔═╡ b08a6ac0-4e9f-11eb-0051-7b1de84686b9
 # 3.3.6 Modeling a Poisson process from presence/absence data using a Bernoulli GLM with cloglog link
 # ------------------------------------------------------------------------
-summary(fm11a <- glm(presence ~ pop-1 + body, family = binomial(link = "cloglog")))
+fm11a = glm(@formula(mites_presence ~ 0 + pop + body), data, Binomial(), CloglogLink())
 
-summary(fm10)
+# ╔═╡ e4c53c70-4e9f-11eb-1be9-61633d1f821f
+fm10
 
-# 3.3.7 Binomial GLM: logistic regression for bounded counts
-# -------------------------------------------------------------------------
-summary(fm12 <- glm(cbind(damage, 4-damage) ~ pop + body -1, family = binomial))
-
-
-# 3.3.8 The GLM as the quintessential statistical model (no code)
-
+# ╔═╡ eaf25a10-4e9f-11eb-2698-0b31af91771d
 # 3.4 Random effects (mixed) models
 # =================================
 
 # 3.4.1 Random effects for a normal data distribution: normal-normal generalised linear mixed model (GLMM)
 # ------------------------------------------------------------------------
 # Plot data without distinguishing sex
-plot(body, wing, col = rep(c("red", "blue", "green"), each = 3), xlim = c(6.5, 9.5),
-    ylim = c(10, 14), cex = 1.5, lwd = 2, frame.plot = FALSE, las = 1, pch = 16,
-    xlab = "Body length", ylab = "Wing span")
 
-summary(lm <- lm(wing ~ pop-1 + body))     # Same as fm2
+begin
+	plot()
+	scatter(body, wing, color = mapColors(
+			pop[findall(x->true, sex)],colors
+			), xlab = "Body length", ylab = "Wing span"
+	)
+end
 
-library(lme4)
-summary(lmm1 <- lmer(wing ~ (1|pop) + body))  # Fit the model
-ranef(lmm1)                                   # Print random effects
-
-alpha_j <- fixef(lmm1)[1]+ranef(lmm1)$pop[,1]
-cbind(fixed = coef(lm)[1:3], random = alpha_j)
-
-op <- par(lwd = 3)
-abline(lm$coef[1], lm$coef[4], col = "red", lty = 2)
-abline(lm$coef[2], lm$coef[4], col = "blue", lty = 2)
-abline(lm$coef[3], lm$coef[4], col = "green", lty = 2)
-abline(alpha_j[1], fixef(lmm1)[2], col = "red")
-abline(alpha_j[2], fixef(lmm1)[2], col = "blue")
-abline(alpha_j[3], fixef(lmm1)[2], col = "green")
-abline(fixef(lmm1), col = "black")
-legend(6.5, 14, c("Catalonia", "Aragon", "Navarra"), col=c("blue", "green", "red"),
-    lty = 1, pch = 16, bty = "n", cex = 1.5)
-par(op)
-
-summary(lmm2 <- lmer(wing ~ body + (1|pop) + (0+body|pop)))
-
-# 3.4.2 Random effects for a Poisson data distribution: normal-Poisson generalised linear mixed model (GLMM)
-# ------------------------------------------------------------------------
-summary(glmm <- glmer(mites ~ body + (1|pop), family = poisson))
-
-# 3.5 Summary and outlook (no code)
-
-# 3.6 Exercises
-# =============
-
-# Define and plot data (10 times larger data set than the toy data set)
-clone.size <- 10               # clone size
-pop <- factor(rep(c(rep("Navarra", 3), rep("Aragon", 3), rep("Catalonia", 3)),
-    levels = c("Navarra", "Aragon", "Catalonia"), clone.size))
-wing <- rep(c(10.5, 10.6, 11.0, 12.1, 11.7, 13.5, 11.4, 13.0, 12.9), clone.size)
-body <- rep(c(6.8, 8.3, 9.2, 6.9, 7.7, 8.9, 6.9, 8.2, 9.2), clone.size)
-sex <- rep(factor(c("M","F","M","F","M","F","M","F","M"), levels = c("M", "F")), clone.size)
-mites <- rep(c(0, 3, 2, 1, 0, 7, 0, 9, 6), clone.size)
-color <- rep(c(0.45, 0.47, 0.54, 0.42, 0.54, 0.46, 0.49, 0.42, 0.57), clone.size)
-damage <- rep(c(0,2,0,0,4,2,1,0,1), clone.size)
-
-=#
+# ╔═╡ a9e84760-4ea3-11eb-11f5-79b055f38523
+begin
+	f1 = @formula(mites ~ body + (1|pop))
+	m1 = fit(GeneralizedLinearMixedModel, f1, data, Poisson())
+end
 
 # ╔═╡ 57bcf130-4b96-11eb-0db4-7d31c4d58c64
 
@@ -459,9 +389,23 @@ damage <- rep(c(0,2,0,0,4,2,1,0,1), clone.size)
 # ╠═6ac657f0-4abd-11eb-2ec2-110df6b6676e
 # ╠═933b6630-4abd-11eb-288e-775a4c374260
 # ╠═f33baad2-4ad7-11eb-1c6b-3be289ce80cc
-# ╠═52fd5ea0-4ad8-11eb-02b3-f32823d34b26
 # ╠═3a5df590-4abe-11eb-1f57-1bfba5f192d0
 # ╠═ebd70a80-4aca-11eb-3b8c-053386ffd555
 # ╠═544556a2-4b96-11eb-0aca-4f05eded2a14
-# ╠═dd8730f0-49f2-11eb-28d1-cd41eac67b57
+# ╠═9778af80-4e93-11eb-021a-83a9794dbfd1
+# ╠═ad16e550-4e93-11eb-2126-4b3a920a2f7f
+# ╠═dabc88c0-4e93-11eb-3e3b-e176341614fe
+# ╠═002393ae-4e94-11eb-039d-cfe417983f1d
+# ╠═0a7e0750-4e94-11eb-1db7-4bb5898e6f5c
+# ╠═30cba1b0-4e94-11eb-1afd-01595f395702
+# ╠═5825a300-4e94-11eb-2881-4fbe19a1c359
+# ╠═62274842-4e94-11eb-1d92-1d160aa50ad1
+# ╠═94523ace-4e96-11eb-2914-f110e3f4e574
+# ╠═10cf6710-4e9a-11eb-2894-7572b040adb6
+# ╠═5378bbbe-4e9f-11eb-3123-110774c7aaa3
+# ╠═b08a6ac0-4e9f-11eb-0051-7b1de84686b9
+# ╠═e4c53c70-4e9f-11eb-1be9-61633d1f821f
+# ╠═eaf25a10-4e9f-11eb-2698-0b31af91771d
+# ╠═7fc77a62-4ea2-11eb-2280-05d2861f4fb4
+# ╠═a9e84760-4ea3-11eb-11f5-79b055f38523
 # ╠═57bcf130-4b96-11eb-0db4-7d31c4d58c64
