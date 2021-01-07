@@ -5,7 +5,7 @@ using Markdown
 using InteractiveUtils
 
 # ╔═╡ 8f555890-4f82-11eb-3433-e7d19630d983
-using Rmath
+using Rmath, Statistics, Plots
 
 # ╔═╡ e2092ad0-4f7d-11eb-11c5-59bb33e51532
 
@@ -19,9 +19,19 @@ using Rmath
 # 4.3 Packaging everything in a function
 # ======================================
 # Function definition with set of default values
-function data_fn (M = 267, J = 3, mean_lambda = 2, beta1 = -2,
-    beta2 = 2, beta3 = 1, mean_detection = 0.3, alpha1 = 1, alpha2 = -3,
-    alpha3 = 0, show_plot = true)
+function data_fn(;
+		M = 267, 
+		J = 3, 
+		mean_lambda = 2, 
+		beta1 = -2,
+		beta2 = 2, 
+		beta3 = 1, 
+		mean_detection = 0.3, 
+		alpha1 = 1, 
+		alpha2 = -3,
+		alpha3 = 0, 
+		show_plot = true
+	)
 	#
 	# Function to simulate point counts replicated at M sites during J occasions.
 	# Population closure is assumed for each site.
@@ -46,132 +56,86 @@ function data_fn (M = 267, J = 3, mean_lambda = 2, beta1 = -2,
 	# Create covariates
 	elev = runif(M, -1, 1)                         # Scaled elevation
 	forest = runif(M, -1, 1)                       # Scaled forest cover
-	wind <- array(runif(n = M*J, -1, 1), dim = c(M, J)) # Scaled wind speed
+	wind = reshape(runif(M*J, -1, 1), (M, J)) 		# Scaled wind speed
+		
+	# Model for abundance
+	beta0 = log(mean_lambda)               # Mean abundance on link scale
+	lambda = [
+		exp(beta0 + beta1*elev[i] + beta2*forest[i] + beta3*elev[i]*forest[i]) for i in 1:M
+	]
+	N = [rpois(1, i)[1] for i in lambda]      # Realised abundance
+	Ntotal = sum(N) 	# Total abundance (all sites)
+	psi_true = mean(filter((x)->(x>0),N)) # True occupancy in sample
+	
+	
+	
+	# Model for observations
+	alpha0 = qlogis(mean_detection)        # mean detection on link scale
+	p = reshape([plogis(alpha0 + alpha1*elev[i%M+1] + alpha2*wind[i+1] + alpha3*elev[i%M+1]*wind[i+1]) for i in 0:M*J-1], (M, J))
+	C = reshape([
+		rbinom(1, N[i%M+1], p[i+1])[1] for i in 0:M*J-1	
+	], (M, J))# Generate counts by survey
+	summaxC = sum([maximum(C[i,:]) for i in 1:M])   # Sum of max counts (all sites)
+	psi_obs = mean(filter((x)->(x>0),[maximum(C[i,:]) for i in 1:M])) # Observed occupancy in sample
+	
+	# Plots
+	if (show_plot)
+		
+		pl = [
+			plot((x)->(exp(beta0 + beta1*x)), -1, 1, xlab = "Scaled elevation"), 
+			scatter(elev, lambda, xlab = "Scaled elevation",legend=false), 
+			plot((x)->(exp(beta0 + beta2*x)), -1, 1, xlab = "Scaled forest cover",legend=false), 
+			scatter(forest, lambda, xlab = "Scaled forest cover",legend=false)
+			]
+		
+		pl2 = [
+			
+			plot((x)->(plogis(alpha0 + alpha1*x)), -1, 1, title="Relationship p-elevation \nat average wind speed", xlab = "Scaled elevation",legend=false),
+			
+			scatter(elev, p, xlab = "Scaled elevation", title = "Relationship p-elevation\n at observed wind speed",legend=false),
+			
+			plot((x)->(plogis(alpha0 + alpha2*x)), -1, 1, color = "red", title = "Relationship p-wind speed \n at average elevation", xlab = "Scaled wind speed",legend=false),
+			
+			scatter(wind, p, xlab = "Scaled wind speed", title = "Relationship p-wind speed \nat observed elevation",legend=false),
+			
+			scatter(elev, C, xlab = "Scaled elevation", title = "Relationship counts and elevation",legend=false),
+			
+			scatter(forest, C, xlab = "Scaled forest cover", title = "Relationship counts and forest cover",legend=false),
+			
+			scatter(wind, C, xlab = "Scaled wind speed", title = "Relationship counts and wind speed",legend=false)
+			
+		]	
+		
+		plots = [pl, pl2]
+	else
+		plots = [plot(), plot()]
+	end
+	
+	return (M = M, J = J, mean_lambda = mean_lambda, beta0 = beta0, beta1 = beta1,
+    beta2 = beta2, beta3 = beta3, mean_detection = mean_detection, alpha0 = alpha0,
+    alpha1 = alpha1, alpha2 = alpha2, alpha3 = alpha3, elev = elev, forest = forest,
+    wind = wind, lambda = lambda, N = N, p = p, C = C, Ntotal = Ntotal,
+    psi_true = psi_true, summaxC = summaxC, psi_obs = psi_obs, plots = plots)
+end
+	
 
 	
 
-# ╔═╡ 8627cc30-4f82-11eb-0229-c13357297590
-runif(12,-1,1)
-
-# ╔═╡ c4b39870-4f7e-11eb-18ce-d9302ff0e867
-#=#
-
-elev <- runif(n = M, -1, 1)                         # Scaled elevation
-forest <- runif(n = M, -1, 1)                       # Scaled forest cover
-wind <- array(runif(n = M*J, -1, 1), dim = c(M, J)) # Scaled wind speed
-
-# Model for abundance
-beta0 <- log(mean.lambda)               # Mean abundance on link scale
-lambda <- exp(beta0 + beta1*elev + beta2*forest + beta3*elev*forest)
-N <- rpois(n = M, lambda = lambda)      # Realised abundance
-Ntotal <- sum(N)                        # Total abundance (all sites)
-psi.true <- mean(N>0)                   # True occupancy in sample
-
-# Plots
-if(show.plot){
-  op <- par(mfrow = c(2, 2), cex.main = 1)
-  # devAskNewPage(ask = TRUE)
-  devAskNewPage(ask = dev.interactive(orNone=TRUE))  # ~~~~~ for autotesting
-  curve(exp(beta0 + beta1*x), -1, 1, col = "red",
-      main = "Relationship lambda-elevation \nat average forest cover",
-      frame.plot = FALSE, xlab = "Scaled elevation")
-  plot(elev, lambda, xlab = "Scaled elevation",
-      main = "Relationship lambda-elevation \nat observed forest cover",
-      frame.plot = FALSE)
-  curve(exp(beta0 + beta2*x), -1, 1, col = "red",
-      main = "Relationship lambda-forest \ncover at average elevation",
-      xlab = "Scaled forest cover", frame.plot = FALSE)
-  plot(forest, lambda, xlab = "Scaled forest cover",
-      main = "Relationship lambda-forest cover \nat observed elevation",
-      frame.plot = FALSE)
-  par(op)
-}
-
-# Model for observations
-alpha0 <- qlogis(mean.detection)        # mean detection on link scale
-p <- plogis(alpha0 + alpha1*elev + alpha2*wind + alpha3*elev*wind)
-C <- matrix(NA, nrow = M, ncol = J)     # Prepare matrix for counts
-for (i in 1:J){                         # Generate counts by survey
-  C[,i] <- rbinom(n = M, size = N, prob = p[,i])
-}
-summaxC <- sum(apply(C,1,max))          # Sum of max counts (all sites)
-psi.obs <- mean(apply(C,1,max)>0)       # Observed occupancy in sample
-
-# More plots
-if(show.plot){
-  op <- par(mfrow = c(2, 2))
-  curve(plogis(alpha0 + alpha1*x), -1, 1, col = "red",
-      main = "Relationship p-elevation \nat average wind speed",
-      xlab = "Scaled elevation", frame.plot = FALSE)
-  matplot(elev, p, xlab = "Scaled elevation",
-      main = "Relationship p-elevation\n at observed wind speed",
-      pch = "*", frame.plot = FALSE)
-  curve(plogis(alpha0 + alpha2*x), -1, 1, col = "red",
-      main = "Relationship p-wind speed \n at average elevation",
-      xlab = "Scaled wind speed", frame.plot = FALSE)
-  matplot(wind, p, xlab = "Scaled wind speed",
-      main = "Relationship p-wind speed \nat observed elevation",
-      pch = "*", frame.plot = FALSE)
-
-  matplot(elev, C, xlab = "Scaled elevation",
-      main = "Relationship counts and elevation",
-      pch = "*", frame.plot = FALSE)
-  matplot(forest, C, xlab = "Scaled forest cover",
-      main = "Relationship counts and forest cover",
-      pch = "*", frame.plot = FALSE)
-  matplot(wind, C, xlab = "Scaled wind speed",
-      main = "Relationship counts and wind speed", pch = "*", frame.plot = FALSE)
-  desc <- paste('Counts at', M, 'sites during', J, 'surveys')
-  hist(C, main = desc, breaks = 50, col = "grey")
-  par(op)
-}
-
-# Output
-return(list(M = M, J = J, mean.lambda = mean.lambda, beta0 = beta0, beta1 = beta1,
-    beta2 = beta2, beta3 = beta3, mean.detection = mean.detection, alpha0 = alpha0,
-    alpha1 = alpha1, alpha2 = alpha2, alpha3 = alpha3, elev = elev, forest = forest,
-    wind = wind, lambda = lambda, N = N, p = p, C = C, Ntotal = Ntotal,
-    psi.true = psi.true, summaxC = summaxC, psi.obs = psi.obs))
-}
-
-
-data.fn()                  # Execute function with default arguments
-data.fn(show.plot = FALSE) # same, without plots
-data.fn(M = 267, J = 3, mean.lambda = 2, beta1 = -2, beta2 = 2, beta3 = 1,
-    mean.detection = 0.3, alpha1 = 1, alpha2 = -3, alpha3 = 0) # Explicit defaults
-data <- data.fn()          # Assign results to an object called 'data'
-
-simrep <- 10000
-NTOTAL <- SUMMAXC <- numeric(simrep)
-for(i in 1:simrep){
-   data <- data.fn(show.plot = FALSE)
-   NTOTAL[i] <- data$Ntotal
-   SUMMAXC[i] <- data$summaxC
-}
-plot(sort(NTOTAL), ylim = c(min(SUMMAXC), max(NTOTAL)), ylab = "",
-    xlab = "Simulation", col = "red", frame = FALSE)
-points(SUMMAXC[order(NTOTAL)], col = "blue")
-
-data.fn(J = 2)              # Only 2 surveys
-data.fn(J = 1)              # No temporal replicate
-data.fn(M = 1, J = 100)     # No spatial replicates, but 100 counts
-data.fn(alpha3 = 1)         # With interaction elev-wind on p ## see errata
-data.fn(M = 267, J = 3, mean.lambda = 2, beta1 = -2, beta2 = 2, beta3 = 1,
-    mean.detection = 1)     # No obs. process (i.e., p = 1, perfect detection)
-data.fn(mean.lambda = 50)   # Really common species
-data.fn(mean.lambda = 0.05) # Really rare species
-
-set.seed(24)
-data <- data.fn()    # Default arguments
-str(data)            # Look at the object
-
-attach(data)         # Make objects inside of 'data' accessible directly
-
-detach(data)         # Make clean up
-=#
+# ╔═╡ ce4d27a0-502f-11eb-0bc8-e3776e016aff
+begin
+	simrep = 10000
+	NTOTAL = zeros(simrep)
+	SUMMAXC = zeros(simrep)
+	for i in 1:simrep
+		dat = data_fn(show_plot=false)
+		NTOTAL[i] = dat.Ntotal
+		SUMMAXC[i] = dat.summaxC
+	end
+	plot(scatter(SUMMAXC[sortperm(NTOTAL)], color="blue", legend=false),
+	plot(sort(NTOTAL), ylab = "", xlab = "Simulation", color="red", legend=false))
+end
 
 # ╔═╡ Cell order:
 # ╠═8f555890-4f82-11eb-3433-e7d19630d983
 # ╠═e2092ad0-4f7d-11eb-11c5-59bb33e51532
-# ╠═8627cc30-4f82-11eb-0229-c13357297590
-# ╠═c4b39870-4f7e-11eb-18ce-d9302ff0e867
+# ╠═ce4d27a0-502f-11eb-0bc8-e3776e016aff
