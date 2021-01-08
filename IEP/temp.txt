@@ -1,0 +1,51 @@
+#= none:2 =# Core.@doc "    findfunc(expr::Expr, name::Symbol)\n\nfindfunc walks the AST of `expr` to find the definition of function called `name`.\n\nThis function returns a reference to the original expression so that you can modify it inplace\nand is intended to help users rewrite the definitions of functions for generating new models.\n" function findfunc(expr::Expr, name::Symbol)
+        #= none:9 =#
+        #= none:10 =#
+        try
+            #= none:11 =#
+            expr.head
+        catch
+            #= none:13 =#
+            return nothing
+        end
+        #= none:16 =#
+        if expr.head == :module
+            #= none:17 =#
+            return findfunc(expr.args[3], name)
+        end
+        #= none:19 =#
+        if expr.head == :function
+            #= none:21 =#
+            if (expr.args[1]).args[1] == name
+                #= none:22 =#
+                return expr
+            end
+            #= none:24 =#
+            return findfunc(expr.args, name)
+        end
+        #= none:26 =#
+        if expr.head == :(=)
+            #= none:27 =#
+            if expr.args[1] isa Symbol
+                #= none:28 =#
+                return nothing
+            end
+            #= none:31 =#
+            if (expr.args[1]).head == :call
+                #= none:33 =#
+                if (expr.args[1]).args[1] == name
+                    #= none:34 =#
+                    return expr
+                end
+                #= none:36 =#
+                return findfunc(expr.args, name)
+            end
+        end
+        #= none:39 =#
+        if expr.head == :block
+            #= none:40 =#
+            return findfunc(expr.args, name)
+        end
+        #= none:42 =#
+        return nothing
+    end
