@@ -3,7 +3,7 @@
 Applies `f` to each node in the given expression tree, returning the result.
 `f` sees expressions *after* they have been transformed by the walk. See also
 `prewalk`.
-"""
+""" 
 postwalk(f, x) = walk(x, x -> postwalk(f, x), f)
 
 """
@@ -23,7 +23,7 @@ replace(ex, s, s′) = prewalk(x -> x == s ? s′ : x, ex)
 Simple expression match; will return `true` if the expression `x` can be found
 inside `expr`.
     inexpr(:(2+2), 2) == true
-"""
+    """
 function inexpr(ex, x)
   result = false
   postwalk(ex) do y
@@ -34,3 +34,7 @@ function inexpr(ex, x)
   end
   return result
 end
+
+#=
+
+=#

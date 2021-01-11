@@ -13,6 +13,12 @@ using DelimitedFiles
 # ╔═╡ 3dddd2b0-51ff-11eb-047a-f9755c66542a
 include("./parse.jl")
 
+# ╔═╡ 6aee35b2-5399-11eb-36f7-23bf1bba8f84
+include("./remove_comments.jl")
+
+# ╔═╡ e6413270-539f-11eb-2fc6-a776b55fe5e1
+
+
 # ╔═╡ 54761ff0-51ff-11eb-0303-a19ad5d664ad
 function get_expr(exp_tree, path, verbose=false)
     leaves = []
@@ -51,10 +57,16 @@ function read_code(dir, maxlen=500, file_type="jl", verbose=false)
 		println(files)
         for file in files
             if endswith(file, "."*file_type)
-              s = Parsers.parsefile(joinpath(root, file))
+				write(
+					joinpath(root, string(file,"_fixed")),
+					delete_comments(read(joinpath(root,file), String))
+				)
+				
+              s = Parsers.parsefile(joinpath(root, string(file,"_fixed")))
               if !isa(s, Nothing)
                 all_funcs = vcat(all_funcs, get_expr(s, joinpath(root, file), verbose));
               end
+				rm(joinpath(root, string(file,"_fixed")))
             end
         end
     end
@@ -71,6 +83,12 @@ md"this does not remove \"\"\" comments"
 
 # ╔═╡ 605fe620-51ff-11eb-287f-4d4eafee8202
 all_funcs = read_code("./sample", 500, "jl", true);
+
+# ╔═╡ 9eaa1df0-539a-11eb-12c9-bd1ef481faa2
+
+
+# ╔═╡ 5ac00ae0-53a0-11eb-29cc-9d89dc8d923a
+
 
 # ╔═╡ 7b5af140-51ff-11eb-2e84-a3f50881dff3
 writedlm("all_funcs.csv", all_funcs, quotes=true);
@@ -103,10 +121,14 @@ Parsers.parsefile("./temp.txt")
 # ╠═d8cb3070-51fe-11eb-0456-b3d999c7d6ad
 # ╠═38106140-51ff-11eb-2819-5da63b0ecc8e
 # ╠═3dddd2b0-51ff-11eb-047a-f9755c66542a
+# ╠═6aee35b2-5399-11eb-36f7-23bf1bba8f84
 # ╠═49fdeb22-51ff-11eb-238c-63e0904b21ae
+# ╠═e6413270-539f-11eb-2fc6-a776b55fe5e1
 # ╠═54761ff0-51ff-11eb-0303-a19ad5d664ad
 # ╟─138d89e0-5201-11eb-0b4a-81750b6faa07
 # ╠═605fe620-51ff-11eb-287f-4d4eafee8202
+# ╠═9eaa1df0-539a-11eb-12c9-bd1ef481faa2
+# ╠═5ac00ae0-53a0-11eb-29cc-9d89dc8d923a
 # ╠═7b5af140-51ff-11eb-2e84-a3f50881dff3
 # ╠═8145aeb0-51ff-11eb-2beb-81fc7346d99b
 # ╠═280165f2-5200-11eb-3566-4719a1a2fbce

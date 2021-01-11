@@ -1,0 +1,12 @@
+1
+keep
+2
+3
+4
+keep
+5
+keep
+8
+9
+" string normale "
+10

@@ -1,10 +1,4 @@
-"""    findfunc(expr::Expr, name::Symbol)
-
-findfunc walks the AST of `expr` to find the definition of function called `name`.
-
-This function returns a reference to the original expression so that you can modify it inplace
-and is intended to help users rewrite the definitions of functions for generating new models.
-""" 
+ 
 function findfunc(expr::Expr, name::Symbol)
     try
         expr.head
@@ -53,15 +47,7 @@ end
 walk(x, inner, outer) = outer(x)
 walk(x::Expr, inner, outer) = outer(Expr(x.head, map(inner, x.args)...))
 
-"""    findassign(expr::Expr, name::Symbol)
 
-findassign walks the AST of `expr` to find the assignments to a variable called `name`.
-
-This function returns a reference to the original expression so that you can modify it inplace
-and is intended to help users rewrite expressions for generating new models.
-
-See also: [`findfunc`](@ref).
-"""
 function findassign(expr::Expr, name::Symbol)
     # g(y) = filter(x->x!=nothing, y)
     matches = Expr[]
