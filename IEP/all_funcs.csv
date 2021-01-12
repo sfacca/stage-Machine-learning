@@ -1,3 +1,19 @@
+"#= none:2 =# Core.@doc ""using\n"" using Rmath"	./sample\another_function.jl
+"#= none:7 =# Core.@doc ""simple function to test parser\n"" function another_function(param1)
+        #= none:10 =#
+        #= none:11 =#
+        param1 = param1 ^ 2
+        #= none:12 =#
+        varboolean = true
+        #= none:13 =#
+        while varboolean
+            #= none:14 =#
+            if (rnorm(1))[1] > 0
+                #= none:15 =#
+                varboolean = false
+            end
+        end
+    end"	./sample\another_function.jl
 "#= none:2 =# Core.@doc ""simple function to test parser\n"" function simple_function(param1, param2)
         #= none:5 =#
         #= none:6 =#
