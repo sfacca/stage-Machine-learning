@@ -1,1 +1,1 @@
-julia ./run.jl
+julia ./run_pluto.jl

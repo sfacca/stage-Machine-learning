@@ -14,7 +14,7 @@ using DelimitedFiles
 include("./parse.jl")
 
 # ╔═╡ 6aee35b2-5399-11eb-36f7-23bf1bba8f84
-include("./remove_comments.jl")
+#include("./remove_comments.jl")
 
 # ╔═╡ e6413270-539f-11eb-2fc6-a776b55fe5e1
 
@@ -54,19 +54,12 @@ function read_code(dir, maxlen=500, file_type="jl", verbose=false)
     sources = []
 
     for (root, dirs, files) in walkdir(dir)
-		println(files)
         for file in files
             if endswith(file, "."*file_type)
-				write(
-					joinpath(root, string(file,"_fixed")),
-					delete_comments(read(joinpath(root,file), String))
-				)
-				
-              s = Parsers.parsefile(joinpath(root, string(file,"_fixed")))
+              s = Parsers.parsefile(joinpath(root, file))
               if !isa(s, Nothing)
                 all_funcs = vcat(all_funcs, get_expr(s, joinpath(root, file), verbose));
               end
-				rm(joinpath(root, string(file,"_fixed")))
             end
         end
     end
@@ -77,6 +70,7 @@ function read_code(dir, maxlen=500, file_type="jl", verbose=false)
 
     return all_funcs
 end
+
 
 # ╔═╡ 138d89e0-5201-11eb-0b4a-81750b6faa07
 md"this does not remove \"\"\" comments"
@@ -106,10 +100,10 @@ println.(all_funcs[1]);
 typeof(all_funcs[1])
 
 # ╔═╡ cb0433e0-5200-11eb-16d6-9f0150339d84
-all_funcs[1][1]
+typeof(all_funcs[1])
 
 # ╔═╡ d138cb92-5200-11eb-16d1-a949fff800e5
-all_funcs[1][]
+all_funcs[1][2]
 
 # ╔═╡ 80fcc960-5200-11eb-2ae8-ed39a550ae7f
 write("temp.txt",all_funcs[1][1])
