@@ -12,6 +12,12 @@ git-tree-sha1 = "87491f7d03ae1b423a353aff99cf61a45e3c993a"
 uuid = "79e6a3ab-5dfb-504d-930d-738a2a938a0e"
 version = "3.1.0"
 
+[[AlgebraicPetri]]
+deps = ["AutoHashEquals", "Catlab", "LabelledArrays", "LinearAlgebra", "Petri", "StatsBase"]
+git-tree-sha1 = "72758b665be35b8e7e9383139f560aa03f29389f"
+uuid = "4f99eebe-17bf-4e98-b6a1-2c4f205a959b"
+version = "0.6.2"
+
 [[ArnoldiMethod]]
 deps = ["DelimitedFiles", "LinearAlgebra", "Random", "SparseArrays", "Test"]
 git-tree-sha1 = "a5f9581eaf9371fe12b4a0b12c05690b45912e71"
@@ -579,6 +585,12 @@ deps = ["Dates"]
 git-tree-sha1 = "50c9a9ed8c714945e01cd53a21007ed3865ed714"
 uuid = "69de0a69-1ddd-5017-9359-2bf0b02dc9f0"
 version = "1.0.15"
+
+[[Petri]]
+deps = ["AutoHashEquals", "Catlab", "DiffEqBase", "DiffEqJump", "OrdinaryDiffEq", "SparseArrays", "SteadyStateDiffEq", "StochasticDiffEq"]
+git-tree-sha1 = "007522af349cb4613440298a93ea31d88a40d93f"
+uuid = "4259d249-1051-49fa-8328-3f8ab9391c33"
+version = "1.2.4"
 
 [[Pkg]]
 deps = ["Dates", "LibGit2", "Libdl", "Logging", "Markdown", "Printf", "REPL", "Random", "SHA", "UUIDs"]

@@ -1,4 +1,5 @@
 [deps]
+AlgebraicPetri = "4f99eebe-17bf-4e98-b6a1-2c4f205a959b"
 Catlab = "134e5e36-593f-5add-ad60-77f754baafbe"
 Conda = "8f4d0f93-b110-5947-807f-2305c1781a2d"
 DelimitedFiles = "8bb1440f-4735-579b-a4ab-409b98df4dab"
