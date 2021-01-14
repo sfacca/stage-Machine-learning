@@ -153,7 +153,7 @@ dump(g)
 function vectorfield(m::AbstractMachine)
 	
 	function v(u, p, t)
-		dotu = zeros(u)#????
+		dotu = zeros(u)#???? da capire perché non funziona? [GS]
 		for box in parts(m, :Box)
 			params = view(
 				u, subpart(
