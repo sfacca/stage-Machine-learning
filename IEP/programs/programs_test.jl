@@ -22,14 +22,21 @@ using Catlab
 # ╔═╡ e41d7fb0-572f-11eb-1d50-59b9e7340deb
 using PlutoUI
 
-# ╔═╡ 51416280-5728-11eb-23e1-855ba3662075
-include("../scrape_wrap.jl")
+# ╔═╡ ea87f5a0-5749-11eb-2fdd-ad2458a2ee7e
+using Tokenizer
+
+# ╔═╡ 23f1d5b0-5725-11eb-1816-554b10571104
+begin
+	Pkg.activate(".")
+	include("programs.jl")
+	include("../scrape_wrap.jl")
+end
 
 # ╔═╡ ee2cd600-572e-11eb-25ce-1bbd4763b6dc
 include("../parse.jl")
 
-# ╔═╡ 23f1d5b0-5725-11eb-1816-554b10571104
-Pkg.activate(".")
+# ╔═╡ 021d6460-5746-11eb-0354-6f39fe672d9c
+
 
 # ╔═╡ 75148e5e-5725-11eb-3b69-1dfaaa8a6a97
 # catlab, reexport, compat, MLStyle
@@ -49,14 +56,11 @@ function ingredients(path::String)
 	m
 end
 
-# ╔═╡ 4bb76a10-5725-11eb-2681-0f0a3b4f31c5
-ingredients("programs.jl")
-
 # ╔═╡ aeebbd20-572a-11eb-1242-f1546ed77d6a
 Programs
 
 # ╔═╡ 3d24638e-572a-11eb-0759-7db66f68ea5a
-code_1 = Scrape.read_code("./");
+code_1 = Scrape.read_code("./");# 1 parse files
 
 # ╔═╡ b656bc80-572b-11eb-357e-2da90e3e55f8
 function view_Expr(e::Expr)
@@ -74,7 +78,7 @@ function view_Expr(e::Expr)
 end
 
 # ╔═╡ d1ce98c0-572b-11eb-0bc5-0566d9a8853c
-[x[2] for x in code_1]
+[x[2] for x in code_1]#sources
 
 # ╔═╡ eb24f490-572b-11eb-30dd-ff83b1bb7284
 code_only = [x[1] for x in code_1];
@@ -101,13 +105,10 @@ typeof(code_2_defs.exprs[1])
 Slider
 
 # ╔═╡ 9719ec30-572f-11eb-32cb-51f8559f1d80
-unique([typeof(x) for x in code_2_defs.exprs])
+unique([typeof(x) for x in code_2_defs.exprs])# .exprs is array of Expr
 
 # ╔═╡ bd983380-572f-11eb-091e-67a242fb94fe
 @bind exprs_index Slider(1:length(code_2_defs.exprs))
-
-# ╔═╡ 560ecf70-5730-11eb-37ef-b18b64dac286
-md"$exprs_index"
 
 # ╔═╡ b69130a0-572f-11eb-0e98-930f3daa18a0
 code_2_defs.exprs[exprs_index]
@@ -145,11 +146,58 @@ code_2_defs.exprs[exprs_index>10 ? exprs_index - 10 : 1]
 # ╔═╡ 44e98cb2-5732-11eb-151b-55a8c7cf3af2
 code_2_defs.exprs[exprs_index>11 ? exprs_index - 11 : 1]
 
+# ╔═╡ ac1b31d0-5747-11eb-082d-6d040857e9bf
+typeof(code_2_defs.exprs[147].head)
+
 # ╔═╡ a17ffbc0-5733-11eb-2440-bf6901a2aa02
-Programs.unique_symbols(code_2_defs.exprs[exprs_index])
+Programs.ParseJuliaPrograms.unique_symbols(code_2_defs.exprs[exprs_index])
 
 # ╔═╡ efd1930e-5733-11eb-165f-6f9879181436
 dump(Programs)
+
+# ╔═╡ 12b023c0-5747-11eb-062d-5d7b0080a2c5
+Programs.RelationalPrograms.parse_relation_diagram(code_2_defs.exprs[147])
+
+# ╔═╡ bb156c50-5747-11eb-1890-1784bfe89018
+begin
+	successes = []
+	for x in 1:length(code_2_defs.exprs)
+		try
+			rd = Programs.RelationalPrograms.parse_relation_diagram(code_2_defs.exprs[x])
+			push!(successes, (rd, x))
+		catch e
+			println("index: $x")
+			println(e)
+		end
+	end
+end
+	
+
+# ╔═╡ 033ae580-574a-11eb-1a1f-e3140b096c9f
+code_2_defs.exprs[546]
+
+# ╔═╡ 0b60fee0-5748-11eb-1ae4-6106d2ea1af3
+successes
+
+# ╔═╡ 12e60b60-5748-11eb-09f5-03e43aaeecea
+begin
+	raw_successes = []
+	for x in 1:length(code_only)
+		try
+			rd = Programs.RelationalPrograms.parse_relation_diagram(code_only[x])
+			push!(raw_successes, (rd, x))
+		catch e
+			println("index: $x")
+			println(e)
+		end
+	end
+end
+
+# ╔═╡ 70b8242e-5748-11eb-3374-45d6e1927f37
+raw_successes
+
+# ╔═╡ 4db261d0-5748-11eb-141e-cf873a12e0fa
+typeof(code_only)
 
 # ╔═╡ afcdd100-5730-11eb-3bf8-a1b845f7945c
 #=
@@ -169,17 +217,19 @@ typeof(code_views[2])
 code_2 = view_Expr(code_1[1][1])
 
 # ╔═╡ 96ebb370-5733-11eb-3d4e-a556aeaca869
+code_views[2][1]
 
+# ╔═╡ 331a3730-5748-11eb-2b88-f7f35bd77f23
+typeof(code_1[1][1])
 
 # ╔═╡ Cell order:
 # ╠═f3bc5fa0-5724-11eb-06fb-0d0cde8d01f1
 # ╠═23f1d5b0-5725-11eb-1816-554b10571104
+# ╠═021d6460-5746-11eb-0354-6f39fe672d9c
 # ╠═75148e5e-5725-11eb-3b69-1dfaaa8a6a97
 # ╠═47f16160-5725-11eb-2208-e9412992c9bf
 # ╠═6943ce70-5725-11eb-15b7-5b73f22658f5
-# ╠═4bb76a10-5725-11eb-2681-0f0a3b4f31c5
 # ╠═aeebbd20-572a-11eb-1242-f1546ed77d6a
-# ╠═51416280-5728-11eb-23e1-855ba3662075
 # ╠═3d24638e-572a-11eb-0759-7db66f68ea5a
 # ╠═b656bc80-572b-11eb-357e-2da90e3e55f8
 # ╠═d1ce98c0-572b-11eb-0bc5-0566d9a8853c
@@ -194,7 +244,6 @@ code_2 = view_Expr(code_1[1][1])
 # ╠═e41d7fb0-572f-11eb-1d50-59b9e7340deb
 # ╠═3ffb90b0-5730-11eb-3413-f9fa6ad3ebcc
 # ╠═9719ec30-572f-11eb-32cb-51f8559f1d80
-# ╟─560ecf70-5730-11eb-37ef-b18b64dac286
 # ╠═bd983380-572f-11eb-091e-67a242fb94fe
 # ╠═b69130a0-572f-11eb-0e98-930f3daa18a0
 # ╠═8fe510a0-5731-11eb-3d23-25104aff8fcb
@@ -208,9 +257,19 @@ code_2 = view_Expr(code_1[1][1])
 # ╠═219f4740-5732-11eb-0e75-172f87f952ed
 # ╠═3f3373d0-5732-11eb-3b19-c1d7fa5e0406
 # ╠═44e98cb2-5732-11eb-151b-55a8c7cf3af2
+# ╠═ac1b31d0-5747-11eb-082d-6d040857e9bf
 # ╠═a17ffbc0-5733-11eb-2440-bf6901a2aa02
 # ╠═efd1930e-5733-11eb-165f-6f9879181436
+# ╠═12b023c0-5747-11eb-062d-5d7b0080a2c5
+# ╠═bb156c50-5747-11eb-1890-1784bfe89018
+# ╠═033ae580-574a-11eb-1a1f-e3140b096c9f
+# ╠═0b60fee0-5748-11eb-1ae4-6106d2ea1af3
+# ╠═12e60b60-5748-11eb-09f5-03e43aaeecea
+# ╠═70b8242e-5748-11eb-3374-45d6e1927f37
+# ╠═4db261d0-5748-11eb-141e-cf873a12e0fa
 # ╠═afcdd100-5730-11eb-3bf8-a1b845f7945c
 # ╠═d2713a00-572e-11eb-0c6a-a7ff5f75f857
+# ╠═ea87f5a0-5749-11eb-2fdd-ad2458a2ee7e
 # ╠═83289fe0-572b-11eb-022a-9b0cce834ae2
 # ╠═96ebb370-5733-11eb-3d4e-a556aeaca869
+# ╠═331a3730-5748-11eb-2b88-f7f35bd77f23

@@ -22,8 +22,8 @@ using AlgebraicPetri
 # ╔═╡ f2128170-567a-11eb-30bb-b369c3906d69
 using Catlab.Graphics
 
-# ╔═╡ 5be5dd10-569c-11eb-13c7-09e8a7f3cf56
-using BenchmarkTools
+# ╔═╡ 7836fce0-574d-11eb-10b5-7bf4acda4c68
+using Tokenize
 
 # ╔═╡ 7f2d3850-56c8-11eb-36ce-bbe10c926902
 using Match
@@ -132,6 +132,9 @@ Parsers.parsefile("sample/no_comment.jl")
 # ╔═╡ b6e33790-5687-11eb-1c71-771007d713c2
 ParseJuliaPrograms.unique_symbols(Parsers.parsefile("sample/no_comment.jl"))
 
+# ╔═╡ 9d93bdc0-5680-11eb-1b1a-217de777c739
+parse_relation_diagram(Parsers.parsefile("sample/no_comment.jl"))
+
 # ╔═╡ 6195dc70-5691-11eb-3409-3376eb692bcc
 typeof(:function)
 
@@ -149,6 +152,9 @@ no_comm_pars = Parsers.parsefile("sample/no_comment.jl")
 
 # ╔═╡ e389c840-568c-11eb-0a26-a5a724f656d7
 Parsers.parsefile("parse.jl") |> Parsers.defs
+
+# ╔═╡ 09b79b0e-568c-11eb-2d29-3f21250bc86a
+Parsers.findfunc(no_comm_pars, :not_commented)[1] |> parse_relation_diagram
 
 # ╔═╡ 5ea7d680-568c-11eb-28ab-29a081c7f978
 #=
@@ -216,12 +222,6 @@ typeof(parsers_parsed.args[3])
 # ╔═╡ 1e6e1d10-5699-11eb-02c1-3bc73fe830e1
 #dump(parsers_parsed)
 
-# ╔═╡ 0fcedb30-5696-11eb-368d-4d23d20ddbae
-begin
-	for x in parsers_parsed
-	end
-end
-
 # ╔═╡ ee670a00-5698-11eb-3178-676064ff5680
 asdf = [1, 2, 3]
 
@@ -247,35 +247,94 @@ function view_Expr(e::Expr)
 end
 				
 
-# ╔═╡ ed9bd97e-5692-11eb-3e41-ffa188e58b29
-Parsers.parsefile("sample/no_comment.jl")  |> view_Expr |> Parsers.funcs
+# ╔═╡ 5ad8f0f0-574c-11eb-3967-4beb9edfce01
 
-# ╔═╡ 6f5fa1b0-569b-11eb-3358-cf86d8d94b10
-@benchmark view_Expr(parsers_parsed)
 
-# ╔═╡ 7675551e-569c-11eb-3d78-997794b87f7d
-function view_Expr2(e::Expr)
-	res = []
+# ╔═╡ 4f37f390-574c-11eb-13df-4d7b1ba5b1f8
+function view_Expr(e::Expr, s::Symbol)
+	if e.head == s
+		res = [e]
+	else
+		res = []
+	end# singleton array -> vcat is slow
 	if !isnothing(e.args)
 		for x in e.args
 			#println(typeof(x))
 			if typeof(x) == Expr
 				#println("true")
-				res = push!(view_Expr(x), e)
+				res = vcat(res, view_Expr(x, s))
 			end
 		end
 	end
 	res
 end
 
-# ╔═╡ a3e36dd0-569c-11eb-3a48-19d3b603e3af
-@benchmark view_Expr2(parsers_parsed)
+# ╔═╡ ed9bd97e-5692-11eb-3e41-ffa188e58b29
+Parsers.parsefile("sample/no_comment.jl")  |> view_Expr |> Parsers.funcs
 
 # ╔═╡ 429750d0-5699-11eb-0ac7-2d1b2cf53a4f
 view_Expr(parsers_parsed) |> Parsers.funcs 
 
+# ╔═╡ 82fa39e0-574c-11eb-0d8c-87e8e089a17f
+functions_only = view_Expr(parsers_parsed, :function);
+
+# ╔═╡ 4c0a60b0-5754-11eb-22ed-95cb57bd3925
+blocks_only = view_Expr(parsers_parsed, :block);
+
+# ╔═╡ 51430c30-5754-11eb-3e6e-fd4704d7189e
+
+
+# ╔═╡ 0675c100-5751-11eb-3f38-456f96a33422
+parsers_parsed.head
+
+# ╔═╡ 3fabb570-5750-11eb-339e-2da5b198c8ab
+length(blocks_only)
+
+# ╔═╡ e90a4abe-5753-11eb-179b-a33a192f946a
+first_function = functions_only[1]
+
+# ╔═╡ f556a350-5753-11eb-3c6c-2fdc13da79e0
+begin
+	println("################")
+	dump(first_function.args)
+	println("################")
+end
+
+# ╔═╡ 4b484600-5750-11eb-1f59-616c2a18b9e3
+length(view_Expr(parsers_parsed))
+
+# ╔═╡ 254a5570-5754-11eb-2b16-73d4c98bfcef
+md"Expr.args == Expr.body ?"
+
+# ╔═╡ c392573e-5750-11eb-3bf8-c1cf609dfff7
+filter((x)->(x.head == :function), view_Expr(parsers_parsed))
+
+# ╔═╡ 66205fd0-5750-11eb-0ab2-416990b7911a
+unique([x.head for x in functions_only])
+
+# ╔═╡ 9c4aa23e-574c-11eb-3bc5-93aaf98640c2
+unique([x.head for x in view_Expr(parsers_parsed)])
+
+# ╔═╡ 09599c80-5750-11eb-3ec0-29f3ad0ab85d
+view_Expr(parsers_parsed, :import)
+
+# ╔═╡ 5e1445ce-574c-11eb-3b8c-b1c5c158a75a
+typeof(view_Expr(parsers_parsed)[1].head)
+
 # ╔═╡ 5c8a13b0-5699-11eb-3be9-c1bcd33c3bd1
 parsers_funcs = Parsers.funcs(view_Expr(parsers_parsed))
+
+# ╔═╡ a4d37410-5755-11eb-3c8d-635f23fde4ba
+length(parsers_funcs.defs)
+
+# ╔═╡ 12901f00-574f-11eb-37d6-5d0a950018c5
+parsers_funcs.defs[1][1]
+
+# ╔═╡ d177b140-574e-11eb-2bcf-b933c6362027
+codegen
+
+# ╔═╡ 5e34c0f0-575e-11eb-0beb-51820da524c1
+var"parsers_funcs"
 
 # ╔═╡ 7b7a3150-569a-11eb-229f-43c34b65ee56
 typeof(parsers_funcs.defs[1])
@@ -287,10 +346,7 @@ parsers_funcs.defs[1][1]
 parsers_funcs.defs[5][2]
 
 # ╔═╡ b46ce5c0-569a-11eb-0f54-a9fd4de9146e
-parsers_defs = Parsers.defs(view_Expr(parsers_parsed))
-
-# ╔═╡ 88f461e0-56a2-11eb-1b77-a777ad82ca2e
-parsers_defs.exprs[10:20]
+parsers_defs = Parsers.defs(view_Expr(parsers_parsed));
 
 # ╔═╡ fb5f0050-56a2-11eb-3f58-0936db911956
 parsers_defs.vc
@@ -307,149 +363,6 @@ parsers_defs.fc.defs[1][2] #body
 # ╔═╡ a316ffa0-56a8-11eb-0e61-af5c7af9265c
 parsers_defs.fc.defs[1][1] #head
 
-# ╔═╡ cfd6a250-56c8-11eb-10b0-073399be3406
-function parse_relation_context(context)
-  terms = @match context begin
-    Expr(:tuple) => return (Symbol[], nothing)
-    Expr(:tuple, terms...) => terms
-    _ => error("Invalid syntax in relation context $context")
-  end
-  vars = map(terms) do term
-    @match term begin
-      Expr(:(::), var::Symbol, type::Symbol) => (var => type)
-      var::Symbol => var
-      _ => error("Invalid syntax in term $expr of context")
-    end
-  end
-  if vars isa AbstractVector{Symbol}
-    (vars, nothing)
-  elseif vars isa AbstractVector{Pair{Symbol,Symbol}}
-    (first.(vars), last.(vars))
-  else
-    error("Context $context mixes typed and untyped variables")
-  end
-end
-
-# ╔═╡ dcf8e880-56c8-11eb-31b7-8587ada5b859
-function parse_relation_kw_args(args)
-  args = map(args) do arg
-    @match arg begin
-      Expr(:kw, name::Symbol, var::Symbol) => (name => var)
-      _ => error("Expected name as keyword argument")
-    end
-  end
-  (first.(args), last.(args))
-end
-
-# ╔═╡ 8e7a9be0-56c8-11eb-135b-65e908838ae4
-
-function parse_relation_diagram(expr::Expr)
-  @match expr begin
-    Expr(:function, head, body) => parse_relation_diagram(head, body)
-    Expr(:->, head, body) => parse_relation_diagram(head, body)
-    _ => error("Not a function or lambda expression")
-  end
-end
-
-# ╔═╡ 11249470-56c8-11eb-2d75-53a8abad2fa0
-#try override
-function parse_relation_inferred_args(args)
-  @assert !isempty(args) # Need at least one argument to infer named/unnamed.
-  println("args: $args")
-  args = map(args) do arg    
-    @match arg begin
-      Expr(:kw, name::Symbol, var::Symbol) => (name => var)
-      Expr(:(=), name::Symbol, var::Symbol) => (name => var)
-      var::Symbol => var
-      _ => error("Expected_name as positional or keyword argument: $arg")
-    end
-  end
-  if args isa AbstractVector{Symbol}
-    (nothing, args)
-  elseif args isa AbstractVector{Pair{Symbol,Symbol}}
-    (first.(args), last.(args))
-  else
-    error("Relation mixes named and unnamed arguments $args")
-  end
-end
-
-# ╔═╡ dcf89a60-56c8-11eb-0a90-6f12feece2dd
-function parse_relation_call(call)
-  @match call begin
-    Expr(:call, name::Symbol, Expr(:parameters, args)) =>
-      (name, parse_relation_kw_args(args)...)
-    Expr(:call, name::Symbol) => (name, nothing, Symbol[])
-    Expr(:call, name::Symbol, args...) =>
-      (name, parse_relation_inferred_args(args)...)
-
-    Expr(:tuple, Expr(:parameters, args...)) =>
-      (nothing, parse_relation_kw_args(args)...)
-    Expr(:tuple) => (nothing, nothing, Symbol[])
-    Expr(:tuple, args...) => (nothing, parse_relation_inferred_args(args)...)
-    Expr(:(=), args...) => (nothing, parse_relation_inferred_args([call])...)
-
-    _ => error("Invalid syntax in relation $call")
-  end
-end
-
-# ╔═╡ ca114730-56c8-11eb-09fc-17bbab47fef6
-
-function parse_relation_diagram(head::Expr, body::Expr)
-  # Parse variables and their types from context.
-  outer_expr, all_vars, all_types = @match head begin
-    Expr(:where, expr, context) => (expr, parse_relation_context(context)...)
-    _ => (head, nothing, nothing)
-  end
-  var_types = if isnothing(all_types) # Untyped case.
-    vars -> length(vars)
-  else # Typed case.
-    var_type_map = Dict{Symbol,Symbol}(zip(all_vars, all_types))
-    vars -> getindex.(Ref(var_type_map), vars)
-  end
-
-  # Create wiring diagram and add outer ports and junctions.
-  _, outer_port_names, outer_vars = parse_relation_call(outer_expr)
-  isnothing(all_vars) || outer_vars ⊆ all_vars ||
-    error("One of variables $outer_vars is not declared in context $all_vars")
-  d = RelationDiagram{Symbol}(var_types(outer_vars),
-                              port_names=outer_port_names)
-  if isnothing(all_vars)
-    new_vars = unique(outer_vars)
-    add_junctions!(d, var_types(new_vars), variable=new_vars)
-  else
-    add_junctions!(d, var_types(all_vars), variable=all_vars)
-  end
-  set_junction!(d, ports(d, outer=true),
-                incident(d, outer_vars, :variable), outer=true)
-
-  # Add box to diagram for each relation call.
-  body = Base.remove_linenums!(body)
-  for expr in body.args
-    name, port_names, vars = parse_relation_call(expr)
-    isnothing(all_vars) || vars ⊆ all_vars ||
-      error("One of variables $vars is not declared in context $all_vars")
-    box = add_box!(d, var_types(vars), name=name)
-    if !isnothing(port_names)
-      set_subpart!(d, ports(d, box), :port_name, port_names)
-    end
-    if isnothing(all_vars)
-      new_vars = setdiff(unique(vars), d[:variable])
-      add_junctions!(d, var_types(new_vars), variable=new_vars)
-    end
-    set_junction!(d, ports(d, box), incident(d, vars, :variable))
-  end
-  return d
-end
-
-# ╔═╡ 9d93bdc0-5680-11eb-1b1a-217de777c739
-parse_relation_diagram(Parsers.parsefile("sample/no_comment.jl"))
-
-# ╔═╡ 09b79b0e-568c-11eb-2d29-3f21250bc86a
-Parsers.findfunc(no_comm_pars, :not_commented)[1] |> parse_relation_diagram
-
-# ╔═╡ aa294d22-56a8-11eb-09c7-2fe7135d896a
-parse_relation_diagram(parsers_defs.fc.defs[1][1], parsers_defs.fc.defs[1][2])
-
 # ╔═╡ 27f29480-56c4-11eb-3fd8-73569e0d2f1c
 println("#################")
 
@@ -461,9 +374,6 @@ rel1 = @relation (x,z) where (x::X, y::Y, z::Z) begin
   R(x,y)
   S(y,z)
 end
-
-# ╔═╡ 2c127472-56ad-11eb-0568-afb6d874311c
-to_graphviz(rel1)
 
 # ╔═╡ Cell order:
 # ╠═e1157640-5673-11eb-032c-65b315c16afe
@@ -511,36 +421,43 @@ to_graphviz(rel1)
 # ╠═544a1870-5695-11eb-3e4a-9ff4396036b2
 # ╠═df5995a0-5698-11eb-1697-bb5c607f4ef1
 # ╠═1e6e1d10-5699-11eb-02c1-3bc73fe830e1
-# ╠═0fcedb30-5696-11eb-368d-4d23d20ddbae
 # ╠═ee670a00-5698-11eb-3178-676064ff5680
 # ╠═f59f7d20-5698-11eb-2303-05b6a765f3d5
 # ╠═fa2182d0-5698-11eb-2e93-91e676a75896
 # ╠═8922d070-5698-11eb-3cf7-799a4ec63a0f
-# ╠═6f5fa1b0-569b-11eb-3358-cf86d8d94b10
-# ╠═a3e36dd0-569c-11eb-3a48-19d3b603e3af
-# ╠═5be5dd10-569c-11eb-13c7-09e8a7f3cf56
-# ╠═7675551e-569c-11eb-3d78-997794b87f7d
+# ╠═5ad8f0f0-574c-11eb-3967-4beb9edfce01
+# ╠═4f37f390-574c-11eb-13df-4d7b1ba5b1f8
 # ╠═429750d0-5699-11eb-0ac7-2d1b2cf53a4f
+# ╠═82fa39e0-574c-11eb-0d8c-87e8e089a17f
+# ╠═4c0a60b0-5754-11eb-22ed-95cb57bd3925
+# ╠═51430c30-5754-11eb-3e6e-fd4704d7189e
+# ╠═0675c100-5751-11eb-3f38-456f96a33422
+# ╠═3fabb570-5750-11eb-339e-2da5b198c8ab
+# ╠═e90a4abe-5753-11eb-179b-a33a192f946a
+# ╠═f556a350-5753-11eb-3c6c-2fdc13da79e0
+# ╠═4b484600-5750-11eb-1f59-616c2a18b9e3
+# ╟─254a5570-5754-11eb-2b16-73d4c98bfcef
+# ╠═c392573e-5750-11eb-3bf8-c1cf609dfff7
+# ╠═66205fd0-5750-11eb-0ab2-416990b7911a
+# ╠═9c4aa23e-574c-11eb-3bc5-93aaf98640c2
+# ╠═09599c80-5750-11eb-3ec0-29f3ad0ab85d
+# ╠═5e1445ce-574c-11eb-3b8c-b1c5c158a75a
+# ╠═7836fce0-574d-11eb-10b5-7bf4acda4c68
 # ╠═5c8a13b0-5699-11eb-3be9-c1bcd33c3bd1
+# ╠═a4d37410-5755-11eb-3c8d-635f23fde4ba
+# ╠═12901f00-574f-11eb-37d6-5d0a950018c5
+# ╠═d177b140-574e-11eb-2bcf-b933c6362027
+# ╠═5e34c0f0-575e-11eb-0beb-51820da524c1
 # ╠═7b7a3150-569a-11eb-229f-43c34b65ee56
 # ╠═8ebb1630-569a-11eb-1f6b-57b584eaf105
 # ╠═93616cc0-569a-11eb-0f19-ed94ff3497a1
 # ╠═b46ce5c0-569a-11eb-0f54-a9fd4de9146e
-# ╠═88f461e0-56a2-11eb-1b77-a777ad82ca2e
 # ╠═fb5f0050-56a2-11eb-3f58-0936db911956
 # ╠═66b0e8a0-56a3-11eb-0576-45de065a11e0
 # ╠═f678b330-56a5-11eb-305d-7387b7ff9579
 # ╠═ee160600-56a7-11eb-2446-e54e7f839716
 # ╠═a316ffa0-56a8-11eb-0e61-af5c7af9265c
-# ╠═aa294d22-56a8-11eb-09c7-2fe7135d896a
 # ╠═7f2d3850-56c8-11eb-36ce-bbe10c926902
-# ╠═cfd6a250-56c8-11eb-10b0-073399be3406
-# ╠═dcf89a60-56c8-11eb-0a90-6f12feece2dd
-# ╠═dcf8e880-56c8-11eb-31b7-8587ada5b859
-# ╠═ca114730-56c8-11eb-09fc-17bbab47fef6
-# ╠═8e7a9be0-56c8-11eb-135b-65e908838ae4
-# ╠═11249470-56c8-11eb-2d75-53a8abad2fa0
 # ╠═27f29480-56c4-11eb-3fd8-73569e0d2f1c
 # ╠═dd138622-56ac-11eb-2a9b-9799abd5ef7f
 # ╠═247991d0-56ad-11eb-3e47-5bc8c3f4085e
-# ╠═2c127472-56ad-11eb-0568-afb6d874311c
