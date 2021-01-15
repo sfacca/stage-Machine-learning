@@ -210,12 +210,13 @@ end
 
 function parse_relation_inferred_args(args)
   @assert !isempty(args) # Need at least one argument to infer named/unnamed.
-  args = map(args) do arg
+  println("args: $args")
+  args = map(args) do arg    
     @match arg begin
       Expr(:kw, name::Symbol, var::Symbol) => (name => var)
       Expr(:(=), name::Symbol, var::Symbol) => (name => var)
       var::Symbol => var
-      _ => error("Expected name as positional or keyword argument")
+      _ => error("Expected_name as positional or keyword argument: $arg")
     end
   end
   if args isa AbstractVector{Symbol}

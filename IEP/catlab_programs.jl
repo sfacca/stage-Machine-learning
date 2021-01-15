@@ -13,6 +13,9 @@ using Catlab
 # ╔═╡ e8c98200-5673-11eb-0442-8f824835a613
 using Catlab.Programs
 
+# ╔═╡ a6e54352-5674-11eb-160e-451564415ccf
+using Catlab.Theories #overrides ≤, breaks @benchmark
+
 # ╔═╡ a6e59170-5674-11eb-067c-e1a99306d715
 using AlgebraicPetri
 
@@ -22,6 +25,9 @@ using Catlab.Graphics
 # ╔═╡ 5be5dd10-569c-11eb-13c7-09e8a7f3cf56
 using BenchmarkTools
 
+# ╔═╡ 7f2d3850-56c8-11eb-36ce-bbe10c926902
+using Match
+
 # ╔═╡ 5d78b840-567f-11eb-3f7e-57adee086d2b
 include("scrape.jl")
 
@@ -30,6 +36,9 @@ include("sample/no_comment.jl")
 
 # ╔═╡ e400af50-5673-11eb-3a6e-2d16d79ee41e
 Pkg.activate(".")
+
+# ╔═╡ 83323b40-56c7-11eb-021c-c3cf4f490d14
+#include("programs/Programs.jl")
 
 # ╔═╡ eebaa810-5673-11eb-1c0e-05faf6aac411
 md"api
@@ -47,9 +56,6 @@ md"api
 * Catlab.Programs.ParseJuliaPrograms.parse\_wiring\_diagram
 
 "
-
-# ╔═╡ a6e54352-5674-11eb-160e-451564415ccf
-#using Catlab.Theories overrides ≤, breaks @benchmark
 
 # ╔═╡ a6e5df90-5674-11eb-0062-0b37e235d075
 @present Epidemiology(FreeBiproductCategory) begin
@@ -126,9 +132,6 @@ Parsers.parsefile("sample/no_comment.jl")
 # ╔═╡ b6e33790-5687-11eb-1c71-771007d713c2
 ParseJuliaPrograms.unique_symbols(Parsers.parsefile("sample/no_comment.jl"))
 
-# ╔═╡ 9d93bdc0-5680-11eb-1b1a-217de777c739
-parse_relation_diagram(Parsers.parsefile("sample/no_comment.jl"))
-
 # ╔═╡ 6195dc70-5691-11eb-3409-3376eb692bcc
 typeof(:function)
 
@@ -146,9 +149,6 @@ no_comm_pars = Parsers.parsefile("sample/no_comment.jl")
 
 # ╔═╡ e389c840-568c-11eb-0a26-a5a724f656d7
 Parsers.parsefile("parse.jl") |> Parsers.defs
-
-# ╔═╡ 09b79b0e-568c-11eb-2d29-3f21250bc86a
-Parsers.findfunc(no_comm_pars, :not_commented)[1] |> parse_relation_diagram
 
 # ╔═╡ 5ea7d680-568c-11eb-28ab-29a081c7f978
 #=
@@ -183,20 +183,20 @@ Parsers.parsefile("findfunc.jl") |> Parsers.defs
 # ╔═╡ 8604fa30-568e-11eb-28c5-1d9f4400b09b
 Parsers.parsefile("sample/no_comment.jl")  |> Ref{Expr} |> Parsers.funcs
 
-# ╔═╡ ed9bd97e-5692-11eb-3e41-ffa188e58b29
-Parsers.parsefile("sample/no_comment.jl")  |> Parsers.funcs
-
 # ╔═╡ 9cbda0ae-568e-11eb-30cb-7f5500f69265
 typeof(Parsers.parsefile("sample/no_comment.jl").args[3])
 
 # ╔═╡ 4ddb0210-5690-11eb-27ac-79b6b9114ab3
 function iterate
 
+# ╔═╡ 77533d92-5692-11eb-2114-5bb52a80c0eb
+iterate
+
 # ╔═╡ c3888490-5692-11eb-3b60-938266e526e0
 Ref{Expr}
 
 # ╔═╡ 15852280-5693-11eb-0b2a-ada2081776ec
-dump(no_comm_pars)
+#dump(no_comm_pars)
 
 # ╔═╡ 4892e5e0-5693-11eb-17b5-7f5fec24deb7
 meta_parsed = Meta.parse(read("parse.jl", String), 1)
@@ -213,16 +213,8 @@ length(parsers_parsed.args)
 # ╔═╡ df5995a0-5698-11eb-1697-bb5c607f4ef1
 typeof(parsers_parsed.args[3])
 
-# ╔═╡ cb6a0190-5695-11eb-142e-37a0be4d6272
-function iterate(iter::Expr)
-	iter.args[3]
-end
-
-# ╔═╡ 77533d92-5692-11eb-2114-5bb52a80c0eb
-iterate
-
 # ╔═╡ 1e6e1d10-5699-11eb-02c1-3bc73fe830e1
-dump(parsers_parsed)
+#dump(parsers_parsed)
 
 # ╔═╡ 0fcedb30-5696-11eb-368d-4d23d20ddbae
 begin
@@ -254,6 +246,9 @@ function view_Expr(e::Expr)
 	res
 end
 				
+
+# ╔═╡ ed9bd97e-5692-11eb-3e41-ffa188e58b29
+Parsers.parsefile("sample/no_comment.jl")  |> view_Expr |> Parsers.funcs
 
 # ╔═╡ 6f5fa1b0-569b-11eb-3358-cf86d8d94b10
 @benchmark view_Expr(parsers_parsed)
@@ -292,7 +287,183 @@ parsers_funcs.defs[1][1]
 parsers_funcs.defs[5][2]
 
 # ╔═╡ b46ce5c0-569a-11eb-0f54-a9fd4de9146e
+parsers_defs = Parsers.defs(view_Expr(parsers_parsed))
 
+# ╔═╡ 88f461e0-56a2-11eb-1b77-a777ad82ca2e
+parsers_defs.exprs[10:20]
+
+# ╔═╡ fb5f0050-56a2-11eb-3f58-0936db911956
+parsers_defs.vc
+
+# ╔═╡ 66b0e8a0-56a3-11eb-0576-45de065a11e0
+view_Expr(parsers_parsed)[3]
+
+# ╔═╡ f678b330-56a5-11eb-305d-7387b7ff9579
+typeof(parsers_defs.fc.defs[1][1])
+
+# ╔═╡ ee160600-56a7-11eb-2446-e54e7f839716
+parsers_defs.fc.defs[1][2] #body
+
+# ╔═╡ a316ffa0-56a8-11eb-0e61-af5c7af9265c
+parsers_defs.fc.defs[1][1] #head
+
+# ╔═╡ cfd6a250-56c8-11eb-10b0-073399be3406
+function parse_relation_context(context)
+  terms = @match context begin
+    Expr(:tuple) => return (Symbol[], nothing)
+    Expr(:tuple, terms...) => terms
+    _ => error("Invalid syntax in relation context $context")
+  end
+  vars = map(terms) do term
+    @match term begin
+      Expr(:(::), var::Symbol, type::Symbol) => (var => type)
+      var::Symbol => var
+      _ => error("Invalid syntax in term $expr of context")
+    end
+  end
+  if vars isa AbstractVector{Symbol}
+    (vars, nothing)
+  elseif vars isa AbstractVector{Pair{Symbol,Symbol}}
+    (first.(vars), last.(vars))
+  else
+    error("Context $context mixes typed and untyped variables")
+  end
+end
+
+# ╔═╡ dcf8e880-56c8-11eb-31b7-8587ada5b859
+function parse_relation_kw_args(args)
+  args = map(args) do arg
+    @match arg begin
+      Expr(:kw, name::Symbol, var::Symbol) => (name => var)
+      _ => error("Expected name as keyword argument")
+    end
+  end
+  (first.(args), last.(args))
+end
+
+# ╔═╡ 8e7a9be0-56c8-11eb-135b-65e908838ae4
+
+function parse_relation_diagram(expr::Expr)
+  @match expr begin
+    Expr(:function, head, body) => parse_relation_diagram(head, body)
+    Expr(:->, head, body) => parse_relation_diagram(head, body)
+    _ => error("Not a function or lambda expression")
+  end
+end
+
+# ╔═╡ 11249470-56c8-11eb-2d75-53a8abad2fa0
+#try override
+function parse_relation_inferred_args(args)
+  @assert !isempty(args) # Need at least one argument to infer named/unnamed.
+  println("args: $args")
+  args = map(args) do arg    
+    @match arg begin
+      Expr(:kw, name::Symbol, var::Symbol) => (name => var)
+      Expr(:(=), name::Symbol, var::Symbol) => (name => var)
+      var::Symbol => var
+      _ => error("Expected_name as positional or keyword argument: $arg")
+    end
+  end
+  if args isa AbstractVector{Symbol}
+    (nothing, args)
+  elseif args isa AbstractVector{Pair{Symbol,Symbol}}
+    (first.(args), last.(args))
+  else
+    error("Relation mixes named and unnamed arguments $args")
+  end
+end
+
+# ╔═╡ dcf89a60-56c8-11eb-0a90-6f12feece2dd
+function parse_relation_call(call)
+  @match call begin
+    Expr(:call, name::Symbol, Expr(:parameters, args)) =>
+      (name, parse_relation_kw_args(args)...)
+    Expr(:call, name::Symbol) => (name, nothing, Symbol[])
+    Expr(:call, name::Symbol, args...) =>
+      (name, parse_relation_inferred_args(args)...)
+
+    Expr(:tuple, Expr(:parameters, args...)) =>
+      (nothing, parse_relation_kw_args(args)...)
+    Expr(:tuple) => (nothing, nothing, Symbol[])
+    Expr(:tuple, args...) => (nothing, parse_relation_inferred_args(args)...)
+    Expr(:(=), args...) => (nothing, parse_relation_inferred_args([call])...)
+
+    _ => error("Invalid syntax in relation $call")
+  end
+end
+
+# ╔═╡ ca114730-56c8-11eb-09fc-17bbab47fef6
+
+function parse_relation_diagram(head::Expr, body::Expr)
+  # Parse variables and their types from context.
+  outer_expr, all_vars, all_types = @match head begin
+    Expr(:where, expr, context) => (expr, parse_relation_context(context)...)
+    _ => (head, nothing, nothing)
+  end
+  var_types = if isnothing(all_types) # Untyped case.
+    vars -> length(vars)
+  else # Typed case.
+    var_type_map = Dict{Symbol,Symbol}(zip(all_vars, all_types))
+    vars -> getindex.(Ref(var_type_map), vars)
+  end
+
+  # Create wiring diagram and add outer ports and junctions.
+  _, outer_port_names, outer_vars = parse_relation_call(outer_expr)
+  isnothing(all_vars) || outer_vars ⊆ all_vars ||
+    error("One of variables $outer_vars is not declared in context $all_vars")
+  d = RelationDiagram{Symbol}(var_types(outer_vars),
+                              port_names=outer_port_names)
+  if isnothing(all_vars)
+    new_vars = unique(outer_vars)
+    add_junctions!(d, var_types(new_vars), variable=new_vars)
+  else
+    add_junctions!(d, var_types(all_vars), variable=all_vars)
+  end
+  set_junction!(d, ports(d, outer=true),
+                incident(d, outer_vars, :variable), outer=true)
+
+  # Add box to diagram for each relation call.
+  body = Base.remove_linenums!(body)
+  for expr in body.args
+    name, port_names, vars = parse_relation_call(expr)
+    isnothing(all_vars) || vars ⊆ all_vars ||
+      error("One of variables $vars is not declared in context $all_vars")
+    box = add_box!(d, var_types(vars), name=name)
+    if !isnothing(port_names)
+      set_subpart!(d, ports(d, box), :port_name, port_names)
+    end
+    if isnothing(all_vars)
+      new_vars = setdiff(unique(vars), d[:variable])
+      add_junctions!(d, var_types(new_vars), variable=new_vars)
+    end
+    set_junction!(d, ports(d, box), incident(d, vars, :variable))
+  end
+  return d
+end
+
+# ╔═╡ 9d93bdc0-5680-11eb-1b1a-217de777c739
+parse_relation_diagram(Parsers.parsefile("sample/no_comment.jl"))
+
+# ╔═╡ 09b79b0e-568c-11eb-2d29-3f21250bc86a
+Parsers.findfunc(no_comm_pars, :not_commented)[1] |> parse_relation_diagram
+
+# ╔═╡ aa294d22-56a8-11eb-09c7-2fe7135d896a
+parse_relation_diagram(parsers_defs.fc.defs[1][1], parsers_defs.fc.defs[1][2])
+
+# ╔═╡ 27f29480-56c4-11eb-3fd8-73569e0d2f1c
+println("#################")
+
+# ╔═╡ dd138622-56ac-11eb-2a9b-9799abd5ef7f
+typeof(parsers_defs.fc.defs[1][1].args)
+
+# ╔═╡ 247991d0-56ad-11eb-3e47-5bc8c3f4085e
+rel1 = @relation (x,z) where (x::X, y::Y, z::Z) begin
+  R(x,y)
+  S(y,z)
+end
+
+# ╔═╡ 2c127472-56ad-11eb-0568-afb6d874311c
+to_graphviz(rel1)
 
 # ╔═╡ Cell order:
 # ╠═e1157640-5673-11eb-032c-65b315c16afe
@@ -300,7 +471,8 @@ parsers_funcs.defs[5][2]
 # ╠═700dc330-5673-11eb-362c-87dab6999bb7
 # ╠═e8c98200-5673-11eb-0442-8f824835a613
 # ╠═5d78b840-567f-11eb-3f7e-57adee086d2b
-# ╠═eebaa810-5673-11eb-1c0e-05faf6aac411
+# ╠═83323b40-56c7-11eb-021c-c3cf4f490d14
+# ╟─eebaa810-5673-11eb-1c0e-05faf6aac411
 # ╠═a6e54352-5674-11eb-160e-451564415ccf
 # ╠═a6e59170-5674-11eb-067c-e1a99306d715
 # ╠═a6e5df90-5674-11eb-0062-0b37e235d075
@@ -338,7 +510,6 @@ parsers_funcs.defs[5][2]
 # ╠═4a213c20-5695-11eb-2457-2f740fe3899b
 # ╠═544a1870-5695-11eb-3e4a-9ff4396036b2
 # ╠═df5995a0-5698-11eb-1697-bb5c607f4ef1
-# ╠═cb6a0190-5695-11eb-142e-37a0be4d6272
 # ╠═1e6e1d10-5699-11eb-02c1-3bc73fe830e1
 # ╠═0fcedb30-5696-11eb-368d-4d23d20ddbae
 # ╠═ee670a00-5698-11eb-3178-676064ff5680
@@ -355,3 +526,21 @@ parsers_funcs.defs[5][2]
 # ╠═8ebb1630-569a-11eb-1f6b-57b584eaf105
 # ╠═93616cc0-569a-11eb-0f19-ed94ff3497a1
 # ╠═b46ce5c0-569a-11eb-0f54-a9fd4de9146e
+# ╠═88f461e0-56a2-11eb-1b77-a777ad82ca2e
+# ╠═fb5f0050-56a2-11eb-3f58-0936db911956
+# ╠═66b0e8a0-56a3-11eb-0576-45de065a11e0
+# ╠═f678b330-56a5-11eb-305d-7387b7ff9579
+# ╠═ee160600-56a7-11eb-2446-e54e7f839716
+# ╠═a316ffa0-56a8-11eb-0e61-af5c7af9265c
+# ╠═aa294d22-56a8-11eb-09c7-2fe7135d896a
+# ╠═7f2d3850-56c8-11eb-36ce-bbe10c926902
+# ╠═cfd6a250-56c8-11eb-10b0-073399be3406
+# ╠═dcf89a60-56c8-11eb-0a90-6f12feece2dd
+# ╠═dcf8e880-56c8-11eb-31b7-8587ada5b859
+# ╠═ca114730-56c8-11eb-09fc-17bbab47fef6
+# ╠═8e7a9be0-56c8-11eb-135b-65e908838ae4
+# ╠═11249470-56c8-11eb-2d75-53a8abad2fa0
+# ╠═27f29480-56c4-11eb-3fd8-73569e0d2f1c
+# ╠═dd138622-56ac-11eb-2a9b-9799abd5ef7f
+# ╠═247991d0-56ad-11eb-3e47-5bc8c3f4085e
+# ╠═2c127472-56ad-11eb-0568-afb6d874311c
