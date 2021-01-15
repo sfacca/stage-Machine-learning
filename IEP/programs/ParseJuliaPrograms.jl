@@ -10,8 +10,10 @@ using MLStyle: @match
 using ...Catlab
 import ...Meta: Expr0
 using ...Theories: ObExpr, HomExpr, otimes, munit
-using ...WiringDiagrams
+using Catlab.WiringDiagrams
 using ..GenerateJuliaPrograms: make_return_value
+
+const Expr0 = Union{Symbol,Expr}
 
 
 """ Parse a wiring diagram from a Julia program.

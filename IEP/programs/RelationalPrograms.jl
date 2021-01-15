@@ -7,9 +7,9 @@ export RelationDiagram, UntypedRelationDiagram, TypedRelationDiagram,
 using Compat
 using MLStyle: @match
 
-using ...CategoricalAlgebra.CSets, ...Present
-using ...WiringDiagrams.UndirectedWiringDiagrams
-using ...WiringDiagrams.MonoidalUndirectedWiringDiagrams:
+using Catlab.CategoricalAlgebra.CSets, Catlab.Present
+using Catlab.WiringDiagrams.UndirectedWiringDiagrams
+using Catlab.WiringDiagrams.MonoidalUndirectedWiringDiagrams:
   TheoryUntypedHypergraphDiagram, TheoryHypergraphDiagram
 
 # Data structures

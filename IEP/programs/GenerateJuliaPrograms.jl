@@ -13,6 +13,7 @@ using ...Theories: ObExpr, HomExpr, dom, codom
 
 # Compilation
 #############
+const Expr0 = Union{Symbol,Expr}
 
 """ A block of Julia code with input and output variables.
 """
@@ -21,6 +22,8 @@ struct Block
   inputs::Vector{<:Expr0}
   outputs::Vector{<:Expr0}
 end
+
+
 
 """ Internal state for compilation of morphism into Julia code.
 """
