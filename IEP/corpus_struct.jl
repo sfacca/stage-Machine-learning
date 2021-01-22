@@ -13,8 +13,41 @@ using Dates
 # ╔═╡ 9e9c1090-5b63-11eb-3fd6-f5b40bb3d29c
 using JLD2
 
+# ╔═╡ 0490e3f0-5bfd-11eb-216c-ff78bce55cc9
+using Catlab.WiringDiagrams
+
+# ╔═╡ 54313070-5bff-11eb-13dd-0d7d05385a59
+using Catlab.Graphics
+
+# ╔═╡ dd732eb0-5c04-11eb-1ad4-3bf8605ca5ae
+using AlgebraicRelations.DB
+
+# ╔═╡ e0490b00-5c04-11eb-0fe3-ef4bbfe31d1e
+using AlgebraicRelations.Queries
+
+# ╔═╡ e049a740-5c04-11eb-3b6a-b95ab265526f
+using AlgebraicRelations.Presentations
+
+# ╔═╡ e04e1410-5c04-11eb-0055-330b5a58e139
+using AlgebraicRelations.Interface
+
 # ╔═╡ e6f010a0-5b61-11eb-20ae-599c2edea790
 Pkg.activate(".")
+
+# ╔═╡ e3183090-5c04-11eb-2621-394b4c6b2b72
+Pkg.add("AlgebraicRelations")
+
+# ╔═╡ 97ec0e70-5bff-11eb-2756-d7106acbedc1
+show_diagram(d::WiringDiagram) = to_graphviz(d,
+  orientation=LeftToRight,
+  labels=true, label_attr=:xlabel,
+  node_attrs=Graphviz.Attributes(
+    :fontname => "Courier",
+  ),
+  edge_attrs=Graphviz.Attributes(
+    :fontname => "Courier",
+  )
+)
 
 # ╔═╡ b910ebd0-5b4f-11eb-3fcd-d75ef8309879
 function cSave(c, path)
@@ -194,16 +227,46 @@ struct fit <: AbstractBox #ib 9
 	fit::String #=Indica il grado di adattamento con l’entità: [es. Absolutely wrong = (Absolutely doesn't fit) This answer is absolutely unacceptable. Unambiguously incorrect.; Understandable but wrong = (Doesn't fit but is close) Not a good answer. There is something about the plot that makes the answer understandable, but there is clearly a better answer. This answer would pose a problem for users. Incorrect.; Reasonable or acceptable answer = (Possibly fits) Maybe not the best possible answer but it is acceptable; this answer does not pose a problem to the user. Correct.; Good answer = (Fits reasonably well) Good match with the concept. Unambiguously correct.; Absolutely correct = (Fits well) No doubt about the match. Perfect fit]=#
 end
 
+# ╔═╡ 52dc2290-5c11-11eb-0d4b-0977db6a58cc
+present = Presentation()
+
+# ╔═╡ 5f44b5b0-5c11-11eb-249c-0372320a29d1
+Fit, Morphology, Entity_Group, Interpretation, Relation, Hierarchy, Class, NameStatus, Use, Status, Entity, Confidence = add_types!(present, [
+		(:Fit, fit),
+		(:Morphology, morphology),
+		(:Entity_Group, entity_group),
+		(:Interpretation, interpretation),
+		(:Relation, relation),
+		(:Hierarchy, hierarchy),
+		(:Class, class),
+		(:Name_Status, name_status),
+		(:Use, use),
+		(:Status, status),
+		(:Entity, entity),
+		(:Confidence, confidence)
+		])
+
+# ╔═╡ 1e5696d0-5c12-11eb-2d8b-9536b0689e70
+
+
 # ╔═╡ Cell order:
 # ╠═e485c760-5b61-11eb-3b81-e734e95141af
 # ╠═e6f010a0-5b61-11eb-20ae-599c2edea790
+# ╠═e3183090-5c04-11eb-2621-394b4c6b2b72
 # ╠═e106649e-5b61-11eb-2c47-83e46b37ed6a
 # ╠═9e9c1090-5b63-11eb-3fd6-f5b40bb3d29c
+# ╠═0490e3f0-5bfd-11eb-216c-ff78bce55cc9
+# ╠═54313070-5bff-11eb-13dd-0d7d05385a59
+# ╠═97ec0e70-5bff-11eb-2756-d7106acbedc1
 # ╠═b910ebd0-5b4f-11eb-3fcd-d75ef8309879
 # ╠═6f451f30-5b59-11eb-203b-450e5edc41cc
 # ╠═f3308780-5b4f-11eb-1094-5f26cc396646
 # ╠═a07c4242-5b63-11eb-2448-b3000ed3297f
 # ╠═59a65e0e-5b62-11eb-2ea3-f7dce68cf460
+# ╠═dd732eb0-5c04-11eb-1ad4-3bf8605ca5ae
+# ╠═e0490b00-5c04-11eb-0fe3-ef4bbfe31d1e
+# ╠═e049a740-5c04-11eb-3b6a-b95ab265526f
+# ╠═e04e1410-5c04-11eb-0055-330b5a58e139
 # ╠═6a4ffb70-5b50-11eb-14fa-cf538ef2990d
 # ╠═c6e8ddb0-5b60-11eb-344c-1b85feb01eed
 # ╠═9749b432-5b60-11eb-35fc-b9e9398b72f6
@@ -216,3 +279,6 @@ end
 # ╠═13ff24f0-5b58-11eb-075d-13c15ab24c0a
 # ╠═9bfd1930-5b57-11eb-2f50-ab850ddbecf0
 # ╠═869c88a0-5b57-11eb-2b1c-497cda580d10
+# ╠═52dc2290-5c11-11eb-0d4b-0977db6a58cc
+# ╠═5f44b5b0-5c11-11eb-249c-0372320a29d1
+# ╠═1e5696d0-5c12-11eb-2d8b-9536b0689e70
