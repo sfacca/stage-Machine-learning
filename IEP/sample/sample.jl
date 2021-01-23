@@ -43,3 +43,17 @@ foo = (x)->(2x)
 this is not a function
     """
     var_x = 3.14
+
+    """
+    abstract struct
+        """
+        abstract type Abstroo end
+
+"""
+sample struct
+    """
+    struct stroo :< Abstroo
+        a::Int
+        b::Float64
+    end
+

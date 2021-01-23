@@ -4,8 +4,42 @@
 using Markdown
 using InteractiveUtils
 
+# ╔═╡ 1341adf0-5cf0-11eb-2779-21605d9879c9
+using CSTParser
+
 # ╔═╡ c1acf890-5a89-11eb-2b8c-cbde52b367b7
 using Match
+
+# ╔═╡ 65b70120-5caa-11eb-05a9-bd4239022c3e
+include("corpus_struct.jl")
+
+# ╔═╡ 6a656b30-5cf0-11eb-37f3-a3c326b4c4b0
+function scrape_expr(e::CSTParser.EXPR; d = nothing)
+	if e.head in [:function, :struct, :abstract] || !isnothing(d)
+		res = [(docs = d, type = e.head, content = handle_Content(e))]
+	else
+		res = []
+	end
+	docs = nothing
+	# CSTParser.EXPR is iterable, needs no checks on args
+	for subexpr in e
+		if doc
+			docs = e
+		else
+		res = vcat(res, scrape_expr(e, d))
+		docs = nothing
+	end
+	res
+end
+
+# ╔═╡ 069ea9e0-5cf0-11eb-3d1b-2149bf325319
+"""
+fuynction to scrape from CSTParser.EXPR
+"""
+function scrape_Docs(e::CSTParser.EXPR)
+	# CSTParser.EXPR is iterable, no need for .args size checks	
+	res = ()
+end
 
 # ╔═╡ 62f8bd22-5a89-11eb-3158-cba0a98fb785
 """
@@ -208,8 +242,12 @@ function make_struct(funcs::Array{Expr,1})
 end
 
 # ╔═╡ Cell order:
+# ╠═65b70120-5caa-11eb-05a9-bd4239022c3e
 # ╠═db681500-5a5a-11eb-0de7-fd488e8ecb46
+# ╠═6a656b30-5cf0-11eb-37f3-a3c326b4c4b0
 # ╠═5af37660-5a84-11eb-39b1-7bcd6c24d815
+# ╠═1341adf0-5cf0-11eb-2779-21605d9879c9
+# ╠═069ea9e0-5cf0-11eb-3d1b-2149bf325319
 # ╠═5a8dbd70-5a89-11eb-104f-192cb5f012d7
 # ╠═c1acf890-5a89-11eb-2b8c-cbde52b367b7
 # ╠═5e799da0-5a89-11eb-28a3-6fc5463b63e4

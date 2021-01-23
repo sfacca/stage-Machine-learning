@@ -10,6 +10,9 @@ using Pkg
 # ╔═╡ c8a16ca0-59bf-11eb-1fa1-1983215b50dc
 using Match #used my handle_Expr
 
+# ╔═╡ c1a1aa60-5cac-11eb-1ebb-c7dfa3166e9f
+using CSTParser
+
 # ╔═╡ 15c32f20-59c3-11eb-0d06-8775ac176324
 include("view_Expr.jl")
 
@@ -28,8 +31,14 @@ Pkg.add("Match")
 # ╔═╡ 23e1cc30-58fe-11eb-2d99-3df1efd8ebdd
 md"1. parse files"
 
+# ╔═╡ d2339be0-5cac-11eb-10db-5720ea92fca6
+
+
 # ╔═╡ 599c5be0-5905-11eb-3fb8-792fb6f02bd3
-parsed_funcs = [x[1] for x in read_code("programs")];#drop source path
+parsed_funcs = read_code("programs");#drop source path
+
+# ╔═╡ 46531640-5cad-11eb-27c3-8798963a4b0a
+parsed_funcs
 
 # ╔═╡ 58384ad0-5a80-11eb-0884-d59d694b3ac2
 scrape_expr(parsed_funcs[2])
@@ -196,11 +205,14 @@ Core.var"@doc"
 # ╠═1b4b4fb0-58fe-11eb-04ff-3310a888d337
 # ╠═c19ba242-59bf-11eb-3d60-dfeff5c4698e
 # ╠═c8a16ca0-59bf-11eb-1fa1-1983215b50dc
+# ╠═c1a1aa60-5cac-11eb-1ebb-c7dfa3166e9f
 # ╠═15c32f20-59c3-11eb-0d06-8775ac176324
 # ╟─23e1cc30-58fe-11eb-2d99-3df1efd8ebdd
+# ╠═d2339be0-5cac-11eb-10db-5720ea92fca6
 # ╠═25cc59f0-5905-11eb-1b0c-a3f93544fc0d
 # ╠═c3326aa0-5a8a-11eb-0c02-fbe837715974
 # ╠═599c5be0-5905-11eb-3fb8-792fb6f02bd3
+# ╠═46531640-5cad-11eb-27c3-8798963a4b0a
 # ╠═58384ad0-5a80-11eb-0884-d59d694b3ac2
 # ╠═a4767fb0-5905-11eb-3767-fdac31b14e89
 # ╠═b7a7bbd0-59c3-11eb-04af-259418d5094e

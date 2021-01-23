@@ -230,6 +230,9 @@ end
 # ╔═╡ 52dc2290-5c11-11eb-0d4b-0977db6a58cc
 present = Presentation()
 
+# ╔═╡ 00d82e60-5cd1-11eb-183a-5f106b027cac
+Meta.show_sexpr
+
 # ╔═╡ 5f44b5b0-5c11-11eb-249c-0372320a29d1
 Fit, Morphology, Entity_Group, Interpretation, Relation, Hierarchy, Class, NameStatus, Use, Status, Entity, Confidence = add_types!(present, [
 		(:Fit, fit),
@@ -280,5 +283,6 @@ Fit, Morphology, Entity_Group, Interpretation, Relation, Hierarchy, Class, NameS
 # ╠═9bfd1930-5b57-11eb-2f50-ab850ddbecf0
 # ╠═869c88a0-5b57-11eb-2b1c-497cda580d10
 # ╠═52dc2290-5c11-11eb-0d4b-0977db6a58cc
+# ╠═00d82e60-5cd1-11eb-183a-5f106b027cac
 # ╠═5f44b5b0-5c11-11eb-249c-0372320a29d1
 # ╠═1e5696d0-5c12-11eb-2d8b-9536b0689e70
