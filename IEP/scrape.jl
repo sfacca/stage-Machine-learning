@@ -16,14 +16,14 @@ include("corpus_struct.jl")
 # ╔═╡ e43e5ce0-5e7c-11eb-2a12-bf68ab971179
 include("parse_folder.jl")
 
-# ╔═╡ 4f974a10-5e7d-11eb-277a-f7db47dbc06b
-CSTParser.EXPR
-
-# ╔═╡ c9b343a0-5f16-11eb-2044-8bad0b0bb328
-
-
-# ╔═╡ 0d232dd0-5e86-11eb-3bf3-efafd02e7b87
-#scrape_expr.(exprs_only)
+# ╔═╡ d43bca20-5f2c-11eb-2ba5-cf4b923b2ead
+function scrape_expr(arr::Array{CSTParser.EXPR,1})
+	res = []
+	for expr in arr
+		res = vcat(res, scrape_expr(expr))
+	end
+	res	
+end
 
 # ╔═╡ 069ea9e0-5cf0-11eb-3d1b-2149bf325319
 """
@@ -47,24 +47,21 @@ function variable_declaration(e::CSTParser.EXPR)
 end
 
 # ╔═╡ 70b8e320-5e7d-11eb-3279-8115a509cf96
-function get_inputs(e::CSTParser.EXPR)
+function _obs_get_inputs(e::CSTParser.EXPR)#obsolete
 	# alg is similar to Expr
 	#1 find :call expression
 	call_ind = findfirst((x)->(x.head == :call), e)
-	#println("call_ind $call_ind")
+	
 	if isnothing(call_ind)
 		#there is no :call
 		return ("could not find :call subexpr")
 	else
 		
 		call = e[call_ind]
-		#println("call: $call")
 		# find variables
 		# first element should be name of function
 		name = call[findfirst((x)->(x.head == :IDENTIFIER), call.args)].val
-		#the rest are variables, defined either with :IDENTIFIER or :OP (for variables of set types)		
-		#variables = length(call) > 1 ? call[2:end] : []
-		#println("scraping variables: $(call.args)")
+		#the rest are variables		
 		if !isnothing(call.args) && length(call.args) > 1			
 			variables = [
 				variable_declaration(call.args[i]) for i in 2:length(call.args)
@@ -81,11 +78,43 @@ function get_inputs(e::CSTParser.EXPR)
 	end
 end
 
-# ╔═╡ a4304b40-5f21-11eb-27dd-01e5be2181d9
-length([])
-
-# ╔═╡ 326d1bf0-5f17-11eb-2180-b99aa532f177
-println("==========================")
+# ╔═╡ 6a707da0-5f33-11eb-0494-b128c999fd89
+function get_inputs(e::CSTParser.EXPR)
+	# alg is similar to Expr
+	#1 find :call expression
+	tmp = e
+	call = nothing
+	while isnothing(call) && !isnothing(tmp.args) && !isempty(tmp.args)
+		if tmp.args[1].head == :call
+			println("found :call")
+			call = tmp.args[1]
+		else
+			tmp = tmp.args[1]
+		end
+	end
+			
+	if isnothing(call)
+		#there is no :call
+		return ("could not find :call subexpr")
+	else
+		# find variables
+		# first element should be name of function
+		name = call[findfirst((x)->(x.head == :IDENTIFIER), call.args)].val
+		#the rest are variables		
+		if !isnothing(call.args) && length(call.args) > 1			
+			variables = [
+				variable_declaration(call.args[i]) for i in 2:length(call.args)
+				]
+		else
+			variables = []
+		end
+		
+		return (
+			name = name, 
+			input_variables = variables
+		)
+	end
+end
 
 # ╔═╡ 62f8bd22-5a89-11eb-3158-cba0a98fb785
 """
@@ -182,7 +211,9 @@ end
 
 # ╔═╡ 6a656b30-5cf0-11eb-37f3-a3c326b4c4b0
 function scrape_expr(e::CSTParser.EXPR, d = nothing)
+	println("head: $(e.head)")
 	if e.head in [:function, :struct, :abstract] || !isnothing(d)
+		println("scraping type: $(e.head)")
 		res = [(docs = d, type = e.head, content = handle_Content(e))]
 		d = nothing
 		#clear docs after assigning them
@@ -190,21 +221,31 @@ function scrape_expr(e::CSTParser.EXPR, d = nothing)
 		res = []
 	end
 	
+	if !isnothing(d)
+		println("got docs: $d")
+	end
+	
 	# CSTParser.EXPR is iterable, needs no checks on args
 	i = 1
 	while !isnothing(e.args) && i <= length(e.args)
-		if e[i].head == :globalref
+		if e[i].head == :globalrefdoc
+			println("==== FOUND GLOBALREFDOC ====")
+			println(i)
+			
 			next_string = findfirst((x)->(x.head == :TRIPLESTRING), e[i:end])
 			if isnothing(next_string)
 				println("empty documentation definition")
 			else
 				d = e[next_string].val
+				println("FOUND DOCS: $d")
 				i = next_string
 			end
+			println("=========================")
 		else
-			res = vcat(res, scrape_expr(e[i], d))
+			res = vcat(res, scrape_expr(e.args[i], d))
 			d = nothing			
 		end
+		println("$i / $(length(e.args))")
 		i = i + 1
 	end
 	res
@@ -285,11 +326,38 @@ parsed_sample = read_code("programs");
 # ╔═╡ 16558b40-5e7d-11eb-2c08-196665490091
 exprs_only = [x[1] for x in parsed_sample];
 
-# ╔═╡ b00b3d3e-5e85-11eb-289b-a912cd960e2b
-exprs_only[1].args[3].val
+# ╔═╡ 0d232dd0-5e86-11eb-3bf3-efafd02e7b87
+scrape_tot = scrape_expr(exprs_only);
 
-# ╔═╡ 52157730-5e82-11eb-22c7-496acd08f489
+# ╔═╡ 9fe01b40-5f32-11eb-2bb5-f1d7e543207a
+find_paths(exprs_only[7], (x)->(x.head == :function))
 
+# ╔═╡ b6220b20-5f32-11eb-3be7-2fa3e65f1a1a
+exprs_only[2][4][4][9][4].args[1].args
+
+# ╔═╡ 2b0b8910-5f2f-11eb-3504-af103fd144cd
+filter((x)->(x.type == :function), scrape_expr(exprs_only[2]))
+
+# ╔═╡ 6eadf5b0-5f32-11eb-270e-632288add61c
+filter((x)->(x.type == :function), scrape_expr(exprs_only[3]))
+
+# ╔═╡ 9b23b9c0-5f34-11eb-251e-01e86efdf07d
+filter((x)->(x.type == :function), scrape_expr(exprs_only[7]))
+
+# ╔═╡ a25dda90-5f34-11eb-2833-57c1b28662b6
+exprs_only[7]
+
+# ╔═╡ 336b4250-5f28-11eb-0ddf-45e25c4347e2
+function get_all_heads(e::CSTParser.EXPR)
+	res = [e.head]
+	for expr in e
+		res = vcat(res, get_all_heads(expr))
+	end
+	res
+end
+
+# ╔═╡ 6b2c8200-5f30-11eb-1148-498e79f1fb37
+count([ x == :function for x in get_all_heads(exprs_only[2])])
 
 # ╔═╡ 884be410-5e7d-11eb-0fb3-33fe00da9b49
 function find_heads(e::CSTParser.EXPR, head::Symbol)
@@ -315,30 +383,6 @@ function find_heads(arr::Array{CSTParser.EXPR,1}, head::Symbol)
 	res
 end
 
-# ╔═╡ 25bf0580-5e81-11eb-052f-4f1e5c35349e
-functions = find_heads(exprs_only, :function);
-
-# ╔═╡ 085655be-5e81-11eb-3ac5-b1fd97b0f80b
-scraped_expressions = scrape_expr(functions[1])
-
-# ╔═╡ cbb3f8d0-5f1a-11eb-3a92-f9adff196c8d
-all_scraped = scrape_expr.(functions)
-
-# ╔═╡ 7c9f7b60-5e85-11eb-0c08-8ff862d1fd21
-typeof(functions[1])
-
-# ╔═╡ 81dfb070-5f13-11eb-3793-af95c6784b56
-functions[1][2][6].head
-
-# ╔═╡ b1646170-5e81-11eb-07f6-8128df68413a
-length(functions)
-
-# ╔═╡ ac9dffc0-5e81-11eb-06bc-d529446f090e
-functions[1][2].args[1].head
-
-# ╔═╡ c2a49450-5e81-11eb-0c84-0d28904239df
-functions[1][2].args[2].head
-
 # ╔═╡ d7ff1c50-5e7f-11eb-01c0-452cc44a4b0a
 """
 overloads Base.keys so it works with CSTParser.EXPR
@@ -350,35 +394,31 @@ end
 
 # ╔═╡ Cell order:
 # ╠═65b70120-5caa-11eb-05a9-bd4239022c3e
-# ╠═4f974a10-5e7d-11eb-277a-f7db47dbc06b
 # ╠═db681500-5a5a-11eb-0de7-fd488e8ecb46
 # ╠═6a656b30-5cf0-11eb-37f3-a3c326b4c4b0
-# ╠═c9b343a0-5f16-11eb-2044-8bad0b0bb328
-# ╠═b00b3d3e-5e85-11eb-289b-a912cd960e2b
 # ╠═0d232dd0-5e86-11eb-3bf3-efafd02e7b87
+# ╠═9fe01b40-5f32-11eb-2bb5-f1d7e543207a
+# ╠═b6220b20-5f32-11eb-3be7-2fa3e65f1a1a
+# ╠═2b0b8910-5f2f-11eb-3504-af103fd144cd
+# ╠═6eadf5b0-5f32-11eb-270e-632288add61c
+# ╠═9b23b9c0-5f34-11eb-251e-01e86efdf07d
+# ╠═a25dda90-5f34-11eb-2833-57c1b28662b6
+# ╠═6b2c8200-5f30-11eb-1148-498e79f1fb37
+# ╠═d43bca20-5f2c-11eb-2ba5-cf4b923b2ead
 # ╠═1341adf0-5cf0-11eb-2779-21605d9879c9
 # ╠═069ea9e0-5cf0-11eb-3d1b-2149bf325319
 # ╠═5a8dbd70-5a89-11eb-104f-192cb5f012d7
 # ╠═c1acf890-5a89-11eb-2b8c-cbde52b367b7
 # ╠═5e799da0-5a89-11eb-28a3-6fc5463b63e4
 # ╠═70b8e320-5e7d-11eb-3279-8115a509cf96
+# ╠═6a707da0-5f33-11eb-0494-b128c999fd89
 # ╠═db27a4e0-5f21-11eb-24fd-cfa36b36ceff
-# ╠═a4304b40-5f21-11eb-27dd-01e5be2181d9
-# ╠═085655be-5e81-11eb-3ac5-b1fd97b0f80b
-# ╠═cbb3f8d0-5f1a-11eb-3a92-f9adff196c8d
-# ╠═326d1bf0-5f17-11eb-2180-b99aa532f177
-# ╠═7c9f7b60-5e85-11eb-0c08-8ff862d1fd21
-# ╠═81dfb070-5f13-11eb-3793-af95c6784b56
 # ╠═62f8bd22-5a89-11eb-3158-cba0a98fb785
 # ╠═70a65360-5a89-11eb-2898-37b1b52852bf
 # ╠═e43e5ce0-5e7c-11eb-2a12-bf68ab971179
 # ╠═eb625da0-5e7c-11eb-177e-eb48a6f94b6a
 # ╠═16558b40-5e7d-11eb-2c08-196665490091
-# ╠═25bf0580-5e81-11eb-052f-4f1e5c35349e
-# ╠═b1646170-5e81-11eb-07f6-8128df68413a
-# ╠═ac9dffc0-5e81-11eb-06bc-d529446f090e
-# ╠═c2a49450-5e81-11eb-0c84-0d28904239df
-# ╠═52157730-5e82-11eb-22c7-496acd08f489
+# ╠═336b4250-5f28-11eb-0ddf-45e25c4347e2
 # ╠═884be410-5e7d-11eb-0fb3-33fe00da9b49
 # ╠═52b64082-5e81-11eb-3192-5b0f4f436d55
 # ╠═d7ff1c50-5e7f-11eb-01c0-452cc44a4b0a
