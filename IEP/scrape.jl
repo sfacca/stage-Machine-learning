@@ -19,6 +19,12 @@ include("parse_folder.jl")
 # ╔═╡ 4f974a10-5e7d-11eb-277a-f7db47dbc06b
 CSTParser.EXPR
 
+# ╔═╡ c9b343a0-5f16-11eb-2044-8bad0b0bb328
+
+
+# ╔═╡ 0d232dd0-5e86-11eb-3bf3-efafd02e7b87
+#scrape_expr.(exprs_only)
+
 # ╔═╡ 069ea9e0-5cf0-11eb-3d1b-2149bf325319
 """
 fuynction to scrape from CSTParser.EXPR
@@ -28,36 +34,58 @@ function scrape_Docs(e::CSTParser.EXPR)
 	res = ()
 end
 
+# ╔═╡ db27a4e0-5f21-11eb-24fd-cfa36b36ceff
+function variable_declaration(e::CSTParser.EXPR)
+	if isnothing(e.args) || isempty(e.args)
+		println("no args variable")
+		return e
+	elseif length(e.args)>1
+		return (name = e.args[1].val, type = e.args[end].val)
+	else
+		return (naem = e.args[1].val, type = "Any")
+	end
+end
+
 # ╔═╡ 70b8e320-5e7d-11eb-3279-8115a509cf96
 function get_inputs(e::CSTParser.EXPR)
 	# alg is similar to Expr
 	#1 find :call expression
 	call_ind = findfirst((x)->(x.head == :call), e)
-	println("call_ind $call_ind")
+	#println("call_ind $call_ind")
 	if isnothing(call_ind)
 		#there is no :call
 		return ("could not find :call subexpr")
 	else
 		
-		call = e.args[call_ind]
-		println("call: $call")
+		call = e[call_ind]
+		#println("call: $call")
 		# find variables
 		# first element should be name of function
-		name = call.args[1]
+		name = call[findfirst((x)->(x.head == :IDENTIFIER), call.args)].val
 		#the rest are variables, defined either with :IDENTIFIER or :OP (for variables of set types)		
-		variables = length(call)>1 ? call[2:end] : []
+		#variables = length(call) > 1 ? call[2:end] : []
+		#println("scraping variables: $(call.args)")
+		if !isnothing(call.args) && length(call.args) > 1			
+			variables = [
+				variable_declaration(call.args[i]) for i in 2:length(call.args)
+				]
+		else
+			variables = []
+		end
 		
-		#=
+		#println(name, variables)
 		return (
 			name = name, 
-			input_variables = [
-				x.head == :IDENTIFIER ? x.val : (name = x[1].val, type = x[2].val)
-				for x in variables
-			]
-		)=#
-		return ()
+			input_variables = variables
+		)
 	end
 end
+
+# ╔═╡ a4304b40-5f21-11eb-27dd-01e5be2181d9
+length([])
+
+# ╔═╡ 326d1bf0-5f17-11eb-2180-b99aa532f177
+println("==========================")
 
 # ╔═╡ 62f8bd22-5a89-11eb-3158-cba0a98fb785
 """
@@ -75,7 +103,7 @@ function get_inputs(e::Expr)
 	call = nothing
 	while !call_found
 		if tmp.args[1].head == :call
-			println(tmp.args[1])
+			#println(tmp.args[1])
 			call_found = true
 			call = tmp.args[1]
 		else
@@ -88,10 +116,10 @@ function get_inputs(e::Expr)
 		end
 	end
 	
-	println(call)
+	#println(call)
 	if !isnothing(call)
 		if typeof(call.args[1]) == Symbol
-			println("found name")
+			#println("found name")
 			name = call.args[1]
 		else
 			name = nothing
@@ -164,7 +192,7 @@ function scrape_expr(e::CSTParser.EXPR, d = nothing)
 	
 	# CSTParser.EXPR is iterable, needs no checks on args
 	i = 1
-	while i <= length(e)
+	while !isnothing(e.args) && i <= length(e.args)
 		if e[i].head == :globalref
 			next_string = findfirst((x)->(x.head == :TRIPLESTRING), e[i:end])
 			if isnothing(next_string)
@@ -174,48 +202,10 @@ function scrape_expr(e::CSTParser.EXPR, d = nothing)
 				i = next_string
 			end
 		else
-			res = vcat(res, scrape_expr(e, d))
+			res = vcat(res, scrape_expr(e[i], d))
 			d = nothing			
 		end
 		i = i + 1
-	end
-	res
-end
-
-# ╔═╡ 5af37660-5a84-11eb-39b1-7bcd6c24d815
-"""
-finds documentation on input expressions
-"""
-function scrape_Docs(e::Expr)
-	#1 find the Core.var"@doc"
-	res = (docs = nothing, content = nothing, type = e.head)
-	tmp = e
-	found_doc = false
-	doc = GlobalRef(Core, Symbol("@doc"))
-	while !found_doc
-		if tmp.args[1] == doc
-			
-			found_doc = true
-			if typeof(tmp.args[end]) == Expr
-				res = (
-					docs = tmp.args[minimum([3, length(tmp.args)])],
-					content = handle_Content(tmp.args[end]),
-					type = tmp.args[end].head
-				)
-			else
-				res = (
-					docs = tmp.args[minimum([3, length(tmp.args)])],
-					content = tmp.args[end],
-					type = typeof(tmp.args[end])				
-				)
-			end
-		else
-			if typeof(tmp.args[1]) == Expr
-				tmp = tmp.args[1]
-			else
-				found_doc = true
-			end
-		end
 	end
 	res
 end
@@ -224,7 +214,7 @@ end
 """
 finds documentation on input expressions
 """
-function scrape_Docs_alt(e::Expr)
+function scrape_Docs(e::Expr)
 	#1 find the Core.var"@doc"
 	res = (docs = nothing, content = nothing)
 	tmp = e
@@ -298,9 +288,6 @@ exprs_only = [x[1] for x in parsed_sample];
 # ╔═╡ b00b3d3e-5e85-11eb-289b-a912cd960e2b
 exprs_only[1].args[3].val
 
-# ╔═╡ 0d232dd0-5e86-11eb-3bf3-efafd02e7b87
-scrape_expr.(exprs_only)
-
 # ╔═╡ 52157730-5e82-11eb-22c7-496acd08f489
 
 
@@ -332,10 +319,16 @@ end
 functions = find_heads(exprs_only, :function);
 
 # ╔═╡ 085655be-5e81-11eb-3ac5-b1fd97b0f80b
-scrape_expr(functions[1])
+scraped_expressions = scrape_expr(functions[1])
+
+# ╔═╡ cbb3f8d0-5f1a-11eb-3a92-f9adff196c8d
+all_scraped = scrape_expr.(functions)
 
 # ╔═╡ 7c9f7b60-5e85-11eb-0c08-8ff862d1fd21
 typeof(functions[1])
+
+# ╔═╡ 81dfb070-5f13-11eb-3793-af95c6784b56
+functions[1][2][6].head
 
 # ╔═╡ b1646170-5e81-11eb-07f6-8128df68413a
 length(functions)
@@ -360,17 +353,22 @@ end
 # ╠═4f974a10-5e7d-11eb-277a-f7db47dbc06b
 # ╠═db681500-5a5a-11eb-0de7-fd488e8ecb46
 # ╠═6a656b30-5cf0-11eb-37f3-a3c326b4c4b0
+# ╠═c9b343a0-5f16-11eb-2044-8bad0b0bb328
 # ╠═b00b3d3e-5e85-11eb-289b-a912cd960e2b
 # ╠═0d232dd0-5e86-11eb-3bf3-efafd02e7b87
-# ╠═5af37660-5a84-11eb-39b1-7bcd6c24d815
 # ╠═1341adf0-5cf0-11eb-2779-21605d9879c9
 # ╠═069ea9e0-5cf0-11eb-3d1b-2149bf325319
 # ╠═5a8dbd70-5a89-11eb-104f-192cb5f012d7
 # ╠═c1acf890-5a89-11eb-2b8c-cbde52b367b7
 # ╠═5e799da0-5a89-11eb-28a3-6fc5463b63e4
 # ╠═70b8e320-5e7d-11eb-3279-8115a509cf96
+# ╠═db27a4e0-5f21-11eb-24fd-cfa36b36ceff
+# ╠═a4304b40-5f21-11eb-27dd-01e5be2181d9
 # ╠═085655be-5e81-11eb-3ac5-b1fd97b0f80b
+# ╠═cbb3f8d0-5f1a-11eb-3a92-f9adff196c8d
+# ╠═326d1bf0-5f17-11eb-2180-b99aa532f177
 # ╠═7c9f7b60-5e85-11eb-0c08-8ff862d1fd21
+# ╠═81dfb070-5f13-11eb-3793-af95c6784b56
 # ╠═62f8bd22-5a89-11eb-3158-cba0a98fb785
 # ╠═70a65360-5a89-11eb-2898-37b1b52852bf
 # ╠═e43e5ce0-5e7c-11eb-2a12-bf68ab971179

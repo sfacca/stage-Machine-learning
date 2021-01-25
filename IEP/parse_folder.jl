@@ -47,7 +47,7 @@ function find_paths(e, fun; path=[])
 	
 	for i in 1:length(e)
 		curr_path = vcat(path, [i])
-		println(curr_path)
+		#println(curr_path)
 		children = find_paths(e[i], fun; path=curr_path)
 		if isempty(children)
 			#
@@ -95,7 +95,7 @@ meta     :: Any
 =#
 
 # ╔═╡ 54761ff0-51ff-11eb-0303-a19ad5d664ad
-function get_expr(exp_tree, path, verbose=true)
+function get_expr(exp_tree, path, verbose=false)
     leaves = []
 
     for arg in exp_tree.args
