@@ -206,48 +206,6 @@ function scrape_expr(e::Expr; d = nothing)
 	res
 end
 
-# ╔═╡ 6a656b30-5cf0-11eb-37f3-a3c326b4c4b0
-function scrape_expr(e::CSTParser.EXPR, d = nothing)
-	println("head: $(e.head)")
-	if e.head in [:function, :struct, :abstract] || !isnothing(d)
-		println("scraping type: $(e.head)")
-		res = [(docs = d, type = e.head, content = handle_Content(e))]
-		d = nothing
-		#clear docs after assigning them
-	else
-		res = []
-	end
-	
-	if !isnothing(d)
-		println("got docs: $d")
-	end
-	
-	# CSTParser.EXPR is iterable, needs no checks on args
-	i = 1
-	while !isnothing(e.args) && i <= length(e.args)
-		if e[i].head == :globalrefdoc
-			println("==== FOUND GLOBALREFDOC ====")
-			println(i)
-			
-			next_string = findfirst((x)->(x.head == :TRIPLESTRING), e[i:end])
-			if isnothing(next_string)
-				println("empty documentation definition")
-			else
-				d = e[next_string].val
-				println("FOUND DOCS: $d")
-				i = next_string
-			end
-			println("=========================")
-		else
-			res = vcat(res, scrape_expr(e.args[i], d))
-			d = nothing			
-		end
-		println("$i / $(length(e.args))")
-		i = i + 1
-	end
-	res
-end
-
 # ╔═╡ 5a8dbd70-5a89-11eb-104f-192cb5f012d7
 """
 finds documentation on input expressions
@@ -360,27 +318,69 @@ function Base.keys(e::CSTParser.EXPR)
 end
 
 # ╔═╡ 8d756480-6016-11eb-2950-b33b39ef2015
-function leaves(e::CSTParser.EXPR)	
-	if isempty(e.args)
+function get_leaves(e::CSTParser.EXPR)	
+	if isnothing(e.args) || isempty(e.args)
 		res = e
 	else
 		res = []
 		for exp in e.args
-			res = vcat(res, leaves(exp))
+			res = vcat(res, get_leaves(exp))
 		end
 	end
 	res
 end
 
 # ╔═╡ b9a11222-6016-11eb-1af2-d36a85e541cc
-function leaves(arr::Array{CSTParser.EXPR, 1})
+function get_leaves(arr::Array{CSTParser.EXPR, 1})
 	res = []
 	for exp in arr
-		res = vcat(res, leaves(exp))
+		res = vcat(res, get_leaves(exp))
 	end
 	res
 end
 		
+
+# ╔═╡ 6a656b30-5cf0-11eb-37f3-a3c326b4c4b0
+function scrape_expr(e::CSTParser.EXPR, d = nothing)
+	println("head: $(e.head)")
+	if e.head in [:function, :struct, :abstract] || !isnothing(d)
+		println("scraping type: $(e.head)")
+		res = [(docs = d, raw = e, type = e.head, leaves = get_leaves(e), content = handle_Content(e))]
+		d = nothing
+		#clear docs after assigning them
+	else
+		res = []
+	end
+	
+	if !isnothing(d)
+		println("got docs: $d")
+	end
+	
+	# CSTParser.EXPR is iterable, needs no checks on args
+	i = 1
+	while !isnothing(e.args) && i <= length(e.args)
+		if e[i].head == :globalrefdoc
+			println("==== FOUND GLOBALREFDOC ====")
+			println(i)
+			
+			next_string = findfirst((x)->(x.head == :TRIPLESTRING), e[i:end])
+			if isnothing(next_string)
+				println("empty documentation definition")
+			else
+				d = e[next_string].val
+				println("FOUND DOCS: $d")
+				i = next_string
+			end
+			println("=========================")
+		else
+			res = vcat(res, scrape_expr(e.args[i], d))
+			d = nothing			
+		end
+		println("$i / $(length(e.args))")
+		i = i + 1
+	end
+	res
+end
 
 # ╔═╡ Cell order:
 # ╠═65b70120-5caa-11eb-05a9-bd4239022c3e
