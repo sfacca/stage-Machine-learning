@@ -31,6 +31,30 @@ include("parse_folder.jl")
 # ╔═╡ f4d99180-600e-11eb-3053-2f2814838927
 Pkg.activate(".")
 
+# ╔═╡ 669206b0-626f-11eb-3d06-8f6951f50af8
+function _get_types_from_inputs(arr::Array{Array{T,1} where T,1})
+	println("start")
+	res = Array{Array{Any,1},1}(undef, length(arr))
+	println("pre loop")
+	for i in 1:length(arr)
+		println("loop num $i")
+		res[i] = Array{Any,1}(undef, length(arr[i]))
+		println("pre inner")
+		for j in 1:length(arr[i])
+			println("inner $j")
+			@match typeof(arr[i][j]) begin				
+				CSTParser.EXPR => (res[i][j] = "Any")
+				_ => (res[i][j] = arr[i][j].type)
+			end
+			if isnothing(res[i][j])
+				res[i][j] = "Any"
+			end			
+		end
+		res[i] = sort(res[i])
+	end
+	res
+end
+
 # ╔═╡ dafd3880-619d-11eb-24b8-ebd69e0320cf
 function folder_to_CSet(path::String)
 	
@@ -61,24 +85,7 @@ function folder_to_CSet(path::String)
 	names = [x.scrape.content.name for x in functions]
 	inputs = [x.scrape.content.input_variables for x in functions]
 	
-	#=
-	inputs = [
-		[
-			typeof(x) == CSTParser.EXPR ? x : x.type for x in input
-		]
-		for input in inputs	
-	]
-	for i in 1:length(inputs)
-		for j in 1:length(inputs[i])
-			inputs[i][j] = typeof(inputs[i][j]) == CSTParser.Expr ? inputs[i][j] : inputs[i][j].type
-		end
-end=#
-	#=inputs = [
-			[
-			(typeof(x) == NamedTuple) ? x.type : x for x in input
-				]
-		for input in inputs
-		]=#
+	
 	sources = [x.source for x in functions]
 	raws = [x.scrape.raw for x in functions]
 	ls = [x.scrape.leaves for x in functions]
@@ -107,8 +114,6 @@ end=#
 		(Function, Implementation, Inputs, Calls)::Ob
 		(setImpl, setInp, setExpr, setCalls, docs, name
 			)::Data	
-
-		in_expr::Attr(Inputs, setExpr)# ogni input è un expr
 
 		impl_in::Hom(Implementation, Inputs)# ogni implem ha degli input	
 		impl_fun::Hom(Implementation, Function)# ogni impl implementa una funzione
@@ -139,8 +144,12 @@ end=#
 	cal = add_parts!(data, :Calls, length(unique(df.calls)))
 	println(cal)
 	# all inputs
-	inputs = df.
-	inps = add_parts!(data, :Inputs, length(impl_names))
+	inputs = _get_types_from_inputs(df.inputs)
+	inps = add_parts!(data, :Inputs, length(unique(inputs)))
+	
+	data[:, :in_set] = unique(inputs)
+			# do inputs together since they have same indexing
+	println("in expr")
 	
 	println("handling calls sets")
 	#=for i in cal
@@ -150,7 +159,7 @@ end=#
 		data[i, :calls_set] = unique(df.calls)[i]
 	end=#
 	data[:, :calls_set] = unique(df.calls)
-	
+		
 	
 	println("#### handling impl and inp #####")
 	# assign implementations data
@@ -164,7 +173,7 @@ end=#
 		println("impl docs")
 		data[i, :impl_docs] = df.doc[i]	
 		println("impl in")
-		data[i, :impl_in] = i
+		data[i, :impl_in] = findfirst((x)->(x == sort(inputs[i])), unique(inputs))
 		println("impl fun")
 		data[i, :impl_fun] = findfirst((x)->(x == impl_names[i]), unique(impl_names))
 		println("impl calls")
@@ -176,13 +185,6 @@ end=#
 				(x)->(x == df.calls[i]), unique(df.calls)
 			)
 		end
-		# do inputs together since they have same indexing
-		println("in set")
-		data[i, :in_set] = df.inputs[i]
-		println("in expr")
-		data[i, :in_expr] = [
-			typeof(x) == CSTParser.EXPR ? x : x.type for x in df.inputs[i]
-				]
 	end
 		# do func names
 	println("#### handling function #####")
@@ -200,8 +202,8 @@ parsed , data, df = folder_to_CSet("programs");
 # ╔═╡ 9d8b0ad0-626b-11eb-16cf-a99423ff659c
 df.inputs
 
-# ╔═╡ 669206b0-626f-11eb-3d06-8f6951f50af8
-
+# ╔═╡ dc900b50-63ff-11eb-3a93-65069f769128
+data
 
 # ╔═╡ Cell order:
 # ╠═f5031280-600e-11eb-3799-015a8792ae63
@@ -213,6 +215,7 @@ df.inputs
 # ╠═dafd3880-619d-11eb-24b8-ebd69e0320cf
 # ╠═ac07a000-619e-11eb-3633-b7f29d8aee62
 # ╠═9d8b0ad0-626b-11eb-16cf-a99423ff659c
+# ╠═dc900b50-63ff-11eb-3a93-65069f769128
 # ╠═669206b0-626f-11eb-3d06-8f6951f50af8
 # ╠═f4e1c610-6096-11eb-0a8c-6f0ffcc97f6b
 # ╠═45fa2930-6181-11eb-22b0-6d76ebff6633
