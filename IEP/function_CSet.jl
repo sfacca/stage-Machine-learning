@@ -13,6 +13,9 @@ using Match
 # ╔═╡ 90e5cff0-6012-11eb-3182-ef1e1f802343
 using Catlab, Catlab.CategoricalAlgebra, DataFrames
 
+# ╔═╡ 1e1ddfd0-64b3-11eb-18a4-03f45e8d7db9
+using BenchmarkTools
+
 # ╔═╡ f4e1c610-6096-11eb-0a8c-6f0ffcc97f6b
 using Tokenize
 
@@ -30,6 +33,95 @@ include("parse_folder.jl")
 
 # ╔═╡ f4d99180-600e-11eb-3053-2f2814838927
 Pkg.activate(".")
+
+# ╔═╡ 872effe0-64b3-11eb-3339-7b0e14edeaeb
+
+
+# ╔═╡ 357dc2d0-64b3-11eb-374f-351a90dc6d17
+#=
+BenchmarkTools.Trial: 
+  memory estimate:  14.07 MiB
+  allocs estimate:  302169
+  --------------
+  minimum time:     381.777 ms (0.00% GC)
+  median time:      749.045 ms (0.00% GC)
+  mean time:        702.608 ms (0.25% GC)
+  maximum time:     767.965 ms (1.86% GC)
+  --------------
+  samples:          8
+  evals/sample:     1
+----------------------------------
+BenchmarkTools.Trial: 
+  memory estimate:  14.07 MiB
+  allocs estimate:  302076
+  --------------
+  minimum time:     344.479 ms (0.00% GC)
+  median time:      728.441 ms (0.00% GC)
+  mean time:        661.352 ms (0.26% GC)
+  maximum time:     742.936 ms (1.88% GC)
+  --------------
+  samples:          8
+  evals/sample:     1
+-------------------------- map
+BenchmarkTools.Trial: 
+  memory estimate:  17.42 MiB
+  allocs estimate:  442728
+  --------------
+  minimum time:     407.505 ms (0.00% GC)
+  median time:      688.001 ms (0.00% GC)
+  mean time:        671.876 ms (0.53% GC)
+  maximum time:     783.490 ms (1.83% GC)
+  --------------
+  samples:          8
+  evals/sample:     1
+____________________________________
+BenchmarkTools.Trial: 
+  memory estimate:  17.50 MiB
+  allocs estimate:  443243
+  --------------
+  minimum time:     399.763 ms (0.00% GC)
+  median time:      716.824 ms (0.00% GC)
+  mean time:        685.075 ms (0.54% GC)
+  maximum time:     755.387 ms (1.99% GC)
+  --------------
+  samples:          8
+  evals/sample:     1
+BenchmarkTools.Trial: 
+  memory estimate:  17.51 MiB
+  allocs estimate:  443272
+  --------------
+  minimum time:     441.639 ms (0.00% GC)
+  median time:      715.373 ms (0.00% GC)
+  mean time:        703.896 ms (0.49% GC)
+  maximum time:     836.887 ms (0.00% GC)
+  --------------
+  samples:          8
+  evals/sample:     1
+_________________________________
+BenchmarkTools.Trial: 
+  memory estimate:  17.57 MiB
+  allocs estimate:  443679
+  --------------
+  minimum time:     449.643 ms (0.00% GC)
+  median time:      781.946 ms (0.00% GC)
+  mean time:        715.165 ms (0.30% GC)
+  maximum time:     844.381 ms (0.00% GC)
+  --------------
+  samples:          7
+  evals/sample:     1
+________________________________
+BenchmarkTools.Trial:   
+  	memory estimate:  17.60 MiB  
+  	allocs estimate:  444566  
+  	--------------  
+	minimum time:     402.855 ms (0.00% GC)  
+	median time:      818.166 ms (0.00% GC)  
+	mean time:        752.844 ms (0.26% GC)  
+	maximum time:     891.966 ms (0.00% GC)  
+	--------------
+	samples:          7
+	evals/sample:     1
+=#
 
 # ╔═╡ 669206b0-626f-11eb-3d06-8f6951f50af8
 function _get_types_from_inputs(arr::Array{Array{T,1} where T,1})
@@ -89,19 +181,21 @@ function folder_to_CSet(path::String)
 	sources = [x.source for x in functions]
 	raws = [x.scrape.raw for x in functions]
 	ls = [x.scrape.leaves for x in functions]
-	calls = [
+	calls = map((x)->(length(x)>1 ? [] : sort(unique(x[2:end])))
+		,[
 		filter(!isnothing, [x[1].val for x in i]) for i in [
 				find_heads(x.scrape.raw, :call) for x in functions
 					]
-		]
+		])
+	#=
 	for i in 1:length(calls)
 		@match length(calls[i]) begin
 			0 => (calls[i] = [])
 			1 => (calls[i] = [])
 			_ => (calls[i] = sort(unique(calls[i][2:end])))
 		end
-	end
-	df = DataFrame(name= names, doc = docs, inputs = inputs, source = sources, exprs = ls, raw = raws, calls = calls);#we dont need this
+end=#
+	#df = DataFrame(name= names, doc = docs, inputs = inputs, source = sources, exprs = ls, raw = raws, calls = calls);#we dont need this
 	
 	# 
 	
@@ -135,17 +229,19 @@ function folder_to_CSet(path::String)
 	parsedData = ACSetType(functionSchema, index=[:impl_fun])
 	data = parsedData{Any, Any, Any, Any, Union{String,Nothing}, Union{String,Nothing}}()
 	
-	impl_names = df.name;
+	impl_names = names;
+	fun_names = unique(impl_names)
 	println("#### initializing #####")
 	impls = add_parts!(data, :Implementation, length(impl_names))
 	println(impls)
-	funs = add_parts!(data, :Function, length(unique(impl_names)))
+	funs = add_parts!(data, :Function, length(fun_names))
 	println(funs)
-	cal = add_parts!(data, :Calls, length(unique(df.calls)))
+	cal = add_parts!(data, :Calls, length(unique(calls)))
 	println(cal)
 	# all inputs
-	inputs = _get_types_from_inputs(df.inputs)
+	inputs = _get_types_from_inputs(inputs)
 	inps = add_parts!(data, :Inputs, length(unique(inputs)))
+	
 	
 	data[:, :in_set] = unique(inputs)
 			# do inputs together since they have same indexing
@@ -158,52 +254,56 @@ function folder_to_CSet(path::String)
 		println("calls set")
 		data[i, :calls_set] = unique(df.calls)[i]
 	end=#
-	data[:, :calls_set] = unique(df.calls)
-		
+	ucalls = unique(calls)
+	data[:, :calls_set] = unique(calls)
+	
 	
 	println("#### handling impl and inp #####")
 	# assign implementations data
+	println("impl expr")
+	data[:, :impl_expr] = ls
+	println("impl set")
+	data[:, :impl_set] = raws
+	println("impl docs")
+	data[:, :impl_docs] = docs
+	
 	for i in 1:length(impl_names)
 		println("loop $i")
 	
-		println("impl expr")
-		data[i, :impl_expr] = df.exprs[i]
-		println("impl set")
-		data[i, :impl_set] = df.raw[i]
-		println("impl docs")
-		data[i, :impl_docs] = df.doc[i]	
+		
 		println("impl in")
 		data[i, :impl_in] = findfirst((x)->(x == sort(inputs[i])), unique(inputs))
 		println("impl fun")
-		data[i, :impl_fun] = findfirst((x)->(x == impl_names[i]), unique(impl_names))
+		data[i, :impl_fun] = findfirst((x)->(x == impl_names[i]), fun_names)
 		println("impl calls")
-		if isnothing(df.calls[i]) || isempty(df.calls[i])
+		if isnothing(calls[i]) || isempty(calls[i])
 			data[i, :impl_calls] = 0
 		else
-			asdf = findfirst((x)->( x == df.calls[i]), unique(df.calls))
+			asdf = findfirst((x)->( x == calls[i]), ucalls)
 			data[i, :impl_calls] = findfirst(
-				(x)->(x == df.calls[i]), unique(df.calls)
+				(x)->(x == calls[i]), ucalls
 			)
 		end
 	end
 		# do func names
 	println("#### handling function #####")
-	for i in 1:length(unique(impl_names))
-		data[i, :func_name] = unique(impl_names)[i]
-	end
+	data[:, :func_name] = fun_names
 	
 	println("#### finished #####")
-	return (set_type = parsedData, set = data, df = df)
+	return parsedData, data
 end
 
 # ╔═╡ ac07a000-619e-11eb-3633-b7f29d8aee62
-parsed , data, df = folder_to_CSet("programs");
-
-# ╔═╡ 9d8b0ad0-626b-11eb-16cf-a99423ff659c
-df.inputs
+result = folder_to_CSet("programs");
 
 # ╔═╡ dc900b50-63ff-11eb-3a93-65069f769128
-data
+result[1]
+
+# ╔═╡ cba4e5ee-64b2-11eb-1d0d-bb4ad38ce0ef
+result[2]
+
+# ╔═╡ 227ccd20-64b3-11eb-140a-6d82e7b7918a
+@benchmark folder_to_CSet("programs")
 
 # ╔═╡ Cell order:
 # ╠═f5031280-600e-11eb-3799-015a8792ae63
@@ -214,8 +314,12 @@ data
 # ╠═90e5cff0-6012-11eb-3182-ef1e1f802343
 # ╠═dafd3880-619d-11eb-24b8-ebd69e0320cf
 # ╠═ac07a000-619e-11eb-3633-b7f29d8aee62
-# ╠═9d8b0ad0-626b-11eb-16cf-a99423ff659c
 # ╠═dc900b50-63ff-11eb-3a93-65069f769128
+# ╠═1e1ddfd0-64b3-11eb-18a4-03f45e8d7db9
+# ╠═227ccd20-64b3-11eb-140a-6d82e7b7918a
+# ╠═872effe0-64b3-11eb-3339-7b0e14edeaeb
+# ╠═357dc2d0-64b3-11eb-374f-351a90dc6d17
+# ╠═cba4e5ee-64b2-11eb-1d0d-bb4ad38ce0ef
 # ╠═669206b0-626f-11eb-3d06-8f6951f50af8
 # ╠═f4e1c610-6096-11eb-0a8c-6f0ffcc97f6b
 # ╠═45fa2930-6181-11eb-22b0-6d76ebff6633
