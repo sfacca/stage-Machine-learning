@@ -13,9 +13,6 @@ using Match
 # ╔═╡ 90e5cff0-6012-11eb-3182-ef1e1f802343
 using Catlab, Catlab.CategoricalAlgebra, DataFrames
 
-# ╔═╡ 1e1ddfd0-64b3-11eb-18a4-03f45e8d7db9
-using BenchmarkTools
-
 # ╔═╡ f4e1c610-6096-11eb-0a8c-6f0ffcc97f6b
 using Tokenize
 
@@ -34,7 +31,7 @@ include("parse_folder.jl")
 # ╔═╡ f4d99180-600e-11eb-3053-2f2814838927
 Pkg.activate(".")
 
-# ╔═╡ 872effe0-64b3-11eb-3339-7b0e14edeaeb
+# ╔═╡ a1d9e5c0-6590-11eb-18ee-7b5bd23e3dcf
 
 
 # ╔═╡ 357dc2d0-64b3-11eb-374f-351a90dc6d17
@@ -134,13 +131,19 @@ function _get_types_from_inputs(arr::Array{Array{T,1} where T,1})
 		println("pre inner")
 		for j in 1:length(arr[i])
 			println("inner $j")
-			@match typeof(arr[i][j]) begin				
-				CSTParser.EXPR => (res[i][j] = "Any")
-				_ => (res[i][j] = arr[i][j].type)
+			try
+				@match typeof(arr[i][j]) begin
+					String => (res[i][j] = arr[i][j])
+					CSTParser.EXPR => (res[i][j] = "Any")
+					_ => (res[i][j] = arr[i][j].type)
+				end
+				if isnothing(res[i][j])
+					res[i][j] = "Any"
+				end	
+			catch e
+				println(e)
+				res[i][j] = String(arr[i][j])
 			end
-			if isnothing(res[i][j])
-				res[i][j] = "Any"
-			end			
 		end
 		res[i] = sort(res[i])
 	end
@@ -170,6 +173,7 @@ function folder_to_CSet(path::String)
 	functions = filter(
 	(x)->(x.scrape.type == :function), parsed
 )
+	println([typeof(x) for x in functions])
 	println("functions number: $(length(functions))")
 	
 	println("#### creating arrays #####")
@@ -293,18 +297,6 @@ end=#
 	return parsedData, data
 end
 
-# ╔═╡ ac07a000-619e-11eb-3633-b7f29d8aee62
-result = folder_to_CSet("programs");
-
-# ╔═╡ dc900b50-63ff-11eb-3a93-65069f769128
-result[1]
-
-# ╔═╡ cba4e5ee-64b2-11eb-1d0d-bb4ad38ce0ef
-result[2]
-
-# ╔═╡ 227ccd20-64b3-11eb-140a-6d82e7b7918a
-@benchmark folder_to_CSet("programs")
-
 # ╔═╡ Cell order:
 # ╠═f5031280-600e-11eb-3799-015a8792ae63
 # ╠═f4d99180-600e-11eb-3053-2f2814838927
@@ -313,13 +305,8 @@ result[2]
 # ╠═6a976fde-624f-11eb-0219-776399a2f5fc
 # ╠═90e5cff0-6012-11eb-3182-ef1e1f802343
 # ╠═dafd3880-619d-11eb-24b8-ebd69e0320cf
-# ╠═ac07a000-619e-11eb-3633-b7f29d8aee62
-# ╠═dc900b50-63ff-11eb-3a93-65069f769128
-# ╠═1e1ddfd0-64b3-11eb-18a4-03f45e8d7db9
-# ╠═227ccd20-64b3-11eb-140a-6d82e7b7918a
-# ╠═872effe0-64b3-11eb-3339-7b0e14edeaeb
+# ╠═a1d9e5c0-6590-11eb-18ee-7b5bd23e3dcf
 # ╠═357dc2d0-64b3-11eb-374f-351a90dc6d17
-# ╠═cba4e5ee-64b2-11eb-1d0d-bb4ad38ce0ef
 # ╠═669206b0-626f-11eb-3d06-8f6951f50af8
 # ╠═f4e1c610-6096-11eb-0a8c-6f0ffcc97f6b
 # ╠═45fa2930-6181-11eb-22b0-6d76ebff6633

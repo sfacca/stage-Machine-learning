@@ -52,7 +52,7 @@ this is not a function
 """
 sample struct
     """
-    struct stroo :< Abstroo
+    struct stroo <: Abstroo
         a::Int
         b::Float64
     end
