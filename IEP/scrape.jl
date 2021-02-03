@@ -10,80 +10,40 @@ using CSTParser
 # ╔═╡ c1acf890-5a89-11eb-2b8c-cbde52b367b7
 using Match
 
-# ╔═╡ 65b70120-5caa-11eb-05a9-bd4239022c3e
-include("corpus_struct.jl")
-
 # ╔═╡ d43bca20-5f2c-11eb-2ba5-cf4b923b2ead
-function scrape_expr(arr::Array{CSTParser.EXPR,1})
+function scrape_expr(arr::Array{CSTParser.EXPR,1}; verbose = false)
 	res = []
 	for expr in arr
-		res = vcat(res, scrape_expr(expr))
+		res = vcat(res, scrape_expr(expr; verbose = verbose))
 	end
 	res	
 end
 
-# ╔═╡ 069ea9e0-5cf0-11eb-3d1b-2149bf325319
-"""
-fuynction to scrape from CSTParser.EXPR
-"""
-function scrape_Docs(e::CSTParser.EXPR)
-	# CSTParser.EXPR is iterable, no need for .args size checks	
-	res = ()
-end
-
 # ╔═╡ db27a4e0-5f21-11eb-24fd-cfa36b36ceff
-function variable_declaration(e::CSTParser.EXPR)
+function variable_declaration(e::CSTParser.EXPR; verbose = false)
 	if isnothing(e.args) || isempty(e.args)
-		println("no args variable")
+		if verbose
+			println("no args variable")
+		end
 		return e
 	elseif length(e.args)>1
 		return (name = e.args[1].val, type = e.args[end].val)
 	else
-		return (naem = e.args[1].val, type = "Any")
-	end
-end
-
-# ╔═╡ 70b8e320-5e7d-11eb-3279-8115a509cf96
-function _obs_get_inputs(e::CSTParser.EXPR)#obsolete
-	# alg is similar to Expr
-	#1 find :call expression
-	call_ind = findfirst((x)->(x.head == :call), e)
-	
-	if isnothing(call_ind)
-		#there is no :call
-		return ("could not find :call subexpr")
-	else
-		
-		call = e[call_ind]
-		# find variables
-		# first element should be name of function
-		name = call[findfirst((x)->(x.head == :IDENTIFIER), call.args)].val
-		#the rest are variables		
-		if !isnothing(call.args) && length(call.args) > 1			
-			variables = [
-				variable_declaration(call.args[i]) for i in 2:length(call.args)
-				]
-		else
-			variables = []
-		end
-		
-		#println(name, variables)
-		return (
-			name = name, 
-			input_variables = variables
-		)
+		return (name = e.args[1].val, type = "Any")
 	end
 end
 
 # ╔═╡ 6a707da0-5f33-11eb-0494-b128c999fd89
-function get_inputs(e::CSTParser.EXPR)
+function get_inputs(e::CSTParser.EXPR; verbose = false)
 	# alg is similar to Expr
 	#1 find :call expression
 	tmp = e
 	call = nothing
 	while isnothing(call) && !isnothing(tmp.args) && !isempty(tmp.args)
 		if tmp.args[1].head == :call
-			println("found :call")
+			if verbose
+				println("found :call")
+			end
 			call = tmp.args[1]
 		else
 			tmp = tmp.args[1]
@@ -100,7 +60,7 @@ function get_inputs(e::CSTParser.EXPR)
 		#the rest are variables		
 		if !isnothing(call.args) && length(call.args) > 1			
 			variables = [
-				variable_declaration(call.args[i]) for i in 2:length(call.args)
+				variable_declaration(call.args[i]; verbose = verbose) for i in 2:length(call.args)
 				]
 		else
 			variables = []
@@ -169,9 +129,9 @@ end
 """
 middleware to handle different kind of Expr differently
 """
-function handle_Content(e::Union{Expr, CSTParser.EXPR})
+function handle_Content(e::Union{Expr, CSTParser.EXPR}; verbose = verbose)
 	@match e.head begin
-		:function => get_inputs(e)
+		:function => get_inputs(e; verbose = verbose)
 		_ => e
 	end
 end
@@ -237,39 +197,6 @@ function scrape_Docs(e::Expr)
 			tmp = tmp.args[1]
 		else
 			found_doc = true
-		end
-	end
-	res
-end
-
-# ╔═╡ 70a65360-5a89-11eb-2898-37b1b52852bf
-function make_struct(funcs::Array{Expr,1})
-	res = Array{func,1}(undef,length(funcs))
-	for i in 1:length(funcs)
-		# for each function		
-		called_symbols = [
-			x.args[1] for x in filter(
-					(x)->(x.head == :call), view_Expr(funcs[i])
-				)
-		]
-		println([
-				(x, typeof(x)) for x in
-			filter(
-					(x)->(typeof(x) != Symbol), called_symbols
-				)
-			])	
-		res[i] = func(
-			length(called_symbols)>=1 ? called_symbols[1] : nothing,
-			length(called_symbols)>1 ? called_symbols[2:end] : [],
-			[]
-		)
-	end
-	# set called_bys
-	for i in res
-		for j in res
-			if i.symbol in j.calls
-				push!(i.called_by, j.symbol)
-			end
 		end
 	end
 	res
@@ -341,11 +268,23 @@ end
 		
 
 # ╔═╡ 6a656b30-5cf0-11eb-37f3-a3c326b4c4b0
-function scrape_expr(e::CSTParser.EXPR, d = nothing)
-	println("head: $(e.head)")
-	if e.head in [:function, :struct, :abstract] || !isnothing(d)
-		println("scraping type: $(e.head)")
-		res = [(docs = d, raw = e, type = e.head, leaves = get_leaves(e), content = handle_Content(e))]
+function scrape_expr(e::CSTParser.EXPR, d = nothing; verbose = false)
+	if verbose
+		println("head: $(e.head)")
+	end
+	if e.head == :function || !isnothing(d)
+		if verbose
+			println("scraping type: $(e.head)")
+		end
+		res = [
+			(
+				docs = d, 
+				raw = e, 
+				type = e.head, 
+				leaves = get_leaves(e), 
+				content = handle_Content(e; verbose = verbose)
+				)
+		]
 		d = nothing
 		#clear docs after assigning them
 	else
@@ -353,50 +292,57 @@ function scrape_expr(e::CSTParser.EXPR, d = nothing)
 	end
 	
 	if !isnothing(d)
-		println("got docs: $d")
+		if verbose
+			println("got docs: $d")
+		end
 	end
 	
-	# CSTParser.EXPR is iterable, needs no checks on args
 	i = 1
 	while !isnothing(e.args) && i <= length(e.args)
 		if e[i].head == :globalrefdoc
-			println("==== FOUND GLOBALREFDOC ====")
-			println(i)
+			if verbose
+				println("==== FOUND GLOBALREFDOC ====")
+				println(i)
+			end
 			
 			next_string = findfirst((x)->(x.head == :TRIPLESTRING), e[i:end])
 			if isnothing(next_string)
-				println("empty documentation definition")
+				if verbose
+					println("empty documentation definition")
+				end
 			else
 				d = e[next_string].val
-				println("FOUND DOCS: $d")
+				if verbose
+					println("FOUND DOCS: $d")
+				end
 				i = next_string
 			end
-			println("=========================")
+			if verbose
+				println("=========================")
+			end
 		else
-			res = vcat(res, scrape_expr(e.args[i], d))
+			res = vcat(res, scrape_expr(e.args[i], d; verbose = verbose))
 			d = nothing			
 		end
-		println("$i / $(length(e.args))")
+		if verbose
+			println("$i / $(length(e.args))")
+		end
 		i = i + 1
 	end
 	res
 end
 
 # ╔═╡ Cell order:
-# ╠═65b70120-5caa-11eb-05a9-bd4239022c3e
 # ╠═db681500-5a5a-11eb-0de7-fd488e8ecb46
 # ╠═6a656b30-5cf0-11eb-37f3-a3c326b4c4b0
 # ╠═d43bca20-5f2c-11eb-2ba5-cf4b923b2ead
 # ╠═1341adf0-5cf0-11eb-2779-21605d9879c9
-# ╠═069ea9e0-5cf0-11eb-3d1b-2149bf325319
 # ╠═5a8dbd70-5a89-11eb-104f-192cb5f012d7
 # ╠═c1acf890-5a89-11eb-2b8c-cbde52b367b7
 # ╠═5e799da0-5a89-11eb-28a3-6fc5463b63e4
-# ╠═70b8e320-5e7d-11eb-3279-8115a509cf96
 # ╠═6a707da0-5f33-11eb-0494-b128c999fd89
 # ╠═db27a4e0-5f21-11eb-24fd-cfa36b36ceff
 # ╠═62f8bd22-5a89-11eb-3158-cba0a98fb785
-# ╠═70a65360-5a89-11eb-2898-37b1b52852bf
 # ╠═336b4250-5f28-11eb-0ddf-45e25c4347e2
 # ╠═884be410-5e7d-11eb-0fb3-33fe00da9b49
 # ╠═52b64082-5e81-11eb-3192-5b0f4f436d55

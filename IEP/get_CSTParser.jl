@@ -25,9 +25,9 @@ Pkg.activate(".")
 # ╔═╡ 406aa6d0-6581-11eb-0396-237c911d9332
 begin
 	#1 dl CSTParser source
-	#mkpath("tmp_cst")
-	#download("https://github.com/julia-vscode/CSTParser.jl/archive/master.zip", "tmp_cst/cstparser")
-	#unzip("tmp_cst/cstparser")
+	mkpath("tmp_cst")
+	download("https://github.com/julia-vscode/CSTParser.jl/archive/master.zip", "tmp_cst/cstparser")
+	unzip("tmp_cst/cstparser")
 	# 2 make CSet
 	result = folder_to_CSet("tmp_cst/CSTParser.jl-master/src")
 	# 3 save CSet

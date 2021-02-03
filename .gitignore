@@ -38,6 +38,7 @@ code/julia/stipple/loginApp/sessions/*
 nbproject
 Thumbs.db
 *.sublime-project
+IEP/tmp_*
 *.sublime-workspace
 .vscode
 .tags*
