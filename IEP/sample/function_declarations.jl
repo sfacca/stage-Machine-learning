@@ -15,6 +15,13 @@ foo = (x::Int)->("block")
 declared without function kw
 """
 foo2(x::Bool) = "block"
+
+"""
+function overloading a Base module function
+    """
+    function Base.show(x::CSTParser.EXPR)
+        "code block"
+    end
 #=
 """
 function declared with function kw
