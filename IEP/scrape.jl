@@ -4,6 +4,9 @@
 using Markdown
 using InteractiveUtils
 
+# ╔═╡ 5913aa60-689c-11eb-303f-39f989a6bff5
+using Catlab, Catlab.CategoricalAlgebra, DataFrames
+
 # ╔═╡ 1341adf0-5cf0-11eb-2779-21605d9879c9
 using CSTParser
 
@@ -12,6 +15,26 @@ using Match
 
 # ╔═╡ 06ffac70-66f2-11eb-0991-299ba39e2779
 include("parse_folder.jl")
+
+# ╔═╡ 8242f850-6725-11eb-0c13-850fa1ff4980
+include("functions_struct.jl")
+
+# ╔═╡ f2a21ef0-689c-11eb-3e95-8de39d7c453f
+struct NameDef
+	name::String
+	mod::Union{String, Nothing}
+	NameDef(n::String, m::String) = new(n,m)
+	NameDef(n::String, m::Nothing) = new(n,m)
+	NameDef(n::String) = NameDef(n,nothing)
+	NameDef(n::Nothing,m::Nothing) = new("name error", "NAMEDEF ERROR")
+end
+
+# ╔═╡ bce6eece-689c-11eb-19e1-03cce146ed7c
+struct InputDef
+	name::NameDef
+	type::NameDef
+	#InputDef(x::NameDef) = new(x, NameDef("Any"))
+end
 
 # ╔═╡ d43bca20-5f2c-11eb-2ba5-cf4b923b2ead
 function scrape_expr(arr::Array{CSTParser.EXPR,1}; verbose = false)
@@ -225,82 +248,6 @@ function get_leaves(arr::Array{CSTParser.EXPR, 1})
 	res
 end		
 
-# ╔═╡ 6a656b30-5cf0-11eb-37f3-a3c326b4c4b0
-"""
-function iterates over input Expr and its subexpr, returns array of every function, abstract, struct and of every expression with doicumentation
-
-output format is array of (docs::Unions{String,Nothing}, type::Symbol, content)
-"""
-function scrape_expr(e::CSTParser.EXPR, d = nothing; verbose = false)
-	
-	if verbose
-		println("-----------start scrape expr")
-		println("head: $(e.head)")
-	end
-	if e.head == :function || !isnothing(d)
-		if verbose
-			println("scraping type: $(e.head)")
-		end
-		
-		res = [
-			(
-				docs = d, 
-				raw = e, 
-				type = e.head, 
-				leaves = get_leaves(e), 
-				content = handle_Content(e; verbose = verbose)
-				)
-		]
-		d = nothing
-		#clear docs after assigning them
-	else
-		res = []
-	end
-	
-	if !isnothing(d)
-		if verbose
-			println("got docs: $d")
-		end
-	end
-	
-	i = 1
-	while !isnothing(e.args) && i <= length(e.args)
-		if e[i].head == :globalrefdoc
-			if verbose
-				println("==== FOUND GLOBALREFDOC ====")
-				println(i)
-			end
-			
-			next_string = findfirst((x)->(x.head == :TRIPLESTRING), e[i:end])
-			if isnothing(next_string)
-				if verbose
-					println("empty documentation definition")
-				end
-			else
-				d = e[next_string].val
-				if verbose
-					println("FOUND DOCS: $d")
-				end
-				i = next_string
-			end
-			if verbose
-				println("=========================")
-			end
-		else
-			res = vcat(res, scrape_expr(e.args[i], d; verbose = verbose))
-			d = nothing			
-		end
-		if verbose
-			println("$i / $(length(e.args))")
-		end
-		i = i + 1
-	end
-	if verbose
-		println("-----------------------end scrape expr")
-	end
-	res
-end
-
 # ╔═╡ f75f1010-6702-11eb-23c8-ab21487b79cf
 function flatten_EXPR(e::CSTParser.EXPR)
 	res = [e]
@@ -334,6 +281,15 @@ function find_identifier(e::CSTParser.EXPR, i::Int=1)
 	end
 end
 		
+
+# ╔═╡ b8806a30-6809-11eb-08cc-fb1ce0deac24
+function scrape_functions(arr::Array{CSTParser.EXPR,1};source::Union{String,Nothing} = nothing)::Array{FunctionContainer,1}
+	res = Array{FunctionContainer,1}(undef,0)
+	for x in arr
+		res = vcat(res, scrape_functions(x;source=source))
+	end
+	res
+end
 
 # ╔═╡ 68aa5292-6805-11eb-3e3e-5591d42758b8
 """
@@ -408,83 +364,6 @@ function _checkArgs(e)
 	!isnothing(e.args) && !isempty(e.args)
 end
 
-# ╔═╡ f57136d0-67d3-11eb-0e77-bb3ec55c6e2e
-struct NameDef
-	name::String
-	mod::Union{String, Nothing}
-	NameDef(n::String, m::Union{String, Nothing}) = new(n,m)
-	NameDef(n::String) = NameDef(n,nothing)
-	NameDef(n::Nothing,m::Nothing) = new("name error", "NAMEDEF ERROR")
-end
-
-# ╔═╡ 8242f850-6725-11eb-0c13-850fa1ff4980
-struct InputDef
-	name::NameDef
-	type::NameDef	
-end
-
-# ╔═╡ c4dfd100-67c6-11eb-295d-a7200dc1b46a
-struct FuncDef
-	name::NameDef
-	inputs::Array{InputDef,1}
-	block::CSTParser.EXPR
-	output::Union{Nothing,NameDef}
-	FuncDef(n::NameDef,i::Array{InputDef,1},b::CSTParser.EXPR,o::NameDef) = new(n,i,b,o)
-	FuncDef(n::NameDef,i::Array{InputDef,1},b::CSTParser.EXPR) = new(n,i,b,nothing)
-	FuncDef(error::String, block::CSTParser.EXPR) = new(
-		NameDef(error,"FUNCDEF_ERROR"),
-		Array{InputDef,1}(undef, 0),
-		block,
-		nothing
-	)
-end
-
-# ╔═╡ 45f5cf60-6803-11eb-290f-9357532b53aa
-struct FunctionsContainer
-	func::FuncDef
-	docs::Union{String,Nothing}
-	source::Union{String,Nothing}
-	
-	FunctionsContainer(
-		f::FuncDef;
-		docs::Union{String,Nothing}=nothing,
-		source::Union{String,Nothing}=nothing) = new(f,docs,source)
-	
-	FunctionsContainer(
-		f::FuncDef,
-		d::String,
-		s::String
-	) = new(f,d,s)
-	
-	FunctionsContainer(
-		f::FuncDef,
-		d::String,
-		s::Nothing
-	) = new(f,d,s)
-	
-	FunctionsContainer(
-		f::FuncDef,
-		d::Nothing,
-		s::String
-	) = new(f,d,s)
-	
-	
-end
-
-# ╔═╡ b8806a30-6809-11eb-08cc-fb1ce0deac24
-function scrape_functions(arr::Array{CSTParser.EXPR,1};source::Union{String,Nothing} = nothing)::Array{FunctionsContainer,1}
-	res = Array{FunctionsContainer,1}(undef,0)
-	for x in arr
-		res = vcat(res, scrape_functions(x;source=source))
-	end
-	res
-end
-
-# ╔═╡ 5d152190-67f0-11eb-262b-a9518baf0c19
-function getName(nd::NameDef)
-	isnothing(nd.mod) ? nd.name : string(nd.mod,".",nd.name)
-end
-
 # ╔═╡ ca8be250-67c7-11eb-17d2-9f4ba3be11a7
 """
 takes an expr that defines a function adress/name, returns NameDef
@@ -549,6 +428,7 @@ function scrapeFuncDef(e::CSTParser.EXPR)::Union{FuncDef, Nothing}
 			# e.args contains the lvalue and rvalue of the -> operation
 			# we also now know that the lvalue of the assignment operation 
 			# is the function name
+			println("funcdef?")
 			return FuncDef(
 				scrapeName(e.args[1]),
 				scrapeInputs(e.args[2].args[1]),
@@ -615,9 +495,9 @@ end
 """
 function iterates over EXPR tree, scrapes function definitions and documentation
 """
-function scrape_functions(e::CSTParser.EXPR;source::Union{String,Nothing} = nothing)::Array{FunctionsContainer,1}
+function scrape_functions(e::CSTParser.EXPR;source::Union{String,Nothing} = nothing)::Array{FunctionContainer,1}
 	if _checkArgs(e)#leaves cant be functions
-		res = Array{FunctionsContainer,1}(undef,0)
+		res = Array{FunctionContainer,1}(undef,0)
 		docs = nothing
 		# iterates over e.args, looking for functions or docs
 		for i in 1:length(e.args)
@@ -628,7 +508,7 @@ function scrape_functions(e::CSTParser.EXPR;source::Union{String,Nothing} = noth
 			
 			tmp = scrapeFuncDef(e.args[i])
 			if !isnothing(tmp)
-				res = push!(res, FunctionsContainer(tmp,docs,source))
+				res = push!(res, FunctionContainer(tmp,docs,source))
 				docs = nothing
 			elseif _checkArgs(e.args[i])
 				# if e[i] has args, scrapes e[i]
@@ -637,13 +517,13 @@ function scrape_functions(e::CSTParser.EXPR;source::Union{String,Nothing} = noth
 		end
 		return res
 	else
-		return Array{FunctionsContainer,1}(undef,0)
+		return Array{FunctionContainer,1}(undef,0)
 	end
 end
 
 # ╔═╡ e74d330e-680a-11eb-049d-497985c532f7
-function scrape(arr::Array{Any,1})::Array{FunctionsContainer,1}
-	res = Array{FunctionsContainer,1}(undef, 0)
+function scrape(arr::Array{Any,1})::Array{FunctionContainer,1}
+	res = Array{FunctionContainer,1}(undef, 0)
 	for x in arr
 		if typeof(x) == Tuple{CSTParser.EXPR,String}
 			try
@@ -656,11 +536,19 @@ function scrape(arr::Array{Any,1})::Array{FunctionsContainer,1}
 	res
 end
 
+# ╔═╡ 88cf83a0-689c-11eb-31af-5dd802ea42a9
+function folder_to_scrape(path::String)
+	scrape(read_code(path))
+end
+
 # ╔═╡ Cell order:
 # ╠═06ffac70-66f2-11eb-0991-299ba39e2779
+# ╠═5913aa60-689c-11eb-303f-39f989a6bff5
+# ╠═88cf83a0-689c-11eb-31af-5dd802ea42a9
+# ╠═bce6eece-689c-11eb-19e1-03cce146ed7c
+# ╠═f2a21ef0-689c-11eb-3e95-8de39d7c453f
 # ╠═e74d330e-680a-11eb-049d-497985c532f7
 # ╠═db681500-5a5a-11eb-0de7-fd488e8ecb46
-# ╠═6a656b30-5cf0-11eb-37f3-a3c326b4c4b0
 # ╠═d43bca20-5f2c-11eb-2ba5-cf4b923b2ead
 # ╠═1341adf0-5cf0-11eb-2779-21605d9879c9
 # ╠═5a8dbd70-5a89-11eb-104f-192cb5f012d7
@@ -690,7 +578,3 @@ end
 # ╠═ca8be250-67c7-11eb-17d2-9f4ba3be11a7
 # ╠═ccaf8f30-67d3-11eb-16ff-f307795a6ad0
 # ╠═8242f850-6725-11eb-0c13-850fa1ff4980
-# ╠═c4dfd100-67c6-11eb-295d-a7200dc1b46a
-# ╠═5d152190-67f0-11eb-262b-a9518baf0c19
-# ╠═45f5cf60-6803-11eb-290f-9357532b53aa
-# ╠═f57136d0-67d3-11eb-0e77-bb3ec55c6e2e

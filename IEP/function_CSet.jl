@@ -13,15 +13,6 @@ using Match
 # ╔═╡ 90e5cff0-6012-11eb-3182-ef1e1f802343
 using Catlab, Catlab.CategoricalAlgebra, DataFrames
 
-# ╔═╡ f4e1c610-6096-11eb-0a8c-6f0ffcc97f6b
-using Tokenize
-
-# ╔═╡ 45fa2930-6181-11eb-22b0-6d76ebff6633
-using CSTParser
-
-# ╔═╡ a721c7e2-617c-11eb-325f-a58b3c82471e
-using Catlab.Graphics
-
 # ╔═╡ b9cf6ec0-600e-11eb-25d0-93643031c456
 include("scrape.jl")
 
@@ -31,8 +22,187 @@ include("parse_folder.jl")
 # ╔═╡ f4d99180-600e-11eb-3053-2f2814838927
 Pkg.activate(".")
 
-# ╔═╡ a1d9e5c0-6590-11eb-18ee-7b5bd23e3dcf
+# ╔═╡ 0390d870-6887-11eb-20b8-a5e1c5ea588e
+#=
+struct FunctionContainer
+	func::FuncDef
+	docs::Union{String,Nothing}
+	source::Union{String,Nothing}	
+end
+struct NameDef
+	name::String
+	mod::Union{String, Nothing}
+	NameDef(n::String, m::Union{String, Nothing}) = new(n,m)
+	NameDef(n::String) = NameDef(n,nothing)
+	NameDef(n::Nothing,m::Nothing) = new("name error", "NAMEDEF ERROR")
+end
+struct FuncDef
+	name::NameDef
+	inputs::Array{InputDef,1}
+	block::CSTParser.EXPR
+	output::Union{Nothing,NameDef}
+	FuncDef(n::NameDef,i::Array{InputDef,1},b::CSTParser.EXPR,o::NameDef) = new(n,i,b,o)
+	FuncDef(n::NameDef,i::Array{InputDef,1},b::CSTParser.EXPR) = new(n,i,b,nothing)
+	FuncDef(error::String, block::CSTParser.EXPR) = new(
+		NameDef(error,"FUNCDEF_ERROR"),
+		Array{InputDef,1}(undef, 0),
+		block,
+		nothing
+	)
+end
+struct InputDef
+	name::NameDef
+	type::NameDef	
+end
+=#
 
+# ╔═╡ e78580b0-6884-11eb-09c1-718b29dfebb1
+function folder_to_CSet(path::String)
+	println("##### parsing folder #####")
+	raw = read_code(path)
+	println("##### scraping parse #####")
+	function_definitions = scrape(raw)
+	# every element of the function definitions array is a
+	# FunctionContainer that defines an implementation
+	# clearing raw
+	raw = nothing
+	N = length(function_definitions)
+	# creating arrays
+	
+	# docs are in the functioncontainer
+	println("scrape docs")
+	docs = [isnothing(x.docs) ? "" : x.docs for x in function_definitions]#::Array{Union{String,Nothing},1}
+	
+	# code is in container.funcdef.block
+	println("scrape code")
+	code = [x.func.block for x in function_definitions]#::Array{CSTParser.EXPR,1}
+	
+	# leaves
+	println("scrape leaves")
+	ls = [get_leaves(x) for x in code]
+	
+	# name is in container.funcdef.name
+	println("scrape names")
+	names = [x.func.name for x  in function_definitions]#::Array{NameDef,1}
+	
+	# inputs are in container.funcdef.inputs
+	println("scrape inputs")
+	inputs = [
+		x.func.inputs for x in function_definitions
+			]#::Array{Array{InputDef,1},1}
+	# we only want input types
+	tmp = Array{Array{NameDef,1},1}(undef, N)
+	for i in 1:N
+		tmp[i] = [x.type for x in inputs[i]]
+	end
+	inputs = tmp
+	# sort inputs
+	println("about to sort inputs...")
+	inputs = [sort(x) for x in inputs]
+	println("...sorted inputs")
+	# sources are in container.source
+	sources = [
+		x.source for x in function_definitions
+			]#::Array{Union{String,Nothing}},1
+	
+	# outputs is in container.func.output
+	outputs = [
+		x.func.output for x in function_definitions
+			]#::Array{Union{Nothing,NameDef},1}
+	#=
+	# calls are to be obtained from block
+	calls = [
+		find_heads(x, :call) for x in code
+		]#::Array{CSTParser.EXPR,1}
+	# ordered set of called functions NB: probably need NameDef
+	println("sorting calls...")
+	calls = [sort([x.args[1].val for x in cs]) for cs in calls]
+	println("...sorted calls")
+	=#
+	println("...defining shcema...")
+	
+	@present implementationsSchema(FreeSchema) begin
+		(Function, Implementation, Inputs, Calls)::Ob
+		(code, setInp, setExpr, setCalls, docs, name, source)::Data
+		
+		impl_in::Hom(Implementation, Inputs)# ogni implem ha degli input	
+		impl_fun::Hom(Implementation, Function)# ogni impl implementa una funzione
+		impl_expr::Attr(Implementation, setExpr)#ogni impl è composta da expr
+		impl_calls::Hom(Implementation, Calls)
+
+		# link objects to their actual data
+		impl_code::Attr(Implementation, code)
+		in_set::Attr(Inputs, setInp)
+		calls_set::Attr(Calls, setCalls)
+
+		# more attributes
+		func_name::Attr(Function, name)
+		impl_docs::Attr(Implementation, docs)
+	end
+	
+	println("... declaring schema, data ...")
+	parsed_data = ACSetType(implementationsSchema, index=[:impl_fun])
+	data = parsed_data{
+		CSTParser.EXPR,#code, 
+		Array{NameDef,1},#setInp, 
+		Array{CSTParser.EXPR,1},# setExpr, 
+		Array{NameDef,1},# setCalls, 
+		String,# docs, 
+		NameDef,# name, 
+		Union{String,Nothing}# source
+	}()
+	
+	fun_names = unique(names)
+	# (Function, Implementation, Inputs, Calls)::Ob
+	# (code, setInp, setExpr, setCalls, docs, name, source)::Data
+	println("#### initializing ####")
+	impls = add_parts!(data, :Implementation, N)
+	fs = add_parts!(data, :Function, length(unique(names)))
+	inps = add_parts!(data, :Inputs, length(unique(inputs)))
+	#clls = add_parts!(data, :Calls, length(unique(calls)))
+	
+	println("#### setting up attrs and homs")
+		
+	println("impl homs")
+	# impl homs
+	for i in 1:N
+		data[i, :impl_in] = findfirst((x)->(x == inputs[i]), unique(inputs))
+		data[i, :impl_fun] = findfirst((x)->(x == names[i]), unique(names))
+		#data[i, :impl_calls] = findfirst((x)->(x == calls[i]), unique(calls))
+	end
+	
+	println("impl attr")
+	# impl attr
+	data[:, :impl_expr] = ls#leaves (leaf expressions)
+	data[:, :impl_code] = code#blocks
+	data[:, :impl_docs] = docs
+	
+	println("in attr")
+	data[:, :in_set] = unique(inputs)
+	#data[:, :calls_set] = unique(calls)
+	
+	println("func attr")
+	data[:, :func_name] = unique(names)
+	
+
+	println("finished")
+	return parsed_data, data
+end
+
+# ╔═╡ ad93b020-68a2-11eb-1d99-d753edd2fd86
+#=
+BenchmarkTools.Trial: 
+  memory estimate:  26.59 MiB
+  allocs estimate:  401717
+  --------------
+  minimum time:     44.136 ms (0.00% GC)
+  median time:      63.022 ms (24.47% GC)
+  mean time:        57.994 ms (19.92% GC)
+  maximum time:     71.029 ms (31.91% GC)
+  --------------
+  samples:          87
+  evals/sample:     1
+=#
 
 # ╔═╡ 357dc2d0-64b3-11eb-374f-351a90dc6d17
 #=
@@ -120,114 +290,6 @@ BenchmarkTools.Trial:
 	evals/sample:     1
 =#
 
-# ╔═╡ 2568ee40-662c-11eb-37f1-9550afe121d9
-parsed_cst = read_code("tmp_cst/CSTParser.jl-master/src");
-
-# ╔═╡ 72423d70-662c-11eb-2201-bb616fcb0a09
-func_only = [x[1] for x in parsed_cst];
-
-# ╔═╡ 84518020-662c-11eb-1da2-65e8e8bd8913
-scrape_expr(func_only[228])
-
-# ╔═╡ a419bf2e-6636-11eb-19ab-cb0998cd368e
-
-
-# ╔═╡ a0a823a0-662c-11eb-37cc-9f9d49a091e7
-begin
-	res = []
-	for i in 1:length(func_only)
-		try
-			scrape_expr(func_only[i])
-		catch e
-			push!(res, i)
-			println(e)
-			println("errore a index: $i")
-		end
-	end
-end
-
-# ╔═╡ b48a6d10-6636-11eb-0f83-191884cd8d1a
-res
-
-# ╔═╡ b6aab500-6636-11eb-359c-49a6de2ef38e
-scrape_expr(func_only[19], nothing; verbose = true)
-
-# ╔═╡ 7337cdc0-663c-11eb-082f-45eccad348ad
- sample = func_only[19]
-
-# ╔═╡ a70ec2a0-663e-11eb-0f1b-63ef7b2eb92b
-parsed_cst[19][2]
-
-# ╔═╡ 987e62f0-663d-11eb-38ac-235acf0e0dcf
-sample.head
-
-# ╔═╡ 9c4d9362-663d-11eb-2881-cf70319512af
-begin
-	global verbose = true
-	global _tmp = sample
-	_call = nothing
-	while isnothing(_call) && !isnothing(_tmp.args) && !isempty(_tmp.args)
-		if _tmp.args[1].head == :call
-			if verbose
-				println("found :call")
-			end
-			global _call = _tmp.args[1]
-		else
-			global _tmp = _tmp.args[1]
-		end
-	end
-end
-
-# ╔═╡ 1f21b3c0-663e-11eb-111b-015255226fd4
-[x.head for x in _call.args]
-
-# ╔═╡ 3872b860-663e-11eb-0a8b-bd95442fb8a2
-find_heads(_call, :IDENTIFIER)
-
-# ╔═╡ e7048250-663e-11eb-31f6-f3e83763dfe3
-
-
-# ╔═╡ 49c11c0e-663e-11eb-2706-cb6cd59a261c
-_call
-
-# ╔═╡ fadb8220-663d-11eb-3759-05d0a29044a3
-begin
-	if isnothing(_call)
-		#there is no :call
-		return ("could not find :call subexpr")
-	else
-		# find variables
-		# first element should be name of function
-		println("block 1")
-		name = _call[findfirst((x)->(x.head == :IDENTIFIER), _call.args)].val
-		println("block 2")
-		#the rest are variables		
-		if !isnothing(_call.args) && length(_call.args) > 1	
-			println("block 3")
-			variables = [
-				variable_declaration(_call.args[i]; verbose = verbose) for i in 2:length(_call.args)
-				]
-		else
-			println("block 4")
-			variables = []
-		end
-
-		return (
-			name = name, 
-			input_variables = variables
-		)
-	end
-end
-
-# ╔═╡ 59566240-6637-11eb-3fd3-9d78aa40b793
-println("############")
-
-# ╔═╡ 4564cc00-662c-11eb-108a-1d1a1fc6ea61
-scrape_expr([x[1] for x in parsed_cst])
-
-# ╔═╡ 6a107630-662c-11eb-0a57-bff255bdbf99
-scrape()
-
 # ╔═╡ 669206b0-626f-11eb-3d06-8f6951f50af8
 function _get_types_from_inputs(arr::Array{Array{T,1} where T,1})
 	println("start")
@@ -258,153 +320,6 @@ function _get_types_from_inputs(arr::Array{Array{T,1} where T,1})
 	res
 end
 
-# ╔═╡ dafd3880-619d-11eb-24b8-ebd69e0320cf
-function folder_to_CSet(path::String)
-	
-	println("#### parsing folder #####")
-	raw_parse = read_code(path)
-	
-	
-	println("#### scraping parsed #####")	
-	parsed = []
-	for i in 1:length(raw_parse)
-		try
-			tmp = scrape_expr(raw_parse[i][1])
-			parsed = vcat(parsed, [(scrape = tmp[x], source= raw_parse[i][2]) for x in 1:length(tmp)])
-		catch e
-			println("SCRAPE ERROR: $e")
-			println("SCRAPING EXPRESSION: $(raw_parse[i][1])")
-		end
-	end
-	
-	println("#### selecting functions #####")
-	functions = filter(
-	(x)->(x.scrape.type == :function), parsed
-)
-	println([typeof(x) for x in functions])
-	println("functions number: $(length(functions))")
-	
-	println("#### creating arrays #####")
-	docs = [x.scrape.docs for x in functions]
-	names = [x.scrape.content.name for x in functions]
-	inputs = [x.scrape.content.input_variables for x in functions]
-	
-	
-	sources = [x.source for x in functions]
-	raws = [x.scrape.raw for x in functions]
-	ls = [x.scrape.leaves for x in functions]
-	calls = map((x)->(length(x)>1 ? [] : sort(unique(x[2:end])))
-		,[
-		filter(!isnothing, [x[1].val for x in i]) for i in [
-				find_heads(x.scrape.raw, :call) for x in functions
-					]
-		])
-	#=
-	for i in 1:length(calls)
-		@match length(calls[i]) begin
-			0 => (calls[i] = [])
-			1 => (calls[i] = [])
-			_ => (calls[i] = sort(unique(calls[i][2:end])))
-		end
-end=#
-	#df = DataFrame(name= names, doc = docs, inputs = inputs, source = sources, exprs = ls, raw = raws, calls = calls);#we dont need this
-	
-	# 
-	
-	
-	println("")
-	
-	
-	println("#### creating schema #####")
-	@present functionSchema(FreeSchema) begin
-		(Function, Implementation, Inputs, Calls)::Ob
-		(setImpl, setInp, setExpr, setCalls, docs, name
-			)::Data	
-
-		impl_in::Hom(Implementation, Inputs)# ogni implem ha degli input	
-		impl_fun::Hom(Implementation, Function)# ogni impl implementa una funzione
-		impl_expr::Attr(Implementation, setExpr)#ogni impl è composta da expr
-		impl_calls::Hom(Implementation, Calls)
-
-		# link objects to their actual data
-		impl_set::Attr(Implementation, setImpl)
-		in_set::Attr(Inputs, setInp)
-		calls_set::Attr(Calls, setCalls)
-
-		# more attributes
-		func_name::Attr(Function, name)
-		impl_docs::Attr(Implementation, docs)
-
-	end
-	
-	println("#### declaring schema, data #####")
-	parsedData = ACSetType(functionSchema, index=[:impl_fun])
-	data = parsedData{Any, Any, Any, Any, Union{String,Nothing}, Union{String,Nothing}}()
-	
-	impl_names = names;
-	fun_names = unique(impl_names)
-	println("#### initializing #####")
-	impls = add_parts!(data, :Implementation, length(impl_names))
-	println(impls)
-	funs = add_parts!(data, :Function, length(fun_names))
-	println(funs)
-	cal = add_parts!(data, :Calls, length(unique(calls)))
-	println(cal)
-	# all inputs
-	inputs = _get_types_from_inputs(inputs)
-	inps = add_parts!(data, :Inputs, length(unique(inputs)))
-	
-	
-	data[:, :in_set] = unique(inputs)
-			# do inputs together since they have same indexing
-	println("in expr")
-	
-	println("handling calls sets")
-	#=for i in cal
-		println("loop $i")
-		
-		println("calls set")
-		data[i, :calls_set] = unique(df.calls)[i]
-	end=#
-	ucalls = unique(calls)
-	data[:, :calls_set] = unique(calls)
-	
-	
-	println("#### handling impl and inp #####")
-	# assign implementations data
-	println("impl expr")
-	data[:, :impl_expr] = ls
-	println("impl set")
-	data[:, :impl_set] = raws
-	println("impl docs")
-	data[:, :impl_docs] = docs
-	
-	for i in 1:length(impl_names)
-		println("loop $i")
-	
-		
-		println("impl in")
-		data[i, :impl_in] = findfirst((x)->(x == sort(inputs[i])), unique(inputs))
-		println("impl fun")
-		data[i, :impl_fun] = findfirst((x)->(x == impl_names[i]), fun_names)
-		println("impl calls")
-		if isnothing(calls[i]) || isempty(calls[i])
-			data[i, :impl_calls] = 0
-		else
-			asdf = findfirst((x)->( x == calls[i]), ucalls)
-			data[i, :impl_calls] = findfirst(
-				(x)->(x == calls[i]), ucalls
-			)
-		end
-	end
-		# do func names
-	println("#### handling function #####")
-	data[:, :func_name] = fun_names
-	
-	println("#### finished #####")
-	return parsedData, data
-end
-
 # ╔═╡ Cell order:
 # ╠═f5031280-600e-11eb-3799-015a8792ae63
 # ╠═f4d99180-600e-11eb-3053-2f2814838927
@@ -412,29 +327,8 @@ end
 # ╠═f0743ec0-6012-11eb-154a-e9a8eff08ce7
 # ╠═6a976fde-624f-11eb-0219-776399a2f5fc
 # ╠═90e5cff0-6012-11eb-3182-ef1e1f802343
-# ╠═dafd3880-619d-11eb-24b8-ebd69e0320cf
-# ╠═a1d9e5c0-6590-11eb-18ee-7b5bd23e3dcf
+# ╠═0390d870-6887-11eb-20b8-a5e1c5ea588e
+# ╠═e78580b0-6884-11eb-09c1-718b29dfebb1
+# ╠═ad93b020-68a2-11eb-1d99-d753edd2fd86
 # ╠═357dc2d0-64b3-11eb-374f-351a90dc6d17
-# ╠═2568ee40-662c-11eb-37f1-9550afe121d9
-# ╠═72423d70-662c-11eb-2201-bb616fcb0a09
-# ╠═84518020-662c-11eb-1da2-65e8e8bd8913
-# ╠═a419bf2e-6636-11eb-19ab-cb0998cd368e
-# ╠═a0a823a0-662c-11eb-37cc-9f9d49a091e7
-# ╠═b48a6d10-6636-11eb-0f83-191884cd8d1a
-# ╠═b6aab500-6636-11eb-359c-49a6de2ef38e
-# ╠═7337cdc0-663c-11eb-082f-45eccad348ad
-# ╠═a70ec2a0-663e-11eb-0f1b-63ef7b2eb92b
-# ╠═987e62f0-663d-11eb-38ac-235acf0e0dcf
-# ╠═9c4d9362-663d-11eb-2881-cf70319512af
-# ╠═1f21b3c0-663e-11eb-111b-015255226fd4
-# ╠═3872b860-663e-11eb-0a8b-bd95442fb8a2
-# ╠═e7048250-663e-11eb-31f6-f3e83763dfe3
-# ╠═49c11c0e-663e-11eb-2706-cb6cd59a261c
-# ╠═fadb8220-663d-11eb-3759-05d0a29044a3
-# ╠═59566240-6637-11eb-3fd3-9d78aa40b793
-# ╠═4564cc00-662c-11eb-108a-1d1a1fc6ea61
-# ╠═6a107630-662c-11eb-0a57-bff255bdbf99
 # ╠═669206b0-626f-11eb-3d06-8f6951f50af8
-# ╠═f4e1c610-6096-11eb-0a8c-6f0ffcc97f6b
-# ╠═45fa2930-6181-11eb-22b0-6d76ebff6633
-# ╠═a721c7e2-617c-11eb-325f-a58b3c82471e
