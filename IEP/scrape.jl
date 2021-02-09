@@ -432,7 +432,7 @@ function scrapeFuncDef(e::CSTParser.EXPR)::Union{FuncDef, Nothing}
 			return FuncDef(
 				scrapeName(e.args[1]),
 				scrapeInputs(e.args[2].args[1]),
-				e.args[2].args[2]
+				e
 			)
 		elseif e.args[1].head == :call
 			# we're in the name(vars) = block pattern
@@ -444,7 +444,7 @@ function scrapeFuncDef(e::CSTParser.EXPR)::Union{FuncDef, Nothing}
 			return FuncDef(
 				scrapeName(e.args[1].args[1]),
 				inputs,
-				e.args[2]				
+				e				
 			)
 		end
 	elseif e.head == :function
@@ -460,7 +460,7 @@ function scrapeFuncDef(e::CSTParser.EXPR)::Union{FuncDef, Nothing}
 			return FuncDef(
 				scrapeName(e.args[1].args[1]),
 				inputs,
-				e.args[2]				
+				e# the whole function				
 			)
 		elseif isTypedefOP(e.args[1])
 			# this function defines its output type
@@ -475,13 +475,13 @@ function scrapeFuncDef(e::CSTParser.EXPR)::Union{FuncDef, Nothing}
 				return FuncDef(
 					scrapeName(e.args[1].args[1].args[1]),
 					inputs,
-					e.args[2],
+					e,
 					scrapeName(e.args[1].args[2])
 				)
 			else
 				return FuncDef(
 					":function's typedef operator didnt have a :call as its leftvalue",
-					e.args[1]					
+					e					
 				)
 			end
 		end	

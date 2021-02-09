@@ -6,6 +6,12 @@ git-tree-sha1 = "7df2949bfd757e426897a4b579fbd5dc776ff8c9"
 uuid = "c3fe647b-3220-5bb0-a1ea-a7954cac585d"
 version = "0.12.0"
 
+[[AbstractTrees]]
+deps = ["Markdown"]
+git-tree-sha1 = "33e450545eaf7699da1a6e755f9ea65f14077a45"
+uuid = "1520ce14-60c1-5f80-bbc7-55ef81b5835c"
+version = "0.3.3"
+
 [[Adapt]]
 deps = ["LinearAlgebra"]
 git-tree-sha1 = "87491f7d03ae1b423a353aff99cf61a45e3c993a"
@@ -562,6 +568,12 @@ deps = ["Dates", "Distributed", "JSON", "Serialization", "Sockets", "Syslogs", "
 git-tree-sha1 = "d6dfb54d7e8a9b4a2b1773acf7275a4f607906b2"
 uuid = "f28f55f0-a522-5efc-85c2-fe41dfb9b2d9"
 version = "1.1.2"
+
+[[MethodAnalysis]]
+deps = ["AbstractTrees"]
+git-tree-sha1 = "40c1181bf7943b176c4a11edd67e72ab81fa3b1d"
+uuid = "85b6ec6f-f7df-4429-9514-a64bcd9ee824"
+version = "0.4.4"
 
 [[Missings]]
 deps = ["DataAPI"]
