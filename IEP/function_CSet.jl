@@ -183,8 +183,12 @@ function folder_to_CSet(path::String)
 	
 	println("func attr")
 	data[:, :func_name] = unique(names)
-	
-
+	#=
+	PRECOMP/TYPE INFERENCE GOES HERE
+	1. send :data to function
+	2. receive array of outputs of Implementations length
+	3. sets them on output
+	=#
 	println("finished")
 	return parsed_data, data
 end

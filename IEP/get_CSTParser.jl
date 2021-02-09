@@ -14,7 +14,7 @@ using JLD2
 using ZipFile
 
 # ╔═╡ 20b850c0-6898-11eb-1640-c5b7949a97fe
-using Catlab
+using Catlab.Rewrite
 
 # ╔═╡ d109ed00-6580-11eb-1d38-3568019914ea
 include("unzip.jl")
