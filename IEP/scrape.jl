@@ -16,137 +16,8 @@ using Match
 # ╔═╡ 06ffac70-66f2-11eb-0991-299ba39e2779
 include("parse_folder.jl")
 
-# ╔═╡ 8242f850-6725-11eb-0c13-850fa1ff4980
+# ╔═╡ 3490ace0-6bc8-11eb-1965-7b3cd7c2e152
 include("functions_struct.jl")
-
-# ╔═╡ f2a21ef0-689c-11eb-3e95-8de39d7c453f
-struct NameDef
-	name::String
-	mod::Union{String, Nothing}
-	NameDef(n::String, m::String) = new(n,m)
-	NameDef(n::String, m::Nothing) = new(n,m)
-	NameDef(n::String) = NameDef(n,nothing)
-	NameDef(n::Nothing,m::Nothing) = new("name error", "NAMEDEF ERROR")
-end
-
-# ╔═╡ bce6eece-689c-11eb-19e1-03cce146ed7c
-struct InputDef
-	name::NameDef
-	type::NameDef
-	#InputDef(x::NameDef) = new(x, NameDef("Any"))
-end
-
-# ╔═╡ d43bca20-5f2c-11eb-2ba5-cf4b923b2ead
-function scrape_expr(arr::Array{CSTParser.EXPR,1}; verbose = false)
-	res = []
-	for expr in arr
-		res = vcat(res, scrape_expr(expr; verbose = verbose))
-	end
-	res	
-end
-
-# ╔═╡ db27a4e0-5f21-11eb-24fd-cfa36b36ceff
-function variable_declaration(e::CSTParser.EXPR; verbose = false)
-	if isnothing(e.args) || isempty(e.args)
-		if verbose
-			println("no args variable")
-		end
-		return e
-	elseif length(e.args)>1
-		return (name = e.args[1].val, type = e.args[end].val)
-	else
-		return (name = e.args[1].val, type = "Any")
-	end
-end
-
-# ╔═╡ 6a707da0-5f33-11eb-0494-b128c999fd89
-function get_inputs(e::CSTParser.EXPR; verbose = false)
-	if verbose 
-		println("----------start get inputs")
-	end
-	# alg is similar to Expr
-	#1 find :call expression
-	tmp = e
-	call = nothing
-	while isnothing(call) && !isnothing(tmp.args) && !isempty(tmp.args)
-		if tmp.args[1].head == :call
-			if verbose
-				println("found :call")
-			end
-			call = tmp.args[1]
-		else
-			tmp = tmp.args[1]
-		end
-	end
-	
-	if isnothing(call)
-		#there is no :call
-		return ("could not find :call subexpr")
-	else
-		# find variables
-		# first element should be name of function
-		if isnothing(findfirst((x)->(x.head == :IDENTIFIER), call.args))
-			println(call)
-		end
-		name = call[findfirst((x)->(x.head == :IDENTIFIER), call.args)].val
-		#the rest are variables		
-		if !isnothing(call.args) && length(call.args) > 1			
-			variables = [
-				variable_declaration(call.args[i]; verbose = verbose) for i in 2:length(call.args)
-				]
-		else
-			variables = []
-		end
-		if verbose
-			println("------------end get inputs")
-		end
-		return (
-			name = name, 
-			input_variables = variables
-		)
-	end
-end
-
-# ╔═╡ 5e799da0-5a89-11eb-28a3-6fc5463b63e4
-"""
-middleware to handle different kind of Expr differently
-"""
-function handle_Content(e::Union{Expr, CSTParser.EXPR}; verbose = verbose)
-	@match e.head begin
-		:function => get_inputs(e; verbose = verbose)
-		_ => e
-	end
-end
-
-# ╔═╡ db681500-5a5a-11eb-0de7-fd488e8ecb46
-"""
-function iterates over input Expr and its subexpr, returns array of every function, abstract, struct and of every expression with doicumentation
-
-output format is array of (docs::Unions{String,Nothing}, type::Symbol, content)
-"""
-function scrape_expr(e::Expr; d = nothing)
-	if e.head in [:function, :struct, :abstract] || !isnothing(d)
-		res = [(docs = d, type = e.head, content = handle_Content(e))]
-	else
-		res = []
-	end
-	docs = nothing
-	#doc = GlobalRef(Core, Symbol("@doc"))
-	if !isempty(e.args)
-		for i in 1:length(e.args)
-			if e.args[i] == GlobalRef(Core, Symbol("@doc"))
-				docs = e.args[findfirst(
-						(x)->(typeof(x)==String),
-						e.args[i:end]
-						)]
-			elseif typeof(e.args[i])==Expr
-				res = vcat(res, scrape_expr(e.args[i],d= docs))
-				docs = nothing# attaches docs to next expression, then clears docs
-			end
-		end	
-	end
-	res
-end
 
 # ╔═╡ 5a8dbd70-5a89-11eb-104f-192cb5f012d7
 """
@@ -364,11 +235,19 @@ function _checkArgs(e)
 	!isnothing(e.args) && !isempty(e.args)
 end
 
-# ╔═╡ ca8be250-67c7-11eb-17d2-9f4ba3be11a7
+# ╔═╡ 1919b3a0-6bcb-11eb-3473-991e753c1f31
 """
 takes an expr that defines a function adress/name, returns NameDef
 """
 function scrapeName(e::CSTParser.EXPR)::NameDef
+	NameDef(e)
+end
+
+# ╔═╡ ca8be250-67c7-11eb-17d2-9f4ba3be11a7
+"""
+takes an expr that defines a function adress/name, returns NameDef
+"""
+function OLDscrapeName(e::CSTParser.EXPR)::NameDef
 	# is this a module.name pattern?	
 	if isDotOP(e)
 		NameDef(
@@ -384,7 +263,7 @@ function scrapeName(e::CSTParser.EXPR)::NameDef
 	end		
 end
 
-# ╔═╡ ccaf8f30-67d3-11eb-16ff-f307795a6ad0
+# ╔═╡ cdf6aa80-6bcb-11eb-350a-a91d1b2015aa
 """
 takes an expr that defines inputs, returns array of InputDef
 the expr needs to only contain argument definitions in its .args array
@@ -403,7 +282,7 @@ function scrapeInputs(e::CSTParser.EXPR)::Array{InputDef,1}
 			else
 				arr[i] = InputDef(
 					scrapeName(e.args[i]), 
-					NameDef("Any",nothing)
+					scrapeName(CSTParser.parse("x::Any").args[2])
 				)
 			end
 		end		
@@ -541,21 +420,44 @@ function folder_to_scrape(path::String)
 	scrape(read_code(path))
 end
 
+# ╔═╡ ccaf8f30-67d3-11eb-16ff-f307795a6ad0
+"""
+takes an expr that defines inputs, returns array of InputDef
+the expr needs to only contain argument definitions in its .args array
+:function -> :call function definitions have their function name in the same args
+"""
+function OLDscrapeInputs(e::CSTParser.EXPR)::Array{InputDef,1}
+	if !isnothing(e.args) && !isempty(e.args)
+		arr = Array{InputDef,1}(undef, length(e.args))
+		for i in 1:length(arr)
+			# is this a simple param name or is this a :: OP?
+			if isTypedefOP(e.args[i])
+				arr[i] = InputDef(
+					scrapeName(e.args[i].args[1]),
+					scrapeName(e.args[i].args[2])
+				)
+			else
+				arr[i] = InputDef(
+					scrapeName(e.args[i]), 
+					NameDef("Any",nothing)
+				)
+			end
+		end		
+	else
+		arr = Array{InputDef,1}(undef, 0)
+	end
+	arr
+end
+
 # ╔═╡ Cell order:
 # ╠═06ffac70-66f2-11eb-0991-299ba39e2779
+# ╠═3490ace0-6bc8-11eb-1965-7b3cd7c2e152
 # ╠═5913aa60-689c-11eb-303f-39f989a6bff5
 # ╠═88cf83a0-689c-11eb-31af-5dd802ea42a9
-# ╠═bce6eece-689c-11eb-19e1-03cce146ed7c
-# ╠═f2a21ef0-689c-11eb-3e95-8de39d7c453f
 # ╠═e74d330e-680a-11eb-049d-497985c532f7
-# ╠═db681500-5a5a-11eb-0de7-fd488e8ecb46
-# ╠═d43bca20-5f2c-11eb-2ba5-cf4b923b2ead
 # ╠═1341adf0-5cf0-11eb-2779-21605d9879c9
 # ╠═5a8dbd70-5a89-11eb-104f-192cb5f012d7
 # ╠═c1acf890-5a89-11eb-2b8c-cbde52b367b7
-# ╠═5e799da0-5a89-11eb-28a3-6fc5463b63e4
-# ╠═6a707da0-5f33-11eb-0494-b128c999fd89
-# ╠═db27a4e0-5f21-11eb-24fd-cfa36b36ceff
 # ╠═336b4250-5f28-11eb-0ddf-45e25c4347e2
 # ╠═884be410-5e7d-11eb-0fb3-33fe00da9b49
 # ╠═52b64082-5e81-11eb-3192-5b0f4f436d55
@@ -575,6 +477,7 @@ end
 # ╠═dda9a240-67dc-11eb-3b7e-6149208727a4
 # ╠═a9fda510-67c6-11eb-227d-b53cf6674516
 # ╠═f63b728e-67fd-11eb-2ef5-cd69e95763bd
+# ╠═1919b3a0-6bcb-11eb-3473-991e753c1f31
 # ╠═ca8be250-67c7-11eb-17d2-9f4ba3be11a7
+# ╠═cdf6aa80-6bcb-11eb-350a-a91d1b2015aa
 # ╠═ccaf8f30-67d3-11eb-16ff-f307795a6ad0
-# ╠═8242f850-6725-11eb-0c13-850fa1ff4980

@@ -43,3 +43,4 @@ IEP/tmp_*
 .vscode
 .tags*
 .tags
+*.jld2

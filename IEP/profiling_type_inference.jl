@@ -10,8 +10,14 @@ LOAD_PATH
 # ╔═╡ dab362e0-6ae0-11eb-2355-0be4b5a23cc2
 using JLD2
 
-# ╔═╡ 1a1b6180-6ae1-11eb-289b-bd530ec036c5
-using Catlab
+# ╔═╡ 1df694a0-6bf9-11eb-1aaf-35125f78ac1f
+using Catlab.Theories
+
+# ╔═╡ f041fd10-6bf8-11eb-3d79-fb30ad4289d2
+using Catlab.Graphics
+
+# ╔═╡ 4f52b060-6bf9-11eb-3913-1f53c1c2bac0
+using Catlab.WiringDiagrams
 
 # ╔═╡ 0f7bce90-6ae1-11eb-0018-2d5509f3e8e3
 using FileIO
@@ -29,39 +35,176 @@ using MethodAnalysis
 using AbstractTrees
 
 # ╔═╡ d29a8cc0-6ade-11eb-2a9c-493b36ceb3e2
-include("function_CSet.jl")
+include("module_to_CSet.jl")
 
-# ╔═╡ de84dd40-6ae0-11eb-0d4f-73b567275ba1
-@load "src_cstparser.jld2"
+# ╔═╡ 7c27bbd0-6b95-11eb-02a6-61a9f32491ac
+result = module_to_CSet("Catlab");
 
-# ╔═╡ 4a498490-6ae1-11eb-11c3-f57b45af7c4d
-code_blocks = result[2][:impl_code];
-
-# ╔═╡ 4c055e00-6ae4-11eb-2b05-f7416276422a
+# ╔═╡ 9a881200-6b95-11eb-1db0-d71e5bcde54a
 data = result[2];
 
-# ╔═╡ 6760f780-6b17-11eb-3fb3-ed82b5cb2d08
-Pkg.dir("Catlab")
+# ╔═╡ a6e1d810-6b95-11eb-3b92-1b13a6667eb2
+inputs_array = data[:,:in_set];
 
-# ╔═╡ 8c9bca80-6ae4-11eb-25d9-735413c9c83b
-length(data[:impl_in])
+# ╔═╡ e2772dc0-6beb-11eb-08af-abf97b5400e1
+func_names = [data[i,:func_name] for i in data[:,:impl_fun]]
 
-# ╔═╡ a076cc80-6ae4-11eb-2ffa-ff72c9533015
-data[8,:impl_in]
+# ╔═╡ 34610700-6bec-11eb-2f66-b3476fce12b4
+func_names[1].name.val
 
-# ╔═╡ 694a5920-6ae4-11eb-1eab-9bcf2be44e0b
-inputs = [data[data[i,:impl_in],:in_set] for i in 1:length(data[:impl_in])]
+# ╔═╡ a6427840-6bec-11eb-294f-0924474d277c
+getindex
+
+# ╔═╡ 467a03c0-6b96-11eb-19f0-d108af4c0cf2
+function foo(x::CSTParser.EXPR)
+	x
+end
+
+# ╔═╡ bfdf2150-6beb-11eb-178e-01ba13b56040
+CSTParser.EXPR
+
+# ╔═╡ 90f0973e-6bf8-11eb-1a17-710337bcd3b2
+import Catlab
+
+# ╔═╡ 0082e860-6bf9-11eb-1227-f157310c62a3
+import Catlab.Graphics: Graphviz
+
+# ╔═╡ d4892030-6bf8-11eb-3d3e-e1ccef5bb3ef
+to_wiring_diagram
+
+# ╔═╡ c819b040-6bed-11eb-38dc-c3e28460fde6
+funcnames = [data[x,:func_name].name for x in data[:,:impl_fun]]
+
+# ╔═╡ 5180b4f0-6bee-11eb-0324-efb806c71965
+code = data[:,:impl_code];
+
+# ╔═╡ 68aa6cc2-6bee-11eb-39ca-d74f80365ba7
+eval(Expr(code[1]))
+
+# ╔═╡ efe22ad0-6bed-11eb-11bc-29daa82ee824
+eval(Expr(funcnames[1]))
+
+# ╔═╡ 058c6e90-6bee-11eb-3684-15bc3f202490
+for x in data[:,:impl_fun]
+	try
+		eval(Expr(data[x,:func_name].name))
+	catch e
+		println(e)
+	end
+end
+
+# ╔═╡ b9b44640-6bee-11eb-343e-abaab85a0ba3
+eval(Symbol("to_wiring_diagram"))
+
+# ╔═╡ 07f85af0-6bed-11eb-3b6e-d99efa2b10ef
+function precomp_w_input(data)
+	res = Array{Bool,1}(undef, length(data[:,:impl_in]))
+	#1 let's try running the code first
+	for i in 1:length(res)
+		try
+			eval(Expr(data[i,:impl_code]))
+		catch e
+			println("error running code at index :$(i)")
+			println(e)
+		end
+	end
+	
+	
+	for i in 1:length(res)
+		try
+			res[i] = precomp_w_input(data, i)
+		catch e
+			println("error at index :$i")
+			println(e)
+			res[i] = false
+		end
+	end
+	res
+end
+
+# ╔═╡ ba2409f0-6bec-11eb-3d30-45a2b8e920a1
+function make_inputs_tuple(inputs::Array{NameDef,1})
+	ntuple((x)->(eval(Expr(inputs[x].name))),length(inputs))
+end
+
+# ╔═╡ caa113e2-6bec-11eb-3d0c-6bf9d4b0b459
+make_inputs_tuple(data[data[2,:impl_in],:in_set])
+
+# ╔═╡ abbd5250-6beb-11eb-056b-d5af61d5f030
+function precomp_w_input(data, n::Int)
+	precompile(
+		eval(Expr(data[data[n,:impl_fun],:func_name].name)),
+		make_inputs_tuple(data[data[n,:impl_in],:in_set])
+	)
+end
+
+# ╔═╡ 440c4c92-6bed-11eb-1602-b7f6ddb84e05
+count(precomp_w_input(data))
+
+# ╔═╡ 3bc24cf0-6bee-11eb-2394-8544659bc346
+count(precomp_w_input(data))# yay!
 
 # ╔═╡ 352bae3e-6b21-11eb-1617-557b5aae57a8
 Symbol("Tokens.Kind")# why no work?
+
+# ╔═╡ 5c0a42f0-6bae-11eb-045e-37f0c5885864
+str = "asdf.ghf.eweq"
+
+# ╔═╡ b5e4e2d0-6bae-11eb-106e-71db4a13cc56
+str2 = "dsaf"
+
+# ╔═╡ 348735d2-6bae-11eb-3c0e-9139065a76bb
+split(str2, ".")
+
+# ╔═╡ 954b4900-6baf-11eb-206e-157a0328f123
+expr = CSTParser.parse("""function foo3(x::CSTParser.EXPR)
+	"just end my life fam"
+end""", true)
+
+# ╔═╡ fcc895be-6bc7-11eb-0335-41fd59d3cfa5
+
+
+# ╔═╡ e5a48340-6bc7-11eb-125b-dfbf4438f7d9
+eval(Expr(expr.args[1].args[1].args[2].args[2]))
+
+# ╔═╡ 19f06bf0-6bc8-11eb-043a-3fc7b2ec9691
+#AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+
+# ╔═╡ 6f9d5d1e-6bc7-11eb-0a79-49f3be393eb8
+dfds = eval(Symbol("CSTParser")).eval(Symbol("EXPR"))
+
+# ╔═╡ f8560b50-6bc5-11eb-3302-2bbd891f5c5b
+eval(Symbol("CSTParser")).eval(Symbol("EXPR"))
+
+# ╔═╡ 176ee69e-6bc7-11eb-3fbb-b30b45020069
+eval(Symbol("."))
+
+# ╔═╡ 0c58c420-6bc7-11eb-0238-1155d4001392
+eval(Symbol("CSTParser")Symbol(".")Symbol("EXPR"))
+
+# ╔═╡ 7b8dbc62-6bae-11eb-3133-df244357a54b
+function _string_dot_symbols(arr::Array{String,1})
+	if length(arr)>1
+		return (eval(Symbol(arr[1]))).(_string_dot_symbols(arr[2:end]))
+	else
+		return (eval(Symbol(arr[1])))
+	end	
+end
+
+# ╔═╡ c60a1150-6bc5-11eb-28d7-0145ba3bd7cc
+eval(_string_dot_symbols(["CSTParser","EXPR"]))
 
 # ╔═╡ 65b07240-6b20-11eb-04f1-1f7b3f5ba1be
 function getName(nd)#overloading because jld2 is being dumb about types
 	isnothing(nd.mod) ? nd.name : string(nd.mod,".",nd.name)
 end
 
+# ╔═╡ 46107670-6bec-11eb-1500-01ed4a7ab0a8
+[getName(x) for x in func_names]
+
 # ╔═╡ 4f6310ae-6b20-11eb-18b6-2f1dc526d2e1
 function _in_to_sym(tup)#the tuple
+	split
 	Symbol(getName(tup))
 end
 
@@ -78,9 +221,6 @@ function inputdefs_to_symbols(arr)
 	end
 	res
 end
-
-# ╔═╡ bbe8be10-6b20-11eb-2bec-6997561b3926
-unique(inputdefs_to_symbols(inputs))
 
 # ╔═╡ e408ac70-6ae9-11eb-21a6-b50f5a5d10ec
 function precomp(data)
@@ -164,20 +304,6 @@ Pkg.activate(".")
 # ╔═╡ b6dcefd0-6a2c-11eb-1e0e-d9d38050dd74
 #Pkg.add("AbstractTrees")
 
-# ╔═╡ ebaa8870-6a28-11eb-1a7c-556bd913ba47
-sample_parse = CSTParser.parse("function foo(x::Int, y::Int)
-	x + y
-end")
-
-# ╔═╡ 42f5c6b0-6a30-11eb-035e-afec9061ef83
-dep_parse = CSTParser.parse(read("sample/function_dependancy.jl", String), true)
-
-# ╔═╡ bb5e8380-6a30-11eb-3d96-2f5821f072d9
-methodinstance(foo1, (Int))
-
-# ╔═╡ eb477d9e-6ae8-11eb-0c51-255c36e7d5af
-ntuple(, length())
-
 # ╔═╡ 72b76c50-6a30-11eb-1a67-55b60e412eaa
 function find_functions(e::CSTParser.EXPR)
 	if e.head == :function
@@ -193,44 +319,14 @@ function find_functions(e::CSTParser.EXPR)
 	res
 end
 
-# ╔═╡ ad991f80-6a30-11eb-2731-7b7b7cf3c37f
-funcs = find_functions(dep_parse)
-
-# ╔═╡ cead2400-6a30-11eb-3941-ffc8f673fe1c
-eval(Expr(funcs[1]))
-
-# ╔═╡ d39f0280-6a30-11eb-1d64-eff27ef736e5
-eval(Expr(funcs[2]))
-
-# ╔═╡ 076d505e-6a29-11eb-1085-99174cea2147
-eval(Expr(sample_parse))(1,2)
-
-# ╔═╡ 4c8e1b70-6a33-11eb-2779-ab28f800b0c4
-precompile(foo2, (Int))
-
 # ╔═╡ 1c7e07ae-6a33-11eb-22c0-a58c5c97c757
 typeof(typeof(foo))
-
-# ╔═╡ 31fe2e30-6a33-11eb-044a-9756009e9fbc
-foo(12)
 
 # ╔═╡ 894d4a80-6ade-11eb-23a1-133c85489594
 
 
 # ╔═╡ 54dd3d70-6a2d-11eb-1803-cf4c42734f58
 mi = methodinstance(foo, (Int, Int))
-
-# ╔═╡ 8ffd9cc0-6a2c-11eb-2be5-5fbf9f8ec950
-methodinstance(eval(Expr(sample_parse)), (Int, Int))
-
-# ╔═╡ e384bb00-6a1b-11eb-101f-c1ddc3e9116a
-precompile(eval(Expr(sample_parse)), (Int, Int))
-
-# ╔═╡ 5d5538a0-6a31-11eb-2f31-452c51605781
-precompile(eval(Expr(funcs[2])), (Int, Int))
-
-# ╔═╡ 6aada9fe-6a31-11eb-1c8f-c58a4e836852
-precompile(eval(Expr(funcs[1])), (Int, Int))
 
 # ╔═╡ 3e3207a0-6a31-11eb-1117-ed199d05098a
 double(x::Real) = 2x
@@ -241,9 +337,6 @@ calldouble(container) = double(container[1])
 # ╔═╡ 3fb54c3e-6a31-11eb-3eee-4f3d73e08619
 calldouble2(container) = calldouble(container)
 
-# ╔═╡ a5d00712-6ade-11eb-0706-e36311047f07
-precompile(calldouble, [Float64])
-
 # ╔═╡ 9f7549c0-6ade-11eb-185b-952535d5ba84
 precompile(calldouble2, (Float64,))
 
@@ -253,32 +346,55 @@ precompile(double, (Float64,))
 # ╔═╡ 411180e0-6a31-11eb-1c74-216664752b5d
 mo = methodinstance(double, (Float64,))
 
-# ╔═╡ 26594850-6a77-11eb-2326-3f9f79a75ee7
-for x in funcs
-	if precompile(eval(Expr(x)), (Int, Int))
-		println(x, "true")
-	else
-		println(x, "false")
-	end
-end
-
 # ╔═╡ f8296070-6add-11eb-216f-9fbad436e69c
 print_tree(mo)#prints to shell, not pluto nb
 
 # ╔═╡ Cell order:
 # ╠═2f82d750-6a1a-11eb-30e1-5b56252cee1e
 # ╠═d29a8cc0-6ade-11eb-2a9c-493b36ceb3e2
+# ╠═7c27bbd0-6b95-11eb-02a6-61a9f32491ac
 # ╠═dab362e0-6ae0-11eb-2355-0be4b5a23cc2
-# ╠═de84dd40-6ae0-11eb-0d4f-73b567275ba1
-# ╠═4a498490-6ae1-11eb-11c3-f57b45af7c4d
-# ╠═4c055e00-6ae4-11eb-2b05-f7416276422a
-# ╠═6760f780-6b17-11eb-3fb3-ed82b5cb2d08
-# ╠═8c9bca80-6ae4-11eb-25d9-735413c9c83b
-# ╠═a076cc80-6ae4-11eb-2ffa-ff72c9533015
-# ╠═694a5920-6ae4-11eb-1eab-9bcf2be44e0b
-# ╠═bbe8be10-6b20-11eb-2bec-6997561b3926
+# ╠═9a881200-6b95-11eb-1db0-d71e5bcde54a
+# ╠═a6e1d810-6b95-11eb-3b92-1b13a6667eb2
+# ╠═e2772dc0-6beb-11eb-08af-abf97b5400e1
+# ╠═34610700-6bec-11eb-2f66-b3476fce12b4
+# ╠═46107670-6bec-11eb-1500-01ed4a7ab0a8
+# ╠═a6427840-6bec-11eb-294f-0924474d277c
+# ╠═467a03c0-6b96-11eb-19f0-d108af4c0cf2
+# ╠═caa113e2-6bec-11eb-3d0c-6bf9d4b0b459
+# ╠═bfdf2150-6beb-11eb-178e-01ba13b56040
+# ╠═1df694a0-6bf9-11eb-1aaf-35125f78ac1f
+# ╠═440c4c92-6bed-11eb-1602-b7f6ddb84e05
+# ╠═90f0973e-6bf8-11eb-1a17-710337bcd3b2
+# ╠═f041fd10-6bf8-11eb-3d79-fb30ad4289d2
+# ╠═0082e860-6bf9-11eb-1227-f157310c62a3
+# ╠═d4892030-6bf8-11eb-3d3e-e1ccef5bb3ef
+# ╠═4f52b060-6bf9-11eb-3913-1f53c1c2bac0
+# ╠═c819b040-6bed-11eb-38dc-c3e28460fde6
+# ╠═5180b4f0-6bee-11eb-0324-efb806c71965
+# ╠═68aa6cc2-6bee-11eb-39ca-d74f80365ba7
+# ╠═efe22ad0-6bed-11eb-11bc-29daa82ee824
+# ╠═058c6e90-6bee-11eb-3684-15bc3f202490
+# ╠═3bc24cf0-6bee-11eb-2394-8544659bc346
+# ╠═b9b44640-6bee-11eb-343e-abaab85a0ba3
+# ╠═abbd5250-6beb-11eb-056b-d5af61d5f030
+# ╠═07f85af0-6bed-11eb-3b6e-d99efa2b10ef
+# ╠═ba2409f0-6bec-11eb-3d30-45a2b8e920a1
 # ╠═352bae3e-6b21-11eb-1617-557b5aae57a8
 # ╠═b41c64ce-6b1f-11eb-3dbd-21aac0e80cae
+# ╠═5c0a42f0-6bae-11eb-045e-37f0c5885864
+# ╠═b5e4e2d0-6bae-11eb-106e-71db4a13cc56
+# ╠═348735d2-6bae-11eb-3c0e-9139065a76bb
+# ╠═954b4900-6baf-11eb-206e-157a0328f123
+# ╠═fcc895be-6bc7-11eb-0335-41fd59d3cfa5
+# ╠═e5a48340-6bc7-11eb-125b-dfbf4438f7d9
+# ╠═19f06bf0-6bc8-11eb-043a-3fc7b2ec9691
+# ╠═c60a1150-6bc5-11eb-28d7-0145ba3bd7cc
+# ╠═6f9d5d1e-6bc7-11eb-0a79-49f3be393eb8
+# ╠═f8560b50-6bc5-11eb-3302-2bbd891f5c5b
+# ╠═176ee69e-6bc7-11eb-3fbb-b30b45020069
+# ╠═0c58c420-6bc7-11eb-0238-1155d4001392
+# ╠═7b8dbc62-6bae-11eb-3133-df244357a54b
 # ╠═4f6310ae-6b20-11eb-18b6-2f1dc526d2e1
 # ╠═65b07240-6b20-11eb-04f1-1f7b3f5ba1be
 # ╠═c1d3e7f0-6ae4-11eb-136c-0d5013da0606
@@ -296,7 +412,6 @@ print_tree(mo)#prints to shell, not pluto nb
 # ╠═09403530-6ae5-11eb-2e1c-315844bc20ac
 # ╠═f68aee80-6ae4-11eb-0395-9dab3107456a
 # ╠═7b793c52-6ae5-11eb-0d37-9ffc7cef5c1e
-# ╠═1a1b6180-6ae1-11eb-289b-bd530ec036c5
 # ╠═0f7bce90-6ae1-11eb-0018-2d5509f3e8e3
 # ╠═05a09d10-6ae1-11eb-2ef5-5b65a9702b0d
 # ╠═e52d9d20-6a28-11eb-3cf6-a712ca13d24c
@@ -305,30 +420,14 @@ print_tree(mo)#prints to shell, not pluto nb
 # ╠═b6dcefd0-6a2c-11eb-1e0e-d9d38050dd74
 # ╠═37381660-6a2c-11eb-30b0-130e3fea8953
 # ╠═7d83ff80-6a2c-11eb-28d7-d13eb6fe77e9
-# ╠═ebaa8870-6a28-11eb-1a7c-556bd913ba47
-# ╠═42f5c6b0-6a30-11eb-035e-afec9061ef83
-# ╠═ad991f80-6a30-11eb-2731-7b7b7cf3c37f
-# ╠═cead2400-6a30-11eb-3941-ffc8f673fe1c
-# ╠═d39f0280-6a30-11eb-1d64-eff27ef736e5
-# ╠═bb5e8380-6a30-11eb-3d96-2f5821f072d9
-# ╠═eb477d9e-6ae8-11eb-0c51-255c36e7d5af
 # ╠═72b76c50-6a30-11eb-1a67-55b60e412eaa
-# ╠═076d505e-6a29-11eb-1085-99174cea2147
-# ╠═4c8e1b70-6a33-11eb-2779-ab28f800b0c4
 # ╠═1c7e07ae-6a33-11eb-22c0-a58c5c97c757
-# ╠═31fe2e30-6a33-11eb-044a-9756009e9fbc
 # ╠═894d4a80-6ade-11eb-23a1-133c85489594
 # ╠═54dd3d70-6a2d-11eb-1803-cf4c42734f58
-# ╠═8ffd9cc0-6a2c-11eb-2be5-5fbf9f8ec950
-# ╠═e384bb00-6a1b-11eb-101f-c1ddc3e9116a
-# ╠═5d5538a0-6a31-11eb-2f31-452c51605781
-# ╠═6aada9fe-6a31-11eb-1c8f-c58a4e836852
 # ╠═3e3207a0-6a31-11eb-1117-ed199d05098a
 # ╠═3fb52530-6a31-11eb-2cad-7d1e6361d271
 # ╠═3fb54c3e-6a31-11eb-3eee-4f3d73e08619
-# ╠═a5d00712-6ade-11eb-0706-e36311047f07
 # ╠═9f7549c0-6ade-11eb-185b-952535d5ba84
 # ╠═8eaf7700-6ade-11eb-3ea4-a5354a628ac3
 # ╠═411180e0-6a31-11eb-1c74-216664752b5d
-# ╠═26594850-6a77-11eb-2326-3f9f79a75ee7
 # ╠═f8296070-6add-11eb-216f-9fbad436e69c

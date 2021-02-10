@@ -119,7 +119,7 @@ function folder_to_CSet(path::String)
 	calls = [sort([x.args[1].val for x in cs]) for cs in calls]
 	println("...sorted calls")
 	=#
-	println("...defining shcema...")
+	println("...defining schema...")
 	
 	@present implementationsSchema(FreeSchema) begin
 		(Function, Implementation, Inputs, Calls)::Ob
