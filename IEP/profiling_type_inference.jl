@@ -7,6 +7,12 @@ using InteractiveUtils
 # ╔═╡ 2f82d750-6a1a-11eb-30e1-5b56252cee1e
 LOAD_PATH
 
+# ╔═╡ baf9c5b0-6c8a-11eb-2eff-8da7e6f1d656
+using Reexport
+
+# ╔═╡ bdb78620-6c8a-11eb-30d6-71194a88cc22
+@reexport using Catlab
+
 # ╔═╡ dab362e0-6ae0-11eb-2355-0be4b5a23cc2
 using JLD2
 
@@ -37,8 +43,17 @@ using AbstractTrees
 # ╔═╡ d29a8cc0-6ade-11eb-2a9c-493b36ceb3e2
 include("module_to_CSet.jl")
 
+# ╔═╡ aaa74f00-6c5a-11eb-2e72-1579c0402732
+include("eval_module.jl")
+
 # ╔═╡ 7c27bbd0-6b95-11eb-02a6-61a9f32491ac
 result = module_to_CSet("Catlab");
+
+# ╔═╡ d3c52060-6c5a-11eb-357c-df1fc8ae29b4
+res = eval_module("Catlab");
+
+# ╔═╡ f6344810-6c5a-11eb-1d76-070d52efaa2d
+res[2]
 
 # ╔═╡ 9a881200-6b95-11eb-1db0-d71e5bcde54a
 data = result[2];
@@ -60,14 +75,14 @@ function foo(x::CSTParser.EXPR)
 	x
 end
 
-# ╔═╡ bfdf2150-6beb-11eb-178e-01ba13b56040
-CSTParser.EXPR
+# ╔═╡ a857e0be-6c5a-11eb-10d0-41573fe5212c
 
-# ╔═╡ 90f0973e-6bf8-11eb-1a17-710337bcd3b2
-import Catlab
 
 # ╔═╡ 83b980ce-6c09-11eb-08b3-29f713f52b43
 Catlab.ACSetView
+
+# ╔═╡ bfdf2150-6beb-11eb-178e-01ba13b56040
+CSTParser.EXPR
 
 # ╔═╡ 0082e860-6bf9-11eb-1227-f157310c62a3
 import Catlab.Graphics: Graphviz
@@ -144,46 +159,23 @@ end
 # ╔═╡ 440c4c92-6bed-11eb-1602-b7f6ddb84e05
 count(precomp_w_input(data))
 
+# ╔═╡ 228366c2-6c5c-11eb-1383-e5305a6c2474
+length(precomp_w_input(data))
+
 # ╔═╡ 3bc24cf0-6bee-11eb-2394-8544659bc346
 count(precomp_w_input(data))# yay!
 
 # ╔═╡ 352bae3e-6b21-11eb-1617-557b5aae57a8
 Symbol("Tokens.Kind")# why no work?
 
-# ╔═╡ 5c0a42f0-6bae-11eb-045e-37f0c5885864
-str = "asdf.ghf.eweq"
-
-# ╔═╡ b5e4e2d0-6bae-11eb-106e-71db4a13cc56
-str2 = "dsaf"
-
-# ╔═╡ 348735d2-6bae-11eb-3c0e-9139065a76bb
-split(str2, ".")
-
-# ╔═╡ 954b4900-6baf-11eb-206e-157a0328f123
-expr = CSTParser.parse("""function foo3(x::CSTParser.EXPR)
-	"just end my life fam"
-end""", true)
-
 # ╔═╡ fcc895be-6bc7-11eb-0335-41fd59d3cfa5
 
-
-# ╔═╡ e5a48340-6bc7-11eb-125b-dfbf4438f7d9
-eval(Expr(expr.args[1].args[1].args[2].args[2]))
-
-# ╔═╡ 19f06bf0-6bc8-11eb-043a-3fc7b2ec9691
-#AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 
 # ╔═╡ 6f9d5d1e-6bc7-11eb-0a79-49f3be393eb8
 dfds = eval(Symbol("CSTParser")).eval(Symbol("EXPR"))
 
 # ╔═╡ f8560b50-6bc5-11eb-3302-2bbd891f5c5b
 eval(Symbol("CSTParser")).eval(Symbol("EXPR"))
-
-# ╔═╡ 176ee69e-6bc7-11eb-3fbb-b30b45020069
-eval(Symbol("."))
-
-# ╔═╡ 0c58c420-6bc7-11eb-0238-1155d4001392
-eval(Symbol("CSTParser")Symbol(".")Symbol("EXPR"))
 
 # ╔═╡ 7b8dbc62-6bae-11eb-3133-df244357a54b
 function _string_dot_symbols(arr::Array{String,1})
@@ -193,9 +185,6 @@ function _string_dot_symbols(arr::Array{String,1})
 		return (eval(Symbol(arr[1])))
 	end	
 end
-
-# ╔═╡ c60a1150-6bc5-11eb-28d7-0145ba3bd7cc
-eval(_string_dot_symbols(["CSTParser","EXPR"]))
 
 # ╔═╡ 65b07240-6b20-11eb-04f1-1f7b3f5ba1be
 function getName(nd)#overloading because jld2 is being dumb about types
@@ -242,9 +231,6 @@ function precomp(data)
 	res	
 end
 
-# ╔═╡ ebb75340-6ae4-11eb-1e13-5bafd52dbf50
-inputs[1]
-
 # ╔═╡ 51a93520-6ae9-11eb-3b1e-3759dd52d642
 function make_types_tuple(arr)
 	ntuple((i)->(eval(Symbol(getName(arr[i])))), length(arr))
@@ -260,25 +246,9 @@ end
 # ╔═╡ 3fdb99e0-6aea-11eb-05ca-f909b9f8897a
 precomp(data)
 
-# ╔═╡ f65ead60-6aef-11eb-09c9-951c71125f33
-for x in inputs
-	try
-		make_types_tuple(x)
-	catch e
-		println(e)
-		println("source: $x")
-	end
-end
-
 # ╔═╡ 72f7aac0-6b0e-11eb-2937-85f9ed2d5529
 # need to get usings,import and includes from code and run them before running precompiles.
 # include tree?
-
-# ╔═╡ 761a4750-6ae9-11eb-1498-d3a1c35b9532
-make_types_tuple(inputs[1])
-
-# ╔═╡ 0b4e09c0-6ae9-11eb-242d-b11cb6e967cb
-ntuple((i)->(inputs[1][i].name), length(inputs[1]))
 
 # ╔═╡ 68ee6100-6ae5-11eb-3db7-11424f699182
 asdf = [1,2,3]
@@ -355,7 +325,12 @@ print_tree(mo)#prints to shell, not pluto nb
 # ╔═╡ Cell order:
 # ╠═2f82d750-6a1a-11eb-30e1-5b56252cee1e
 # ╠═d29a8cc0-6ade-11eb-2a9c-493b36ceb3e2
+# ╠═aaa74f00-6c5a-11eb-2e72-1579c0402732
 # ╠═7c27bbd0-6b95-11eb-02a6-61a9f32491ac
+# ╠═baf9c5b0-6c8a-11eb-2eff-8da7e6f1d656
+# ╠═bdb78620-6c8a-11eb-30d6-71194a88cc22
+# ╠═d3c52060-6c5a-11eb-357c-df1fc8ae29b4
+# ╠═f6344810-6c5a-11eb-1d76-070d52efaa2d
 # ╠═dab362e0-6ae0-11eb-2355-0be4b5a23cc2
 # ╠═9a881200-6b95-11eb-1db0-d71e5bcde54a
 # ╠═a6e1d810-6b95-11eb-3b92-1b13a6667eb2
@@ -364,12 +339,12 @@ print_tree(mo)#prints to shell, not pluto nb
 # ╠═46107670-6bec-11eb-1500-01ed4a7ab0a8
 # ╠═a6427840-6bec-11eb-294f-0924474d277c
 # ╠═467a03c0-6b96-11eb-19f0-d108af4c0cf2
+# ╠═a857e0be-6c5a-11eb-10d0-41573fe5212c
 # ╠═83b980ce-6c09-11eb-08b3-29f713f52b43
 # ╠═caa113e2-6bec-11eb-3d0c-6bf9d4b0b459
 # ╠═bfdf2150-6beb-11eb-178e-01ba13b56040
 # ╠═1df694a0-6bf9-11eb-1aaf-35125f78ac1f
 # ╠═440c4c92-6bed-11eb-1602-b7f6ddb84e05
-# ╠═90f0973e-6bf8-11eb-1a17-710337bcd3b2
 # ╠═f041fd10-6bf8-11eb-3d79-fb30ad4289d2
 # ╠═0082e860-6bf9-11eb-1227-f157310c62a3
 # ╠═d4892030-6bf8-11eb-3d3e-e1ccef5bb3ef
@@ -379,6 +354,7 @@ print_tree(mo)#prints to shell, not pluto nb
 # ╠═68aa6cc2-6bee-11eb-39ca-d74f80365ba7
 # ╠═efe22ad0-6bed-11eb-11bc-29daa82ee824
 # ╠═058c6e90-6bee-11eb-3684-15bc3f202490
+# ╠═228366c2-6c5c-11eb-1383-e5305a6c2474
 # ╠═3bc24cf0-6bee-11eb-2394-8544659bc346
 # ╠═b9b44640-6bee-11eb-343e-abaab85a0ba3
 # ╠═abbd5250-6beb-11eb-056b-d5af61d5f030
@@ -386,30 +362,17 @@ print_tree(mo)#prints to shell, not pluto nb
 # ╠═ba2409f0-6bec-11eb-3d30-45a2b8e920a1
 # ╠═352bae3e-6b21-11eb-1617-557b5aae57a8
 # ╠═b41c64ce-6b1f-11eb-3dbd-21aac0e80cae
-# ╠═5c0a42f0-6bae-11eb-045e-37f0c5885864
-# ╠═b5e4e2d0-6bae-11eb-106e-71db4a13cc56
-# ╠═348735d2-6bae-11eb-3c0e-9139065a76bb
-# ╠═954b4900-6baf-11eb-206e-157a0328f123
 # ╠═fcc895be-6bc7-11eb-0335-41fd59d3cfa5
-# ╠═e5a48340-6bc7-11eb-125b-dfbf4438f7d9
-# ╠═19f06bf0-6bc8-11eb-043a-3fc7b2ec9691
-# ╠═c60a1150-6bc5-11eb-28d7-0145ba3bd7cc
 # ╠═6f9d5d1e-6bc7-11eb-0a79-49f3be393eb8
 # ╠═f8560b50-6bc5-11eb-3302-2bbd891f5c5b
-# ╠═176ee69e-6bc7-11eb-3fbb-b30b45020069
-# ╠═0c58c420-6bc7-11eb-0238-1155d4001392
 # ╠═7b8dbc62-6bae-11eb-3133-df244357a54b
 # ╠═4f6310ae-6b20-11eb-18b6-2f1dc526d2e1
 # ╠═65b07240-6b20-11eb-04f1-1f7b3f5ba1be
 # ╠═c1d3e7f0-6ae4-11eb-136c-0d5013da0606
-# ╠═f65ead60-6aef-11eb-09c9-951c71125f33
 # ╠═3fdb99e0-6aea-11eb-05ca-f909b9f8897a
 # ╠═e408ac70-6ae9-11eb-21a6-b50f5a5d10ec
-# ╠═ebb75340-6ae4-11eb-1e13-5bafd52dbf50
 # ╠═51a93520-6ae9-11eb-3b1e-3759dd52d642
 # ╠═72f7aac0-6b0e-11eb-2937-85f9ed2d5529
-# ╠═761a4750-6ae9-11eb-1498-d3a1c35b9532
-# ╠═0b4e09c0-6ae9-11eb-242d-b11cb6e967cb
 # ╠═68ee6100-6ae5-11eb-3db7-11424f699182
 # ╠═2de94750-6ae5-11eb-2571-2fedb10867ec
 # ╠═f374118e-6ae4-11eb-1f93-3b9301a0ba1f
