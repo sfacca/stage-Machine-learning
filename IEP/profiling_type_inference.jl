@@ -66,6 +66,9 @@ CSTParser.EXPR
 # ╔═╡ 90f0973e-6bf8-11eb-1a17-710337bcd3b2
 import Catlab
 
+# ╔═╡ 83b980ce-6c09-11eb-08b3-29f713f52b43
+Catlab.ACSetView
+
 # ╔═╡ 0082e860-6bf9-11eb-1227-f157310c62a3
 import Catlab.Graphics: Graphviz
 
@@ -361,6 +364,7 @@ print_tree(mo)#prints to shell, not pluto nb
 # ╠═46107670-6bec-11eb-1500-01ed4a7ab0a8
 # ╠═a6427840-6bec-11eb-294f-0924474d277c
 # ╠═467a03c0-6b96-11eb-19f0-d108af4c0cf2
+# ╠═83b980ce-6c09-11eb-08b3-29f713f52b43
 # ╠═caa113e2-6bec-11eb-3d0c-6bf9d4b0b459
 # ╠═bfdf2150-6beb-11eb-178e-01ba13b56040
 # ╠═1df694a0-6bf9-11eb-1aaf-35125f78ac1f
