@@ -7,6 +7,9 @@ using InteractiveUtils
 # ╔═╡ 2f82d750-6a1a-11eb-30e1-5b56252cee1e
 LOAD_PATH
 
+# ╔═╡ c155a820-6d11-11eb-2624-ed33605757e3
+using Tokenize
+
 # ╔═╡ baf9c5b0-6c8a-11eb-2eff-8da7e6f1d656
 using Reexport
 
@@ -53,7 +56,10 @@ result = module_to_CSet("Catlab");
 res = eval_module("Catlab");
 
 # ╔═╡ f6344810-6c5a-11eb-1d76-070d52efaa2d
-res[2]
+count(res[2])
+
+# ╔═╡ 1d699630-6d12-11eb-2a87-df9409875349
+length(res[2])
 
 # ╔═╡ 9a881200-6b95-11eb-1db0-d71e5bcde54a
 data = result[2];
@@ -110,6 +116,12 @@ for x in data[:,:impl_fun]
 		println(e)
 	end
 end
+
+# ╔═╡ 06b62a60-6d13-11eb-3cb3-57015e8512a0
+dump(CSTParser.parse("x = 1"))
+
+# ╔═╡ e562dd80-6d13-11eb-312c-59750b66e2bc
+CSTParser.parse("x = 1").val
 
 # ╔═╡ b9b44640-6bee-11eb-343e-abaab85a0ba3
 eval(Symbol("to_wiring_diagram"))
@@ -327,10 +339,12 @@ print_tree(mo)#prints to shell, not pluto nb
 # ╠═d29a8cc0-6ade-11eb-2a9c-493b36ceb3e2
 # ╠═aaa74f00-6c5a-11eb-2e72-1579c0402732
 # ╠═7c27bbd0-6b95-11eb-02a6-61a9f32491ac
+# ╠═c155a820-6d11-11eb-2624-ed33605757e3
 # ╠═baf9c5b0-6c8a-11eb-2eff-8da7e6f1d656
 # ╠═bdb78620-6c8a-11eb-30d6-71194a88cc22
 # ╠═d3c52060-6c5a-11eb-357c-df1fc8ae29b4
 # ╠═f6344810-6c5a-11eb-1d76-070d52efaa2d
+# ╠═1d699630-6d12-11eb-2a87-df9409875349
 # ╠═dab362e0-6ae0-11eb-2355-0be4b5a23cc2
 # ╠═9a881200-6b95-11eb-1db0-d71e5bcde54a
 # ╠═a6e1d810-6b95-11eb-3b92-1b13a6667eb2
@@ -354,6 +368,8 @@ print_tree(mo)#prints to shell, not pluto nb
 # ╠═68aa6cc2-6bee-11eb-39ca-d74f80365ba7
 # ╠═efe22ad0-6bed-11eb-11bc-29daa82ee824
 # ╠═058c6e90-6bee-11eb-3684-15bc3f202490
+# ╠═06b62a60-6d13-11eb-3cb3-57015e8512a0
+# ╠═e562dd80-6d13-11eb-312c-59750b66e2bc
 # ╠═228366c2-6c5c-11eb-1383-e5305a6c2474
 # ╠═3bc24cf0-6bee-11eb-2394-8544659bc346
 # ╠═b9b44640-6bee-11eb-343e-abaab85a0ba3
