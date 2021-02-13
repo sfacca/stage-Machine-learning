@@ -7,6 +7,9 @@ using InteractiveUtils
 # ╔═╡ 5913aa60-689c-11eb-303f-39f989a6bff5
 using Catlab, Catlab.CategoricalAlgebra, DataFrames
 
+# ╔═╡ 6f917b50-6d3d-11eb-219f-cb4da1f6d74e
+using Pkg
+
 # ╔═╡ 1341adf0-5cf0-11eb-2779-21605d9879c9
 using CSTParser
 
@@ -19,38 +22,26 @@ include("parse_folder.jl")
 # ╔═╡ 3490ace0-6bc8-11eb-1965-7b3cd7c2e152
 include("functions_struct.jl")
 
-# ╔═╡ 5a8dbd70-5a89-11eb-104f-192cb5f012d7
-"""
-finds documentation on input expressions
-"""
-function scrape_Docs(e::Expr)
-	#1 find the Core.var"@doc"
-	res = (docs = nothing, content = nothing)
-	tmp = e
-	found_doc = false
-	doc = GlobalRef(Core, Symbol("@doc"))
-	if tmp.args[1] == doc
-
-		found_doc = true
-		if typeof(tmp.args[end]) == Expr
-			res = (
-				docs = tmp.args[minimum([3, length(tmp.args)])],
-				content = handle_Content(tmp.args[end]),
-				type = tmp.args[end].head
-			)
-		else
-			res = (
-				docs = tmp.args[minimum([3, length(tmp.args)])],
-				content = tmp.args[end],
-				type = typeof(tmp.args[end])				
-			)
+# ╔═╡ 11575bd0-6d93-11eb-0ee5-975ec04823ab
+function find_heads(x::Array{Any,1}, symbol::Symbol)
+	res = []
+	for i in 1:length(x)
+		elem = x[i]
+		len = length(res)
+		if typeof(x) in [CSTParser.EXPR, Array{Any,1}]
+			try
+				res = vcat(res, find_heads(elem, symbol))
+			catch err
+				println("error at element $i")
+				println(err)
+			end
 		end
-	else
-		if typeof(tmp.args[1]) == Expr
-			tmp = tmp.args[1]
+		#=
+		if len < length(res)
+			
 		else
-			found_doc = true
-		end
+			println("loop i")
+	end=#
 	end
 	res
 end
@@ -240,6 +231,7 @@ end
 takes an expr that defines a function adress/name, returns NameDef
 """
 function scrapeName(e::CSTParser.EXPR)::NameDef
+	#println("scrapename")
 	NameDef(e)
 end
 
@@ -270,15 +262,33 @@ the expr needs to only contain argument definitions in its .args array
 :function -> :call function definitions have their function name in the same args
 """
 function scrapeInputs(e::CSTParser.EXPR)::Array{InputDef,1}
+	println("scrape inputs")
 	if !isnothing(e.args) && !isempty(e.args)
 		arr = Array{InputDef,1}(undef, length(e.args))
 		for i in 1:length(arr)
 			# is this a simple param name or is this a :: OP?
 			if isTypedefOP(e.args[i])
-				arr[i] = InputDef(
-					scrapeName(e.args[i].args[1]),
-					scrapeName(e.args[i].args[2])
-				)
+				println("TYPEDEFOP")
+				try
+					if length(e.args[i].args)<2
+						#println("args < 2")
+						#this is a weird ::Type curly thing probably
+						arr[i] = InputDef(
+							scrapeName(e.args[i].args[1]),
+							scrapeName(e.args[i].args[1])
+						)
+					else
+						#println("args > 2")
+						arr[i] = InputDef(
+						scrapeName(e.args[i].args[1]),
+						scrapeName(e.args[i].args[2])
+					)
+					end
+				catch err
+					println("error!")
+					println(err)
+					println(e.args)
+				end
 			else
 				arr[i] = InputDef(
 					scrapeName(e.args[i]), 
@@ -289,6 +299,7 @@ function scrapeInputs(e::CSTParser.EXPR)::Array{InputDef,1}
 	else
 		arr = Array{InputDef,1}(undef, 0)
 	end
+	println("finished scraping inputs")
 	arr
 end
 
@@ -376,39 +387,84 @@ function iterates over EXPR tree, scrapes function definitions and documentation
 """
 function scrape_functions(e::CSTParser.EXPR;source::Union{String,Nothing} = nothing)::Array{FunctionContainer,1}
 	if _checkArgs(e)#leaves cant be functions
+		#println("expr is not a leaf")
 		res = Array{FunctionContainer,1}(undef,0)
 		docs = nothing
 		# iterates over e.args, looking for functions or docs
 		for i in 1:length(e.args)
 			if e.args[i].head == :globalrefdoc
+				#println("found globalrefdoc")
 				i = getDocs(e,i)
 				docs = isnothing(e.args[i].val) ? "error finding triplestring" : e.args[i].val
 			end
 			
 			tmp = scrapeFuncDef(e.args[i])
 			if !isnothing(tmp)
-				res = push!(res, FunctionContainer(tmp,docs,source))
+				res = vcat(res, FunctionContainer(tmp,docs,source))
 				docs = nothing
 			elseif _checkArgs(e.args[i])
+				#println("child has args")
 				# if e[i] has args, scrapes e[i]
 				res = vcat(res, scrape_functions(e.args[i]; source = source))
 			end
 		end
 		return res
 	else
+		#println("expr is a leaf")
 		return Array{FunctionContainer,1}(undef,0)
 	end
+end
+
+# ╔═╡ e223a880-6d49-11eb-21e5-dd86f6a47534
+function scrape_functions_starter(e::CSTParser.EXPR;source::Union{String,Nothing} = nothing)::Array{FunctionContainer,1}
+	tmp = scrapeFuncDef(e)
+	if isnothing(tmp)
+		res = Array{FunctionContainer,1}(undef,0)
+	else
+		res = [FunctionContainer(tmp,nothing,source)]
+	end
+	vcat(res, scrape_functions(e;source=source))
+end
+
+# ╔═╡ f5055562-6d54-11eb-0e26-afcb4c50d564
+function scrape_check(arr::Array{Any,1})
+	res = Array{FunctionContainer,1}(undef, 0)
+	fails = []
+	for i in 1:length(arr)
+		x = arr[i]
+		if typeof(x) == Tuple{CSTParser.EXPR,String}
+			len = length(res)
+			try
+				res = vcat(res, scrape_functions_starter(x[1]; source = x[2]))
+			catch e
+				println("scrape number $i errored")
+				println(e)
+			end
+			if len == length(res)
+				println("scrape tuple number $i didnt do anything")
+				push!(fails, i)
+			end
+		end
+	end
+	return res, fails
 end
 
 # ╔═╡ e74d330e-680a-11eb-049d-497985c532f7
 function scrape(arr::Array{Any,1})::Array{FunctionContainer,1}
 	res = Array{FunctionContainer,1}(undef, 0)
-	for x in arr
+	for i in 1:length(arr)
+		x = arr[i]
 		if typeof(x) == Tuple{CSTParser.EXPR,String}
+			len = length(res)
 			try
-				res = vcat(res, scrape_functions(x[1]; source = x[2]))
+				res = vcat(res, scrape_functions_starter(x[1]; source = x[2]))
 			catch e
+				println("scrape number $i errored")
 				println(e)
+			end
+			if len == length(res)
+				println("scrape tuple number $i didnt do anything")
+				println("")
 			end
 		end
 	end
@@ -453,10 +509,12 @@ end
 # ╠═06ffac70-66f2-11eb-0991-299ba39e2779
 # ╠═3490ace0-6bc8-11eb-1965-7b3cd7c2e152
 # ╠═5913aa60-689c-11eb-303f-39f989a6bff5
+# ╠═6f917b50-6d3d-11eb-219f-cb4da1f6d74e
+# ╠═11575bd0-6d93-11eb-0ee5-975ec04823ab
 # ╠═88cf83a0-689c-11eb-31af-5dd802ea42a9
+# ╠═f5055562-6d54-11eb-0e26-afcb4c50d564
 # ╠═e74d330e-680a-11eb-049d-497985c532f7
 # ╠═1341adf0-5cf0-11eb-2779-21605d9879c9
-# ╠═5a8dbd70-5a89-11eb-104f-192cb5f012d7
 # ╠═c1acf890-5a89-11eb-2b8c-cbde52b367b7
 # ╠═336b4250-5f28-11eb-0ddf-45e25c4347e2
 # ╠═884be410-5e7d-11eb-0fb3-33fe00da9b49
@@ -467,6 +525,7 @@ end
 # ╠═f75f1010-6702-11eb-23c8-ab21487b79cf
 # ╠═201f5820-6703-11eb-1992-f9571e34cc54
 # ╠═4bec4910-67b5-11eb-0e83-27cbaa39673e
+# ╠═e223a880-6d49-11eb-21e5-dd86f6a47534
 # ╠═da5dd4b0-6702-11eb-01e7-8b64690b333f
 # ╠═b8806a30-6809-11eb-08cc-fb1ce0deac24
 # ╠═68aa5292-6805-11eb-3e3e-5591d42758b8

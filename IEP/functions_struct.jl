@@ -133,7 +133,16 @@ struct FunctionContainer
 		d::Nothing,
 		s::String
 	) = new(f,d,s)
-		
+	
+	FunctionContainer(
+		f::FuncDef,
+		d::Nothing,
+		s::Nothing
+	) = new(f,d,s)
+	
+	FunctionContainer(
+		f::FuncDef,
+	) = new(f,nothing,nothing)
 end
 
 # ╔═╡ 628e2ad0-6887-11eb-21c3-51761a5ac788

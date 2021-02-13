@@ -30,17 +30,14 @@ Pkg.activate(".")
 
 # ╔═╡ ceee5b90-6897-11eb-0ebe-67354802cfa2
 begin
-	#1 dl CSTParser source
-	mkpath("tmp_cst")
-	download("https://github.com/julia-vscode/CSTParser.jl/archive/master.zip", "tmp_cst/cstparser")
-	unzip("tmp_cst/cstparser")
-	# 2 make CSet
-	result = folder_to_CSet("tmp_cst/CSTParser.jl-master/src")	
+	
+	result = folder_to_CSet(string(Pkg.dir("CSTParser"),"/src"))
 	# 3 save CSet
 	@save "src_cstparser.jld2" result
-	# 4 delete downloaded stuff
-	rm("tmp_cst", recursive=true)
 end
+
+# ╔═╡ db4a5c70-6d35-11eb-2984-4168ec2658d1
+result[2]
 
 # ╔═╡ Cell order:
 # ╠═a059efc0-6580-11eb-2954-8fee0da0a55c
@@ -52,3 +49,4 @@ end
 # ╠═ae0dd220-6581-11eb-0153-95687a5a79ab
 # ╠═20b850c0-6898-11eb-1640-c5b7949a97fe
 # ╠═ceee5b90-6897-11eb-0ebe-67354802cfa2
+# ╠═db4a5c70-6d35-11eb-2984-4168ec2658d1
