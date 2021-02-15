@@ -153,6 +153,21 @@ function scrape_functions(arr::Array{CSTParser.EXPR,1};source::Union{String,Noth
 	res
 end
 
+# ╔═╡ a216a460-6fc7-11eb-12a0-e1e30840a06c
+function uniqueidx(x::AbstractArray{T}) where T
+    uniqueset = Set{T}()
+    ex = eachindex(x)
+    idxs = Vector{eltype(ex)}()
+    for i in ex
+        xi = x[i]
+        if !(xi in uniqueset)
+            push!(idxs, i)
+            push!(uniqueset, xi)
+        end
+    end
+    idxs
+end
+
 # ╔═╡ 68aa5292-6805-11eb-3e3e-5591d42758b8
 """
 called when e.args[i] is globalrefdoc
@@ -233,6 +248,17 @@ takes an expr that defines a function adress/name, returns NameDef
 function scrapeName(e::CSTParser.EXPR)::NameDef
 	#println("scrapename")
 	NameDef(e)
+end
+
+# ╔═╡ e952d660-6fc6-11eb-3bf0-a706cc57d0a3
+"""
+gets calls from input expression as array of NameDefs
+"""
+function get_calls(e::CSTParser.EXPR)::Array{NameDef,1}
+	res = [scrapeName(x) for x in find_heads(e, :call)]
+	# unique the calls
+	names = [getName(x) for x in res]
+	sortperm(names)
 end
 
 # ╔═╡ ca8be250-67c7-11eb-17d2-9f4ba3be11a7
@@ -528,6 +554,8 @@ end
 # ╠═e223a880-6d49-11eb-21e5-dd86f6a47534
 # ╠═da5dd4b0-6702-11eb-01e7-8b64690b333f
 # ╠═b8806a30-6809-11eb-08cc-fb1ce0deac24
+# ╠═e952d660-6fc6-11eb-3bf0-a706cc57d0a3
+# ╠═a216a460-6fc7-11eb-12a0-e1e30840a06c
 # ╠═68aa5292-6805-11eb-3e3e-5591d42758b8
 # ╠═107d91f0-67d2-11eb-07b3-477719ca9a9c
 # ╠═6f394770-67d2-11eb-3678-570594a0b1b5
