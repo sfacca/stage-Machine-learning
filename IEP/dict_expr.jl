@@ -52,9 +52,6 @@ parsed = read_code(string(Pkg.dir("CSTParser"),"/src"));
 # ╔═╡ 7cdccd10-704d-11eb-2b40-8b43c3a95362
 expr_only = [x[1] for x in parsed];
 
-# ╔═╡ eb488640-7052-11eb-0504-6b0e161c9598
-
-
 # ╔═╡ b0bf0200-704e-11eb-167d-e798205a7f64
 function flattenExpr(arr::Array{CSTParser.EXPR,1})::Array{CSTParser.EXPR}
 	res = []
@@ -101,7 +98,16 @@ end
 
 
 # ╔═╡ 61d1bb60-7058-11eb-2d59-39b884d97d6f
-make_head_expr_dict(expr_only)
+dict = make_head_expr_dict(expr_only)
+
+# ╔═╡ b01d0590-7062-11eb-1ad4-3f5df278ec95
+typeof(dict)
+
+# ╔═╡ b3fefab0-7062-11eb-05ce-bf2a4cc420d1
+unique([typeof(x[2]) for x in dict])
+
+# ╔═╡ 19265d70-7063-11eb-35aa-a19baa26d46f
+unique([typeof(x[1]) for x in dict])
 
 # ╔═╡ bb3bcde0-7052-11eb-13dc-19388cb48181
 function make_dict(arr::Array{CSTParser.EXPR,1})
@@ -117,7 +123,10 @@ function make_dict(arr::Array{CSTParser.EXPR,1})
 end
 
 # ╔═╡ 7cbb8ca0-7051-11eb-1882-617de42a71bc
-make_dict(expr_only)
+length(make_dict(expr_only))
+
+# ╔═╡ eb488640-7052-11eb-0504-6b0e161c9598
+make_dict(expr_only)[41450].val
 
 # ╔═╡ 10b74ba0-704e-11eb-12fa-43f229dda10c
 function get_all_heads(e::Array{CSTParser.EXPR,1})
@@ -215,6 +224,9 @@ sample_expr.args[4] # la docstring si riferisce all'expr sibling successiva
 # ╠═4b46e730-704e-11eb-1044-f9d8ba5b769c
 # ╠═2666b3f0-7058-11eb-02aa-6f82116fcd51
 # ╠═61d1bb60-7058-11eb-2d59-39b884d97d6f
+# ╠═b01d0590-7062-11eb-1ad4-3f5df278ec95
+# ╠═b3fefab0-7062-11eb-05ce-bf2a4cc420d1
+# ╠═19265d70-7063-11eb-35aa-a19baa26d46f
 # ╠═bb3bcde0-7052-11eb-13dc-19388cb48181
 # ╠═b0bf0200-704e-11eb-167d-e798205a7f64
 # ╠═c870f210-704d-11eb-3048-7f78817e11b8

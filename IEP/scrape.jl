@@ -22,7 +22,30 @@ include("parse_folder.jl")
 # ╔═╡ 3490ace0-6bc8-11eb-1965-7b3cd7c2e152
 include("functions_struct.jl")
 
+# ╔═╡ 72e1e620-706f-11eb-0aa3-03b213873e31
+function flattenExpr(arr::Array{CSTParser.EXPR,1})::Array{CSTParser.EXPR}
+	res = []
+	for e in arr
+		res = vcat(res, flattenExpr(e))
+	end
+	res
+end
+
+# ╔═╡ 6cd0dc00-706f-11eb-04a6-ab0aa3d1aa20
+function get_all_heads(e::Array{CSTParser.EXPR,1})
+	[x.head for x in e]
+end	
+
+# ╔═╡ 692c6510-706f-11eb-0b96-6126f4dfc70e
+function get_all_vals(e::Array{CSTParser.EXPR,1})
+	[x.val for x in e]
+end	
+
 # ╔═╡ 11575bd0-6d93-11eb-0ee5-975ec04823ab
+"""
+recursively views expr tree
+returns all expresssions e where e.head == input symbol
+"""
 function find_heads(x::Array{Any,1}, symbol::Symbol)
 	res = []
 	for i in 1:length(x)
@@ -56,6 +79,10 @@ function get_all_heads(e::CSTParser.EXPR)
 end
 
 # ╔═╡ 884be410-5e7d-11eb-0fb3-33fe00da9b49
+"""
+recursively views expr tree
+returns all expresssions e where e.head == input symbol
+"""
 function find_heads(e::CSTParser.EXPR, head::Symbol)
 	if e.head == head
 		res = [e]
@@ -69,6 +96,26 @@ function find_heads(e::CSTParser.EXPR, head::Symbol)
 	
 	res
 end	
+
+# ╔═╡ eae76590-7075-11eb-3c6c-bb2c5eec7d50
+#="""
+recursively looks for :call expressions
+returns called functions
+"""
+function get_calls(e::CSTParser.EXPR)::Array{NameDef,1}
+	[NameDef(x.args[1]) for x in find_heads(e, :call)]
+end=#
+
+# ╔═╡ 5eb4c850-7076-11eb-058a-33111d065094
+test = CSTParser.parse("function foo(x)
+	read_code(x)
+	
+	CSTParser.parse(x)
+	
+	string(x)
+	
+	make_dict(x)
+end")
 
 # ╔═╡ 52b64082-5e81-11eb-3192-5b0f4f436d55
 function find_heads(arr::Array{CSTParser.EXPR,1}, head::Symbol)
@@ -149,6 +196,35 @@ function scrape_functions(arr::Array{CSTParser.EXPR,1};source::Union{String,Noth
 	res = Array{FunctionContainer,1}(undef,0)
 	for x in arr
 		res = vcat(res, scrape_functions(x;source=source))
+	end
+	res
+end
+
+# ╔═╡ 825457b0-708c-11eb-18a7-9536214439b8
+
+
+# ╔═╡ 272e0a80-7077-11eb-2fad-8d8334435308
+"""
+returns array of namedefs sorted and unique by getName result
+"""
+function unique_sorted_names(arr::Array{NameDef,1})::Array{NameDef,1}
+	names = [getName(x) for x in arr]
+	unames = unique(sort(names))
+	res = Array{NameDef,1}(undef, length(unames))
+	for i in 1:length(res)
+		res[i] = arr[findfirst((x)->(x==unames[i]),names)]
+	end
+	res
+end
+
+# ╔═╡ 8acfccc0-7079-11eb-21ab-b97820f1eb43
+function unique_arrays(arr::Array{Array{NameDef,1}})::Array{Array{NameDef,1}}
+	#1 turn every array into an array of getnames
+	names = getName(arr)
+	unames = unique(names)
+	res = Array{Array{NameDef,1},1}(undef,length(unames))
+	for i in 1:length(res)
+		res[i] = arr[findfirst((x)->(x==unames[i]),names)]
 	end
 	res
 end
@@ -241,6 +317,38 @@ function _checkArgs(e)
 	!isnothing(e.args) && !isempty(e.args)
 end
 
+# ╔═╡ 6feff650-706f-11eb-2a74-5b0e8bf2d711
+function flattenExpr(e::CSTParser.EXPR)::Array{CSTParser.EXPR}
+	res = [e]
+	if typeof(e.head) == CSTParser.EXPR
+		res = vcat(res, flattenExpr(e.head))
+	end
+	
+	if typeof(e.val) == CSTParser.EXPR
+		res = vcat(res, flattenExpr(e.val))
+	end
+		
+	if _checkArgs(e)
+		for x in e.args
+			res = vcat(res, flattenExpr(x))
+		end
+	end
+	res
+end
+
+# ╔═╡ 76034a60-706f-11eb-18d5-09140e84abaf
+function make_dict(arr::Array{CSTParser.EXPR,1})
+	dic = Dict()
+	i = 1
+	flat = unique(flattenExpr(arr))
+	
+	for j in 1:length(flat)
+		dic[i] = flat[j]
+		i = i + 1
+	end
+	dic
+end
+
 # ╔═╡ 1919b3a0-6bcb-11eb-3473-991e753c1f31
 """
 takes an expr that defines a function adress/name, returns NameDef
@@ -255,10 +363,8 @@ end
 gets calls from input expression as array of NameDefs
 """
 function get_calls(e::CSTParser.EXPR)::Array{NameDef,1}
-	res = [scrapeName(x) for x in find_heads(e, :call)]
-	# unique the calls
-	names = [getName(x) for x in res]
-	sortperm(names)
+	#if count([_checkArgs(x) for x in find_heads(e, :call)])
+	unique_sorted_names([scrapeName(x.args[1]) for x in find_heads(e, :call)])
 end
 
 # ╔═╡ ca8be250-67c7-11eb-17d2-9f4ba3be11a7
@@ -536,6 +642,11 @@ end
 # ╠═3490ace0-6bc8-11eb-1965-7b3cd7c2e152
 # ╠═5913aa60-689c-11eb-303f-39f989a6bff5
 # ╠═6f917b50-6d3d-11eb-219f-cb4da1f6d74e
+# ╠═76034a60-706f-11eb-18d5-09140e84abaf
+# ╠═72e1e620-706f-11eb-0aa3-03b213873e31
+# ╠═6feff650-706f-11eb-2a74-5b0e8bf2d711
+# ╠═6cd0dc00-706f-11eb-04a6-ab0aa3d1aa20
+# ╠═692c6510-706f-11eb-0b96-6126f4dfc70e
 # ╠═11575bd0-6d93-11eb-0ee5-975ec04823ab
 # ╠═88cf83a0-689c-11eb-31af-5dd802ea42a9
 # ╠═f5055562-6d54-11eb-0e26-afcb4c50d564
@@ -544,6 +655,8 @@ end
 # ╠═c1acf890-5a89-11eb-2b8c-cbde52b367b7
 # ╠═336b4250-5f28-11eb-0ddf-45e25c4347e2
 # ╠═884be410-5e7d-11eb-0fb3-33fe00da9b49
+# ╠═eae76590-7075-11eb-3c6c-bb2c5eec7d50
+# ╠═5eb4c850-7076-11eb-058a-33111d065094
 # ╠═52b64082-5e81-11eb-3192-5b0f4f436d55
 # ╠═d7ff1c50-5e7f-11eb-01c0-452cc44a4b0a
 # ╠═6094a710-670e-11eb-1d30-8f39c55a2e8d
@@ -555,6 +668,9 @@ end
 # ╠═da5dd4b0-6702-11eb-01e7-8b64690b333f
 # ╠═b8806a30-6809-11eb-08cc-fb1ce0deac24
 # ╠═e952d660-6fc6-11eb-3bf0-a706cc57d0a3
+# ╠═825457b0-708c-11eb-18a7-9536214439b8
+# ╠═272e0a80-7077-11eb-2fad-8d8334435308
+# ╠═8acfccc0-7079-11eb-21ab-b97820f1eb43
 # ╠═a216a460-6fc7-11eb-12a0-e1e30840a06c
 # ╠═68aa5292-6805-11eb-3e3e-5591d42758b8
 # ╠═107d91f0-67d2-11eb-07b3-477719ca9a9c

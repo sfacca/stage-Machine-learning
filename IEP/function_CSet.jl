@@ -109,16 +109,13 @@ function folder_to_CSet(path::String)
 	outputs = [
 		x.func.output for x in function_definitions
 			]#::Array{Union{Nothing,NameDef},1}
-	#=
+	
+	
+	
 	# calls are to be obtained from block
-	calls = [
-		find_heads(x, :call) for x in code
-		]#::Array{CSTParser.EXPR,1}
+	calls = [get_calls(x) for x in code]
+	name_ucalls = unique([getName(x) for x in calls])
 	# ordered set of called functions NB: probably need NameDef
-	println("sorting calls...")
-	calls = [sort([x.args[1].val for x in cs]) for cs in calls]
-	println("...sorted calls")
-	=#
 	println("...defining schema...")
 	
 	@present implementationsSchema(FreeSchema) begin
@@ -159,6 +156,7 @@ function folder_to_CSet(path::String)
 	impls = add_parts!(data, :Implementation, N)
 	fs = add_parts!(data, :Function, length(unique(names)))
 	inps = add_parts!(data, :Inputs, length(unique(inputs)))
+	clls = add_parts!(data, :Calls, length(name_ucalls))
 	#clls = add_parts!(data, :Calls, length(unique(calls)))
 	
 	println("#### setting up attrs and homs")
@@ -168,7 +166,7 @@ function folder_to_CSet(path::String)
 	for i in 1:N
 		data[i, :impl_in] = findfirst((x)->(x == inputs[i]), unique(inputs))
 		data[i, :impl_fun] = findfirst((x)->(x == names[i]), unique(names))
-		#data[i, :impl_calls] = findfirst((x)->(x == calls[i]), unique(calls))
+		data[i, :impl_calls] = findfirst((x)->(getName(x) == getName(calls[i])), unique_arrays(calls))
 	end
 	
 	println("impl attr")
@@ -179,7 +177,9 @@ function folder_to_CSet(path::String)
 	
 	println("in attr")
 	data[:, :in_set] = unique(inputs)
+	
 	#data[:, :calls_set] = unique(calls)
+	data[:, :calls_set] = unique_arrays(calls)
 	
 	println("func attr")
 	data[:, :func_name] = unique(names)
@@ -192,6 +192,19 @@ function folder_to_CSet(path::String)
 	println("finished")
 	return parsed_data, data
 end
+
+# ╔═╡ 32713c30-7092-11eb-1b95-a3209b3335fa
+#=function _handle_calls_set(
+		carr::Array{Array{NameDef,1},1}, 
+		narr::Array{Array{String,1},1})::Array{Array{NameDef,1},1}
+	uniques = [sort(unique(x))for x in carr]
+	=#
+
+# ╔═╡ b16d0460-7092-11eb-2384-d9a6c972eb19
+precompile(sort, (Array{NameDef,1},))
+
+# ╔═╡ c67e1560-7092-11eb-1a5c-a1d028db92aa
+precompile(unique, (Array{NameDef,1},))
 
 # ╔═╡ ad93b020-68a2-11eb-1d99-d753edd2fd86
 #=
@@ -333,6 +346,9 @@ end
 # ╠═90e5cff0-6012-11eb-3182-ef1e1f802343
 # ╠═0390d870-6887-11eb-20b8-a5e1c5ea588e
 # ╠═e78580b0-6884-11eb-09c1-718b29dfebb1
+# ╠═32713c30-7092-11eb-1b95-a3209b3335fa
+# ╠═b16d0460-7092-11eb-2384-d9a6c972eb19
+# ╠═c67e1560-7092-11eb-1a5c-a1d028db92aa
 # ╠═ad93b020-68a2-11eb-1d99-d753edd2fd86
 # ╠═357dc2d0-64b3-11eb-374f-351a90dc6d17
 # ╠═669206b0-626f-11eb-3d06-8f6951f50af8

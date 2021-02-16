@@ -28,6 +28,21 @@ function getName(e::NameDef)::String
 	getName(e.name)
 end	
 
+# ╔═╡ a7567990-707c-11eb-35db-11a0c04cf3dc
+function getName(arr::Array{NameDef,1})::Array{String,1}
+	[getName(x.name) for x in arr]
+end
+
+# ╔═╡ 32785c90-709c-11eb-04e5-4518605435bc
+function getName(arr::Array{Array{NameDef,1},1})::Array{Array{String,1},1}
+	[getName(x) for x in arr]
+end
+
+# ╔═╡ d2d34990-707c-11eb-3168-e734a41690fb
+function getName(arr::Array{CSTParser.EXPR,1})::Array{String,1}
+	[getName(x) for x in arr]
+end	
+
 # ╔═╡ 2a158550-6bdd-11eb-0df5-c1730803f3db
 """
 takes an expr that defines a function adress/name, returns NameDef
@@ -197,6 +212,9 @@ end
 # ╠═6b7f3fe2-6886-11eb-3bdf-134b3a0a7c23
 # ╠═4ee76a40-6bdf-11eb-1e2d-6fb34dcd096c
 # ╠═2072373e-6bde-11eb-3ea4-adee2653cedb
+# ╠═a7567990-707c-11eb-35db-11a0c04cf3dc
+# ╠═32785c90-709c-11eb-04e5-4518605435bc
+# ╠═d2d34990-707c-11eb-3168-e734a41690fb
 # ╠═2a158550-6bdd-11eb-0df5-c1730803f3db
 # ╠═4b5c80b0-6bdd-11eb-19ee-c9402337d564
 # ╠═5488fba0-6bdd-11eb-1962-b5fd1da15c93
