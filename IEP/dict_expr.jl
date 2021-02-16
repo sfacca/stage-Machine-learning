@@ -164,6 +164,9 @@ sample_expr.args[3].head
 # ╔═╡ 6f437360-7053-11eb-0c85-c587f2ec6a29
 sample_expr.args[3].val
 
+# ╔═╡ b96802d0-7053-11eb-2362-51652e9bc8d0
+sample_expr.args[4] # la docstring si riferisce all'expr sibling successiva
+
 # ╔═╡ Cell order:
 # ╠═425d8630-7042-11eb-1766-c3cfd5b7bd13
 # ╠═504bcef0-7042-11eb-292f-eb4e9c82b380
@@ -198,3 +201,4 @@ sample_expr.args[3].val
 # ╠═5c8e05a0-7053-11eb-10e5-bd4d75101dfb
 # ╠═7e4268ce-7053-11eb-06ff-2598cada082f
 # ╠═6f437360-7053-11eb-0c85-c587f2ec6a29
+# ╠═b96802d0-7053-11eb-2362-51652e9bc8d0
