@@ -67,6 +67,14 @@ end
 # ╔═╡ c870f210-704d-11eb-3048-7f78817e11b8
 function flattenExpr(e::CSTParser.EXPR)::Array{CSTParser.EXPR}
 	res = [e]
+	if typeof(e.head) == CSTParser.EXPR
+		res = vcat(res, flattenExpr(e.head))
+	end
+	
+	if typeof(e.val) == CSTParser.EXPR
+		res = vcat(res, flattenExpr(e.val))
+	end
+		
 	if _checkArgs(e)
 		for x in e.args
 			res = vcat(res, flattenExpr(x))
@@ -74,6 +82,26 @@ function flattenExpr(e::CSTParser.EXPR)::Array{CSTParser.EXPR}
 	end
 	res
 end
+
+# ╔═╡ 2666b3f0-7058-11eb-02aa-6f82116fcd51
+"""
+makes a Dict(Symbol, CSTParser.EXPR)
+where dict[symbol] = expr where expr.head = symbol
+"""
+function make_head_expr_dict(arr::Array{CSTParser.EXPR,1})
+	dic = Dict()
+	flat = unique(flattenExpr(arr))	
+	for j in 1:length(flat)
+		if typeof(flat[j].head) == Symbol
+			dic[flat[j].head] = flat[j]
+		end
+	end
+	dic	
+end
+
+
+# ╔═╡ 61d1bb60-7058-11eb-2d59-39b884d97d6f
+make_head_expr_dict(expr_only)
 
 # ╔═╡ bb3bcde0-7052-11eb-13dc-19388cb48181
 function make_dict(arr::Array{CSTParser.EXPR,1})
@@ -185,6 +213,8 @@ sample_expr.args[4] # la docstring si riferisce all'expr sibling successiva
 # ╠═7cbb8ca0-7051-11eb-1882-617de42a71bc
 # ╠═eb488640-7052-11eb-0504-6b0e161c9598
 # ╠═4b46e730-704e-11eb-1044-f9d8ba5b769c
+# ╠═2666b3f0-7058-11eb-02aa-6f82116fcd51
+# ╠═61d1bb60-7058-11eb-2d59-39b884d97d6f
 # ╠═bb3bcde0-7052-11eb-13dc-19388cb48181
 # ╠═b0bf0200-704e-11eb-167d-e798205a7f64
 # ╠═c870f210-704d-11eb-3048-7f78817e11b8
