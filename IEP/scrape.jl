@@ -364,7 +364,17 @@ gets calls from input expression as array of NameDefs
 """
 function get_calls(e::CSTParser.EXPR)::Array{NameDef,1}
 	#if count([_checkArgs(x) for x in find_heads(e, :call)])
-	unique_sorted_names([scrapeName(x.args[1]) for x in find_heads(e, :call)])
+	if e.head == :function
+		tmp = find_heads(e, :call)
+		if length(tmp)>1
+			tmp = tmp[2:end]
+			return unique_sorted_names([scrapeName(x.args[1]) for x in tmp])
+		else
+			return Array{NameDef,1}(undef, 0)
+		end
+	else
+		unique_sorted_names([scrapeName(x.args[1]) for x in find_heads(e, :call)])
+	end
 end
 
 # ╔═╡ ca8be250-67c7-11eb-17d2-9f4ba3be11a7

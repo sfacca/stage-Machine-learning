@@ -53,28 +53,135 @@ using Catlab.CategoricalAlgebra, DataFrames
 	inps = add_parts!(data, :Inputs, length(unique(inputs)))
 =#
 
+# ╔═╡ 0f9bad22-7138-11eb-3de4-6b0e5fe27a2a
+#=
+CSTParser.EXPR,#code, 
+Array{NameDef,1},#setInp, 
+Array{CSTParser.EXPR,1},# setExpr, 
+Array{NameDef,1},# setCalls, 
+String,# docs, 
+NameDef,# name, 
+Union{String,Nothing}# source
+
+impl_in::Hom(Implementation, Inputs) data[:impl_in]::Array{Int,1}
+impl_fun::Hom(Implementation, Function) data[:impl_fun]::Array{Int,1}
+impl_calls::Hom(Implementation, Calls) data[:impl_calls]::Array{Int,1}
+
+impl_expr::Attr(Implementation, setExpr) -> data[:, :impl_expr]::Array{}
+impl_code::Attr(Implementation, code) -> data[:, :impl_code]::Array{CSTParser.EXPR,1}
+impl_docs::Attr(Implementation, docs)
+
+in_set::Attr(Inputs, setInp) -> data[:,:in_set]::Array{Array{NameDef,1},1}
+calls_set::Attr(Calls, setCalls) -> data[:,:calls_set]::Array{Array{NameDef,1},1}
+func_name::Attr(Function, name) -> data[:,:func_name]::Array{String,1}
+
+=#
+
+# ╔═╡ efcc454e-7131-11eb-121c-134289da23a6
+
+
+# ╔═╡ ff222e00-7129-11eb-180d-459ce87fde42
+"""
+function returns array of every array of namedefs, without repetitions
+"""
+function join_namedefs(
+		data1,
+		data2
+	)::Array{Array{NameDef,1},1}
+	
+	unique_arrays(vcat(data1, data2))
+end	
+
 # ╔═╡ 0788c630-6f90-11eb-3556-95b86f0e85f5
 function join_data!(data1, data2)
 	#=result1 = folder_to_CSet(string(Pkg.dir("CSTParser"),"/src"));
 	result2 = folder_to_CSet(string(Pkg.dir("Catlab"),"/src"));
 	data1 = result1[2];
 	data2 = result2[2];=#
+	#handle implementations
+	println("handle implementations")
 	n_impls = add_parts!(data1, :Implementation, length(data2[:,:impl_in]))
-	n_funcs = add_parts!(data1, :Function, length(data2[:,:func_name]))
-	n_inps = add_parts!(data1, :Inputs, length(data2[:,:in_set]))
 	data1[n_impls, :impl_code] = data2[:, :impl_code]
-	data1[n_funcs, :func_name] = data2[:, :func_name]
-	data1[n_inps, :in_set] = data2[:, :in_set]	
 	data1[n_impls, :impl_expr] = data2[:, :impl_expr]
 	data1[n_impls, :impl_docs] = data2[:, :impl_docs]
-	# n_impls[1], n_funcs[1], n_inps[1]
-	#homs are a bit complicated
-	data1[n_impls, :impl_in] = data2[:, :impl_in]
-	data1[n_impls, :impl_fun] = data2[:, :impl_fun]
-	for i in n_impls
-		data1[i, :impl_in]+= n_inps[1]-1
-		data1[i, :impl_fun]+= n_funcs[1]-1
+	
+	#handle inputs
+	println("handle inputs")
+	tmp_inp = join_namedefs(data1[:,:in_set], data2[:,:in_set])
+	n_inps = add_parts!(
+		data1, 
+		:Inputs, 
+		length(tmp_inp)-length(data2[:,:in_set])
+	)
+	#link implementations with inputs
+	println("link implementations with inputs")
+	for i in 1:(length(data1[:,:impl_in]))
+		if i < n_impls[1] #if it's from data1
+			data1[i,:impl_in] = findfirst(
+				(x)->(x == data1[data1[i,:impl_in], :in_set]), 
+				tmp_inp
+			)
+		else #if it's from data2
+			data1[i,:impl_in] = findfirst(
+				(x)->(x == data2[data2[i-n_impls[1]+1,:impl_in], :in_set]), 
+				tmp_inp
+			)
+		end
 	end
+	data1[:,:in_set] = tmp_inp
+	tmp_inp = nothing
+	
+	#handle funcs
+	println("handle funcs")
+	tmp_func = unique(vcat(data1[:,:func_name], data2[:,:func_name]))
+	n_funcs = add_parts!(
+		data1, 
+		:Function, 
+		length(tmp_func) - length(data2[:,:func_name])
+	)
+	#link implementations with funcs
+	println("link implementations with funcs")
+	for i in 1:(length(data1[:,:impl_fun]))
+		if i < n_impls[1]
+			data1[i,:impl_fun] = findfirst(
+				(x)->(x == data1[data1[i,:impl_fun],:func_name]),
+				tmp_func
+			)
+		else
+			data1[i,:impl_fun] = findfirst(
+				(x)->(x == data2[data2[i-n_impls[1]+1,:impl_fun],:func_name]),
+				tmp_func			
+			)
+		end
+	end
+	data1[:,:func_name] = tmp_func
+		
+	#handle calls
+	println("handle calls")
+	tmp_calls = join_namedefs(data1[:,:in_set], data2[:,:in_set])
+	n_calls = add_parts!(
+		data1,
+		:Calls,
+		length(tmp_calls) - length(data1[:,:in_set])	
+	)	
+	#link implementations with calls
+	println("link implementations with calls")
+	for i in 1:(length(data1[:, :impl_calls]))
+		if i < n_impls[1]
+			data1[i,:impl_calls] = findfirst(
+				(x)->(x == data1[data1[i,:impl_calls],:calls_set]),
+				tmp_calls
+			)
+		else
+			data1[i,:impl_calls] = findfirst(
+				(x)->(x == data2[data2[i-n_impls[1]+1,:impl_calls],:calls_set]),
+				tmp_calls			
+			)
+		end
+	end
+	data1[:,:calls_set] = tmp_calls
+	
+	data1	
 end
 
 # ╔═╡ ee89a590-6fa4-11eb-1dff-65a6f1098dc7
@@ -83,22 +190,7 @@ function add_module!(data1, mod::String)
 	result2 = folder_to_CSet(string(Pkg.dir(mod),"/src"))
 	#data1 = result1[2];
 	data2 = result2[2]
-	n_impls = add_parts!(data1, :Implementation, length(data2[:,:impl_in]))
-	n_funcs = add_parts!(data1, :Function, length(data2[:,:func_name]))
-	n_inps = add_parts!(data1, :Inputs, length(data2[:,:in_set]))
-	data1[n_impls, :impl_code] = data2[:, :impl_code]
-	data1[n_funcs, :func_name] = data2[:, :func_name]
-	data1[n_inps, :in_set] = data2[:, :in_set]	
-	data1[n_impls, :impl_expr] = data2[:, :impl_expr]
-	data1[n_impls, :impl_docs] = data2[:, :impl_docs]
-	# n_impls[1], n_funcs[1], n_inps[1]
-	#homs are a bit complicated
-	data1[n_impls, :impl_in] = data2[:, :impl_in]
-	data1[n_impls, :impl_fun] = data2[:, :impl_fun]
-	for i in n_impls
-		data1[i, :impl_in]+= n_inps[1]-1
-		data1[i, :impl_fun]+= n_funcs[1]-1
-	end
+	join_data!(data1, data2)
 end
 
 # ╔═╡ 236d9cb0-6eee-11eb-2c36-9fba3d685a8a
@@ -129,8 +221,11 @@ end=#
 # ╠═718b3da0-6eec-11eb-33f4-b5eae63a17fa
 # ╠═3674fb00-6eee-11eb-145a-69f58cb398cc
 # ╠═c1564bf0-6fa4-11eb-25f4-7b733748886b
+# ╠═0f9bad22-7138-11eb-3de4-6b0e5fe27a2a
 # ╠═0788c630-6f90-11eb-3556-95b86f0e85f5
 # ╠═ee89a590-6fa4-11eb-1dff-65a6f1098dc7
+# ╠═efcc454e-7131-11eb-121c-134289da23a6
+# ╠═ff222e00-7129-11eb-180d-459ce87fde42
 # ╠═236d9cb0-6eee-11eb-2c36-9fba3d685a8a
 # ╠═bef1d0a2-6d97-11eb-3f57-a7eba5d095a5
 # ╠═6f5e87b0-6eee-11eb-2233-2fd90d7f6584

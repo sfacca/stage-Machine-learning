@@ -39,6 +39,9 @@ end
 # ╔═╡ db4a5c70-6d35-11eb-2984-4168ec2658d1
 result[2]
 
+# ╔═╡ 77a4b130-7126-11eb-0c66-e554a1d1c926
+result[1]
+
 # ╔═╡ Cell order:
 # ╠═a059efc0-6580-11eb-2954-8fee0da0a55c
 # ╠═cd236400-6580-11eb-3a95-edcebf7fce8d
@@ -50,3 +53,4 @@ result[2]
 # ╠═20b850c0-6898-11eb-1640-c5b7949a97fe
 # ╠═ceee5b90-6897-11eb-0ebe-67354802cfa2
 # ╠═db4a5c70-6d35-11eb-2984-4168ec2658d1
+# ╠═77a4b130-7126-11eb-0c66-e554a1d1c926

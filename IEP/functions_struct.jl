@@ -186,6 +186,27 @@ function getInputs(fd::FuncDef)::Array{InputDef,1}
 	fd.inputs
 end
 
+# ╔═╡ 6f878690-712a-11eb-267c-195237396cd0
+function isequal(x::NameDef, y::NameDef)
+	getName(x)==getName(y)
+end
+
+# ╔═╡ 86bde890-712a-11eb-1730-8bd98af43031
+function isequal(x::Array{NameDef,1}, y::Array{NameDef,1})
+	if length(x)==length(y)
+		res = true
+		for i in 1:length(x)
+			if isequal(x[i], y[i])
+			else
+				res = false
+			end
+		end
+	else
+		res = false
+	end
+	res
+end
+
 # ╔═╡ 47ba9c80-6895-11eb-128c-ff9a08a82bf1
 function Base.isless(a::NameDef, b::NameDef)
 	isless(getName(a), getName(b))
@@ -220,6 +241,8 @@ end
 # ╠═5488fba0-6bdd-11eb-1962-b5fd1da15c93
 # ╠═6e995122-6886-11eb-0b2c-61c9bcd6e120
 # ╠═81635852-6886-11eb-2c6f-87508e2fb483
+# ╠═6f878690-712a-11eb-267c-195237396cd0
+# ╠═86bde890-712a-11eb-1730-8bd98af43031
 # ╠═47ba9c80-6895-11eb-128c-ff9a08a82bf1
 # ╠═ada660b0-6895-11eb-1263-09c7b8b73fbd
 # ╠═cf41e280-6886-11eb-1a27-39d38b8bcb76
