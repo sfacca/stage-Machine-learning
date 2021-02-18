@@ -106,17 +106,6 @@ function get_calls(e::CSTParser.EXPR)::Array{NameDef,1}
 	[NameDef(x.args[1]) for x in find_heads(e, :call)]
 end=#
 
-# ╔═╡ 5eb4c850-7076-11eb-058a-33111d065094
-test = CSTParser.parse("function foo(x)
-	read_code(x)
-	
-	CSTParser.parse(x)
-	
-	string(x)
-	
-	make_dict(x)
-end")
-
 # ╔═╡ 52b64082-5e81-11eb-3192-5b0f4f436d55
 function find_heads(arr::Array{CSTParser.EXPR,1}, head::Symbol)
 	res = []
@@ -202,32 +191,6 @@ end
 
 # ╔═╡ 825457b0-708c-11eb-18a7-9536214439b8
 
-
-# ╔═╡ 272e0a80-7077-11eb-2fad-8d8334435308
-"""
-returns array of namedefs sorted and unique by getName result
-"""
-function unique_sorted_names(arr::Array{NameDef,1})::Array{NameDef,1}
-	names = [getName(x) for x in arr]
-	unames = unique(sort(names))
-	res = Array{NameDef,1}(undef, length(unames))
-	for i in 1:length(res)
-		res[i] = arr[findfirst((x)->(x==unames[i]),names)]
-	end
-	res
-end
-
-# ╔═╡ 8acfccc0-7079-11eb-21ab-b97820f1eb43
-function unique_arrays(arr::Array{Array{NameDef,1}})::Array{Array{NameDef,1}}
-	#1 turn every array into an array of getnames
-	names = getName(arr)
-	unames = unique(names)
-	res = Array{Array{NameDef,1},1}(undef,length(unames))
-	for i in 1:length(res)
-		res[i] = arr[findfirst((x)->(x==unames[i]),names)]
-	end
-	res
-end
 
 # ╔═╡ a216a460-6fc7-11eb-12a0-e1e30840a06c
 function uniqueidx(x::AbstractArray{T}) where T
@@ -349,6 +312,51 @@ function make_dict(arr::Array{CSTParser.EXPR,1})
 	dic
 end
 
+# ╔═╡ 8acfccc0-7079-11eb-21ab-b97820f1eb43
+function getName(e::CSTParser.EXPR)::String
+	# is this a module.name pattern?	
+	if isDotOP(e)
+		#println(e)
+		res = string(getName(e.args[1]),".",getName(e.args[2]))	
+	elseif e.head == :call
+		res = string([x.val for x in flattenExpr(e)])
+	else
+		if e.head == :quotenode
+			res = e.args[1].val
+		else
+			res = e.val
+		end
+	end
+
+	isnothing(res) ? "" : res
+end	
+
+# ╔═╡ 272e0a80-7077-11eb-2fad-8d8334435308
+"""
+returns array of namedefs sorted and unique by getName result
+"""
+function unique_sorted_names(arr::Array{NameDef,1})::Array{NameDef,1}
+	names = [getName(x) for x in arr]
+	unames = unique(sort(names))
+	res = Array{NameDef,1}(undef, length(unames))
+	for i in 1:length(res)
+		res[i] = arr[findfirst((x)->(x==unames[i]),names)]
+	end
+	res
+end
+
+# ╔═╡ 52857610-7215-11eb-0d11-79a3d56e7f90
+function unique_arrays(arr::Array{Array{NameDef,1}})::Array{Array{NameDef,1}}
+	#1 turn every array into an array of getnames
+	names = getName(arr)
+	unames = unique(names)
+	res = Array{Array{NameDef,1},1}(undef,length(unames))
+	for i in 1:length(res)
+		res[i] = arr[findfirst((x)->(x==unames[i]),names)]
+	end
+	res
+end
+
 # ╔═╡ 1919b3a0-6bcb-11eb-3473-991e753c1f31
 """
 takes an expr that defines a function adress/name, returns NameDef
@@ -429,7 +437,7 @@ function scrapeInputs(e::CSTParser.EXPR)::Array{InputDef,1}
 				catch err
 					println("error!")
 					println(err)
-					println(e.args)
+					#println(e.args)
 				end
 			else
 				arr[i] = InputDef(
@@ -666,7 +674,6 @@ end
 # ╠═336b4250-5f28-11eb-0ddf-45e25c4347e2
 # ╠═884be410-5e7d-11eb-0fb3-33fe00da9b49
 # ╠═eae76590-7075-11eb-3c6c-bb2c5eec7d50
-# ╠═5eb4c850-7076-11eb-058a-33111d065094
 # ╠═52b64082-5e81-11eb-3192-5b0f4f436d55
 # ╠═d7ff1c50-5e7f-11eb-01c0-452cc44a4b0a
 # ╠═6094a710-670e-11eb-1d30-8f39c55a2e8d
@@ -680,6 +687,7 @@ end
 # ╠═e952d660-6fc6-11eb-3bf0-a706cc57d0a3
 # ╠═825457b0-708c-11eb-18a7-9536214439b8
 # ╠═272e0a80-7077-11eb-2fad-8d8334435308
+# ╠═52857610-7215-11eb-0d11-79a3d56e7f90
 # ╠═8acfccc0-7079-11eb-21ab-b97820f1eb43
 # ╠═a216a460-6fc7-11eb-12a0-e1e30840a06c
 # ╠═68aa5292-6805-11eb-3e3e-5591d42758b8

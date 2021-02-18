@@ -79,8 +79,10 @@ end
 function getName(e::CSTParser.EXPR)::String
 	# is this a module.name pattern?	
 	if isDotOP(e)
-		println(e)
-		res = string(getName(e.args[1]),".",getName(e.args[2]))
+		#println(e)
+		res = string(getName(e.args[1]),".",getName(e.args[2]))	
+	elseif e.head == :call
+		res = string([x.val for x in flattenExpr(e)])
 	else
 		if e.head == :quotenode
 			res = e.args[1].val
@@ -90,7 +92,7 @@ function getName(e::CSTParser.EXPR)::String
 	end
 
 	isnothing(res) ? "" : res
-end		
+end	
 
 # ╔═╡ 6b7f3fe2-6886-11eb-3bdf-134b3a0a7c23
 function OLDgetName(nd::NameDef)

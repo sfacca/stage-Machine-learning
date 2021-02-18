@@ -22,6 +22,9 @@ include("scrape.jl")
 # ╔═╡ f0743ec0-6012-11eb-154a-e9a8eff08ce7
 include("parse_folder.jl")
 
+# ╔═╡ 96b03242-7228-11eb-24a3-d1ff8a46c7e7
+include("functions_struct.jl")
+
 # ╔═╡ f4d99180-600e-11eb-3053-2f2814838927
 Pkg.activate(".")
 
@@ -59,10 +62,8 @@ struct InputDef
 end
 =#
 
-# ╔═╡ e78580b0-6884-11eb-09c1-718b29dfebb1
-function folder_to_CSet(path::String)
-	println("##### parsing folder #####")
-	raw = read_code(path)
+# ╔═╡ ad7005de-7242-11eb-248e-33498f3040d5
+function _make_CSet(raw)
 	println("##### scraping parse #####")
 	function_definitions = scrape(raw)
 	# every element of the function definitions array is a
@@ -99,6 +100,10 @@ function folder_to_CSet(path::String)
 		tmp[i] = [x.type for x in inputs[i]]
 	end
 	inputs = tmp
+	uinputs = unique_arrays(inputs)
+	#println(length(unique_arrays(inputs)))
+	unique_inputs = [sort(getName(x)) for x in unique_arrays(inputs)]
+	#println(length(unique_inputs))
 	# sort inputs
 	println("about to sort inputs...")
 	inputs = [sort(x) for x in inputs]
@@ -117,7 +122,7 @@ function folder_to_CSet(path::String)
 	
 	# calls are to be obtained from block
 	calls = [get_calls(x) for x in code]
-	name_ucalls = unique([getName(x) for x in calls])
+	name_ucalls = [sort(getName(x)) for x in unique_arrays(calls)]
 	# ordered set of called functions NB: probably need NameDef
 	println("...defining schema...")
 	
@@ -158,18 +163,37 @@ function folder_to_CSet(path::String)
 	println("#### initializing ####")
 	impls = add_parts!(data, :Implementation, N)
 	fs = add_parts!(data, :Function, length(unique(names)))
-	inps = add_parts!(data, :Inputs, length(unique(inputs)))
+	inps = add_parts!(data, :Inputs, length(unique_inputs))
 	clls = add_parts!(data, :Calls, length(name_ucalls))
 	#clls = add_parts!(data, :Calls, length(unique(calls)))
 	
 	println("#### setting up attrs and homs")
+	
+	uniqued_calls = unique_arrays(calls)
 		
 	println("impl homs")
 	# impl homs
 	for i in 1:N
-		data[i, :impl_in] = findfirst((x)->(x == inputs[i]), unique(inputs))
+		
+		#println("impl fun")
 		data[i, :impl_fun] = findfirst((x)->(x == names[i]), unique(names))
-		data[i, :impl_calls] = findfirst((x)->(getName(x) == getName(calls[i])), unique_arrays(calls))
+		#println("impl calls")
+		data[i, :impl_calls] = findfirst(
+			(x)->(x == sort(getName(calls[i]))), 
+			name_ucalls
+		)
+		#println("impl in")
+		indx = findfirst(
+				(x)->(x == sort(getName(inputs[i]))),
+				unique_inputs
+			)
+		if isnothing(indx)
+			#println("asd")
+			indx = 0
+		end
+		#println(indx)
+		data[i, :impl_in] = indx
+		#println("xxx")
 	end
 	
 	println("impl attr")
@@ -179,7 +203,7 @@ function folder_to_CSet(path::String)
 	data[:, :impl_docs] = docs
 	
 	println("in attr")
-	data[:, :in_set] = unique(inputs)
+	data[:, :in_set] = uinputs
 	
 	#data[:, :calls_set] = unique(calls)
 	data[:, :calls_set] = unique_arrays(calls)
@@ -196,18 +220,34 @@ function folder_to_CSet(path::String)
 	return parsed_data, data
 end
 
+# ╔═╡ e78580b0-6884-11eb-09c1-718b29dfebb1
+function folder_to_CSet(path::String)
+	println("##### parsing folder #####")
+	raw = read_code(path)
+	_make_CSet(raw)
+end
+
+# ╔═╡ d75e94c0-7242-11eb-1fbf-713b09915b74
+function folder_to_CSet(paths::Array{String,1})
+	println("##### parsing folders #####")
+	
+	raw = []
+	for path in paths
+		try
+			raw = vcat(raw, read_code(path))
+		catch err
+			println(err)
+		end
+	end
+	_make_CSet(raw)
+end
+
 # ╔═╡ 32713c30-7092-11eb-1b95-a3209b3335fa
 #=function _handle_calls_set(
 		carr::Array{Array{NameDef,1},1}, 
 		narr::Array{Array{String,1},1})::Array{Array{NameDef,1},1}
 	uniques = [sort(unique(x))for x in carr]
 	=#
-
-# ╔═╡ b16d0460-7092-11eb-2384-d9a6c972eb19
-precompile(sort, (Array{NameDef,1},))
-
-# ╔═╡ c67e1560-7092-11eb-1a5c-a1d028db92aa
-precompile(unique, (Array{NameDef,1},))
 
 # ╔═╡ ad93b020-68a2-11eb-1d99-d753edd2fd86
 #=
@@ -345,14 +385,15 @@ end
 # ╠═f4d99180-600e-11eb-3053-2f2814838927
 # ╠═b9cf6ec0-600e-11eb-25d0-93643031c456
 # ╠═f0743ec0-6012-11eb-154a-e9a8eff08ce7
+# ╠═96b03242-7228-11eb-24a3-d1ff8a46c7e7
 # ╠═689162b0-7121-11eb-2fb1-3b6edaf4d7a3
 # ╠═6a976fde-624f-11eb-0219-776399a2f5fc
 # ╠═90e5cff0-6012-11eb-3182-ef1e1f802343
 # ╠═0390d870-6887-11eb-20b8-a5e1c5ea588e
+# ╠═ad7005de-7242-11eb-248e-33498f3040d5
 # ╠═e78580b0-6884-11eb-09c1-718b29dfebb1
+# ╠═d75e94c0-7242-11eb-1fbf-713b09915b74
 # ╠═32713c30-7092-11eb-1b95-a3209b3335fa
-# ╠═b16d0460-7092-11eb-2384-d9a6c972eb19
-# ╠═c67e1560-7092-11eb-1a5c-a1d028db92aa
 # ╠═ad93b020-68a2-11eb-1d99-d753edd2fd86
 # ╠═357dc2d0-64b3-11eb-374f-351a90dc6d17
 # ╠═669206b0-626f-11eb-3d06-8f6951f50af8
