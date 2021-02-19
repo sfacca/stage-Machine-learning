@@ -1,1 +1,0 @@
-"#= none:2 =# Core.@doc ""using\n"" using Rmath"	./sample\another_function
