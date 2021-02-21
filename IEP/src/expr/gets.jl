@@ -166,16 +166,6 @@ function flatten_EXPR(arr::Array{CSTParser.EXPR, 1})
 	res
 end	
 
-"""
-finds both :IDENTIFIER and OP: . of :IDENTIFIER
-returns id name or compound name.name
-"""
-function find_identifier(e::CSTParser.EXPR, i::Int=1)
-	#1 sanity checks
-	if isnothing(e.args) || isempty(e.args)
-		
-	end
-end
 
 """
 gets calls from input expression as array of NameDefs

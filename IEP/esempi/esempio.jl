@@ -4,64 +4,52 @@
 using Markdown
 using InteractiveUtils
 
-# ╔═╡ bc87e3b0-6d22-11eb-375b-617c1c375160
-using Pkg
+# ╔═╡ 319bddbe-7456-11eb-2144-c121a33a3e86
+using Pkg, Match
 
-# ╔═╡ 5ce1f540-6d22-11eb-24eb-6939b8a0be0f
-include("function_CSet.jl")
+# ╔═╡ 571c3d10-7456-11eb-33e6-19c8bffd1ab8
+using Catlab.WiringDiagrams
 
-# ╔═╡ 83ec4ff0-6d22-11eb-383f-a37b90595ddf
-#1 parse del sourcecode
-parsed = read_code(string(Pkg.dir("Tokenize"),"/src"));
+# ╔═╡ 442c1040-7456-11eb-199c-05e99f63c5ff
+include("../src/IEP.jl")
 
-# ╔═╡ d1f7dd8e-6d22-11eb-3bb0-ab08f6ad17d1
-#2 estrazione funzioni
-scraped = scrape(parsed);
+# ╔═╡ 4008a550-7456-11eb-09e7-b762445a40f7
+Pkg.activate(".")
 
-# ╔═╡ 7742c6c0-6d23-11eb-1b36-0766b0b5b862
-# prendiamo una funzione per vedere cosa abbiam ottenuto
-sample = scraped[1]
+# ╔═╡ c23e17e0-745a-11eb-1b99-afce0091b49e
+raw = IEP.read_code(string(Pkg.dir("Catlab"),"/src"));
 
-# ╔═╡ e13c7212-6d23-11eb-1c6f-419d698d2970
-sample.docs# docstring o nthing
+# ╔═╡ edd65f20-745a-11eb-0b5e-51dac44fe736
+scr = IEP.scrape(raw)
 
-# ╔═╡ e74cdff0-6d23-11eb-3167-5739d2b97a3f
-sample.source# path a file source code
+# ╔═╡ 13570c90-745b-11eb-277e-3ddc61691544
+cset = IEP.folder_to_CSet(string(Pkg.dir("Catlab"),"/src"))[2];
 
-# ╔═╡ f5a7a620-6d23-11eb-28e0-5b16995cddd6
-func = sample.func #info su implementazione
+# ╔═╡ c446ce40-745c-11eb-36a6-db6b9c1ec49b
+cset[:,:func_name]
 
-# ╔═╡ 03e4d230-6d24-11eb-1320-df2ac162ad20
-func.name #nome funzioone
+# ╔═╡ 550893c0-7460-11eb-3f40-9b83c494e433
+length(cset[:,:impl_in])# numero di implementazioni di funzioni
 
-# ╔═╡ 0de7aff0-6d24-11eb-2a16-597df6964af1
-func.inputs  # nomi/tipi input
+# ╔═╡ 5c9c6d50-7460-11eb-3507-9d6cb2fe12c7
+length(cset[:,:in_set])# numero di set di input diversi
 
-# ╔═╡ 1b77fa30-6d24-11eb-32b7-97fce6e90e31
-func.block # parse intero della funzione
+# ╔═╡ 6bdd26b0-7460-11eb-04eb-956b3178890e
+length(cset[:,:func_name])# numero di noimi funzione diversi
 
-# ╔═╡ 2a6da0d2-6d24-11eb-361d-4b8cb777a314
-#possiamo trovare le call
-find_heads(func.block, :call)
-
-# ╔═╡ 3c70d590-6d24-11eb-0dc8-796459a9d003
-func.output # output
-
-# ╔═╡ ae9abc50-6d36-11eb-003e-9fbfb1cc5d7c
-
+# ╔═╡ 722630c0-7460-11eb-0076-d54f8a6a6df4
+length(cset[:,:calls_set])# numero di set di calls diverse
 
 # ╔═╡ Cell order:
-# ╠═5ce1f540-6d22-11eb-24eb-6939b8a0be0f
-# ╠═bc87e3b0-6d22-11eb-375b-617c1c375160
-# ╠═83ec4ff0-6d22-11eb-383f-a37b90595ddf
-# ╠═d1f7dd8e-6d22-11eb-3bb0-ab08f6ad17d1
-# ╠═7742c6c0-6d23-11eb-1b36-0766b0b5b862
-# ╠═e13c7212-6d23-11eb-1c6f-419d698d2970
-# ╠═e74cdff0-6d23-11eb-3167-5739d2b97a3f
-# ╠═f5a7a620-6d23-11eb-28e0-5b16995cddd6
-# ╠═03e4d230-6d24-11eb-1320-df2ac162ad20
-# ╠═0de7aff0-6d24-11eb-2a16-597df6964af1
-# ╠═1b77fa30-6d24-11eb-32b7-97fce6e90e31
-# ╠═2a6da0d2-6d24-11eb-361d-4b8cb777a314
-# ╠═3c70d590-6d24-11eb-0dc8-796459a9d003
-# ╠═ae9abc50-6d36-11eb-003e-9fbfb1cc5d7c
+# ╠═319bddbe-7456-11eb-2144-c121a33a3e86
+# ╠═571c3d10-7456-11eb-33e6-19c8bffd1ab8
+# ╠═4008a550-7456-11eb-09e7-b762445a40f7
+# ╠═442c1040-7456-11eb-199c-05e99f63c5ff
+# ╠═c23e17e0-745a-11eb-1b99-afce0091b49e
+# ╠═edd65f20-745a-11eb-0b5e-51dac44fe736
+# ╠═13570c90-745b-11eb-277e-3ddc61691544
+# ╠═c446ce40-745c-11eb-36a6-db6b9c1ec49b
+# ╠═550893c0-7460-11eb-3f40-9b83c494e433
+# ╠═5c9c6d50-7460-11eb-3507-9d6cb2fe12c7
+# ╠═6bdd26b0-7460-11eb-04eb-956b3178890e
+# ╠═722630c0-7460-11eb-0076-d54f8a6a6df4

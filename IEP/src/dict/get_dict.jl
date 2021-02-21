@@ -1,4 +1,4 @@
-using Pkg, Catlab, JLD2, FileIO, CSTParser
+#using Pkg, Catlab, JLD2, FileIO, CSTParser
 
 #include("functions_struct.jl")
 #include("function_CSet.jl")
@@ -56,37 +56,3 @@ function make_dict(arr::Array{CSTParser.EXPR,1})
 	end
 	dic
 end
-
-function flattenExpr(arr::Array{CSTParser.EXPR,1})::Array{CSTParser.EXPR}
-	res = []
-	for e in arr
-		res = vcat(res, flattenExpr(e))
-	end
-	res
-end
-
-function flattenExpr(e::CSTParser.EXPR)::Array{CSTParser.EXPR}
-	res = [e]
-	if typeof(e.head) == CSTParser.EXPR
-		res = vcat(res, flattenExpr(e.head))
-	end
-	
-	if typeof(e.val) == CSTParser.EXPR
-		res = vcat(res, flattenExpr(e.val))
-	end
-		
-	if _checkArgs(e)
-		for x in e.args
-			res = vcat(res, flattenExpr(x))
-		end
-	end
-	res
-end
-
-function get_all_heads(e::Array{CSTParser.EXPR,1})
-	[x.head for x in e]
-end	
-
-function get_all_vals(e::Array{CSTParser.EXPR,1})
-	[x.val for x in e]
-end	

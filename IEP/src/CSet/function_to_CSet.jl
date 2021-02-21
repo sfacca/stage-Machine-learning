@@ -51,6 +51,7 @@ function _make_CSet(raw)
 	# name is in container.funcdef.name
 	println("scrape names")
 	names = [x.func.name for x  in function_definitions]#::Array{NameDef,1}
+	unames = unique([getName(x) for x in names])
 	
 	# inputs are in container.funcdef.inputs
 	println("scrape inputs")
@@ -116,16 +117,16 @@ function _make_CSet(raw)
 		Array{CSTParser.EXPR,1},# setExpr, 
 		Array{NameDef,1},# setCalls, 
 		String,# docs, 
-		NameDef,# name, 
+		String,# name, 
 		Union{String,Nothing}# source
 	}()
 	
 	fun_names = unique(names)
 	# (Function, Implementation, Inputs, Calls)::Ob
-	# (code, setInp, setExpr, setCalls, docs, name, source)::Data
+	# (code, setInp, setExpr, setCalls, docs, name, source)::Data# names
 	println("#### initializing ####")
 	impls = add_parts!(data, :Implementation, N)
-	fs = add_parts!(data, :Function, length(unique(names)))
+	fs = add_parts!(data, :Function, length(unames))
 	inps = add_parts!(data, :Inputs, length(unique_inputs))
 	clls = add_parts!(data, :Calls, length(name_ucalls))
 	#clls = add_parts!(data, :Calls, length(unique(calls)))
@@ -139,7 +140,7 @@ function _make_CSet(raw)
 	for i in 1:N
 		
 		#println("impl fun")
-		data[i, :impl_fun] = findfirst((x)->(x == names[i]), unique(names))
+		data[i, :impl_fun] = findfirst((x)->(x == getName(names[i])), unames)
 		#println("impl calls")
 		data[i, :impl_calls] = findfirst(
 			(x)->(x == sort(getName(calls[i]))), 
@@ -172,7 +173,7 @@ function _make_CSet(raw)
 	data[:, :calls_set] = unique_arrays(calls)
 	
 	println("func attr")
-	data[:, :func_name] = unique(names)
+	data[:, :func_name] = unames
 	#=
 	PRECOMP/TYPE INFERENCE GOES HERE
 	1. send :data to function
@@ -211,6 +212,17 @@ function _get_types_from_inputs(arr::Array{Array{T,1} where T,1})
 	end
 	res
 end
+
+#=
+function _handleFuncNames(arr::Array{NameDef,1})::Array{NameDef,1}
+	unames = unique([getName(x) for x in arr])
+	res = Array{NameDef,1}(undef,length(unames))
+	for i in 1:length(res)
+		res[i] = arr[findfirst((x)->(getName(x) == unames[i]),arr)]
+	end
+	res
+end
+=#
 
 #=
 BenchmarkTools.Trial: 
