@@ -1,7 +1,12 @@
 #using Pkg, DelimitedFiles, CSTParser
 
 #include("./parse.jl")
-
+"""
+explores folder tree of dir, parses all .jl code found
+* dir: base path
+* maxlen = 500: files bigger than maxlen are ignored
+* file_type = "jl": file extension in which to find code to parse
+"""
 function read_code(dir, maxlen=500, file_type="jl", verbose=false)
     comments = r"\#.*\n"
     docstring = r"\"{3}.*?\"{3}"s

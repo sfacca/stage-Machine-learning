@@ -5,6 +5,9 @@
 #include("parse_folder.jl")
 #include("functions_struct.jl")
 
+"""
+takes path to a folder, returns CSet made with all .jl code taken from path folder and subfolders
+"""
 function folder_to_CSet(path::String)
 	println("##### parsing folder #####")
 	raw = read_code(path)

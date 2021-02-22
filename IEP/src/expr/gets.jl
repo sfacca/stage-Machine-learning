@@ -24,6 +24,9 @@ function isOP(e::CSTParser.EXPR, op::String)
 	end
 end
 
+"""
+flattens the input EXPR tree into a single EXPRT array
+"""
 function flattenExpr(arr::Array{CSTParser.EXPR,1})::Array{CSTParser.EXPR}
 	res = []
 	for e in arr
@@ -84,7 +87,9 @@ function find_heads(x::Array{Any,1}, symbol::Symbol)
 	end
 	res
 end
-
+"""
+returns all values of .head of every EXPR
+"""
 function get_all_heads(e::CSTParser.EXPR)
 	res = [e.head]
 	for expr in e
@@ -139,6 +144,9 @@ function get_leaves(e::CSTParser.EXPR)
 	res
 end
 
+"""
+returns all EXPR that have no child EXPRs (empty .args)
+"""
 function get_leaves(arr::Array{CSTParser.EXPR, 1})
 	res = []
 	for exp in arr

@@ -42,6 +42,10 @@ function scrape_check(arr::Array{Any,1})
 	return res, fails
 end
 
+
+"""
+takes output of read_code, returns info on functions defined in the EXPRs
+"""
 function scrape(arr::Array{Any,1})::Array{FunctionContainer,1}
 	res = Array{FunctionContainer,1}(undef, 0)
 	for i in 1:length(arr)
