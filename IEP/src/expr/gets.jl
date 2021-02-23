@@ -54,12 +54,53 @@ function flattenExpr(e::CSTParser.EXPR)::Array{CSTParser.EXPR}
 end
 
 function get_all_heads(e::Array{CSTParser.EXPR,1})
-	[x.head for x in e]
+	res = []
+	for x in e
+		res = vcat(res, get_all_heads(x))
+	end
+	res
+end	
+"""
+returns every .head of every EXPR
+"""
+function get_all_heads(e::CSTParser.EXPR)
+	if isnothing(e.head)
+		res = []
+	else
+		res = [e.head]
+	end
+	if _checkArgs(e)
+		for x in e
+			res = vcat(res, get_all_heads(x))
+		end
+	end
+	res
+end
+
+"""
+returns every .val of every EXPR
+"""
+function get_all_vals(e::Array{CSTParser.EXPR,1})
+	res = []
+	for x in e
+		res = vcat(res, get_all_vals(x))
+	end
+	res
 end	
 
-function get_all_vals(e::Array{CSTParser.EXPR,1})
-	[x.val for x in e]
-end	
+function get_all_vals(e::CSTParser.EXPR)
+	if isnothing(e.val)
+		res = []
+	else
+		res = [e.val]
+	end
+	if _checkArgs(e)
+		for x in e
+			res = vcat(res, get_all_vals(x))
+		end
+	end
+	res
+end
 
 """
 recursively views expr tree

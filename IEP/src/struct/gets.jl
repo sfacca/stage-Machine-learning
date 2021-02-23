@@ -49,6 +49,7 @@ function getName(e::CSTParser.EXPR)::String
 
 	isnothing(res) ? "" : res
 end	
+# to fix: curly, brackets, ref, Tuple
 
 function getName(arr::Array{NameDef,1})::Array{String,1}
 	[getName(x.name) for x in arr]
