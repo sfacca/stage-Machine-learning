@@ -214,7 +214,15 @@ present = Presentation()
 IEP.FunctionContainer
 
 # ╔═╡ ef02a310-756b-11eb-121b-ef3fd2c5b1db
-
+#=
+IsCalledBy: Function -> Function
+Co-occurs with: Any -> Any
+IsComponentOf: {Symbol,Function,Variable} -> {Function, Expression}
+IsMeasuredIn: Any -> Unit
+Implements: Function -> {Math Expression, Concept}
+VERB: Any -> Any
+IsSubClassOf: Concept -> Concept
+=#
 
 # ╔═╡ e77b1b00-756a-11eb-2224-57c43aba9c24
 Language, Math_Expressions, Concept, Unit, Code_symbol, Function, Variable, Expr_Symbol = add_types!(present, [

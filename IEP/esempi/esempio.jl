@@ -10,6 +10,9 @@ using Pkg, Match
 # ╔═╡ 571c3d10-7456-11eb-33e6-19c8bffd1ab8
 using Catlab.WiringDiagrams
 
+# ╔═╡ b86f2c00-75c6-11eb-06ad-916b90ff532d
+using AlgebraicRelations, AlgebraicRelations.Presentations
+
 # ╔═╡ a114c9f0-7497-11eb-1c00-5195cce34cd8
 using Catlab
 
@@ -51,6 +54,28 @@ md"folder to cset crea direttamente il cset"
 
 # ╔═╡ 53ac65e0-74b2-11eb-3eec-3178f1f55ce9
 res[1]
+
+# ╔═╡ 0b4f9a40-75c7-11eb-21bb-c53d76ecdc09
+cset[:, :asd]
+
+# ╔═╡ b1dd3210-75c6-11eb-3600-5d01242a6b85
+md"struttura cset:"
+
+# ╔═╡ c7bdef20-75c6-11eb-25f8-67ca3e2225b4
+begin
+	present = Presentation()
+	Implementation, Calls, Inputs, Function = add_types!(present, [
+		(:Implementation, String),
+		(:Calls, String),
+		(:Inputs, String),
+		(:Function, String)]);
+	impl_in, impl_fun, impl_calls = add_processes!(present, [
+		(:impl_in, Implementation, Inputs),
+		(:impl_fun, Implementation, Function),
+		(:impl_calls, Implementation, Calls),
+		]);
+	draw_schema(present)
+end
 
 # ╔═╡ 53944a00-74b2-11eb-33e3-918248a2b9df
 md"questo cset definisce oggetti :Function, :Implementation, :Inputs, :Calls"
@@ -165,6 +190,10 @@ length(cset[:,:calls_set])# numero di set di calls diverse
 # ╠═a4e51790-74b2-11eb-2d8e-1714fccb68bd
 # ╟─3f9ebb20-74b2-11eb-1030-4ffee1ad3648
 # ╠═53ac65e0-74b2-11eb-3eec-3178f1f55ce9
+# ╠═0b4f9a40-75c7-11eb-21bb-c53d76ecdc09
+# ╠═b1dd3210-75c6-11eb-3600-5d01242a6b85
+# ╠═b86f2c00-75c6-11eb-06ad-916b90ff532d
+# ╟─c7bdef20-75c6-11eb-25f8-67ca3e2225b4
 # ╟─53944a00-74b2-11eb-33e3-918248a2b9df
 # ╟─c7d5cb52-74b2-11eb-38ac-d706839ab9aa
 # ╟─be2b0330-74b3-11eb-0b25-69a72abfed80
