@@ -96,6 +96,9 @@ scr = IEP.scrape(IEP.read_code(string(Pkg.dir("Catlab"),"/src")));
 # ╔═╡ 35579940-7532-11eb-1fc2-4f8783f77ea2
 # type inference missing
 
+# ╔═╡ bdffa6a0-7796-11eb-2711-bf2f265a9661
+Catlab.CSetDataStructures
+
 # ╔═╡ 4154a1d2-760d-11eb-3954-6145d523d907
 typeof(scr[1].func.block)
 
@@ -654,6 +657,7 @@ draw_schema(present)
 # ╠═f26560a0-756c-11eb-238f-b9b3570a017a
 # ╠═f265d5d0-756c-11eb-152a-0bd3855a6709
 # ╠═f0c07f20-74fc-11eb-2343-ab6e86584e80
+# ╠═bdffa6a0-7796-11eb-2711-bf2f265a9661
 # ╠═4154a1d2-760d-11eb-3954-6145d523d907
 # ╠═a9be6de0-75d7-11eb-027f-49bb68554444
 # ╠═50c285b0-760d-11eb-24c0-c30fb540c1da

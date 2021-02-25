@@ -31,8 +31,8 @@ function make_dict_complete(arr::Array{CSTParser.EXPR,1})
 end
 
 """
-makes a Dict(Symbol, CSTParser.EXPR)
-where dict[symbol] = expr where expr.head = symbol
+makes a Dict(Symbol, CSTParser.EXPR)  
+where dict[symbol] = expr where expr.head = symbol  
 """
 function make_head_expr_dict(arr::Array{CSTParser.EXPR,1})
 	dic = Dict()
@@ -43,6 +43,9 @@ function make_head_expr_dict(arr::Array{CSTParser.EXPR,1})
 		end
 	end
 	dic	
+end
+function make_head_expr_dict(arr::CSTParser.EXPR)
+	make_head_expr_dict([arr])	
 end
 
 function make_dict(arr::Array{CSTParser.EXPR,1})

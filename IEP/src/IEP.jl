@@ -1,9 +1,17 @@
 module IEP
-    using Pkg, Catlab, JLD2, FileIO, CSTParser
-    using DelimitedFiles
-    using Catlab, Catlab.CategoricalAlgebra, Catlab.WiringDiagrams, DataFrames, Match
-    using Flux
+    using AbstractTrees, AlgebraicPetri, AlgebraicRelations, CSTParser, Catlab, Compose, Conda, Convex, DelimitedFiles, DifferentialEquations
+    using JLD2, LabelledArrays, Match, MethodAnalysis, OrdinaryDiffEq, PyCall, Reexport, SCS, TikzPictures, Tokenize
+    using Pkg, JLD2, FileIO
+    using Catlab.CategoricalAlgebra, Catlab.WiringDiagrams, DataFrames, Match
+    using Catlab.Theories, SCS, TikzPictures, Catlab.Graphics.ComposeWiringDiagrams, Catlab.Programs, Catlab.Syntax
+    using Catlab.CSetDataStructures
+    import Catlab.WiringDiagrams: to_hom_expr
+    using Compose: draw, PGF
+
+    using AlgebraicRelations.Presentations, AlgebraicRelations.Interface, AlgebraicRelations.Queries, AlgebraicRelations.DB
+    #using Flux
     #using InteractiveUtils, Markdown
+    
 
 
     include("src.jl")
