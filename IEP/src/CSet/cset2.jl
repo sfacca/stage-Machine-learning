@@ -93,9 +93,6 @@ IsSubClassOf: SpecificConcept -> More General Concept=#
 #get data
 scr = IEP.scrape(IEP.read_code(string(Pkg.dir("Catlab"),"/src")));
 
-# ╔═╡ 4f386fe2-7534-11eb-0375-3f932f5a91b0
-
-
 # ╔═╡ 35579940-7532-11eb-1fc2-4f8783f77ea2
 # type inference missing
 
@@ -625,7 +622,7 @@ end
 Symbol 
 
 # ╔═╡ 6c47683e-7573-11eb-069b-3bee287d6cfc
-TrainDB = present_to_schema(present);
+TrainDB = present_to_schema(present)
 
 # ╔═╡ a83fbb90-7573-11eb-1c32-9907d003363d
 split(generate_schema_sql(TrainDB()),"\n")
@@ -650,7 +647,6 @@ draw_schema(present)
 # ╠═d3af1dd0-7612-11eb-28fd-05c15df9085e
 # ╠═0e227820-74fd-11eb-210e-a5ddcaea4c67
 # ╠═41fa654e-7529-11eb-2b56-c9f4736bdd57
-# ╠═4f386fe2-7534-11eb-0375-3f932f5a91b0
 # ╠═35579940-7532-11eb-1fc2-4f8783f77ea2
 # ╠═8d888650-756a-11eb-300c-c74a2f186659
 # ╠═f10beb22-756c-11eb-3d22-4dc0bb9809e8

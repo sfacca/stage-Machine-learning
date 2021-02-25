@@ -25,6 +25,21 @@ function isOP(e::CSTParser.EXPR, op::String)
 end
 
 """
+returns true if input expression is an Op
+"""
+function isOP(e::CSTParser.EXPR)
+	if !isnothing(e.head) && typeof(e.head) == CSTParser.EXPR
+		if !isnothing(e.head.head) && e.head.head == :OPERATOR
+			true
+		else
+			false
+		end
+	else
+		false
+	end
+end
+
+"""
 flattens the input EXPR tree into a single EXPRT array
 """
 function flattenExpr(arr::Array{CSTParser.EXPR,1})::Array{CSTParser.EXPR}
@@ -241,16 +256,55 @@ function getName(e::CSTParser.EXPR)::String
 		res = string(getName(e.args[1]),".",getName(e.args[2]))	
 	elseif e.head == :call
 		res = string([x.val for x in flattenExpr(e)])
+	elseif isOP(e)
+		if e.head.val == "<:" #there may be more weird unary OPs...
+			res = string(e.head.val ,getName(e.args[end]))
+		else
+			res = string(getName(e.args[1]), e.head.val ,getName(e.args[end]))
+		end
 	else
 		if e.head == :quotenode
-			res = e.args[1].val
+			res = getName(e.args[1])
+		elseif e.head == :curly
+			if length(e.args) > 1
+				
+				
+				res = string(getName(e.args[1]),"{")
+				for i in 2:length(e.args)
+					if i != length(e.args)
+						res = string(res,getName(e.args[i]),", ")
+					else
+						res = string(res,getName(e.args[i]))
+					end
+				end
+				
+				res = res = string(res,"}")
+			else
+				res = string(getName(e.args[1]),"{}")
+			end
+		elseif e.head == :tuple 
+			res = string("(")
+			for i in 1:length(e.args)
+				res = string(res,",",getName(arg))
+				if i != length(e.args)
+					res = string(res,getName(e.args[i]),", ")
+				else
+					res = string(res,getName(e.args[i]))
+				end
+			end
+			res = string(res,")")
+		elseif e.head == :macrocall
+			res = ""
+			for arg in e.args
+				res = string(res, e.val)
+			end
 		else
 			res = e.val
 		end
 	end
 
 	isnothing(res) ? "" : res
-end	
+end
 
 """
 called when e.args[i] is globalrefdoc

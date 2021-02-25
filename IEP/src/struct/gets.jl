@@ -118,3 +118,20 @@ function unique_arrays(arr::Array{Array{NameDef,1}})::Array{Array{NameDef,1}}
 	end
 	res
 end
+
+function getCalls(fc::FunctionContainer)::Array{String,1}
+	getName(get_calls(fc.func.block))
+end
+
+function _getHeads(fc::FunctionContainer)::Array{String,1}
+	r = get_all_heads(fc.func.block)# returns array of Union(EXPR, Symbol)
+	x = Array{String,1}(undef, length(r))
+	for i in 1:length(r)
+		if typeof(r[i]) == CSTParser.EXPR
+			x[i] = string(Symbol(Expr(r[i])))			
+		else #it's a Symbol
+			x[i] = string(r[i])
+		end			
+	end
+	x
+end

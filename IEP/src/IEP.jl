@@ -10,6 +10,7 @@ module IEP
 
     # cset
     export folder_to_CSet, join_data, add_module!, module_to_CSet
+    export get_newSchema, handle_FunctionContainer!, draw_newSchema
     # dict
     export make_dict, make_dict_complete, make_head_expr_dict
     # expr
