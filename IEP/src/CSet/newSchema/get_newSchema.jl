@@ -193,7 +193,12 @@ end
 function handle_Scrape(fcs::Array{FunctionContainer,1}, data)
 	for i in 1:length(fcs)
 		println("handling container $i")
-		handle_FunctionContainer!(fcs[i], data)
+		try
+			handle_FunctionContainer!(fcs[i], data)
+		catch e
+			println("error at container: $i")
+			println(e)
+		end
 	end
 	data
 end
