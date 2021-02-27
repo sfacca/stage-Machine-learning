@@ -1,0 +1,1 @@
+julia ./corpus_getter_script.jl

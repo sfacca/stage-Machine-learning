@@ -312,9 +312,4 @@ function uniqueidx(x::AbstractArray{T}) where T
 end
 
 
-"""
-
-"""
-function get_prereqs(e::CSTParser.EXPR)
-	res = []
 	
