@@ -13,6 +13,8 @@ function get_newSchema(scrape::Array{FunctionContainer,1})
 			Math_Expression, 
 			Concept, 
 			Unit,
+			Entity,
+			Ontology,
 			Any
 			)::Ob
 		(value)::Data
@@ -52,7 +54,9 @@ function get_newSchema(scrape::Array{FunctionContainer,1})
 		code_symbol::Attr(Code_symbol, value)
 		func::Attr(Function, value)
 		variable::Attr(Variable, value)
-		symbol::Attr(Symbol, value)	
+		symbol::Attr(Symbol, value)
+		entity::Attr(Entity, value)
+		ontology::Attr(Ontology, value)
 	end
 
 	handle_Scrape(scrape, ACSetType(newSchema, index=[:IsSubClassOf]){Any}())

@@ -23,12 +23,44 @@ function read_code(paths::Array{String,1})
 end
 
 # ╔═╡ c78e78e0-7872-11eb-15c6-0b15dda320df
-"""
-macro creates a variable in local scope of name s and value v
-"""
-macro string_as_varname_macro(s::AbstractString, v::Any)
-	s = Symbol(s)
-	esc(:($s = $v))
+function add_folder_to_cset!(dir, cset)
+	for (root, dirs, files) in walkdir(dir)
+		try
+			len = length(files)
+			i = 1
+			for file in files
+				if endswith(file, ".jld2")	
+					println("handling $file")
+					name = string(split(file,".jld2")[1])
+					tmp = Array{IEP.FunctionContainer,1}(undef,0)
+					tmp = vcat(tmp, load(joinpath(root, file))[name])
+					println(unique([typeof(x) for x in tmp]))
+					if isnothing(tmp)
+						println("$file appears empty")
+					else
+						println("adding stuff...")
+						for fc in tmp
+							println("adding $(IEP.getName(fc.func.name))")	
+							try					
+								println(length(cset[:,:func]))
+								IEP.handle_FunctionContainer!(fc, cset)
+								println(length(cset[:,:func]))
+							catch e
+								println("error: $e")
+							end
+						end
+					end
+					tmp = nothing
+				end
+				println("############## $((100*i)/len)% DONE ##############")
+				i = i + 1
+			end
+		catch e
+			println("error at file: $file")
+			println(e)
+		end
+	end
+	cset
 end
 
 # ╔═╡ 281664e0-785d-11eb-192c-a3cb9ae4aa2a
@@ -163,6 +195,8 @@ function files_to_cset(dir)
 	cset = nothing
 	for (root, dirs, files) in walkdir(dir)
 		try
+			len = length(files)
+			i = 1
 			for file in files
 				if endswith(file, ".jld2")	
 					println("handling $file")
@@ -172,16 +206,27 @@ function files_to_cset(dir)
 					println(unique([typeof(x) for x in tmp]))
 					if isnothing(cset)
 						cset = IEP.get_newSchema(tmp)
+					elseif isnothing(tmp)
+						println("$file appears empty")
 					else
 						println("adding stuff...")
-						IEP.handle_FunctionContainer!(tmp,cset)
+						for fc in tmp
+							println("adding $(IEP.getName(fc.func.name))")	
+							try					
+								IEP.handle_FunctionContainer!(fc, cset)
+							catch e
+								println("error: $e")
+							end
+						end
 					end
 					tmp = nothing
 				end
+				println("############## $((100*i)/len)% DONE ##############")
+				i = i + 1
 			end
 		catch e
-			#println("error at file: $file")
-			#println(e)
+			println("error at file: $file")
+			println(e)
 		end
 	end
 	cset

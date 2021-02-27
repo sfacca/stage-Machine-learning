@@ -1,8 +1,8 @@
-#=using Pkg
+using Pkg
 Pkg.activate(".")
 
 include("corpus.jl")
-=#
+
 # load name -> url,name,version dictionary
 modules_dict = load("registry/registry.jld2")["modules_dict"]
 
@@ -22,3 +22,4 @@ dict = nothing
 CSet = files_to_cset("scrapes")
 # save it
 save("CSet.jld2", Dict("CSet"=>CSet)
+CSet = nothing
