@@ -45,12 +45,11 @@ function single_scrape_save(dict, name)
 	parse = nothing
 end
 
-# ╔═╡ 78ef91a0-7882-11eb-31cb-b1cbc699a0be
-#save_scrapes_from_Modules(modules_dict, names)
-
 # ╔═╡ 629f70f0-7882-11eb-35b2-b7de2fdfde38
 function save_scrapes_from_Modules(dict, names)
 	fails = []
+	tot = length(names)
+	i = 1
 	for name in names
 		try
 			single_scrape_save(dict, name)
@@ -59,6 +58,11 @@ function save_scrapes_from_Modules(dict, names)
 			println(e)
 			push!(fails, name)
 		end
+		try
+			println("########## $((100*i)/len)% DONE ##########")
+		catch r
+		end
+		i = i + 1
 	end
 	fails
 end
@@ -190,7 +194,6 @@ end
 # ╠═07499d00-7825-11eb-3f75-17749dc56811
 # ╠═c78e78e0-7872-11eb-15c6-0b15dda320df
 # ╠═281664e0-785d-11eb-192c-a3cb9ae4aa2a
-# ╠═78ef91a0-7882-11eb-31cb-b1cbc699a0be
 # ╠═629f70f0-7882-11eb-35b2-b7de2fdfde38
 # ╠═aa8eb102-785a-11eb-0e7b-5f12b8514cb9
 # ╠═b93d1ffe-785b-11eb-0b87-dfaa5aaf7ad4

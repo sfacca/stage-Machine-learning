@@ -1,10 +1,10 @@
-using Pkg
+#=using Pkg
 Pkg.activate(".")
 
 include("corpus.jl")
-
+=#
 # load name -> url,name,version dictionary
-modules_dict = load("registry/registry.jld2")
+modules_dict = load("registry/registry.jld2")["modules_dict"]
 
 # get names of modules from pkg_corpus.txt
 names = unique([replace(string(x), r"\r"=>"") for x in split(read("pkg_corpus.txt",String),"\n")])
