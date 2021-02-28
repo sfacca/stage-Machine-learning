@@ -77,6 +77,21 @@ function single_scrape_save(dict, name)
 	parse = nothing
 end
 
+
+function single_scrape_save(url)
+	println("gettin module from $url ")
+	name = string(split(replace(url, r"/archive/master.zip"=>""),"/")[end])
+	mkpath("tmp/$name")
+	download(url, "tmp/$name/file.zip")
+	unzip("tmp/$name/file.zip","tmp/$name")
+	parse = IEP.read_code("tmp/$name")
+	rm("tmp/$name", recursive = true)
+	scrape = IEP.scrape(parse)
+	save("scrapes/$(name).jld2", Dict(name => scrape))
+	scrape = nothing
+	parse = nothing
+end
+
 # ╔═╡ 629f70f0-7882-11eb-35b2-b7de2fdfde38
 function save_scrapes_from_Modules(dict, names)
 	fails = []
@@ -84,11 +99,36 @@ function save_scrapes_from_Modules(dict, names)
 	i = 1
 	for name in names
 		try
-			single_scrape_save(dict, name)
+			if contains(".zip", name)
+				single_scrape_save(name)
+			else
+				single_scrape_save(dict, name)
+			end
 		catch e
 			println("error on name: $name")
 			println(e)
 			push!(fails, name)
+		end
+		try
+			println("########## $((100*i)/len)% DONE ##########")
+		catch r
+		end
+		i = i + 1
+	end
+	fails
+end
+
+function save_scrapes_from_Modules(urls)
+	fails = []
+	tot = length(urls)
+	i = 1
+	for url in urls
+		try
+			single_scrape_save(url)
+		catch e
+			println("error on url: $url")
+			println(e)
+			push!(fails, url)
 		end
 		try
 			println("########## $((100*i)/len)% DONE ##########")

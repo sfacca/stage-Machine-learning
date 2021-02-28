@@ -147,7 +147,7 @@ end
 function handle_FunctionContainer!(fc::FunctionContainer, data)
 	println("-----------------------")
 	#1 get+add the function name
-	println("adding function to data")
+	println("adding function $(getName(fc.func.name)) to data")
 	i = function_exists(getName(fc.func.name), data)
 	if isnothing(i)
 		# we need to add the function
@@ -157,7 +157,7 @@ function handle_FunctionContainer!(fc::FunctionContainer, data)
 	# i is now the index of the Function
 	
 	#2 add calls
-	println("adding calls")
+	#println("adding calls")
 	calls = getName(get_calls(fc.func.block))
 	add_calls(i, calls, data)
 	#2.2 remove duplicate XCalledByY	
@@ -167,28 +167,28 @@ function handle_FunctionContainer!(fc::FunctionContainer, data)
 	#3 add components
 	
 	#3.1 add .head components (Code_symbols)
-	println("adding head components")
+	#println("adding head components")
 	any_i = get_Any("Function", i, data)
-	println("got any_i")
+	#println("got any_i")
 	heads = _getHeads(fc)
-	println("actual add")
+	#println("actual add")
 	add_components(any_i, heads, "Code_symbol", data)
 	
 	#3.2 add variable components (Variable)
-	println("adding variable components")
+	#println("adding variable components")
 	vars = [string(get_all_vals(x)) for x in find_heads(fc.func.block, :IDENTIFIER)]
 	add_components(any_i, vars, "Variable", data)
 	
 	#3.3 add Symbol components (they're actually strings)
 	#symbs = unique([String(Symbol(Expr(x))) for x in get_leaves(fc.func.block)])
-	println("adding symbol components")
+	#println("adding symbol components")
 	symbs = unique(string.(get_all_vals(fc.func.block)))
 	add_components(any_i, symbs, "Symbol", data)
 	# 3.4 remove duplicate AComponentOfB
 	#removeDuplicates!("AComponentOfB", data)
 	
 	#4 language is julia
-	println("setting language")
+	#println("setting language")
 	set_UsesLanguage("Function", i, "Julia", data)
 	
 end		

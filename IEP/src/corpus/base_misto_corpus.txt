@@ -1,9 +1,4 @@
-Corpus
-Base
 https://github.com/JuliaLang/julia/archive/master.zip
-
-
-Misto
 https://github.com/SciML/DiffEqDevMaterials/archive/master.zip
 https://github.com/denizyuret/play/archive/master.zip
 https://github.com/denizyuret/NeuronTracking/archive/master.zip

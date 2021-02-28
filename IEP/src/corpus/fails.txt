@@ -1,0 +1,9 @@
+
+https://github.com/alan-turing-institute/LearningMachines/archive/master.zip
+https://github.com/BenjaminIsaac0111/daedalus/archive/master.zip
+https://github.com/alan-turing-institute/hartlib/archive/master.zip
+https://github.com/alan-turing-institute/ModMon/archive/master.zip
+https://github.com/probcomp/cgpm2/archive/master.zip
+https://github.com/probcomp/trcrpm/archive/master.zip
+https://github.com/probcomp/fast-loaded-dice-roller-experiments/archive/master.zip
+https://github.com/probcomp/gen-examples-perception/archive/master.zip
