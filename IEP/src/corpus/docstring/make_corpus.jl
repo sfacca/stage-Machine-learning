@@ -1,5 +1,6 @@
 using Pkg
 Pkg.activate("../.")
+include("../corpus.jl")
 include("doc_fun.jl")
 
 using TextAnalysis
