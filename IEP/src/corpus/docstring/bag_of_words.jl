@@ -13,7 +13,7 @@ every column is the vector of a document
 """
 function bag_of_words(docs::Array{StringDocument{String},1}; stemmer=Stemmer("english"), tokenizer=punctuation_space_tokenize)
     #1 stem + tokenize
-    docs = [stem_tokenize_doc(x; stemmer = stemmer, tokenizer = tokenizer) for x in docs]  
+    docs = stem_tokenize_doc(docs; stemmer = stemmer, tokenizer = tokenizer) 
 
     println("docs element types:")    
     println(unique([typeof(x) for x in docs]))
