@@ -2,6 +2,8 @@ using Pkg
 Pkg.activate(".")
 #include("../corpus.jl")
 include("doc_fun.jl")
+include("tokenize.jl")
+include("bag_of_words.jl")
 
 using JLD2, FileIO
 using TextAnalysis
@@ -18,7 +20,8 @@ end
 strings = [StringDocument(x.doc) for x in doc_funs]
 names = [StringDocument(x.fun) for x in doc_funs]
 
-"strings, names"
+bags, vocab = bag_of_words(strings)
+
 #=
 crps = Corpus(strings)
 update_lexicon!(crps)

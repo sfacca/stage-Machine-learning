@@ -5,48 +5,43 @@
 #3 turn strings in arrays where arr[i] = n -> the strings contains the i-th stem n times
 using WordTokenizers, SparseArrays
 
+include("tokenize.jl")
+
 """
 returns vocab array and sparse matrix of document vectors
 every column is the vector of a document
 """
-function get_bag_of_words(docs::Array{String}, stemmer=nothing)
-    #1 tokenize
-    docs = [nltk_word_tokenize(x) for x in docs]    
+function bag_of_words(docs::Array{StringDocument{String},1}; stemmer=Stemmer("english"), tokenizer=punctuation_space_tokenize)
+    #1 stem + tokenize
+    docs = [stem_tokenize_doc(x; stemmer = stemmer, tokenizer = tokenizer) for x in docs]  
 
-    #2 stem
-    if isnothing(stemmer)
-        stemmer = Stemmer("english")
-    end
-    #docs = [stem.(stemmer, string.(i)) for i in docs]
-
-   
+    println("docs element types:")    
+    println(unique([typeof(x) for x in docs]))
 
     vocab = []
-    for doc in docsc
+    for doc in docs
         for item in doc
             push!(vocab, item)
         end
     end
     vocab = unique(vocab)
-
+    println("vocab element types:")
+    println(unique([typeof(x) for x in vocab]))
     #every column is a vector
     rows = length(vocab)#number of words in vocab
     cols = length(docs)#number of docs
     vecs = spzeros(rows,cols)
     for i in 1:length(docs)# works on i-th document vector column
         for j in 1:length(docs[i])#works on the jth word of the doc
-            vecs[findfirst((x)->(string(x) == string(docs[i][j])), vocab), i]+=1
-#=
-            try
-                vecs[findfirst((x)->(string(x) == string(docs[i][j])), vocab), i]+=1
-            catch e
-                println("error at doc $i stem $j")
-                println(e)
-            end=#
+            x = findfirst((x)->(x == docs[i][j]), vocab)
+            if isnothing(x)
+                throw("could not find stem : $(docs[i][j]) in vocab")
+            end
+            vecs[x, i]+=1
         end
     end  
     
-    docs
+    vecs, vocab
 end
 
 """
@@ -129,4 +124,22 @@ function get_vocab(docs::Array{Union{SubString{String},String},1}, o=nothing)
         res = vcat(res, get_vocab(doc, o))
     end
     res
+end
+
+"""
+get words ordered by commonality
+"""
+function sort_by_abundance(vecs, vocab)# vocab should be array of substring{string}
+    counts = get_abundance(vecs, vocab)
+    perm = sortperm(counts)
+    vocab[perm]
+end
+
+function get_abundance(vecs, vocab)
+    counts = Array{Float32,1}(undef, length(vocab))
+
+    for i in 1:length(vocab)
+        counts[i] = sum(vecs[i,:])
+    end
+    counts
 end
