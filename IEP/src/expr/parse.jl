@@ -47,7 +47,34 @@ function read_code(dir, verbose=false)
                                 all_funcs, get_expr(s, joinpath(root, file), verbose));
                     end
                 end
-            end
+            elseif endswith(file, ".md")
+				#println("parsing $(joinpath(root, file))")
+				#push!(fils, joinpath(root, file))
+				lines = readlines(joinpath(root, file))
+				code = false
+				tmp = ""
+				for line in lines
+					if code
+						if line == "```"
+							code = false
+							
+							s = CSTParser.parse(tmp, true)
+							if !isnothing(s)
+								all_funcs = vcat(
+										all_funcs, get_expr(s, joinpath(root, file), verbose));
+							end
+							#push!(all_funcs, tmp)
+							tmp = ""
+						else
+							tmp = string(tmp, "\n", line)
+						end
+					else
+						if line == "```Julia"
+							code = true
+						end
+					end
+				end
+			end
         end
     end
 
