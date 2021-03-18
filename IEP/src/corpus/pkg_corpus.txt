@@ -1,3 +1,5 @@
+https://github.com/alavendelm/julia-dynsys-resources/archive/main.zip
+https://github.com/MachineLearningJournalClub/MLJC-UniTo-ProjectX-2020-public/archive/rel2.zip
 AbstractAlgebra
 AbstractDifferentiation
 AbstractFFTs
