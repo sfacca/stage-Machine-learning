@@ -1,0 +1,22 @@
+CSet contains: 
+
+    125825 unique function names 
+
+    391967 symbols 
+
+    225966 variables 
+
+    1 languages 
+
+    0 math expressions 
+
+    0 concepts 
+
+    0 units 
+
+    142 code symbols 
+
+    0 entities
+
+
+NB: numero di nomi funzione unici nel corpus è 215591

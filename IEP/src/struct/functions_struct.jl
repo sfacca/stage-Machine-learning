@@ -20,7 +20,7 @@ struct InputDef
 end
 
 struct FuncDef
-	name::NameDef
+	name::Union{NameDef, Int32}
 	inputs::Array{InputDef,1}
 	block::CSTParser.EXPR
 	output::Union{Nothing,NameDef}
