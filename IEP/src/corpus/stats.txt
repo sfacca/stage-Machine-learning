@@ -1,6 +1,6 @@
 CSet contains: 
 
-    125825 unique function names 
+    125825 unique function names (sia implementati che chiamati)
 
     391967 symbols 
 
@@ -19,4 +19,4 @@ CSet contains:
     0 entities
 
 
-NB: numero di nomi funzione unici nel corpus è 215591
+NB: numero di nomi funzione nel corpus è 215591 per 92350 nomi diversi

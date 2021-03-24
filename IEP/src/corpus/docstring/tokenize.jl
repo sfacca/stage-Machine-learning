@@ -1,4 +1,4 @@
-using WordTokenizers
+using WordTokenizers, TextAnalysis
 
 # just use poormans_tokenizer
 function stem_tokenize_doc(sd::StringDocument{String}; stemmer=Stemmer("english"), tokenizer=punctuation_space_tokenize)
