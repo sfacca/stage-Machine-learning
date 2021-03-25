@@ -6,9 +6,12 @@ function find_function(str::String, docs; pretokenized = false)
 
 
     if !pretokenized
+        println("docs are not tokenized")
         if typeof(docs)== Array{String,1}
+            println("stem tokenizing docs")
             docs = stem_tokenize_doc([StringDocument(x) for x in docs])
         elseif typeof(docs) == Array{StringDocument{String},1}
+            println("stem tokenizing docs")
             docs = stem_tokenize_doc(docs)
         end
     end
@@ -16,3 +19,5 @@ function find_function(str::String, docs; pretokenized = false)
     println("asd")
     findall((x)->(str[1] in x), docs)
 end
+
+#requires tokenizer.jl

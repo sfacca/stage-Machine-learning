@@ -1140,6 +1140,12 @@ git-tree-sha1 = "5998faae8c6308acc25c25896562a1e66a3bb038"
 uuid = "9700d1a9-a7c8-5760-9816-a99fda30bb8f"
 version = "1.0.1"
 
+[[StringAnalysis]]
+deps = ["BinaryProvider", "Dates", "DelimitedFiles", "Languages", "Libdl", "LinearAlgebra", "Pkg", "SparseArrays", "Statistics", "TSVD", "Test", "Unicode", "WordTokenizers"]
+git-tree-sha1 = "5ab5aa69d53ab87197e11c3e71c671ccd6410713"
+uuid = "b66b7d2f-f536-51df-9f97-4dfb9d27c005"
+version = "0.3.2"
+
 [[StringEncodings]]
 deps = ["BinaryProvider", "Libdl"]
 git-tree-sha1 = "6592521745ac2ce959697be2d31e8383feb75908"
@@ -1179,6 +1185,12 @@ deps = ["AbstractAlgebra", "DiffRules", "Distributions", "DocStringExtensions", 
 git-tree-sha1 = "7c1ef574da6251b7d6fb0e0fcf784e21c0554e5d"
 uuid = "0c5d862f-8b57-4792-8d23-62f2024744c7"
 version = "0.1.11"
+
+[[TSVD]]
+deps = ["LinearAlgebra", "SparseArrays", "Test"]
+git-tree-sha1 = "714329116fe2765856c018791470dcc1549f49e4"
+uuid = "9449cd9e-2762-5aa3-a617-5413e99d722e"
+version = "0.3.0"
 
 [[TableTraits]]
 deps = ["IteratorInterfaceExtensions"]

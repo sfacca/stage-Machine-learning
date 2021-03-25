@@ -1,5 +1,7 @@
 include("../corpus.jl")
 include("doc_fun.jl")
+include("find_function.jl")
+include("tokenize.jl")
 
 
 function docstrings_from_jld2s(dir)
