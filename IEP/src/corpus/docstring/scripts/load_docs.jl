@@ -1,6 +1,6 @@
 using JLD2, FileIO
 using TextAnalysis
-include("doc_fun.jl")
+include("../doc_fun.jl")
 
 
 

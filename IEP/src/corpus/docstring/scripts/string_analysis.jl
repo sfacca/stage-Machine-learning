@@ -2,7 +2,7 @@ using StringAnalysis, JLD2, FileIO, TextAnalysis
 
 #load = WordTokenizers.load
 
-include("doc_fun.jl")
+include("../doc_fun.jl")
 
 df = FileIO.load("doc_funs.jld2")["doc_funs"]
 docstrings = [x.doc for x in df]

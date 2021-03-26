@@ -1,14 +1,11 @@
-using Pkg
-Pkg.activate(".")
-#include("../corpus.jl")
-include("doc_fun.jl")
-include("tokenize.jl")
-include("bag_of_words.jl")
+include("load_docs.jl")
+include("../tokenize.jl")
+include("../bag_of_words.jl")
 
 using JLD2, FileIO
 using TextAnalysis
 
-include("load_docs.jl")
+
 
 crps = Corpus(strings)
 update_lexicon!(crps)

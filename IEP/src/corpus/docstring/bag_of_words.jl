@@ -5,8 +5,6 @@
 #3 turn strings in arrays where arr[i] = n -> the strings contains the i-th stem n times
 using WordTokenizers, SparseArrays
 
-include("tokenize.jl")
-
 """
 returns vocab array and sparse matrix of document vectors
 every column is the vector of a document
@@ -31,6 +29,8 @@ function bag_of_words(docs::Array{StringDocument{String},1}; stemmer=Stemmer("en
     rows = length(vocab)#number of words in vocab
     cols = length(docs)#number of docs
     vecs = spzeros(rows,cols)
+    lenDocs = length(docs)
+    println("building matrix...")
     for i in 1:length(docs)# works on i-th document vector column
         for j in 1:length(docs[i])#works on the jth word of the doc
             x = findfirst((x)->(x == docs[i][j]), vocab)
@@ -39,6 +39,7 @@ function bag_of_words(docs::Array{StringDocument{String},1}; stemmer=Stemmer("en
             end
             vecs[x, i]+=1
         end
+        println("DOCUMENT VECTOR $lenDocs / $i DONE")
     end  
     
     vecs, vocab

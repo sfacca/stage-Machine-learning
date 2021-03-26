@@ -1,6 +1,5 @@
 #0 prepare env
 println("prep")
-include("activate.jl")
 using TextAnalysis, TextModels, WordTokenizers
 
 #1 get data
@@ -29,7 +28,7 @@ strings = filter((x)->(x != ""), _flatt(strings))
 
 #4 stem
 println("stem")
-include("tokenize.jl")
+include("../tokenize.jl")
 stemmer = Stemmer("english")
 strings = [StringDocument(string(x)) for x in strings]
 for x in strings
@@ -46,5 +45,5 @@ update_lexicon!(crps)
 
 # pos tag corpus
 println("tag pos")
-include("tag_pos.jl")
+include("../tag_pos.jl")
 tagged = _tag_pos!(crps)
