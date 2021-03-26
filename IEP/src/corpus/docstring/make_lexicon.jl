@@ -6,7 +6,7 @@ function make_lexicon(arr::Array)
     for word in arr
         str*="$word\n"
     end
-    str[1:end-1]#removing trailing whitespac
+    str[1:end-1]#removing trailing whitespace
 end
 
 function write_lexicon(arr::Array, name="vocab.lexicon")
@@ -19,5 +19,3 @@ function write_lexicon(str::String, name="vocab.lexicon")
         write(file, str)
     end
 end
-
-
