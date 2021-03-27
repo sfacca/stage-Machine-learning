@@ -1,3 +1,5 @@
+using SparseArrays
+
 """
 function converts bags of words into .documents file using LDA-C format.
 the file consists of one document per line. 

@@ -44,3 +44,4 @@ IEP/tmp_*
 .tags*
 .tags
 *.jld2
+IEP/src/corpus/docstring/_conceptnet_/conceptnet.h5
