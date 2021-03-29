@@ -3,7 +3,7 @@ using TextAnalysis
 include("../doc_fun.jl")
 
 
-
+println("loading doc_funs...")
 doc_funs = FileIO.load("doc_funs.jld2")["doc_funs"]
 doc_funs = filter((x)->(x.doc != "error finding triplestring"),doc_funs)
 

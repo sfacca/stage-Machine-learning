@@ -99,15 +99,6 @@ begin
 	rm("tmp", recursive=true)
 	
 	println("saving...")
-	save( "registry.jld2", Dict("registry"=>modules_dict))
+	save( "../registry/modules_dict.jld2", Dict("modules_dict"=>modules_dict))
 
 end
-
-# ╔═╡ Cell order:
-# ╠═032f3a50-7847-11eb-0a4a-6f9d5a8cdfe1
-# ╠═2dc88a50-7856-11eb-0d03-dfa131e7216d
-# ╠═216dd7b0-7847-11eb-02c1-5bbc2b004711
-# ╠═8e3e70c0-7847-11eb-110c-19b1bcef8a47
-# ╠═1a4c2b70-7848-11eb-140e-c7dc624b2f8b
-# ╠═fe851dc0-7847-11eb-0b8d-bb5b049a48fd
-# ╠═6ae2f6d0-7853-11eb-084a-1b82a9d9523d

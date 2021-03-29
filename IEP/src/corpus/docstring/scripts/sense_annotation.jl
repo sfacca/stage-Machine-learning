@@ -3,7 +3,7 @@
 using CorpusLoaders
 # NB: CorpusLoaders is not compatible with AlgebraicRelations
 
-include("../load_docs.jl")
+include("load_docs.jl")
 
 corp = load(SemCor())
 index = Dict{String, Vector{Vector{String}}}()

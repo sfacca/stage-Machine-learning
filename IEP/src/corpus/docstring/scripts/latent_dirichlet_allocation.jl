@@ -12,6 +12,13 @@ include("../tokenize.jl")
 include("load_docs.jl")
 include("../bag_of_words.jl")
 
+
+########### CONFIG ############
+topicnum = 10 #NUMBER OF TOPICS
+iterations = 30 #ITERATIONS MODEL IS TRAINED FOR
+numwords = 10 #NUMBER OF PREVALENT WORDS TO RETURN
+###############################
+
 println("checking documents and lexicon")
 if !isfile("./bags.documents")
     println("documents is missing")
@@ -46,16 +53,13 @@ lexicon = readLexicon(open("vocab.lexicon"))
 println("making documents/lexicon corpus...")
 crps = TopicModels.Corpus(documents, lexicon)
 
-topicnum = 10
 println("making model with $topicnum topics...")
 mdl = TopicModels.Model(fill(0.1, topicnum), fill(0.1, length(lexicon)), crps)
 println("making state...")
 st = TopicModels.State(mdl, crps)
 
-iterations = 30
 println("training model with $iterations iterations...")
 TopicModels.trainModel(mdl, st, iterations)
 
-numwords = 10
 println("check $numwords most prevalent words for each topic...")
 topWords = TopicModels.topTopicWords(mdl, st, numwords)

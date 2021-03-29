@@ -118,7 +118,7 @@ function removeDuplicates!(typ::String, data)
 	=#
 end
 
-function type_to_value(typ::String)
+function type_to_value(typ::String)# this should be a @match
 	if typ == "Code_symbol"
 		Symbol("code_symbol")
 	elseif typ == "Function"

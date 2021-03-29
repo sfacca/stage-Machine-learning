@@ -65,29 +65,39 @@ end
 
 # ╔═╡ 281664e0-785d-11eb-192c-a3cb9ae4aa2a
 function single_scrape_save(dict, name)
-	println("gettin module $name")
+	println("Module $name")
 	mkpath("tmp/$name")
+	println("downloading...")
 	download(dict[name], "tmp/$name/file.zip")
+	println("unzipping...")
 	unzip("tmp/$name/file.zip","tmp/$name")
+	println("parsing...")
 	parse = IEP.read_code("tmp/$name")
-	rm("tmp/$name", recursive = true)
+	println("scraping...")
 	scrape = IEP.scrape(parse)
 	save("scrapes/$(name).jld2", Dict(name => scrape))
+	println("cleanup...")
+	rm("tmp/$name", recursive = true)
 	scrape = nothing
 	parse = nothing
 end
 
 
 function single_scrape_save(url)
-	println("gettin module from $url ")
+	println("Module from $url ")
 	name = string(split(replace(url, r"/archive/master.zip"=>""),"/")[end])
 	mkpath("tmp/$name")
+	println("downloading...")
 	download(url, "tmp/$name/file.zip")
+	println("unzipping...")
 	unzip("tmp/$name/file.zip","tmp/$name")
+	println("parsing...")
 	parse = IEP.read_code("tmp/$name")
-	rm("tmp/$name", recursive = true)
 	scrape = IEP.scrape(parse)
+	println("scraping...")
 	save("scrapes/$(name).jld2", Dict(name => scrape))
+	println("cleanup...")
+	rm("tmp/$name", recursive = true)
 	scrape = nothing
 	parse = nothing
 end
@@ -243,7 +253,7 @@ function files_to_cset(dir)
 					name = string(split(file,".jld2")[1])
 					tmp = Array{IEP.FunctionContainer,1}(undef,0)
 					tmp = vcat(tmp, load(joinpath(root, file))[name])
-					println(unique([typeof(x) for x in tmp]))
+					#println(unique([typeof(x) for x in tmp]))
 					if isnothing(cset)
 						cset = IEP.get_newSchema(tmp)
 					elseif isnothing(tmp)

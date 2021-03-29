@@ -30,6 +30,6 @@ try
         println("vocab.lexicon not found")
         println("run latent_dirichlet_allocation.jl to create lexicon")
     end
-catch
-    println("TopicModels not found in workspace")
+catch e
+    println(e)
 end
