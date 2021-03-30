@@ -37,3 +37,4 @@ Questo script può esser facilmente modificato per cambiare numero di topic o nu
 Lo script word_embeddings.jl inizializza ambiente per l'uso di word embeddings.
 
 Se TopicModels è presente nel workspace prima dell'esecuzione dello script, lo script come esempio traduce il lexicon in word embeddings.
+

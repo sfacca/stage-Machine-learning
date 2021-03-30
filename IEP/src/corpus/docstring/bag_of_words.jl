@@ -16,7 +16,7 @@ function bag_of_words(docs::Array{StringDocument{String},1}; stemmer=Stemmer("en
     println("docs element types:")    
     println(unique([typeof(x) for x in docs]))
 
-    vocab = []
+    vocab = Array{String,1}(undef,0)
     for doc in docs
         for item in doc
             push!(vocab, item)
@@ -28,7 +28,7 @@ function bag_of_words(docs::Array{StringDocument{String},1}; stemmer=Stemmer("en
     #every column is a vector
     rows = length(vocab)#number of words in vocab
     cols = length(docs)#number of docs
-    vecs = spzeros(rows,cols)
+    vecs = spzeros(Int32, rows,cols)
     lenDocs = length(docs)
     println("building matrix...")
     for i in 1:length(docs)# works on i-th document vector column
@@ -39,7 +39,7 @@ function bag_of_words(docs::Array{StringDocument{String},1}; stemmer=Stemmer("en
             end
             vecs[x, i]+=1
         end
-        println("DOCUMENT VECTOR $lenDocs / $i DONE")
+        println("DOCUMENT VECTOR $i / $lenDocs DONE")
     end  
     
     vecs, vocab
@@ -87,7 +87,7 @@ end
 """
 maps a document vector(array of ints) onto a vocaboulary(array of stems) of same standardize
 """
-function get_bag(vec::Array{Int,1}, voc::Array{String,1})
+function get_bag(vec, voc::Array{String,1})
     if length(vec)!=length(voc)
         throw("size mismatch between doc vector and vocaboulary")
         return nothing

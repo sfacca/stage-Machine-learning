@@ -25,7 +25,7 @@ function _dir_to_docfuns(dir)
                     tmp = load(joinpath(root, file))[name]
                     # we only need name and docstring
 					for fd in tmp
-						if !isnothing(fd.docs)# is there a docstring?
+						if !isnothing(fd.docs) && fd.docs != ""# is there a docstring?
 							push!(res, doc_fun(fd.docs, string(name,".", IEP.getName(fd.func.name))))					
 						end
 					end
