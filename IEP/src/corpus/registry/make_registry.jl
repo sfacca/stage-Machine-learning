@@ -77,7 +77,7 @@ function mds_to_dict(arr::Array{ModuleDef,1})
 			push!(dict, md.name => md.url)
 		end
 	end
-	dict
+	return dict
 end
 
 # ╔═╡ 216dd7b0-7847-11eb-02c1-5bbc2b004711

@@ -117,7 +117,7 @@ function save_scrapes_from_Modules(dict, names)
 		catch e
 			println("error on name: $name")
 			println(e)
-			push!(fails, name)
+			push!(fails, (name, e))
 		end
 		try
 			println("########## $((100*i)/len)% DONE ##########")

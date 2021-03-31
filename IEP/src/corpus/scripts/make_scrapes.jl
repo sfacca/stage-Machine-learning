@@ -2,18 +2,14 @@
 
 include("../corpus.jl")
 
-function _got_registry()
-    if isfile("registry/registry.jld2")        
-        "empty.jl"
-    else
-        println("registry not found, making registry.")
-        "make_registry.jl"
-    end
+if !isfile("registry/modules_dict.jld2")   
+    println("registry not found, making registry.")
+    include("make_registry.jl")
 end
-include(_got_registry())
+
 # load name -> url,name,version dictionary
 println("loading registry...")
-modules_dict = load("registry/registry.jld2")["modules_dict"]
+modules_dict = load("registry/modules_dict.jld2")["modules_dict"]
 
 # get names of modules from pkg_corpus.txt
 names = unique([replace(string(x), r"\r"=>"") for x in split(read("pkg_corpus.txt",String),"\n")])
