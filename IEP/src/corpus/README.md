@@ -277,7 +277,8 @@ Il resto del procedimento è simile per entrambe le versioni
       (codice)
    4. function nome(input)::(output type)
       (codice)
-   5. se non trova nessuna di questi pattern, ritorna nothing, lo stesso codice verrà poi eseguito sulle sottoespressioni
+   5. se non trova nessuna di questi pattern, ritorna nothing
+   lo stesso codice verrà comunque eseguito sulle sottoespressioni
    ```julia shell
    if isAssignmentOP(e)
 		if isArrowOP(e.args[2])
@@ -292,109 +293,123 @@ Il resto del procedimento è simile per entrambe le versioni
 			# 4
 		end	
 	else
+        # 5
 		return nothing
 	end
    ```
-   1. nel primo caso 
+   1. nel primo caso usiamo funzioni ausiliarie per prendere i dati dall'espressione
    ```julia shell
     return FuncDef(
-        scrapeName(e.args[1]),
+        NameDef(e.args[1]),
         scrapeInputs(e.args[2].args[1]),
         e
     )
    ```
-
-   ```julia shell
-    # we're in the name(vars) = block pattern
-    # we can run scrapeinputs on the :call, 
-    # the first input will actually be the function name			
+      NameDef semplicemente crea struttura identificante nome dall'espressione mentre scrapeInputs, funzione per determinare numero, nome e tipi(se specificati) degli input, è un pò più complessa:
+      ```julia shell
+		for i in 1:length(arr)
+			if isTypedefOP(e.args[i])
+				# 1
+			else
+				# 2
+			end
+		end
+      ```
+      la funzione itera sull'array di argomenti dell'espressione (dove sono definiti gli input) e identifica input definiti con o senza tipo definito (identificato da operatore :: )
+      se una definizione di tipo viene trovata, il codice deve anche differenziare tra definizione normale di tipo* e definizione contenente curly brackets {}**
+      ```julia shell
+        if length(e.args[i].args)<2
+        # **
+            arr[i] = InputDef(
+                scrapeName(e.args[i].args[1]),
+                scrapeName(e.args[i].args[1])
+            )
+        else
+        # *
+            arr[i] = InputDef(
+            scrapeName(e.args[i].args[1]),
+            scrapeName(e.args[i].args[2])
+        )
+        end
+      ```
+        se invece il tipo di input non è definito, come tipo viene passato espressione simbolo :Any, preso da un espressione generata al momento
+      ```julia shell
+        arr[i] = InputDef(
+            scrapeName(e.args[i]), 
+            scrapeName(CSTParser.parse("x::Any").args[2])
+        )
+      ```
+      questo procedimento viene ripetutto su ogni elemento, ottenendo quindi un array di InputDef.
+      Creiamo quindi definizione di funzione con questo array, il nome preso dal primo argomento, e l'espressione totale come blocco codice.
+    2. nel caso la funzione sia definita come nome(input) = (blocco di codice), gli input vanno presi dal leftvalue dell'operatore = (quindi nel primo argomento dell'espressione passata) eliminando però il primo elemento che è invece il nome della funzione.
+       il blocco di codice invece è nella rightvalue dell'operazione, che parsata è nel secondo argomento dell'espressione.
+       Il procedimento è per il resto identico.
+   ```julia shell		
     tmp = scrapeInputs(e.args[1])
     inputs = length(tmp) > 1 ? tmp[2:end] : Array{InputDef,1}(undef, 0)
-    # the function code will be the rvalue of the assignment operation e
     return FuncDef(
         scrapeName(e.args[1].args[1]),
         inputs,
         e				
     )
    ```
-
+    3. Nel caso di funzioni definite con keyword function, nel caso il primo argomento sia una call, gli argomenti della call definiranno il nome della funzione seguita dalla definizione degli input, mentre il codice sarà nel secondo argomento dell'espressione :function 
    ```julia shell
-    # we're in the name(vars) = block pattern
-    # we can run scrapeinputs on the :call, 
-    # the first input will actually be the function name			
-    tmp = scrapeInputs(e.args[1])
-    inputs = length(tmp) > 1 ? tmp[2:end] : Array{InputDef,1}(undef, 0)
-    # the function code will be the rvalue of the assignment operation e
-    return FuncDef(
-    scrapeName(e.args[1].args[1]),
-    inputs,
-    e# the whole function				
-    )
+    if e.args[1].head == :call		
+        tmp = scrapeInputs(e.args[1])
+        inputs = length(tmp) > 1 ? tmp[2:end] : Array{InputDef,1}(undef, 0)
+        return FuncDef(
+            scrapeName(e.args[1].args[1]),
+            inputs,
+            e				
+        )
+    end
    ```
-
+   4. Se la funzione, definita con keyword fuction, dichiara anche il tipo di ritorno, il primo argomento dell'espressione :function definirà operazione ::
+      La call, che definisce nome e input come sopra, sarà nel leftvalue di questa operazione (quindi args[1]) mentre il tipo di ritorno sarà nel secondo argomento.
    ```julia shell
-    # this function defines its output type
-    if _checkArgs(e.args[1])&&_checkArgs(e.args[1].args[1])&&e.args[1].args[1].head == :call
-        # we're in the name(vars) = block pattern
-        # we can run scrapeinputs on the :call, 
-        # the first input will actually be the function name			
+    if _checkArgs(e.args[1])&&_checkArgs(e.args[1].args[1])&&e.args[1].args[1].head == :call	
         tmp = scrapeInputs(e.args[1].args[1])
         inputs = length(tmp) > 1 ? tmp[2:end] : Array{InputDef,1}(undef, 0)
-        
-        # the function code will be the rvalue of the assignment operation e
         return FuncDef(
             scrapeName(e.args[1].args[1].args[1]),
             inputs,
             e,
             scrapeName(e.args[1].args[2])
         )
-    else
-        return FuncDef(
-            ":function's typedef operator didnt have a :call as its leftvalue",
-            e					
-        )
     end
    ```
-   
+6. Una volta ottenuti i dati importanti, li salviamo in locale in un file jld2 con lo stesso nome del modulo (preso direttamente come input o estratto  dall'url).
+   ```julia shell
+    name = string(split(replace(url, r"/archive/master.zip"=>""),"/")[end])
+   ```
+   Questo file jld2, come in passato, è un dizionario la cui unica chiave è il nome del modulo ed il valore relativo è l'array di FunctionContainer estratte nel passo precedente.
+7. Come ultima cosa, vengono pulite le variabilit usate e viene rimossa la cartella temporanea che conteneva source code archiviato ed estratto.
+ 
 ```julia shell
-mkpath("tmp/$name")
+mkpath("tmp/$name") #1
 # *
-download(url, "tmp/$name/file.zip")
+download(url, "tmp/$name/file.zip") #2
 # **
-download(dict[name], "tmp/$name/file.zip")
-unzip("tmp/$name/file.zip","tmp/$name")
-parse = IEP.read_code("tmp/$name")
-scrape = IEP.scrape(parse)
-
+download(dict[name], "tmp/$name/file.zip") #2
+unzip("tmp/$name/file.zip","tmp/$name") #3
+parse = IEP.read_code("tmp/$name") #4
+scrape = IEP.scrape(parse) #5
+save("scrapes/$(name).jld2", Dict(name => scrape)) #6
+rm("tmp/$name", recursive = true) #7
+scrape = nothing #7
+parse = nothing #7
 ```
 
-function single_scrape_save(dict, name)
-	save("scrapes/$(name).jld2", Dict(name => scrape))
-	println("cleanup...")
-	rm("tmp/$name", recursive = true)
-	scrape = nothing
-	parse = nothing
-end
+Una volta che save_scrapes_from_Modules esegue questo procedimento per ogni nome/url modulo nel file pkg_corpus.txt, avremo una cartella scrapes contenente i file .jld2 dai quali possiamo estrarre array di FunctionContainer, che sono i dati che ci servono.
 
+Per ottenere i dati delle funzioni estratte per un determinato modulo, bisogna aprire il .jld2 di quel nome ed indicizzare al nome stesso il dizionario all'interno:
+```julia shell
+name = "CSV" # nome del modulo
+file = load(joinpath("scrapes", string(name, ".jld2")))# file/dizionario
+fcs = file[name] # array di functioncontainer estratti dal codice del modulo
+```
 
-function single_scrape_save(url)
-	println("Module from $url ")
-	name = string(split(replace(url, r"/archive/master.zip"=>""),"/")[end])
-	mkpath("tmp/$name")
-	println("downloading...")
-	download(url, "tmp/$name/file.zip")
-	println("unzipping...")
-	unzip("tmp/$name/file.zip","tmp/$name")
-	println("parsing...")
-	parse = IEP.read_code("tmp/$name")
-	scrape = IEP.scrape(parse)
-	println("scraping...")
-	save("scrapes/$(name).jld2", Dict(name => scrape))
-	println("cleanup...")
-	rm("tmp/$name", recursive = true)
-	scrape = nothing
-	parse = nothing
-end
 
 ---
 

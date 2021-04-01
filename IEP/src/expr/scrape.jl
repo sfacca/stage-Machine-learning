@@ -229,7 +229,7 @@ the expr needs to only contain argument definitions in its .args array
 """
 function scrapeInputs(e::CSTParser.EXPR)::Array{InputDef,1}
 	println("scrape inputs")
-	if !isnothing(e.args) && !isempty(e.args)
+	if _checkArgs(e)
 		arr = Array{InputDef,1}(undef, length(e.args))
 		for i in 1:length(arr)
 			# is this a simple param name or is this a :: OP?
