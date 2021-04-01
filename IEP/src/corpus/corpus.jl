@@ -230,8 +230,11 @@ function get_dict(dir::String)
 				tmp = Array{IEP.FunctionContainer,1}(undef,0)
 				tmp = vcat(tmp, load(joinpath(root, file))[name])
 				println(unique([typeof(x) for x in tmp]))
-				for item in _in_src(tmp)
-					dict = merge(dict, IEP.make_head_expr_dict(item.func.block))
+				#for item in _in_src(tmp)
+				for fc in tmp
+					if _in_src(fc.source)
+						dict = merge(dict, IEP.make_head_expr_dict(fc.func.block))
+					end
 				end
 				tmp = nothing
 			end

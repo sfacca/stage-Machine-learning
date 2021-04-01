@@ -1,15 +1,11 @@
 using FileIO, JLD2
 
-function _trk()
-    try
-        get_dict
-        global res = "empty.jl"
-    catch
-        global res = "../corpus.jl"
-    end
-    res
+try
+    get_dict
+catch e
+    println("loading code...")
+    include("../corpus.jl")
 end
-include(_trk())
 
 # generate dictionary from scrapes folder
 prinltn("building dictionary...")

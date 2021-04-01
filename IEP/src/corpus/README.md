@@ -415,10 +415,97 @@ fcs = file[name] # array di functioncontainer estratti dal codice del modulo
 
 ### Dictionary
 
-Il dizionario simbolo -> esempio viene generato a partire dagli scrapes in /scrapes dallo script
+Come dizionario vogliamo una struttura con, come chiave, ogni tipo di espressione (indicate dai campi .head) e con un espressione di esempio per ognuno di questi tipi. 
+Questo dizionario simbolo -> esempio viene generato a partire dagli scrapes in /scrapes dallo script
 
 ```julia shell
 include("scripts/make_dictionary.jl")
+```
+Come prerequisito, per poi salvare in locale il dizionario ottenuto, lo script richiede i pacchetti FileIO e JLD2
+```julia shell
+using FileIO, JLD2
+```
+Inoltre lo script utilizza la funzione get_dict dal file corpus.jl.
+Questo file contiene anche altre funzioni e potrebbe essere già stato caricato, per velocità includiamo solo se provare a usare la funzione lancia errore:
+```julia shell
+try
+    get_dict
+catch
+    include("../corpus.jl")
+end
+```
+Una volta assicurato che la funzione ci sia, la lanciamo sulla directory scrapes, che contiene i dati sul codice che vogliamo analizzare.
+Per altre informazioni su questi dati vedi la sezione precedente sugli scrapes.
+```julia shell
+dict = get_dict("scrapes")
+```
+La funzione esplora esplora il folder tree della cartella indicata in questo modo:
+1. inizializza un dizionario vuoto
+2. esplora il folder tree finchè non trova un file .jld2
+3. estrae i FunctionContainer dal file, accorgendosi di ottenere un array di tipo definito*
+4. vogliamo creare dizionario solo dai file del source code, non da esempi e notebook, filtriamo quindi i FunctionContainer, mantenendo solo quelli con source in una cartella src, usando la funzione ausiliaria _in_src
+5. creiamo un sottodizionario dai FunctionContainer ricavati, e lo uniamo al dizionario.
+   La funzione che effettivamente crea un dizionario è make_head_expr_dict, dal nostro modulo IEP.
+   Questa funzione esegue il seguente algoritmo:
+   1. mantiene dizionario da poi ritornare
+   2. spiana l'espressione portando tutte le sottoespressioni (e sottoespressioni di sottoespressioni) in un array ad una dimensione
+      da notare è che sottoespressioni possono essere in args^1, in val^2 e in head^3, flattenExpr prende espressioni/sottoespressioni da questi tre campi:
+      ```julia shell
+        res = [e]
+        if typeof(e.head) == CSTParser.EXPR #1
+            res = vcat(res, flattenExpr(e.head))
+        end
+        
+        if typeof(e.val) == CSTParser.EXPR #2
+            res = vcat(res, flattenExpr(e.val))
+        end
+            
+        if _checkArgs(e) #3
+            for x in e.args
+                res = vcat(res, flattenExpr(x))
+            end
+        end
+        res
+      ```
+   3. scorre l'array e, per ogni espressione, se l'head è un simbolo, aggiunge/sovrascrive nel dizionario, per la chiave dell'head, il valore dell'expr
+   4. alla fine ritorna il dizionario costruito
+   ```julia shell
+        dic = Dict() #1
+        flat = unique(flattenExpr(arr))	#2
+        for j in 1:length(flat) #3
+            if typeof(flat[j].head) == Symbol #3
+                dic[flat[j].head] = flat[j] #3
+            end
+        end
+        dic	
+    ```
+Eseguendo questi passi per ogni file, otteniamo un dizionario per tutto il corpus.
+```julia shell
+	dict = Dict() #1
+	for (root, dirs, files) in walkdir(dir) #2
+		for file in files #2
+			if endswith(file, ".jld2") #2
+				name = string(split(file,".jld2")[1]) #3
+				tmp = Array{IEP.FunctionContainer,1}(undef,0) #3 *
+				tmp = vcat(tmp, load(joinpath(root, file))[name]) #3
+				for fc in tmp #4
+					if _in_src(fc.source) #4
+						dict = merge(dict, IEP.make_head_expr_dict(fc.func.block)) #5
+					end
+				end
+				tmp = nothing
+			end
+		end
+	end
+```
+Alla fine, lo script salva il dizionario ottenuto
+
+```julia shell
+    prinltn("building dictionary...")
+    dict = get_dict("scrapes")
+    println("saving dictionary...")
+    save("../dictionary.jld2", Dict("dictionary"=>dict))
+    dict = nothing
 ```
 
 ---
@@ -429,6 +516,18 @@ Il CSet usato è definito in IEP\src\CSet\newSchema\get_newSchema.jl, viene gene
 
 ```julia shell
 include("scripts/make_cset.jl")
+```
+
+```julia shell
+```
+
+```julia shell
+```
+
+```julia shell
+```
+
+```julia shell
 ```
 
 ---
