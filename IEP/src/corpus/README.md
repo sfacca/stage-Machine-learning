@@ -332,7 +332,9 @@ Il resto del procedimento è simile per entrambe le versioni
         )
         end
       ```
-        se invece il tipo di input non è definito, come tipo viene passato espressione simbolo :Any, preso da un espressione generata al momento
+
+      se invece il tipo di input non è definito, come tipo viene passato espressione simbolo :Any, preso da un espressione generata al momento
+      
       ```julia shell
         arr[i] = InputDef(
             scrapeName(e.args[i]), 
@@ -518,7 +520,146 @@ Il CSet usato è definito in IEP\src\CSet\newSchema\get_newSchema.jl, viene gene
 include("scripts/make_cset.jl")
 ```
 
+Vediamo prima come è definito lo schema del CSet in IEP\src\CSet\newSchema\get_newSchema.jl
 ```julia shell
+@present newSchema(FreeSchema) begin
+		( Code_symbol, Function, Variable, Symbol, Language, Math_Expression, Concept, Unit, Entity, Ontology, Any )::Ob
+		(value)::Data
+
+
+		#relazioni
+		Co_occurs::Hom(Any, Any)
+		IsMeasuredIn::Hom(Any, Unit)
+		ImplementsExpr::Hom(Function, Math_Expression)	
+		ImplementsConc::Hom(Function, Concept)
+		VERB::Hom(Any,Any) # ?
+		IsSubClassOf::Hom(Concept, Concept)
+
+		UsesLanguage::Hom(Any, Language)
+
+		isLanguage::Hom(Any, Language)
+		isMath_Expression::Hom(Any, Math_Expression)
+		isConcept::Hom(Any, Concept)
+		isUnit::Hom(Any, Unit)	
+		isCode_symbol::Hom(Any, Code_symbol)
+		isFunction::Hom(Any, Function)
+		isVariable::Hom(Any, Variable)
+		isSymbol::Hom(Any, Symbol)
+
+		# we handle 1 to many relations with auxiliary Obs
+		(AComponentOfB, XCalledByY)::Ob
+		A::Hom(AComponentOfB, Any)	
+		B::Hom(AComponentOfB, Any)
+		X::Hom(XCalledByY, Function)
+		Y::Hom(XCalledByY, Function)
+
+		#attributi
+		language::Attr(Language, value)
+		math_expression::Attr(Math_Expression, value)
+		concept::Attr(Concept, value)
+		unit::Attr(Unit, value)
+		code_symbol::Attr(Code_symbol, value)
+		func::Attr(Function, value)
+		variable::Attr(Variable, value)
+		symbol::Attr(Symbol, value)
+		entity::Attr(Entity, value)
+		ontology::Attr(Ontology, value)
+	end
+
+```
+La prima parte della definizione riguarda la dichiarazione di categorie e dati
+```julia shell
+    ( Code_symbol, Function, Variable, Symbol, Language, Math_Expression, Concept, Unit, Entity, Ontology, Any )::Ob
+    (value)::Data
+```
+  Categorie 
+  *  Code_symbol: .head di un espressione
+  *  Function: nome di una funzione
+  *  Variable: nomi delle variabili
+  *  Symbol: .val di un espressione
+  *  Language: linguaggi e.g.: julia, inglese, italiano
+  *  Math_Expression: espressione matematica
+  *  Concept: concetto
+  *  Unit: unità di misura e.g.: metri
+  *  Entity: 
+  *  Ontology:  
+  *  Any: oggetto ausiliario per definire alcune relazioni
+  Ci basta definire solo un tipo di dato generico value che useremo per attribuire valore ai vari oggetti.
+
+Dopodichè definiamo le relazioni.
+Una relazione è una funzione univoca da una categoria ad un altra.
+  Relazioni:
+  * Co_occurs::Hom(Any, Any)
+  * IsMeasuredIn::Hom(Any, Unit) : collega un oggetto qualiasi con la sua unità di misura
+  * ImplementsExpr::Hom(Function, Math_Expression) : collega una funzione con l'espressione matematica che implementa
+  * ImplementsConc::Hom(Function, Concept) : collega una funzione con il concetto che implementa
+  * VERB::Hom(Any,Any) : 
+  * IsSubClassOf::Hom(Concept, Concept) : collega concetto con il concetto al cui è all interno
+  * UsesLanguage::Hom(Any, Language) : collega qualsiasi oggetto con il linguaggio in cui è espresso
+  
+Le prossime relazioni servono per definire oggetti Any.
+Un oggetto Any è come un casting generico, in modo tale da poter definire relazioni non collegate a categorie specifiche.
+Ogni oggetto Any è poi collegato all oggetto di categoria definita che rappresenta tramite le seguenti relazioni:
+  * isLanguage::Hom(Any, Language) 
+  * isMath_Expression::Hom(Any, Math_Expression)
+  * isConcept::Hom(Any, Concept)
+  * isUnit::Hom(Any, Unit)
+  * isCode_symbol::Hom(Any, Code_symbol)
+  * isFunction::Hom(Any, Function)
+  * isVariable::Hom(Any, Variable)
+  * isSymbol::Hom(Any, Symbol)
+
+Le relazioni definite nello schema devono essere funzioni, ogni relazione di ogni oggetto pu; mappare quindi su massimo un altro oggetto.
+Per relazioni uno a molti (e quindi molti a molti), introduciamo delle categorie ausiliarie i cui oggetti definiscono un collegamento da un oggetto a un altro:
+  * AComponentOfB: l'oggetto in A è componente di B
+  * XCalledByY): l'oggetto X è chiamato da Y
+Per finire la definizione, inseriamo relazioni per definire gli elementi delle relazioni:
+  * A::Hom(AComponentOfB, Any)	
+  * B::Hom(AComponentOfB, Any)
+  * X::Hom(XCalledByY, Function)
+  * Y::Hom(XCalledByY, Function)
+
+Definiamo infine gli attributi, i valori effettivi degli oggetti:
+  * language::Attr(Language, value)
+  * math_expression::Attr(Math_Expression, value)
+  * concept::Attr(Concept, value)
+  * unit::Attr(Unit, value)
+  * code_symbol::Attr(Code_symbol, value)
+  * func::Attr(Function, value)
+  * variable::Attr(Variable, value)
+  * symbol::Attr(Symbol, value)
+  * entity::Attr(Entity, value)
+  * ontology::Attr(Ontology, value)
+
+Avendo definito il CSet, vediamo come viene costruito.
+
+
+
+
+```julia shell
+```
+
+```julia shell
+```
+
+
+
+```julia shell
+using FileIO, JLD2
+
+try
+    files_to_cset
+catch
+    include("../corpus.jl")
+end
+
+# get cset from srapes folder
+println("generating CSet from files in scrapes folder...")
+CSet = files_to_cset("scrapes")
+# save it
+println("saving CSet.jld2...")
+save("../CSet.jld2", Dict("CSet"=>CSet)
+CSet = nothing
 ```
 
 ```julia shell

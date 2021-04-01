@@ -1,15 +1,10 @@
 using FileIO, JLD2
 
-function _trk()
-    try
-        files_to_cset
-        global res = "empty.jl"
-    catch
-        global res = "../corpus.jl"
-    end
-    res
+try
+    files_to_cset
+catch
+    include("../corpus.jl")
 end
-include(_trk())
 
 # get cset from srapes folder
 println("generating CSet from files in scrapes folder...")
