@@ -632,17 +632,228 @@ Definiamo infine gli attributi, i valori effettivi degli oggetti:
   * ontology::Attr(Ontology, value)
 
 Avendo definito il CSet, vediamo come viene costruito.
-
-
-
-
+Lo script usa la funzione files_to_cset da corpus.jl per creare un CSet a partire dai dati nella cartella scrapes.
+Per evitare di spendere tempo a ricaricare il tutto, come negli altri script, controlliamo se la funzione è gia accessibile nel workspace e carica il codice altrimenti:
 ```julia shell
+using FileIO, JLD2
+
+try
+    files_to_cset
+catch
+    include("../corpus.jl")
+end
 ```
 
+Avendo preparato il workspace, eseguiamo la funzione.
+Salveremo poi il risultato in un JLD2 di nome CSet.jld2:
 ```julia shell
+println("generating CSet from files in scrapes folder...")
+CSet = files_to_cset("scrapes")
+println("saving CSet.jld2...")
+save("../CSet.jld2", Dict("CSet"=>CSet)
+CSet = nothing
 ```
 
+files_to_cset, in sostanza, esplora la cartella scrapes, apre ogni jld2 che trova e aggiunge i dati ad un CSet
 
+```julia shell
+	cset = nothing
+	for (root, dirs, files) in walkdir(dir)
+		try
+			len = length(files)
+			i = 1
+			for file in files
+				if endswith(file, ".jld2")	
+					println("handling $file")
+					name = string(split(file,".jld2")[1])
+					tmp = Array{IEP.FunctionContainer,1}(undef,0)
+					tmp = vcat(tmp, load(joinpath(root, file))[name])
+					#println(unique([typeof(x) for x in tmp]))
+					if isnothing(cset)
+						cset = IEP.get_newSchema(tmp)
+					elseif isnothing(tmp)
+						println("$file appears empty")
+					else
+						println("adding stuff...")
+						for fc in tmp
+							println("adding $(IEP.getName(fc.func.name))")	
+							try					
+								IEP.handle_FunctionContainer!(fc, cset)
+							catch e
+								println("error: $e")
+							end
+						end
+					end
+					tmp = nothing
+				end
+			end
+		catch e
+			println("error at file: $file")
+			println(e)
+		end
+	end
+	cset
+end
+```
+L'eslorazione del directory tree e l'apertura dei jld2 trovati sono cose che abbiamo già visto, concentriamoci invece sull'uso di IEP.get_newSchema e IEP.handle_FunctionContainer!.
+
+get_newSchema viene eseguito al primo array di FunctionContainer trovato, serve per creare un CSet da zero.
+Questa funzione è divisa in due parti: 
+1. definisce il CSet
+2. crea un CSet vuoto dalla definizione e lancia la funzione per aggiungerci i dati trovati nel jld2
+```julia shell
+function get_newSchema(scrape::Array{FunctionContainer,1})
+	
+	@present newSchema(FreeSchema) begin
+		# 1
+        # definizione schema
+	end
+
+    #2
+	handle_Scrape(scrape, ACSetType(newSchema, index=[:IsSubClassOf]){Any}())
+	
+end
+```
+
+handle_Scrape, sempre dal modulo IEP, serve per aggiungere i dati di ogni FunctionContainer al CSet passato
+```julia shell
+function handle_Scrape(fcs::Array{FunctionContainer,1}, data)
+	for i in 1:length(fcs)
+		println("handling container $i")
+		try
+			handle_FunctionContainer!(fcs[i], data)
+		catch e
+			println("error at container: $i")
+			println(e)
+		end
+	end
+	data
+end
+```
+Quindi, al primo jld2 trovato, verrà creato un CSet vuoto al cui verranno aggiunti oggetti (settando le relazioni) e dati.
+Questa seconda parte è eseguita da handle_FunctionContainer!, che aggiunge i dati di un FunctionContainer al CSet in input.
+Un FunctionContainer, come anche indicato dal nome, contiene la definizione e i dati estratti da una funzione, aggiungere i dati di un FunctionContainer al CSet significa quindi aggiungere una funzione ed i suoi sottocomponenti con le relazioni relative.
+```julia shell
+function handle_FunctionContainer!(fc::FunctionContainer, data)
+```
+handle_FunctionContainer! segue il seguente procedimento:
+1. Aggiunge il nome funzione, controllando non sia già presente:   
+    ```julia shell
+    i = function_exists(getName(fc.func.name), data)
+	if isnothing(i)
+		i = add_parts!(data, :Function, 1)[1]
+		data[i, :func] = getName(fc.func.name)
+	end
+    ```
+    Per controllare se esiste già oggetto Funzione con lo stesso nome, usiamo function_exists, semplice wrapper di findfirst
+    ```julia shell
+    function function_exists(func::String, data)	
+        findfirst((x)->(x==func), data[:,:func])
+    end    
+    ```
+    Dopo questo passaggio, la variabile i conterrà l'indice dell'oggetto Function relativo alla funzione contenuta nel FunctionContainer in ingresso.
+2. Aggiunge le calls, ovvero definisce relazione tra la funzione che stiamo definendo e ogni funzione che essa chiama al suo interno.
+    ```julia shell
+    calls = getName(get_calls(fc.func.block))
+	add_calls(i, calls, data)
+    ```
+    get_calls ritorna tutte le espressioni di head :call, che sono le funzioni chiamate.
+    Queste espressioni vengono poi tradotte in String da getName.
+    add_calls gestisce l'addizione di chiamate nel CSet:
+    ```julia shell
+    function add_calls(func::Union{String, Int}, calls_set::Array{String,1}, data)
+        if typeof(func) == String
+            i = findfirst((x)->(x == func), data[:,:func])
+            if isnothing(i)
+                i = add_parts!(data, :Function, 1)[1]
+                data[i,:func] = func
+            end
+            func = i
+        end
+        
+        for call in calls_set
+            #1
+            i = function_exists(call, data)
+            if isnothing(i)
+                i = add_parts!(data, :Function, 1)[1]
+                data[i,:func] = call
+            end
+            add_XCalledByY(i, func, data) #func calls call -> call is called by func
+        end
+    end
+    ```
+    Per 
+
+    ```julia shell
+    ```
+    ```julia shell
+    ```
+
+    ```julia shell
+    ```
+
+    ```julia shell
+    ```
+
+    ```julia shell
+    ```
+
+    ```julia shell
+    ```
+
+    ```julia shell
+    ```
+
+    ```julia shell
+    ```
+
+    ```julia shell
+    ```
+
+    ```julia shell
+    ```
+
+    ```julia shell
+    ```
+```julia shell
+	
+	#2 add calls
+	#println("adding calls")
+	calls = getName(get_calls(fc.func.block))
+	add_calls(i, calls, data)
+	#2.2 remove duplicate XCalledByY	
+	#removeDuplicates!("XCalledByY", data)
+	
+	
+	#3 add components
+	
+	#3.1 add .head components (Code_symbols)
+	#println("adding head components")
+	any_i = get_Any("Function", i, data)
+	#println("got any_i")
+	heads = _getHeads(fc)
+	#println("actual add")
+	add_components(any_i, heads, "Code_symbol", data)
+	
+	#3.2 add variable components (Variable)
+	#println("adding variable components")
+	vars = [string(get_all_vals(x)) for x in find_heads(fc.func.block, :IDENTIFIER)]
+	add_components(any_i, vars, "Variable", data)
+	
+	#3.3 add Symbol components (they're actually strings)
+	#symbs = unique([String(Symbol(Expr(x))) for x in get_leaves(fc.func.block)])
+	#println("adding symbol components")
+	symbs = unique(string.(get_all_vals(fc.func.block)))
+	add_components(any_i, symbs, "Symbol", data)
+	# 3.4 remove duplicate AComponentOfB
+	#removeDuplicates!("AComponentOfB", data)
+	
+	#4 language is julia
+	#println("setting language")
+	set_UsesLanguage("Function", i, "Julia", data)
+	
+end		
+```
 
 ```julia shell
 using FileIO, JLD2
