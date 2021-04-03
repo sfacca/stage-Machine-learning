@@ -759,7 +759,8 @@ handle_FunctionContainer! segue il seguente procedimento:
     ```
     get_calls ritorna tutte le espressioni di head :call, che sono le funzioni chiamate.
     Queste espressioni vengono poi tradotte in String da getName.
-    add_calls gestisce l'addizione di chiamate nel CSet:
+    add_calls gestisce l'addizione di chiamate nel CSet    
+    Per flessibilità la funzione accetta che la funzione le cui call vogliamo gestire sia passata come Int (indice) o come String (nome), nel secondo caso cerchiamo la funzione, per nome, nel CSet e, se essa risulta non presente, la aggiungiamo.
     ```julia shell
     function add_calls(func::Union{String, Int}, calls_set::Array{String,1}, data)
         if typeof(func) == String
@@ -771,25 +772,122 @@ handle_FunctionContainer! segue il seguente procedimento:
             func = i
         end
         
-        for call in calls_set
-            #1
-            i = function_exists(call, data)
-            if isnothing(i)
-                i = add_parts!(data, :Function, 1)[1]
-                data[i,:func] = call
-            end
-            add_XCalledByY(i, func, data) #func calls call -> call is called by func
-        end
+        # continua
     end
     ```
-    Per 
-
+    Una volta fatto ciò iniziamo ad aggiungere le relazioni tra le funzioni chiamate e la funzione func.
+    Iteriamo l'array calls_set, contenente i nomi delle funzioni chiamate, e, per ogni chiamata
     ```julia shell
+        for call in calls_set            
+            i = function_exists(call, data) #1
+            if isnothing(i) #2
+                i = add_parts!(data, :Function, 1)[1] #2
+                data[i,:func] = call #2
+            end
+            add_XCalledByY(i, func, data) #3
+        end
     ```
+    1. Controlliamo se esiste già nel CSet
+    2. Se non esiste, la aggiungiamo
+    3. Creiamo oggetto relazione rappresentante la relazione tra la chiamata e la chiamante    
+        L'aggiunta di questa relazione è semplice:
+        1. Aggiunge un nuovo oggetto relazione
+        2. Imposta la funzione chiamata (via indice)
+        3. Imposta la funzione chiamante (via indice)
+            ```julia shell
+            function add_XCalledByY(x::Int, y::Int, data)
+                i = add_parts!(data, :XCalledByY, 1)[1]
+                data[i, :X] = x	
+                data[i, :Y] = y
+                i
+            end
+            ```
+3. Aggiunge componenti Code_symbol, Variable e Symbol.
+   Per queste relazioni serve un oggetto Any. Usiamo quindi get_Any per ottenerlo.
     ```julia shell
+    any_i = get_Any("Function", i, data)
     ```
-
+    get_Any è una funzione che cerca un oggetto Any rappresentante l'oggetto e, se non lo trova, lo crea.
+    Per fare ciò deve prima identificare l'oggetto. Per identificare un oggetto in un CSet servono, oltre al CSet, il nome della categoria (che passiamo come String) e l'indice dell'oggetto rispetto a quella categoria (Int).
+    A partire da questi dati get_Any
+    1. Controlla che la stringa sia effettivamente un tipo e, altrimenti, lancia un errore
+    2. Cerca un Any che rappresenti il nostro oggetto.
+       Gli oggetti Any mantengono tante relazioni di nome is(nome categoria) quante sono le categorie.
+       Un Any rappresentante oggetto di categoria CAT e indice i avrà relazione isCAT = i, mentre le altre saranno 0.
+       Possiamo autoimaticamente ottenere il nome della relazione usando operazioni su string e simboli
+    3. Se non trova oggetto Any, lo crea, settandone la relazione appropriata.
+    4. infine ritorna l'indice dell'Any trovato o creato.
     ```julia shell
+    function get_Any(typ::String, index::Int, data)
+        res = nothing
+        if _checkTyp(typ) #1
+            res = findfirst((x)->(x == index), data[:,Symbol(string("is",typ))]) #2
+            if isnothing(res)
+                res = add_parts!(data, :Any, 1)[1] #3
+                data[res, Symbol(string("is",typ))] = index #3
+            end
+        else
+            throw("typ is not an Ob name") #1
+        end
+        res
+    end
+    ```
+   Dopo aver ottenuto l'indice all Any della funzione iniziamo add aggiungere relazioni ai componenti.
+   Primi sono i Code_symbol che, ricordiamo, sono semplicemente i tipi di .head delle espressioni.
+   ```julia shell
+    heads = _getHeads(fc)
+	add_components(any_i, heads, "Code_symbol", data)
+    ```
+   Prendiamo prima l'insieme di .head delle espressioni della nostra funzione con _getHeads  
+    ```julia shell
+    r = get_all_heads(fc.func.block)# returns array of Union(EXPR, Symbol)
+	x = Array{String,1}(undef, length(r))
+	for i in 1:length(r)
+		if typeof(r[i]) == CSTParser.EXPR
+			x[i] = string(Symbol(Expr(r[i])))			
+		else #it's a Symbol
+			x[i] = string(r[i])
+		end			
+	end
+	x
+    ```
+   La funzione semplicemente prende tutti i campi .head della funzione e li converte in string.
+   Preso le heads, le passiamo ad add_components, specificando che tipo di componente sono.
+   Vediamo il funzionamento di questa funzione
+    ```julia shell
+    function add_components(
+            anyB::Int, components::Array{String,1}, component_type::String, data
+            )
+        for comp in components
+            i = find_Ob(component_type, comp, data) #1
+            if isnothing(i)
+                i = create_Ob(component_type, comp, data) #2
+            end
+            add_AComponentOfB(get_Any(component_type, i, data), anyB, data) #3
+        end
+    end	
+    ```
+    La funzione prende in input un array contenente i valori dei componenti, il loro tipo ( Code_symbol, Variable o Symbol) e l'indice dell'Any a cui sono componenti.
+    Con questi dati, itera nell'array e, per ogni valore
+    1. Trova l'oggetto, del tipo passato come input, con il valore nell'array
+    2. Se un oggetto simile non esiste, lo crea
+    3. Crea oggetto relazione, impostando indici agli Any del nuovo componente e della funzione  
+   Dopo i Code_symbol aggiunge le variabili
+   ```julia shell
+        vars = [string(get_all_vals(x)) for x in find_heads(fc.func.block, :IDENTIFIER)]
+	    add_components(any_i, vars, "Variable", data)
+    ```
+    Il nome delle variabili sono i valori delle espressioni con head :IDENTIFIER, li prendiamo quindi usando funzione find_heads, che ritorna tutte le espressioni con un determinato .head,
+    ```julia shell    
+    
+	
+	
+    
+	vars = [string(get_all_vals(x)) for x in find_heads(fc.func.block, :IDENTIFIER)]
+	add_components(any_i, vars, "Variable", data)
+	
+    symbs = unique(string.(get_all_vals(fc.func.block)))
+	add_components(any_i, symbs, "Symbol", data)
     ```
 
     ```julia shell
@@ -816,14 +914,6 @@ handle_FunctionContainer! segue il seguente procedimento:
     ```julia shell
     ```
 ```julia shell
-	
-	#2 add calls
-	#println("adding calls")
-	calls = getName(get_calls(fc.func.block))
-	add_calls(i, calls, data)
-	#2.2 remove duplicate XCalledByY	
-	#removeDuplicates!("XCalledByY", data)
-	
 	
 	#3 add components
 	

@@ -84,16 +84,16 @@ all components must be of component_type
 components not already in data are added
     """
 function add_components(
-    anyB::Int, components::Array{String,1}, component_type::String, data
-)
-for comp in components
-    #println("does component exist?")
-    i = find_Ob(component_type, comp, data)
-    if isnothing(i)
-        # creating comp
-        i = create_Ob(component_type, comp, data)
-    end
-    #println("adding a component")
-    add_AComponentOfB(get_Any(component_type, i, data), anyB, data)
-end
+		anyB::Int, components::Array{String,1}, component_type::String, data
+		)
+	for comp in components
+		#println("does component exist?")
+		i = find_Ob(component_type, comp, data)
+		if isnothing(i)
+			# creating comp
+			i = create_Ob(component_type, comp, data)
+		end
+		#println("adding a component")
+		add_AComponentOfB(get_Any(component_type, i, data), anyB, data)
+	end
 end	
