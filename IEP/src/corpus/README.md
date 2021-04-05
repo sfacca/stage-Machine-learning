@@ -245,6 +245,7 @@ Il resto del procedimento è simile per entrambe le versioni
 		return Array{FunctionContainer,1}(undef,0)
 	end
    ```
+   Per il riconoscimento delle docstring, vediamo se l'espressione che stiamo vedendo ha head = :globalrefdoc, in questo caso la prossima string trovata sarà il contenuto della docstring per la funzione successiva. Se nessuna string è trovata imposta docstring a "error finding triplestring" per convenzione.
    il codice cerca nelle sottoespressioni definizioni di funzione e le passa a scrapeFuncDef, che le traduce in FunctionDefinition, struct usata per riassumere dati che prendiamo dalle definizioni di funzione   
    ```julia shell
     struct NameDef
