@@ -917,6 +917,7 @@ Alla fine quindi avremo un CSet contenente i dati di tutte le funzioni di tutti 
 
 Per NLP sulle docstring abbiamo bisogno solo delle docstring (string definite subito prima della definiznione della funzione, vengono automaticamente collegate alla funzione come documentazione) e dei nomi delle funzioni a cui si riferiscono.
 Per comodità prendiamo qwuesti dati e li salviamo tramite struttura ausiliaria doc_fun, definita in docstring/doc_fun.jl
+
     ```julia shell
     struct doc_fun
         doc::String
@@ -924,10 +925,12 @@ Per comodità prendiamo qwuesti dati e li salviamo tramite struttura ausiliaria 
         doc_fun(doc,fun) = new(doc, fun);
     end
     ```
+    
 La struttura è banale, doc conterrà la string di documentazione, fun il nome della funzione.
 
 Abbiamo uno script per prendere automaticamente doc_fun dagli scrapes: scripts/make_doc_funs.jl
 Lo script, come in passato, include codice di IEP solo se questo non è già presente ponendo l'include nel catch di un blocco try che prova semplicemente a indicizzare IEP, cosa che ritornererebbe errore se IEP non fosse presente nel workspace.
+
     ```julia shell
         using JLD2, FileIO
         try
@@ -939,6 +942,7 @@ Lo script, come in passato, include codice di IEP solo se questo non è già pre
     ```
 La funzione base del procedimento di creazione dei doc_fun a partire dagli scrapes è _dir_to_docfuns, definita nel file omonimo.
 Questa funzione segue il procedimento già spiegato in passato per l'estrazione di dati da tutti i jld2 di un directory tree, in questo caso però gli unici dati estratti saranno docs e nome delle funzioni nei FunctionContainer che verranno usati per creare dei doc_fun.
+
     ```julia shell
     function _dir_to_docfuns(dir)
         res = Array{doc_fun,1}(undef, 0)
@@ -971,9 +975,11 @@ Questa funzione segue il procedimento già spiegato in passato per l'estrazione 
     end
     ```
 Lo script quindi crea doc_fun per ogni funzione in ogni FunctionContainer e poi salva il tutto in un jld2 per essere utilizzato velocemente da funzioni definite nella cartella docstring.
+
     ```julia shell
     doc_funs = _dir_to_docfuns("scrapes")
     save("docstring/doc_funs.jld2", Dict("doc_funs"=>doc_funs))
     ```
+
 Le spiegazioni sulle funzioni riguardanti NLP su docstring sono nel README.md nella cartella docstring.
 
