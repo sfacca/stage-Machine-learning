@@ -877,117 +877,103 @@ handle_FunctionContainer! segue il seguente procedimento:
         vars = [string(get_all_vals(x)) for x in find_heads(fc.func.block, :IDENTIFIER)]
 	    add_components(any_i, vars, "Variable", data)
     ```
-    Il nome delle variabili sono i valori delle espressioni con head :IDENTIFIER, li prendiamo quindi usando funzione find_heads, che ritorna tutte le espressioni con un determinato .head,
-    ```julia shell    
-    
-	
-	
-    
-	vars = [string(get_all_vals(x)) for x in find_heads(fc.func.block, :IDENTIFIER)]
-	add_components(any_i, vars, "Variable", data)
-	
+    Il nome delle variabili sono i valori delle espressioni con head :IDENTIFIER, li prendiamo quindi usando funzione find_heads, che ritorna tutte le espressioni con un determinato .head, passiamo poi il risultato a get_all_vals che ritornerà i .val, String nome delle variabili.
+    I nomi vengono poi passati ad add_components, il cui funzionamento abbiamo già visto.
+    Come ultimo tipo di componente, gestiamo i Symbol, che contengono tutti i nomi di tutti gli elementi della funzione (.val delle expr)
+    ```julia shell
     symbs = unique(string.(get_all_vals(fc.func.block)))
 	add_components(any_i, symbs, "Symbol", data)
     ```
-
-    ```julia shell
-    ```
-
-    ```julia shell
-    ```
-
-    ```julia shell
-    ```
-
-    ```julia shell
-    ```
-
-    ```julia shell
-    ```
-
-    ```julia shell
-    ```
-
-    ```julia shell
-    ```
-
-    ```julia shell
-    ```
-```julia shell
-	
-	#3 add components
-	
-	#3.1 add .head components (Code_symbols)
-	#println("adding head components")
-	any_i = get_Any("Function", i, data)
-	#println("got any_i")
-	heads = _getHeads(fc)
-	#println("actual add")
-	add_components(any_i, heads, "Code_symbol", data)
-	
-	#3.2 add variable components (Variable)
-	#println("adding variable components")
-	vars = [string(get_all_vals(x)) for x in find_heads(fc.func.block, :IDENTIFIER)]
-	add_components(any_i, vars, "Variable", data)
-	
-	#3.3 add Symbol components (they're actually strings)
-	#symbs = unique([String(Symbol(Expr(x))) for x in get_leaves(fc.func.block)])
-	#println("adding symbol components")
-	symbs = unique(string.(get_all_vals(fc.func.block)))
-	add_components(any_i, symbs, "Symbol", data)
-	# 3.4 remove duplicate AComponentOfB
-	#removeDuplicates!("AComponentOfB", data)
-	
-	#4 language is julia
-	#println("setting language")
+4. Come ultima cosa, collega la Function al linguaggio in cui è scritta, nel notro caso Julia
+    ```julia shell    
 	set_UsesLanguage("Function", i, "Julia", data)
-	
-end		
-```
-
-```julia shell
-using FileIO, JLD2
-
-try
-    files_to_cset
-catch
-    include("../corpus.jl")
-end
-
-# get cset from srapes folder
-println("generating CSet from files in scrapes folder...")
-CSet = files_to_cset("scrapes")
-# save it
-println("saving CSet.jld2...")
-save("../CSet.jld2", Dict("CSet"=>CSet)
-CSet = nothing
-```
-
-```julia shell
-```
-
-```julia shell
-```
-
-```julia shell
-```
+    ```
+   La funzione set_UsesLanguage è una funzione generica per attribuire linguaggio a qualsiasi oggetto.
+   Prende come input nome tipo e indice dell'oggetto, per poter poi crearne o trovarne l'Any, e il linguaggio da attribuirgli e segue il seguente algoritmo:
+   1. Controlla che il tipo sia un tipo vero, ritornando errore altrimenti
+   2. Cerca il linguaggio nel CSet 
+   3. Se il linguaggio esiste, attribuisce all'Any dell'oggetto (che creiamo sul posto se non esiste) l'indice del linguaggio per la relazione :UsesLanguage
+   4. Se il linguaggio non esiste, fa la stessa cosa ma crea sul posto il linguaggio nel CSet 
+    ```julia shell
+    function set_UsesLanguage(typ::String, index::Int, language::String, data)
+        if _checkTyp(typ) #1
+            lind = language_exists(language, data) #2
+            if !isnothing(lind) 
+                data[get_Any(typ, index, data),:UsesLanguage] = lind #3
+            else
+                data[get_Any(typ, index, data),:UsesLanguage] = new_Language(language, data) #4
+            end
+        else
+            throw("typ is not an Ob name") #1
+        end
+    end
+    ```
+Questo procedimento viene eseguito per ogni FunctionContainer contenuto in ogni jld2 nella cartella scrapes.
+Alla fine quindi avremo un CSet contenente i dati di tutte le funzioni di tutti i moduli che abbiamo preso quando abbiamo fatto i jld2(scrapes).
 
 ---
 
 ## Docstring
 
-Per NLP sulle docstring usiamo un file doc_fun.jld2 dove salviamo dati importanti
+Per NLP sulle docstring abbiamo bisogno solo delle docstring (string definite subito prima della definiznione della funzione, vengono automaticamente collegate alla funzione come documentazione) e dei nomi delle funzioni a cui si riferiscono.
+Per comodità prendiamo qwuesti dati e li salviamo tramite struttura ausiliaria doc_fun, definita in docstring/doc_fun.jl
+    ```julia shell
+    struct doc_fun
+        doc::String
+        fun::String
+        doc_fun(doc,fun) = new(doc, fun);
+    end
+    ```
+La struttura è banale, doc conterrà la string di documentazione, fun il nome della funzione.
 
-
-### Fun/Doc
-
-Per nlp sulle docstring ci bastano le docstring collegate alle funzioni. Questo dataset ridotto viene creato, a partire dagli scrapes in /scrapes dallo script
-
-```julia shell
-include("scripts/make_doc_funs.jl")
-```
-
-
-
-il resto delle operazioni su docstring sono nella cartella docstring, contenente README.md
+Abbiamo uno script per prendere automaticamente doc_fun dagli scrapes: scripts/make_doc_funs.jl
+Lo script, come in passato, include codice di IEP solo se questo non è già presente ponendo l'include nel catch di un blocco try che prova semplicemente a indicizzare IEP, cosa che ritornererebbe errore se IEP non fosse presente nel workspace.
+    ```julia shell
+        using JLD2, FileIO
+        try
+            IEP
+        catch e
+            println("including code...")
+            include("../../IEP.jl")
+        end
+    ```
+La funzione base del procedimento di creazione dei doc_fun a partire dagli scrapes è _dir_to_docfuns, definita nel file omonimo.
+Questa funzione segue il procedimento già spiegato in passato per l'estrazione di dati da tutti i jld2 di un directory tree, in questo caso però gli unici dati estratti saranno docs e nome delle funzioni nei FunctionContainer che verranno usati per creare dei doc_fun.
+    ```julia shell
+    function _dir_to_docfuns(dir)
+        res = Array{doc_fun,1}(undef, 0)
+        for (root, dirs, files) in walkdir(dir)
+            try
+                len = length(files)
+                i = 1
+                for file in files
+                    if endswith(file, ".jld2")	
+                        println("handling $file")
+                        name = string(split(file,".jld2")[1])
+                        tmp = load(joinpath(root, file))[name]
+                        # we only need name and docstring
+                        for fd in tmp
+                            if !isnothing(fd.docs) && fd.docs != ""# is there a docstring?
+                                push!(res, doc_fun(fd.docs, string(name,".", IEP.getName(fd.func.name))))					
+                            end
+                        end
+                        tmp = nothing
+                    end
+                    println("############## $((100*i)/len)% DONE ##############")
+                    i = i + 1
+                end
+            catch e
+                println("error at file: $file")
+                println(e)
+            end
+        end
+        res
+    end
+    ```
+Lo script quindi crea doc_fun per ogni funzione in ogni FunctionContainer e poi salva il tutto in un jld2 per essere utilizzato velocemente da funzioni definite nella cartella docstring.
+    ```julia shell
+    doc_funs = _dir_to_docfuns("scrapes")
+    save("docstring/doc_funs.jld2", Dict("doc_funs"=>doc_funs))
+    ```
+Le spiegazioni sulle funzioni riguardanti NLP su docstring sono nel README.md nella cartella docstring.
 
