@@ -67,7 +67,7 @@ function postag_docstring(docstring::String, stemmer, tagger)
     for str in res
         stem!(stemmer, str)
     end
-
+    println("type of res on postag_docstring: $(typeof(res))")
     #3 tag
     PoSTag(res, tagger)
 end

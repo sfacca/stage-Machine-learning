@@ -144,11 +144,96 @@ Come ultima cosa, la funzione ritorna la matrice e il vocabolario.
 
 ### Parts of speech tagging
 
-Lo script postag_docstring.jl genera docs taggati tramite Perceptron Tagger (da modulo TextModels), salvati in variabile tagged_docs, a partire dalle docstring in doc_funs.jld2
+Lo script postag_docstrings.jl genera docs taggati tramite Perceptron Tagger (da modulo TextModels), salvati in variabile tagged_docs, a partire dalle docstring in doc_funs.jld2
+
+Lo script usa funzioni da tre moduli, tutti da [JuliaText](https://github.com/JuliaText)
+1. [TextAnalysis](https://github.com/JuliaText/TextAnalysis.jl), per la gestione base dei dati (Documents)
+2. [TextModels](https://github.com/JuliaText/TextModels.jl), da cui prenderemo il pos(parts of speech) tagger
+3. [WordTokenizers](https://github.com/JuliaText/WordTokenizers.jl), per la tokenizzazione
+```julia shell
+using TextAnalysis, TextModels, WordTokenizers
+```
+
+Le funzioni sono definite in tag_pos.jl, inoltre carichiamo automaticamente i dati dai doc_fun con lo script descritto in precedenza:
+```julia shell
+include("load_docs.jl")
+include("../tag_pos.jl")
+```
+
+Dopo aver caricato codice e moduli, prepariamo uno stemmer e un tagger.
+Lo stemmer è quello di TextAnalysis mentre il tagger è un [PerceptronTagger, definito in TextModels](https://github.com/JuliaText/TextModels.jl/blob/master/src/averagePerceptronTagger.jl), [originariamente creato da Matthew Honnibal](https://github.com/hankcs/AveragedPerceptronPython/blob/master/PerceptronTagger.py)
+```julia shell
+stemmer = Stemmer("english")
+tagger = TextModels.PerceptronTagger(true)
+```
+
+Preparato il tutto eseguiamo il codice:
+```julia shell
+tagged_docs = postag_docstring(strings, stemmer, tagger)
+```
+
+Il codice della funzione postag_docstring è il seguente:
+```julia shell
+    res = Array{Any,1}(undef, length(data))
+    for i in 1:length(data)
+        res[i] = postag_docstring(data[i], stemmer, tagger)
+    end
+    res    
+```
+    Il codice inizia creando un array di lunghezza pari all'array in entrata (nel nostro caso l'array di StringDocument strings), poi scorre l'array in input e, per ogni elemento, ne crea la versione taggata con un altra funzione omonima e inserisce questo risultato nello stesso indice nell'array di risultato.
+    A ognuna di queste chiamate passiamo gli stessi tagger/stemmer creati in precedenza, dovremmo altrimenti ricrearli per ogni operazione, cosa che costerebbe parecchio tempo.
+    Sono previsti input di dati sia come array di string che di stringdocument, nel secondo caso dai documenti vengono presi i testi, che sono string.
+```julia shell
+    postag_docstring(docstring.text, stemmer, tagger)
+```
+    Il procedimento per ogni docstring da taggare è quindi:
+```julia shell
+    #1
+    res = split_sentences(docstring)
+    res = [StringDocument(string(x)) for x in res]
+
+    #2
+    for str in res
+        stem!(stemmer, str)
+    end
+
+    #3
+    PoSTag(res, tagger)
+```
+    Diviso in 3 parti, consiste nel
+    1. Dividere le docstring in frasi, usando split_sentences da WordTokenizers, e riportare i dati in StringDocument
+       NB: split sentences ritorna array di SubString, dobbiamo quindi convertire ciò in String con string()
+    2. Eseguire lo stemming (rimozione delle terminazioni delle parole)
+    3. Taggare le frasi con il tagger passato (Average Perceptron Tagger): 
+       PoSTag, in pratica, per ogni StringDocument(frase) str, esegue il seguente codice:
+       ```julia shell  
+        predict(#a
+            tagger, #b
+            _cln(str.text) #c
+            )
+       ```
+       a. predict è funzione di TextAnalysis
+       b. il tagger è il Perceptron Tagger creato in precedenza
+       c. passiamo il testo attraverso una funzione che rimuove frasi contenente caratteri non ASCII
+    Il risultato ottenuto è un array.
+    Ogni elemento di quest array è un array, rappresentante una docstring, i cui elementi sono a loro volta array, rappresentanti frasi della docstring, che contengono tuple (parola, tag)
 
 ### LSA
 
 Sempre usando dati in doc_funs.jld2, lo script lo script latent_semantic_analysis.jl esegue esempio descritto a https://zgornel.github.io/StringAnalysis.jl/v0.2/examples/
+
+```julia shell
+
+```
+```julia shell
+
+```
+```julia shell
+
+```
+```julia shell
+
+```
 
 ### Topic Models
 
