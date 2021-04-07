@@ -13,12 +13,6 @@ ngramdocs = [StringAnalysis.NGramDocument(x) for x in docstrings]
 tokendocs = [StringAnalysis.TokenDocument(x) for x in docstrings]
 
 #crps = StringAnalysis.Corpus(ngramdocs)
-println("building corpus...")
-crps = StringAnalysis.Corpus(stringdocs)
-
-StringAnalysis.update_lexicon!(crps)
-
-StringAnalysis.update_inverse_index!(crps)
 
 using Languages
 println("setting language")
@@ -26,11 +20,14 @@ for x in stringdocs
     StringAnalysis.language!(x, Languages.English());
     StringAnalysis.prepare!(x, StringAnalysis.strip_punctuation|StringAnalysis.strip_articles|StringAnalysis.strip_prepositions|StringAnalysis.strip_whitespace);
 end
-println("preparing corpus (strip punctuation)")
-StringAnalysis.prepare!(crps, StringAnalysis.strip_punctuation)
 
-println("updating lexicon")
-StringAnalysis.update_lexicon!(crps);
+println("building corpus...")
+crps = StringAnalysis.Corpus(stringdocs)
+
+StringAnalysis.update_lexicon!(crps)
+
+StringAnalysis.update_inverse_index!(crps)
+
 
 M = StringAnalysis.DocumentTermMatrix{Float32}(crps, collect(keys(crps.lexicon)));
 

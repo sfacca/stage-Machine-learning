@@ -131,7 +131,7 @@ Dopo aver creato il vocabolario, lo usiamo per generare i vettori documento
     end 
 ```
 Il procedimento è il seguente:
-1. Vogliamo che il risultato sia una matrice le cui colonne siano ognuna un document vector. Per chiarezza quindi dichiariamo variabili rows e cols per il numero di righe e colonne della colonna. Usando questi poi dichiariamo una matrice sparsa (per risparmiare spazio) di Int32 inizializzati a 0.
+1. Vogliamo che il risultato sia una matrice **sparsa** le cui colonne siano ognuna un document vector. Per chiarezza quindi dichiariamo variabili rows e cols per il numero di righe e colonne della colonna. Usando questi poi dichiariamo una matrice sparsa (per risparmiare spazio) di Int32 inizializzati a 0.
 2. Dopodiché scorriamo i dati nel docs in maniera tale che i indichi il documento (array di token) che stiamo gestendo e j il token stesso all'interno di quest'array, per ogni token quindi:
    1. Troviamo l'indice x della parola uguale nel vocabolario
    2. Non dovrebbe assolutamente succedere che la parola non venga trovata, quindi se ciò accade lanciamo un errore
@@ -222,30 +222,217 @@ Il codice della funzione postag_docstring è il seguente:
 
 Sempre usando dati in doc_funs.jld2, lo script lo script latent_semantic_analysis.jl esegue esempio descritto a https://zgornel.github.io/StringAnalysis.jl/v0.2/examples/
 
+Vediamo come:
+Come prima cosa prepariamo il workspace, per questo procedimento ci servirà il pacchetto StringAnalysis per le funzioni di modellismo e il pacchetto Languages per l'impostazione del linguaggio naturale.
 ```julia shell
-
+using StringAnalysis, Languages
 ```
+Dopodiché carichiamo i dati con lo script "load_docs"
 ```julia shell
-
+include("load_docs.jl")
 ```
+I dati ci servono in un datatype Corpus interno a StringAnalysis.
+Dobbiamo quindi convertire i dati poichè StringAnalysis contiene la sua definizione di StringDocuments.
 ```julia shell
-
+strings = [StringAnalysis.StringDocument(x.text) for x in strings]
 ```
+Pretrattiamo le docstring rimuovendone articoli, preposizioni, spazi e punteggiatura.
+Impostiamo anche il linguaggio naturale come inglese:
 ```julia shell
+for x in strings
+    StringAnalysis.language!(x, Languages.English());
+    StringAnalysis.prepare!(x, StringAnalysis.strip_punctuation|StringAnalysis.strip_articles|StringAnalysis.strip_prepositions|StringAnalysis.strip_whitespace);
+end
+```
+Una volta pretrattato i dati, creiamo il corpus impoostando anche i dati interni lexicon e indice inverso:
+```julia shell
+crps = StringAnalysis.Corpus(strings)
+StringAnalysis.update_lexicon!(crps)
+StringAnalysis.update_inverse_index!(crps)
+```
+Avendo preparato il corpus, iniziamo creando il modello.
+Per fare ciò ci serve una matrice documento-termine (]document term matrix](https://www.sciencedirect.com/topics/mathematics/document-matrix)) che descriva le occurrenze delle varie parole nei documenti.
+```julia shell
+M = StringAnalysis.DocumentTermMatrix{Float32}(crps, collect(keys(crps.lexicon)));
+```
+Con ciò possiamo creare il modello:
+```julia shell
+lm = StringAnalysis.LSAModel(M, k=4, stats=:tfidf)
+```
+k è il termine usato per [Okapi BM25](https://nlp.stanford.edu/IR-book/html/htmledition/okapi-bm25-a-non-binary-model-1.html), tfidf indica tf-idf([term frequency–inverse document frequency](https://towardsdatascience.com/text-vectorization-term-frequency-inverse-document-frequency-tfidf-5a3f9604da6d)) come importanza di termine/documento
 
+Come ultima cosa vediamo la rappresentazione del corpus come vettore ottenuta con il modfello appenba creato:
+```julia shell
+V = StringAnalysis.embed_document(lm, crps)
+```
+
+Possiamo anche salvare il modello creato:
+```julia shell
+    save_lsa_model(lm, "lsa model.txt")
 ```
 
 ### Topic Models
 
-Lo script latent_dirichlet_allocation.jl usa modulo TopicModels per dividere le docstring in "topic".
+Vogliamo un modello che suddivida docstring identificando docstring con argomento(topic) simile.
+Il modo che usiamo per ottenere ciò è l'uso del pacchetto TopicModels.
+Questo pacchetto richiede dati impostati come bags of words, quindi importiamo il codice per creare questa impostazione di dati.
+Dovremo poi tramutare le bags in file .documents impostati seguendo il formato LDA-C, codice per fare ciò è in make_documents.jl, che importiamo.
+Il vocabolario invece verrà tramutato in lexicon usando codice in make_lexicon.jl.
+```julia shell
+using TopicModels
 
-Se mancano genera file vocab.lexicon e bags.documents secondo algoritmo bag_of_words.
+println("including code...")
+include("../make_documents.jl")
+include("../make_lexicon.jl")
+include("../tokenize.jl")
+include("load_docs.jl")
+include("../bag_of_words.jl")
+```
 
-Questo script può esser facilmente modificato per cambiare numero di topic o numero di iterazioni per il quale allenare il modello.
+Una volta caricati dati e funzione, controlliamo se sono già presenti i file .documents e .lexicon contenenti rispettivamente bags e vocabolario.
+Se così non fosse, li creiamo in base al risultato di bag_of_words, funzione spiegata in passato.
+```julia shell
+if !isfile("./bags.documents")
+    println("documents is missing")
+
+    println("making bags and vocab")
+    bags, vocab = bag_of_words(strings)
+    println("writing bags.documents")
+    write_documents(bags)
+    if !isfile("./vocab.lexicon")
+        println("lexicon is missing")
+        println("writing  vocab.lexicon")
+        write_lexicon(vocab)
+    end
+    bags, vocab = nothing, nothing
+elseif !isfile("./vocab.lexicon")
+    println("lexicon is missing")
+    
+    println("making bags and vocab")
+    bags, vocab = bag_of_words(strings)
+
+    println("writing  vocab.lexicon")
+    write_lexicon(vocab)
+    bags = nothing
+    vocab = nothing
+end
+```
+    Come già detto, le bags devono essere salvate seguendo formato di [LDA-C](https://github.com/blei-lab/lda-c).
+    Il formato prevede che ogni linea del file corrisponda a un document vector/bag e che queste vengano rappresentate da coppie id:num, ognuno rappresentante il numerto(num) di volte la parola(id) è presente nella bag.
+    Il procedimento è il seguente:
+   1. La matrice sparsa di bags è passata alla funzione write_documents, che crea un file in scrittura e lancia make_documents per ottenerne la string da scrivere  
+    ```julia shell
+        open(name,"w") do file
+            write(file, make_documents(bags))
+        end
+    ```
+   2. make_documents a sua volta scorre ogni bag e ne crea la linea aggiungendola alla string.
+      Per ogni bag trova i valori(che sono i valori nella matrice) e gli indici(che sono gli indici di riga nella matrice) rispettivamente in nzval e rowval al range relativo alla colonna trovato in colptr.
+      Per più informazioni riguardo le matrici sparse CSC vedere [qui](https://docs.julialang.org/en/v1/stdlib/SparseArrays/#man-csc)
+    ```julia shell
+        str = ""
+        # column j starts at colptr[j], ends at colptr[j+1]-1
+        # there are bags.n columns
+        for i in 1:bags.n
+            println("preparing documentline $i of $(bags.n)")
+            if bags.colptr[i] != (bags.colptr[i+1]-1)
+                range = bags.colptr[i]:(bags.colptr[i+1]-1)            
+                str*=_make_doc_line(
+                    bags.nzval[range], # numeri/abbondanza parole 
+                    bags.rowval[range] # indici parole nel vocabolario
+                    )
+            end
+        end
+        str[1:end-1]
+    ```
+      L'ultima riga della funzione rimuove l'ultimo elemento della stringa creata poichè codice per la lettura delle documents da errori se l'ultima riga di valori finisce con newline.
+   3. La creazione delle righe è lasciata a _make_doc_line che semplicemente scorre i due array di valori/id e crea le string coppia.
+    ```julia shell
+        str = "$(length(vals)) "
+        for i in 1:length(vals)
+            str*="$(Int(ids[i])):$(Int(vals[i])) "
+        end
+        str = str[1:end-1]
+        str*="\n"
+    ```
+    Oltre al file documents serve anche il vocabolario/lexicon, creiamo anche questo file se non fosse già presente.
+    La procedura usata per creare è questa:
+    ```julia shell
+        str = ""
+        for word in arr
+            str*="$word\n"
+        end
+        str[1:end-1]#removing trailing whitespace
+    ```
+    Semplicemente le parole sono prese dal vocabolario restituito da bag_of_words e stampate a string, separate da newline.
+    Di nuovo rimuoviamo l'ultimo newline per evitare errori.
+
+Una volta assicuratoci ci siano tutti i file possiamo caricarli per creare il corpus:
+```julia shell
+documents = readDocs(open("bags.documents"))
+lexicon = readLexicon(open("vocab.lexicon"))
+crps = TopicModels.Corpus(documents, lexicon)
+```
+Arriviamo infine alla creazione del modello.
+Prima impostiamo gli argomenti per la creazione del modello:
+1. topicnum sarà il numero di "topic" in cui vogliamo dividere il corpus
+2. iterations è il numero di iterazioni lanciate per allenare il modello
+3. numwords non ha nulla a che fare con la creazione del modello ed è invece il numero di parole più prevalenti nei vari topic ritornate dallo script
+```julia shell
+topicnum = 10 #NUMBER OF TOPICS
+iterations = 30 #ITERATIONS MODEL IS TRAINED FOR
+numwords = 10 #NUMBER OF PREVALENT WORDS TO RETURN
+```
+Fatto tutto ciò la creazione del modello è semplice tramite TopicModels
+```julia shell
+mdl = TopicModels.Model(fill(0.1, topicnum), fill(0.1, length(lexicon)), crps)
+```
+Per allenarlo dobbiamo fare uno stato iniziale, poi usiamo trainModel, sempre di TopicModels
+```julia shell
+st = TopicModels.State(mdl, crps)
+TopicModels.trainModel(mdl, st, iterations)
+```
+Usando stato e modello, ritorniamo le parole con prevalenza maggiore nei vari topic:
+```julia shell
+TopicModels.topTopicWords(mdl, st, numwords)
+```
 
 ### Word Embeddings
 
 Lo script word_embeddings.jl inizializza ambiente per l'uso di word embeddings.
 
 Se TopicModels è presente nel workspace prima dell'esecuzione dello script, lo script come esempio traduce il lexicon in word embeddings.
+
+Questo script usa ConceptnetNumberbatch, pacchetto julia che semplicemente interfaccia [ConceptNetNumberbatch](https://github.com/commonsense/conceptnet-numberbatch), insieme di vettori semantici usabili per creare embeddings.
+```julia shell
+using ConceptnetNumberbatch, Languages
+```
+Carichiamo anche il codice
+```julia shell
+include("../make_lexicon.jl")
+include("../load_embedded_lexicon.jl")
+```
+Per preparare il workspace all'embedding serve caricare il file HDF5 contenente i vettori.
+Controlliamo se ci sia già, altrimenti lo scarichiamo tramite ConceptnetNumberbatch
+```julia shell
+file_conceptnet = "./_conceptnet_/conceptnet.h5"
+if !isfile(file_conceptnet)
+    file_conceptnet = download_embeddings(url=CONCEPTNET_HDF5_LINK, localfile=file_conceptnet)
+end
+```
+Adesso che siamo sicuri che ci sia, carichiamo gli embeddings:
+```julia shell
+conceptnet = load_embeddings(file_conceptnet, languages=:en)
+```
+
+Vediamo ora come usare questi embeddings.
+Vogliamo fare embeddings del lexicon creato nella sezione precedente.
+Semplicemente, per ottenere embedding di una parola p, basterà usare p come chiave per indicizzare gli embeddings.
+```julia shell
+conceptnet[p] # ritorna embedding della parola p
+```
+Inserendo come indici le parole del lexicon avremo quindi le parole con embedding:
+```julia shell
+lexicon = conceptnet[readLexicon(open("vocab.lexicon"))]
+```
 
