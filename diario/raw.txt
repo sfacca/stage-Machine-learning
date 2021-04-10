@@ -1,0 +1,3031 @@
+### Giorno 2622021
+Inizio 1230                           
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+8. fai view bandstats   
+7. converti funzioni R quinto capitolo AHM  
+8. vedi AlgebricJulia  Catlab
+
+Pausa Pranzo  1330 - 1400                
+
+Fine 1830                               
+Stato compiti            
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+8. fai view bandstats INIZIATO 
+7. converti funzioni R quinto capitolo AHM INIZIATO  
+8. vedi AlgebricJulia  Catlab INIZIATO  
+---
+### Giorno 2522021
+Inizio 1200                           
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+8. fai view bandstats   
+7. converti funzioni R quinto capitolo AHM  
+8. vedi AlgebricJulia  Catlab
+
+Pausa Pranzo 1400 - 1430                
+
+Fine 1830                             
+Stato compiti            
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+8. fai view bandstats INIZIATO 
+7. converti funzioni R quinto capitolo AHM INIZIATO  
+8. vedi AlgebricJulia  Catlab INIZIATO  
+---
+### Giorno 2422021
+Inizio 1200                           
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+8. fai view bandstats   
+7. converti funzioni R quinto capitolo AHM  
+8. vedi AlgebricJulia  Catlab
+
+Pausa Pranzo  1330 - 1400              
+
+Fine 1830                           
+Stato compiti            
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+8. fai view bandstats INIZIATO 
+7. converti funzioni R quinto capitolo AHM INIZIATO  
+8. vedi AlgebricJulia  Catlab INIZIATO  
+---
+### Giorno 2322021
+Inizio 1200                           
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+8. fai view bandstats   
+7. converti funzioni R quinto capitolo AHM  
+8. vedi AlgebricJulia  Catlab
+
+Pausa Pranzo  1400 - 1430             
+
+Fine 1830                         
+Stato compiti            
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+8. fai view bandstats INIZIATO 
+7. converti funzioni R quinto capitolo AHM INIZIATO  
+8. vedi AlgebricJulia  Catlab INIZIATO  
+---
+### Giorno 2222021
+Inizio 1200                           
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+8. fai view bandstats   
+7. converti funzioni R quinto capitolo AHM  
+8. vedi AlgebricJulia  Catlab
+
+Pausa Pranzo  1300 - 1330           
+
+Fine 1830                       
+Stato compiti            
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+8. fai view bandstats INIZIATO 
+7. converti funzioni R quinto capitolo AHM INIZIATO  
+8. vedi AlgebricJulia  Catlab INIZIATO  
+---
+### Giorno 1922021
+Inizio 1200                           
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+8. fai view bandstats   
+7. converti funzioni R quinto capitolo AHM  
+8. vedi AlgebricJulia  Catlab
+
+Pausa Pranzo 1330 - 1400           
+
+Fine 1830                     
+Stato compiti            
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+8. fai view bandstats INIZIATO 
+7. converti funzioni R quinto capitolo AHM INIZIATO  
+8. vedi AlgebricJulia  Catlab INIZIATO  
+---
+### Giorno 1822021
+Inizio 1200                           
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+8. fai view bandstats   
+7. converti funzioni R quinto capitolo AHM  
+8. vedi AlgebricJulia  Catlab
+
+Pausa Pranzo  1400 - 1430         
+
+Fine 1830                   
+Stato compiti            
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+8. fai view bandstats INIZIATO 
+7. converti funzioni R quinto capitolo AHM INIZIATO  
+8. vedi AlgebricJulia  Catlab INIZIATO  
+---
+### Giorno 1722021
+Inizio 1200                           
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+8. fai view bandstats   
+7. converti funzioni R quinto capitolo AHM  
+8. vedi AlgebricJulia  Catlab
+
+Pausa Pranzo 1330 - 1400         
+
+Fine  1800                
+Stato compiti            
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+8. fai view bandstats INIZIATO 
+7. converti funzioni R quinto capitolo AHM INIZIATO  
+8. vedi AlgebricJulia  Catlab INIZIATO  
+---
+### Giorno 1622021
+Inizio 1200                          
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+8. fai view bandstats   
+7. converti funzioni R quinto capitolo AHM  
+8. vedi AlgebricJulia  Catlab
+
+Pausa Pranzo         
+
+Fine 1400 - 1430                
+Stato compiti    1800        
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+8. fai view bandstats INIZIATO 
+7. converti funzioni R quinto capitolo AHM INIZIATO  
+8. vedi AlgebricJulia  Catlab INIZIATO  
+---
+### Giorno 1522021
+Inizio 1200                          
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+8. fai view bandstats   
+7. converti funzioni R quinto capitolo AHM  
+8. vedi AlgebricJulia  Catlab
+
+Pausa Pranzo 1300-1330        
+
+Fine 1800               
+Stato compiti            
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+8. fai view bandstats INIZIATO 
+7. converti funzioni R quinto capitolo AHM INIZIATO  
+8. vedi AlgebricJulia  Catlab INIZIATO  
+---
+### Giorno 1222021
+Inizio 1200                          
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+8. fai view bandstats   
+7. converti funzioni R quinto capitolo AHM  
+8. vedi AlgebricJulia  Catlab
+
+Pausa Pranzo 1300 - 1330       
+
+Fine 1830              
+Stato compiti            
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+8. fai view bandstats INIZIATO 
+7. converti funzioni R quinto capitolo AHM INIZIATO  
+8. vedi AlgebricJulia  Catlab INIZIATO  
+---
+### Giorno 1122021
+Inizio 1200                          
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+8. fai view bandstats   
+7. converti funzioni R quinto capitolo AHM  
+8. vedi AlgebricJulia  Catlab
+
+Pausa Pranzo  1330 - 1400     
+
+Fine 1800             
+Stato compiti            
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+8. fai view bandstats INIZIATO 
+7. converti funzioni R quinto capitolo AHM INIZIATO  
+8. vedi AlgebricJulia  Catlab INIZIATO  
+---
+### Giorno 1022021
+Inizio 1200                          
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+8. fai view bandstats   
+7. converti funzioni R quinto capitolo AHM  
+8. vedi AlgebricJulia  Catlab
+
+Pausa Pranzo 1330 - 1400      
+
+Fine 1830            
+Stato compiti            
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+8. fai view bandstats INIZIATO 
+7. converti funzioni R quinto capitolo AHM INIZIATO  
+8. vedi AlgebricJulia  Catlab INIZIATO  
+---
+### Giorno 922021
+Inizio 1200                          
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+8. fai view bandstats   
+7. converti funzioni R quinto capitolo AHM  
+8. vedi AlgebricJulia  Catlab
+
+Pausa Pranzo 1400 - 1430     
+
+Fine 1830           
+Stato compiti            
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+8. fai view bandstats INIZIATO 
+7. converti funzioni R quinto capitolo AHM INIZIATO  
+8. vedi AlgebricJulia  Catlab INIZIATO  
+
+---
+### Giorno 822021
+Inizio 1200                          
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+8. fai view bandstats   
+7. converti funzioni R quinto capitolo AHM  
+8. vedi AlgebricJulia  Catlab
+
+Pausa Pranzo 1330 1400    
+
+Fine 1800          
+Stato compiti            
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+8. fai view bandstats INIZIATO 
+7. converti funzioni R quinto capitolo AHM INIZIATO  
+8. vedi AlgebricJulia  Catlab INIZIATO  
+
+---
+### Giorno 522021
+Inizio 1200                          
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+8. fai view bandstats   
+7. converti funzioni R quinto capitolo AHM  
+8. vedi AlgebricJulia  Catlab
+
+Pausa Pranzo  1300 - 1330  
+
+Fine 1930        
+Stato compiti            
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+8. fai view bandstats INIZIATO 
+7. converti funzioni R quinto capitolo AHM INIZIATO  
+8. vedi AlgebricJulia  Catlab INIZIATO  
+
+---
+### Giorno 422021
+Inizio 1430                          
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+8. fai view bandstats   
+7. converti funzioni R quinto capitolo AHM  
+8. vedi AlgebricJulia  Catlab
+
+Pausa Pranzo 1900 - 2000  
+
+Fine 2100       
+Stato compiti            
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+8. fai view bandstats INIZIATO 
+7. converti funzioni R quinto capitolo AHM INIZIATO  
+8. vedi AlgebricJulia  Catlab INIZIATO  
+
+---
+### Giorno 322021
+Inizio 1300                          
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+8. fai view bandstats   
+7. converti funzioni R quinto capitolo AHM  
+8. vedi AlgebricJulia  Catlab
+
+Fine 1700                                                                                                                                                                          
+Stato compiti            
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+8. fai view bandstats INIZIATO 
+7. converti funzioni R quinto capitolo AHM INIZIATO  
+8. vedi AlgebricJulia  Catlab INIZIATO  
+
+---
+### Giorno 222021
+Inizio 1200                          
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+8. fai view bandstats   
+7. converti funzioni R quinto capitolo AHM  
+8. vedi AlgebricJulia  Catlab
+                                  
+Pausa pranzo 1300 - 1400           
+
+Fine 1700                                                                                                                                                                          
+Stato compiti            
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+8. fai view bandstats INIZIATO 
+7. converti funzioni R quinto capitolo AHM INIZIATO  
+8. vedi AlgebricJulia  Catlab INIZIATO  
+
+---
+### Giorno 122021
+Inizio 930                          
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+8. fai view bandstats   
+7. converti funzioni R quinto capitolo AHM  
+8. vedi AlgebricJulia  Catlab
+                                  
+Pausa pranzo  1230 - 1600        
+
+Fine  1800                                                                                                                                                                        
+Stato compiti            
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+8. fai view bandstats INIZIATO 
+7. converti funzioni R quinto capitolo AHM INIZIATO  
+8. vedi AlgebricJulia  Catlab INIZIATO  
+
+---
+### Giorno 29012021
+Inizio  1200                       
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+8. fai view bandstats   
+7. converti funzioni R quinto capitolo AHM  
+8. vedi AlgebricJulia  Catlab
+                                  
+Pausa pranzo 1300 - 1330          
+
+Fine    1830                                                                                                                                                                        
+Stato compiti            
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+8. fai view bandstats INIZIATO 
+7. converti funzioni R quinto capitolo AHM INIZIATO  
+8. vedi AlgebricJulia  Catlab INIZIATO  
+
+---
+### Giorno 28012021
+Inizio  1300                       
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+8. fai view bandstats   
+7. converti funzioni R quinto capitolo AHM  
+8. vedi AlgebricJulia  Catlab
+  
+Fine  1800                                                                                                                                                                        
+Stato compiti            
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+8. fai view bandstats INIZIATO 
+7. converti funzioni R quinto capitolo AHM INIZIATO  
+8. vedi AlgebricJulia  Catlab INIZIATO  
+
+---
+### Giorno 27012021
+Inizio  1200                       
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+8. fai view bandstats   
+7. converti funzioni R quinto capitolo AHM  
+8. vedi AlgebricJulia  Catlab
+                                  
+Pausa pranzo 1330 - 1400          
+
+Fine 1830                                                                                                                                                                         
+Stato compiti            
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+8. fai view bandstats INIZIATO 
+7. converti funzioni R quinto capitolo AHM INIZIATO  
+8. vedi AlgebricJulia  Catlab INIZIATO  
+
+---
+### Giorno 26012021
+Inizio  1200                       
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+8. fai view bandstats   
+7. converti funzioni R quinto capitolo AHM  
+8. vedi AlgebricJulia  Catlab
+                                  
+Pausa pranzo 1300 - 1330        
+
+Fine 1730                                                                                                                                                                       
+Stato compiti            
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+8. fai view bandstats INIZIATO 
+7. converti funzioni R quinto capitolo AHM INIZIATO  
+8. vedi AlgebricJulia  Catlab INIZIATO  
+
+---
+### Giorno 25012021
+Inizio  1200                       
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+8. fai view bandstats   
+7. converti funzioni R quinto capitolo AHM  
+8. vedi AlgebricJulia  Catlab
+                                  
+Pausa pranzo 1330 - 1400        
+
+Fine 1830                                                                                                                                                                     
+Stato compiti            
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+8. fai view bandstats INIZIATO 
+7. converti funzioni R quinto capitolo AHM INIZIATO  
+8. vedi AlgebricJulia  Catlab INIZIATO  
+
+---
+### Giorno 22012021
+Inizio  1200                       
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+8. fai view bandstats   
+7. converti funzioni R quinto capitolo AHM  
+8. vedi AlgebricJulia  Catlab
+                                  
+Pausa pranzo 1300 - 1330       
+
+Fine 1900                                                                                                                                                                     
+Stato compiti            
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+8. fai view bandstats INIZIATO 
+7. converti funzioni R quinto capitolo AHM INIZIATO  
+8. vedi AlgebricJulia  Catlab INIZIATO  
+
+---
+### Giorno 21012021
+Inizio  1300                       
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+8. fai view bandstats   
+7. converti funzioni R quinto capitolo AHM  
+8. vedi AlgebricJulia  Catlab
+                                  
+Pausa pranzo  1400 - 1430     
+
+Fine 1830                                                                                                                                                                   
+Stato compiti            
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+8. fai view bandstats INIZIATO 
+7. converti funzioni R quinto capitolo AHM INIZIATO  
+8. vedi AlgebricJulia  Catlab INIZIATO  
+
+---
+### Giorno 20012021
+Inizio  1300                       
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+8. fai view bandstats   
+7. converti funzioni R quinto capitolo AHM  
+8. vedi AlgebricJulia  Catlab
+                                  
+Pausa pranzo 1330 - 1400     
+
+Fine 1730                                                                                                                                                                  
+Stato compiti            
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+8. fai view bandstats INIZIATO 
+7. converti funzioni R quinto capitolo AHM INIZIATO  
+8. vedi AlgebricJulia  Catlab INIZIATO  
+
+---
+### Giorno 19012021
+Inizio  1200                       
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+8. fai view bandstats   
+7. converti funzioni R quinto capitolo AHM  
+8. vedi AlgebricJulia  Catlab
+                                  
+Pausa pranzo 1300 - 1330   
+
+Fine 1800                                                                                                                                                                
+Stato compiti            
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+8. fai view bandstats INIZIATO 
+7. converti funzioni R quinto capitolo AHM INIZIATO  
+8. vedi AlgebricJulia  Catlab INIZIATO  
+
+---
+### Giorno 18012021
+Inizio  1200                       
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+8. fai view bandstats   
+7. converti funzioni R quinto capitolo AHM  
+8. vedi AlgebricJulia  Catlab
+                                  
+Pausa pranzo  1400 - 1430
+
+Fine 1830                                                                                                                                                               
+Stato compiti            
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+8. fai view bandstats INIZIATO 
+7. converti funzioni R quinto capitolo AHM INIZIATO  
+8. vedi AlgebricJulia  Catlab INIZIATO  
+
+---
+### Giorno 15012021
+Inizio  1200                       
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+8. fai view bandstats   
+7. converti funzioni R quinto capitolo AHM  
+8. vedi AlgebricJulia  Catlab
+                                  
+Pausa pranzo  1330 - 1400
+
+Fine 1900                                                                                                                                                               
+Stato compiti            
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+8. fai view bandstats INIZIATO 
+7. converti funzioni R quinto capitolo AHM INIZIATO  
+8. vedi AlgebricJulia  Catlab INIZIATO  
+
+---
+### Giorno 14012021
+Inizio  1400                       
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+8. fai view bandstats   
+7. converti funzioni R quinto capitolo AHM  
+8. vedi AlgebricJulia  Catlab
+                                  
+
+Fine 1930                                                                                                                                                              
+Stato compiti            
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+8. fai view bandstats INIZIATO 
+7. converti funzioni R quinto capitolo AHM INIZIATO  
+8. vedi AlgebricJulia  Catlab INIZIATO  
+
+---
+### Giorno 13012021
+Inizio  1300                       
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+8. fai view bandstats   
+7. converti funzioni R quinto capitolo AHM  
+8. vedi AlgebricJulia  Catlab
+                                    
+
+Pausa pranzo 1330 - 1400        
+
+Fine 1830                                                                                                                                                               
+Stato compiti            
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+8. fai view bandstats INIZIATO 
+7. converti funzioni R quinto capitolo AHM INIZIATO  
+8. vedi AlgebricJulia  Catlab INIZIATO  
+
+---
+### Giorno 12012021
+Inizio  1200                       
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+8. fai view bandstats   
+7. converti funzioni R quinto capitolo AHM  
+8. vedi AlgebricJulia  Catlab
+                                    
+
+Pausa pranzo 1330 - 1400         
+
+Fine 1800                                                                                                                                                              
+Stato compiti            
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+8. fai view bandstats INIZIATO 
+7. converti funzioni R quinto capitolo AHM INIZIATO  
+8. vedi AlgebricJulia  Catlab INIZIATO  
+
+---
+### Giorno 11012021
+Inizio  1200                       
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+8. fai view bandstats   
+7. converti funzioni R quinto capitolo AHM  
+8. vedi AlgebricJulia  Catlab
+                                    
+
+Pausa pranzo 1330 - 1400       
+
+Fine 1800                                                                                                                                                             
+Stato compiti            
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+8. fai view bandstats INIZIATO 
+7. converti funzioni R quinto capitolo AHM INIZIATO  
+8. vedi AlgebricJulia  Catlab INIZIATO  
+
+---
+
+### Giorno 8012021
+Inizio  1200                       
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+8. fai view bandstats   
+7. converti funzioni R quinto capitolo AHM  
+8. vedi AlgebricJulia  Catlab
+                                    
+
+Pausa pranzo 1330 - 1400      
+
+Fine  1800                                                                                                                                                          
+Stato compiti            
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+8. fai view bandstats INIZIATO 
+7. converti funzioni R quinto capitolo AHM INIZIATO  
+8. vedi AlgebricJulia  Catlab INIZIATO  
+
+---
+### Giorno 7012021
+Inizio  1200                       
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+8. fai view bandstats   
+7. converti funzioni R quinto capitolo AHM  
+8. vedi AlgebricJulia  Catlab
+                                    
+
+Pausa pranzo 1430 - 1500      
+
+Fine 1800                                                                                                                                                         
+Stato compiti            
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+8. fai view bandstats INIZIATO 
+7. converti funzioni R quinto capitolo AHM INIZIATO  
+8. vedi AlgebricJulia  Catlab INIZIATO  
+
+
+
+---
+### Giorno 6012021
+Inizio  1200                       
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+7. converti funzioni R quarto capitolo AHM 
+8. fai view bandstats   
+7. converti funzioni R quinto capitolo AHM                                       
+
+Pausa pranzo  1330 - 1400    
+
+Fine 1830                                                                                                                                                        
+Stato compiti            
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+7. converti funzioni R quarto capitolo AHM FATTO
+8. fai view bandstats INIZIATO 
+7. converti funzioni R quinto capitolo AHM NON INIZIATO
+
+
+---
+### Giorno 5012021
+Inizio  1200                       
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+7. converti funzioni R quarto capitolo AHM 
+8. fai view bandstats   
+7. converti funzioni R quinto capitolo AHM                                       
+
+Pausa pranzo 1300 - 1330    
+
+Fine 1830                                                                                                                                                       
+Stato compiti            
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+7. converti funzioni R quarto capitolo AHM INIZIATO
+8. fai view bandstats INIZIATO 
+7. converti funzioni R quinto capitolo AHM NON INIZIATO
+
+
+---
+### Giorno 4012021
+Inizio  1200                       
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+7. converti funzioni R quarto capitolo AHM 
+8. fai view bandstats   
+7. converti funzioni R terzo capitolo AHM                                       
+
+Pausa pranzo 1330 - 1400   
+
+Fine 1830                                                                                                                                                      
+Stato compiti            
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+7. converti funzioni R quarto capitolo AHM INIZIATO
+8. fai view bandstats INIZIATO 
+7. converti funzioni R terzo capitolo AHM FATTO
+
+
+---
+### Giorno 31122020
+Inizio  1200                       
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+7. converti funzioni R quarto capitolo AHM 
+8. fai view bandstats   
+7. converti funzioni R terzo capitolo AHM                                       
+
+Pausa pranzo 1330 - 1400 
+
+Fine 1830                                                                                                                                                    
+Stato compiti            
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+7. converti funzioni R quarto capitolo AHM NON INIZIATO
+8. fai view bandstats INIZIATO 
+7. converti funzioni R terzo capitolo AHM INIZIATO
+
+
+---
+### Giorno 30122020
+Inizio  1200                       
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+7. converti funzioni R quarto capitolo AHM 
+8. fai view bandstats   
+7. converti funzioni R terzo capitolo AHM                                       
+
+Pausa pranzo 1330 - 1400                                                                    
+
+Fine 1830                                                                                                                                                  
+Stato compiti            
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+7. converti funzioni R quarto capitolo AHM NON INIZIATO
+8. fai view bandstats INIZIATO 
+7. converti funzioni R terzo capitolo AHM INIZIATO
+
+
+---
+### Giorno 29122020
+Inizio  1230                       
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+7. converti funzioni R secondo capitolo AHM 
+8. fai view bandstats   
+7. converti funzioni R terzo capitolo AHM                                       
+
+Pausa pranzo 1400 - 1430                                                                   
+
+Fine  1830                                                                                                                                               
+Stato compiti            
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+7. converti funzioni R secondo capitolo AHM FATTO
+8. fai view bandstats INIZIATO 
+7. converti funzioni R terzo capitolo AHM NON INIZIATO
+
+
+---
+### Giorno 28122020
+Inizio  1200                       
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+7. converti funzioni R secondo capitolo AHM 
+8. fai view bandstats   
+7. converti funzioni R terzo capitolo AHM                                       
+
+Pausa pranzo 1330 - 1400                                                                    
+
+Fine  1800                                                                                                                                            
+Stato compiti            
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+7. converti funzioni R secondo capitolo AHM INIZIATO
+8. fai view bandstats INIZIATO 
+7. converti funzioni R terzo capitolo AHM NON INIZIATO
+
+
+---
+### Giorno 24122020
+Inizio  1200                       
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+7. converti funzioni R secondo capitolo AHM 
+8. fai view bandstats   
+7. converti funzioni R terzo capitolo AHM                                       
+
+Pausa pranzo 1430 - 1500                                                                   
+
+Fine  1830                                                                                                                                           
+Stato compiti            
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+7. converti funzioni R secondo capitolo AHM INIZIATO
+8. fai view bandstats INIZIATO 
+7. converti funzioni R terzo capitolo AHM NON INIZIATO
+
+
+---
+### Giorno 23122020
+Inizio  1200                       
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+7. converti funzioni R secondo capitolo AHM 
+8. fai view bandstats  
+5. vedi semanticmodels.jl per gedtire informazioni con grafi                                       
+
+Pausa pranzo 1400 - 1430                                                                  
+
+Fine 1830                                                                                                                                           
+Stato compiti            
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+7. converti funzioni R secondo capitolo AHM INIZIATO
+8. fai view bandstats INIZIATO  
+5. vedi semanticmodels.jl per gedtire informazioni con grafi FATTO
+
+---
+### Giorno 22122020
+Inizio  1200                       
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+7. converti funzioni R secondo capitolo AHM 
+8. fai view bandstats  
+5. documentazione prismaconvert                                        
+
+Pausa pranzo 1330 - 1430                                                                   
+
+Fine 1830                                                                                                                                           
+Stato compiti            
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+7. converti funzioni R secondo capitolo AHM INIZIATO
+8. fai view bandstats INIZIATO  
+5. documentazione prismaconvert FATTO
+
+---
+### Giorno 21122020
+Inizio  1200                       
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+7. converti funzioni R secondo capitolo AHM 
+8. fai view bandstats
+9. fai pagine landing(signup, login) e 2 vuote linkate con geniestipple                                            
+
+Pausa pranzo 1330 - 1400                                                                 
+
+Fine 1800                                                                                                                                        
+Stato compiti            
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+7. converti funzioni R secondo capitolo AHM INIZIATO
+8. fai view bandstats INIZIATO  
+9. fai pagine landing(signup, login) e 2 vuote linkate con geniestipple FATTO
+
+---
+### Giorno 18122020
+Inizio  830                      
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+7. converti funzioni R secondo capitolo AHM 
+8. fai view bandstats
+9. fai pagine landing(signup, login) e 2 vuote linkate con geniestipple                                            
+
+Pausa pranzo  930 - 1400                                                               
+
+Fine 1830                                                                                                                                         
+Stato compiti            
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+7. converti funzioni R secondo capitolo AHM INIZIATO
+8. fai view bandstats INIZIATO  
+9. fai pagine landing(signup, login) e 2 vuote linkate con geniestipple  INIZIATO
+
+---
+### Giorno 17122020
+Inizio  1200                      
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+7. converti funzioni R secondo capitolo AHM 
+8. fai view bandstats
+9. fai pagine landing(signup, login) e 2 vuote linkate con geniestipple                                            
+
+Pausa pranzo  1400 - 1430                                                                 
+
+Fine 1830                                                                                                                                      
+Stato compiti            
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+7. converti funzioni R secondo capitolo AHM INIZIATO
+8. fai view bandstats INIZIATO  
+9. fai pagine landing(signup, login) e 2 vuote linkate con geniestipple  INIZIATO
+
+---
+### Giorno 16122020
+Inizio  1200                      
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+7. converti funzioni R secondo capitolo AHM 
+8. fai view bandstats
+9. fai pagine landing(signup, login) e 2 vuote linkate con geniestipple                                            
+
+Pausa pranzo 1400 - 1430                                                                   
+
+Fine 1830                                                                                                                                                  
+Stato compiti            
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+7. converti funzioni R secondo capitolo AHM INIZIATO
+8. fai view bandstats INIZIATO  
+9. fai pagine landing(signup, login) e 2 vuote linkate con geniestipple  INIZIATO
+
+---
+### Giorno 15122020
+Inizio  1200                      
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+7. converti funzioni R secondo capitolo AHM 
+8. fai view bandstats
+9. prime analisi grafiche bande                                              
+
+Pausa pranzo 1330 - 1400                                                                  
+
+Fine 1830                                                                                                                                                
+Stato compiti            
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+7. converti funzioni R secondo capitolo AHM INIZIATO
+8. fai view bandstats INIZIATO  
+9. prime analisi grafiche bande FATTO
+
+---
+### Giorno 14122020
+Inizio  1200                      
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+7. converti funzioni R secondo capitolo AHM 
+8. fai view bandstats
+9. prime analisi grafiche bande                                              
+
+Pausa pranzo 1230 - 1300                                                                 
+
+Fine 1730                                                                                                                                              
+Stato compiti            
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+7. converti funzioni R secondo capitolo AHM INIZIATO
+8. fai view bandstats INIZIATO  
+9. prime analisi grafiche bande INIZIATO
+
+---
+### Giorno 11122020
+Inizio  1200                      
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+7. converti funzioni R secondo capitolo AHM 
+8. fai view bandstats
+9. prime analisi grafiche bande                                              
+
+Pausa pranzo 1400 - 1430                                                                      
+
+Fine 1830                                                                                                                                            
+Stato compiti            
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+7. converti funzioni R secondo capitolo AHM INIZIATO
+8. fai view bandstats INIZIATO  
+9. prime analisi grafiche bande INIZIATO
+
+---
+### Giorno 10122020
+Inizio  1200                      
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+7. converti funzioni R secondo capitolo AHM 
+8. fai view bandstats
+9. prime analisi grafiche bande                                              
+
+Pausa pranzo 1400 - 1430                                                                      
+
+Fine 1830                                                                                                                                             
+Stato compiti            
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+7. converti funzioni R secondo capitolo AHM INIZIATO
+8. fai view bandstats INIZIATO  
+9. prime analisi grafiche bande INIZIATO
+
+---
+### Giorno 9122020
+Inizio  1200                      
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+7. converti funzioni R secondo capitolo AHM 
+8. fai view bandstats 
+9. grafo AST-CST del codice julia                                                      
+
+Pausa pranzo 1400 - 1430                                                                      
+
+Fine  1830                                                                                                                                         
+Stato compiti            
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+7. converti funzioni R secondo capitolo AHM INIZIATO
+8. fai view bandstats INIZIATO  
+99. grafo AST-CST del codice julia FATTO
+
+---
+### Giorno 8122020
+Inizio  1200                      
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+7. converti funzioni R secondo capitolo AHM 
+8. fai view bandstats 
+9. grafo AST-CST del codice julia                                                      
+
+Pausa pranzo 1400 - 1430                                                                    
+
+Fine   1830                                                                                                                                      
+Stato compiti            
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+7. converti funzioni R secondo capitolo AHM INIZIATO
+8. fai view bandstats INIZIATO  
+99. grafo AST-CST del codice julia INIZIATO
+
+---
+### Giorno 7122020
+Inizio  1200                      
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+7. converti funzioni R secondo capitolo AHM 
+8. fai view bandstats
+9. diminuisci allocazioni eos convert                                                            
+
+Pausa pranzo 1300 - 1330                                                                    
+
+Fine 1830                                                                                                                                           
+Stato compiti            
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+7. converti funzioni R secondo capitolo AHM INIZIATO
+8. fai view bandstats INIZIATO  
+9. diminuisci allocazioni eos convert FATTO
+
+---
+### Giorno 4122020
+Inizio  1200                      
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+7. converti funzioni R secondo capitolo AHM 
+8. fai view bandstats
+9. diminuisci allocazioni eos convert                                                            
+
+Pausa pranzo 1300 - 1330                                                                  
+
+Fine 1830                                                                                                                                         
+Stato compiti            
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+7. converti funzioni R secondo capitolo AHM INIZIATO
+8. fai view bandstats INIZIATO  
+9. diminuisci allocazioni eos convert INIZIATO
+
+---
+### Giorno 3122020
+Inizio  1200                      
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+7. converti funzioni R secondo capitolo AHM 
+8. fai view bandstats
+9. diminuisci allocazioni eos convert                                                            
+
+Pausa pranzo 1300 - 1330                                                                 
+
+Fine  1830                                                                                                                                    
+Stato compiti            
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+7. converti funzioni R secondo capitolo AHM INIZIATO
+8. fai view bandstats INIZIATO  
+9. diminuisci allocazioni eos convert INIZIATO
+
+---
+### Giorno 2122020
+Inizio  1200                      
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+7. converti funzioni R secondo capitolo AHM 
+8. fai view bandstats  
+9. setup repo per pacchetto eos convert                                                            
+
+Pausa pranzo 1330 - 1400                                                               
+
+Fine   1830                                                                                                                                 
+Stato compiti            
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+7. converti funzioni R secondo capitolo AHM INIZIATO
+8. fai view bandstats INIZIATO  
+9. setup repo per pacchetto eos convert FATTO  
+
+---
+### Giorno 1122020
+Inizio  1200                      
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+7. converti funzioni R secondo capitolo AHM 
+7. vedi appendice stats with julia
+8. fai view bandstats                                                           
+
+Pausa pranzo 1330 - 1400                                                              
+
+Fine 1830                                                                                                                                
+Stato compiti            
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+7. converti funzioni R secondo capitolo AHM INIZIATO
+7. vedi appendice stats with julia FATTO
+8. fai view bandstats INIZIATO
+
+---
+### Giorno 30112020
+Inizio  1500                      
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+7. converti funzioni R secondo capitolo AHM 
+7. vedi appendice stats with julia 
+8. fai view bandstats                                                           
+
+Fine 1830                                                                                                                            
+Stato compiti          
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+7. converti funzioni R secondo capitolo AHM INIZIATO
+7. vedi appendice stats with julia INIZIATO
+8. fai view bandstats INIZIATO
+
+---
+### Giorno 27112020
+Inizio  1200                      
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+7. converti funzioni R secondo capitolo AHM 
+7. vedi nono capitolo stats with julia 
+8. fai view bandstats
+
+Pausa pranzo 1400 - 1430                                                             
+
+Fine 1830                                                                                                                            
+Stato compiti          
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+7. converti funzioni R secondo capitolo AHM INIZIATO
+7. vedi decimo capitolo stats with julia FATTO
+8. fai view bandstats INIZIATO
+
+---
+### Giorno 26112020
+Inizio  1200                      
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+7. converti funzioni R secondo capitolo AHM 
+7. vedi nono capitolo stats with julia 
+8. fai view bandstats
+
+Pausa pranzo 1400 - 1430                                                            
+
+Fine 1830                                                                                                                         
+Stato compiti          
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+7. converti funzioni R secondo capitolo AHM INIZIATO
+7. vedi decimo capitolo stats with julia INIZIATO
+8. fai view bandstats INIZIATO
+
+---
+### Giorno 25112020
+Inizio  1200                      
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+7. converti funzioni R secondo capitolo AHM 
+7. vedi nono capitolo stats with julia 
+8. fai view bandstats
+
+Pausa pranzo 1400 - 1430                                                         
+
+Fine 1830                                                                                                                        
+Stato compiti          
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+7. converti funzioni R secondo capitolo AHM INIZIATO
+7. vedi nono capitolo stats with julia FATTO
+8. fai view bandstats INIZIATO
+
+---
+### Giorno 24112020
+Inizio  1200                      
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+7. converti funzioni R secondo capitolo AHM 
+7. vedi ottavo capitolo stats with julia 
+8. fai view bandstats
+
+Pausa pranzo 1400 - 1430                                                         
+
+Fine 1830                                                                                                                         
+Stato compiti          
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+7. converti funzioni R secondo capitolo AHM INIZIATO
+7. vedi ottavo capitolo stats with julia FATTO
+8. fai view bandstats INIZIATO
+
+---
+### Giorno 23112020
+Inizio  1200                      
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+7. converti funzioni R secondo capitolo AHM 
+7. vedi ottavo capitolo stats with julia 
+8. fai view bandstats
+
+Pausa pranzo 1330 - 1400                                                         
+
+Fine 1830                                                                                                                       
+Stato compiti          
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+7. converti funzioni R secondo capitolo AHM INIZIATO
+7. vedi ottavo capitolo stats with julia INIZIATO
+8. fai view bandstats INIZIATO
+
+---
+### Giorno 20112020
+Inizio  1200                      
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+7. converti funzioni R primo capitolo AHM
+7. vedi settimo capitolo stats with julia
+8. fai view bandstats
+
+Pausa pranzo 1400-1430                                                         
+
+Fine 1830                                                                                                                    
+Stato compiti          
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+7. converti funzioni R primo capitolo AHM FATTO
+7. vedi settimo capitolo stats with julia FATTO
+8. fai view bandstats INIZIATO
+
+---
+### Giorno 19112020
+Inizio  1200                      
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+7. converti funzioni R primo capitolo AHM
+7. vedi sesto capitolo stats with julia 
+8. fai view bandstats
+
+Pausa pranzo 1330 - 1400                                                        
+
+Fine 1830                                                                                                                
+Stato compiti          
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+7. converti funzioni R primo capitolo AHM INIZIATO
+7. vedi sesto capitolo stats with julia FATTO 
+8. fai view bandstats INIZIATO
+
+---
+### Giorno 18112020
+Inizio  1200                      
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+7. converti funzioni R primo capitolo AHM
+7. vedi quinto capitolo stats with julia 
+8. fai view bandstats
+
+Pausa pranzo 1330 - 1400                                                      
+
+Fine  1830                                                                                                              
+Stato compiti          
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+7. converti funzioni R primo capitolo AHM INIZIATO
+7. vedi quinto capitolo stats with julia FATTO   
+8. fai view bandstats INIZIATO
+
+---
+### Giorno 17112020
+Inizio  1200                      
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+7. converti funzioni R primo capitolo AHM
+7. vedi quarto capitolo stats with julia 
+8. fai view bandstats
+
+Pausa pranzo 1330 - 1400                                                     
+
+Fine 1830                                                                                                             
+Stato compiti          
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+7. converti funzioni R primo capitolo AHM INIZIATO
+7. vedi quarto capitolo stats with julia  FATTO
+8. fai view bandstats INIZIATO
+
+---
+### Giorno 16112020
+Inizio  1200                      
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+7. converti funzioni R primo capitolo AHM
+7. vedi terzo capitolo stats with julia 
+8. fai view bandstats
+
+Pausa pranzo 1300 - 1330                                                    
+
+Fine 1730                                                                                                         
+Stato compiti          
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+7. converti funzioni R primo capitolo AHM INIZIATO
+7. vedi terzo capitolo stats with julia FATTO
+8. fai view bandstats INIZIATO
+
+---
+### Giorno 13112020
+Inizio  1200                      
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+7. converti funzioni R primo capitolo AHM
+8. crea scheletro per webapp prisma
+7. vedi secondo capitolo stats with julia
+
+Pausa pranzo 1430 - 1500                                                
+
+Fine 1830                                                                                                 
+Stato compiti          
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+7. converti funzioni R primo capitolo AHM INIZIATO
+8. crea scheletro per webapp prisma FATTO
+7. vedi secondo capitolo stats with julia FATTO
+
+---
+### Giorno 12112020
+Inizio  1200                      
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+6. vedi primo capitolo stats with julia 
+7. converti funzioni R primo capitolo AHM
+8. vedi Genie
+
+Pausa pranzo 1400 - 1430                                            
+
+Fine 1830                                                                                                
+Stato compiti          
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+6. vedi primo capitolo stats with julia FATTO
+7. converti funzioni R primo capitolo AHM INIZIATO
+8. vedi Genie FATTO
+
+---
+### Giorno 11112020
+Inizio  1200                      
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+5. vedi SkewDist
+6. vedi QuadraticFormsMGHyp
+7. vedi ProjectManagement
+
+Pausa pranzo 1400 - 1430                                           
+
+Fine 1830                                                                                              
+Stato compiti          
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+5. vedi SkewDist FATTO
+6. vedi QuadraticFormsMGHyp FATTO
+7. vedi ProjectManagement FATTO
+
+---
+### Giorno 10112020
+Inizio  1200                      
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+5. vedi SkewDist
+6. vedi PearsonDistribution
+7. vedi GeneralizedLambdaDistribution
+
+Pausa pranzo 1400 - 1430                                         
+
+Fine 1830                                                                                            
+Stato compiti          
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+5. vedi SkewDist INIZIATO
+6. vedi PearsonDistribution FATTO
+7. vedi GeneralizedLambdaDistribution FATTO
+
+---
+### Giorno 09112020
+Inizio  1200                      
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+6. vedi GSL
+5. vedi SkewDist
+6. vedi AlphaStableDistributions
+
+Pausa pranzo 1430 - 1500                                        
+
+Fine 1830                                                                                           
+Stato compiti          
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+6. vedi GSL FATTO
+5. vedi SkewDist INIZIATO
+6. vedi AlphaStableDistributions FATTO
+
+---
+### Giorno 6112020
+Inizio  1200                      
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+5. vedi come fare wrapper con Clang.jl
+5. transition from jupyter notebooks (json) to Pluto.jl (pure julia reusable code) httpswww.youtube.comwatchv=IAF8DjrQSSk
+5. vedi JuliaStatsRmath
+6. vedi JuliaStatsStatsFuns
+
+Pausa pranzo 1400 - 1500                                    
+
+Fine 1900                                                                                        
+Stato compiti          
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+5. transition from jupyter notebooks (json) to Pluto.jl (pure julia reusable code) httpswww.youtube.comwatchv=IAF8DjrQSSk FATTO
+5. vedi JuliaStatsRmath FATTO
+6. vedi JuliaStatsStatsFuns FATTO
+
+---
+### Giorno 5112020
+Inizio  1200                      
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+4. vedi EasyData httpsgithub.comma-laforgeEasyData.jl
+5. vedi come fare wrapper con Clang.jl
+5. transition from jupyter notebooks (json) to Pluto.jl (pure julia reusable code) httpswww.youtube.comwatchv=IAF8DjrQSSk
+6. vedi ImPlot
+
+
+Pausa pranzo 1300 - 1400                                    
+
+Fine                                                                                      
+Stato compiti 1830       
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+4. vedi EasyData httpsgithub.comma-laforgeEasyData.jl (CMDimData) FATTO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+5. transition from jupyter notebooks (json) to Pluto.jl (pure julia reusable code) httpswww.youtube.comwatchv=IAF8DjrQSSk
+6. vedi ImPlot FATTO
+
+---
+### Giorno 4112020
+Inizio 1200                    
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+4. vedi EasyData httpsgithub.comma-laforgeEasyData.jl
+5. vedi come fare wrapper con Clang.jl
+5. transition from jupyter notebooks (json) to Pluto.jl (pure julia reusable code) httpswww.youtube.comwatchv=IAF8DjrQSSk
+6. vedi httpsarxiv.orgpdf1909.07930.pdf
+
+
+Pausa pranzo 1400 - 1430                               
+
+Fine 1730                                                                                    
+Stato compiti        
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+4. vedi EasyData httpsgithub.comma-laforgeEasyData.jl (CMDimData) INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+5. transition from jupyter notebooks (json) to Pluto.jl (pure julia reusable code) httpswww.youtube.comwatchv=IAF8DjrQSSk
+6. vedi httpsarxiv.orgpdf1909.07930.pdf FATTO
+
+---
+### Giorno 3112020
+Inizio 1200                    
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+4. vedi EasyData httpsgithub.comma-laforgeEasyData.jl
+5. vedi come fare wrapper con Clang.jl
+5. transition from jupyter notebooks (json) to Pluto.jl (pure julia reusable code) httpswww.youtube.comwatchv=IAF8DjrQSSk
+6. vedi CSTParser httpsgithub.comjulia-vscodeCSTParser.jl
+
+
+Pausa pranzo 1300 - 1400                            
+
+Fine 1900                                                                                  
+Stato compiti        
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+4. vedi EasyData httpsgithub.comma-laforgeEasyData.jl (CMDimData) INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+5. transition from jupyter notebooks (json) to Pluto.jl (pure julia reusable code) httpswww.youtube.comwatchv=IAF8DjrQSSk
+6. vedi CSTParser httpsgithub.comjulia-vscodeCSTParser.jl FATTO
+
+---
+### Giorno 2112020
+Inizio 1130                
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+4. vedi EasyData httpsgithub.comma-laforgeEasyData.jl
+5. vedi come fare wrapper con Clang.jl
+6. vedi Flux
+7. vedi esempi Flux httpsgithub.comFluxMLmodel-zoo
+
+
+Pausa pranzo 1300 - 1400                        
+
+Fine 1830                                                                              
+Stato compiti        
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+4. vedi EasyData httpsgithub.comma-laforgeEasyData.jl (CMDimData) INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+6. vedi Flux FATTO
+3. vedi esempi Flux httpsgithub.comFluxMLmodel-zoo FATTO
+
+---
+### Giorno 30102020
+Inizio 900                
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+4. vedi EasyData httpsgithub.comma-laforgeEasyData.jl
+5. vedi come fare wrapper con Clang.jl
+6. vedi Flux
+7. vedi Turing jl httpsgithub.comTuringLangTuring.jl
+
+
+Pausa pranzo 1000 - 1300                      
+
+Fine                                                                            
+Stato compiti 1830      
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+4. vedi EasyData httpsgithub.comma-laforgeEasyData.jl (CMDimData) INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+6. vedi Flux NON INIZIATO
+7. vedi Turing jl httpsgithub.comTuringLangTuring.jl FATTO
+7. reinstallato Julia FATTO
+
+---
+### Giorno 29102020
+Inizio 1200                
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+4. vedi EasyData httpsgithub.comma-laforgeEasyData.jl
+5. vedi come fare wrapper con Clang.jl
+4. vedere presentazione dependency aware jupyter notebooks del giorno 2020729 juliacon
+2. study on julia base struct (e.g. SparseMatrixCSC) [also take a look at  
+  httpswww.youtube.comwatchv=ConoBmjlivs&list=RDCMUC9IuUwwE2xdjQUT_LMLONoA&start_radio=1&t=1451 ]
+
+Pausa pranzo 1430 - 1500                      
+
+Fine 1800                                                                           
+Stato compiti    
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+4. vedi EasyData httpsgithub.comma-laforgeEasyData.jl (CMDimData) INIZIATO
+5. vedi come fare wrapper con Clang.jl INIZIATO
+4. vedere presentazione dependency aware jupyter notebooks del giorno 2020729 juliacon FATTO
+2. study on julia base struct (e.g. SparseMatrixCSC) FATTO
+
+---
+### Giorno 28102020
+Inizio 1200                
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+3. vedi ImagePhaseCongruency
+4. vedi EasyData httpsgithub.comma-laforgeEasyData.jl
+5. vedi come fare wrapper con Clang.jl
+6. vedere AST di julia
+
+Pausa pranzo 1300 - 1400                    
+
+Fine 1900                                                                         
+Stato compiti    
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+3. vedi ImagePhaseCongruency FATTO
+4. vedi EasyData httpsgithub.comma-laforgeEasyData.jl (CMDimData) INIZIATO
+5. vedi come fare wrapper con Clang.jl NON INIZIATO
+6. vedere AST di julia FATTO
+
+---
+### Giorno 27102020
+Inizio 1200            
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+4. vedi CImGui
+5. vedi Poptart.jl
+6. fare gui per eos_convert
+8888. guarda invenia httpsinvenia.github.ioblog
+                                
+Pausa pranzo 1300 - 1430                    
+
+Fine 1830                                                                       
+Stato compiti    
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+4. vedi CImGui FATTO
+5. vedi Poptart.jl FATTO
+6. fare gui per eos_convert FATTO
+6. guarda invenia httpsinvenia.github.ioblog FATTO
+
+---
+### Giorno 26102020
+Inizio 1130            
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+3. vedi DateFrameDBs
+4. vedi CImGui
+5. vedi Poptart.jl
+6. fare gui per eos_convert
+                                
+Pausa pranzo 1300 - 1400                
+
+Fine 1830                                                                     
+Stato compiti    
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+3. vedi DateFrameDBs FATTO
+4. vedi CImGui INIZIATO
+5. vedi Poptart.jl INIZIATO
+6. fare gui per eos_convert INIZIATO
+
+---
+### Giorno 23102020
+Inizio 1200            
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+3. vedi DateFrameDBs
+4. vedi CImGui
+5. vedi Poptart.jl
+6. fare gui per eos_convert
+                                
+Pausa pranzo 1300 - 1330          
+
+Fine 1830                                                                  
+Stato compiti    
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+3. vedi DateFrameDBs NON INIZIATO
+4. vedi CImGui INIZIATO
+5. vedi Poptart.jl INIZIATO
+6. fare gui per eos_convert INIZIATO
+
+---
+
+### Giorno 22102020
+Inizio 1200            
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+3. vedi DateFrameDBs
+4. vedi CImGui
+5. vedi Poptart.jl
+6. fixa cubo errori
+                                
+Pausa pranzo 1330 - 1400        
+
+Fine 1900                                                              
+Stato compiti    
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+3. vedi DateFrameDBs NON INIZIATO
+4. vedi CImGui INIZIATO
+5. vedi Poptart.jl NON INIZIATO
+6. fixa cubo errori FATTO
+
+---
+
+### Giorno 21102020
+Inizio 1230            
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+3. vedi DateFrameDBs
+4. vedi CImGui
+5. vedi Poptart.jl
+6. controlla cubo errori
+                                
+
+Fine 1830                                                            
+Stato compiti    
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+3. vedi DateFrameDBs NON INIZIATO
+4. vedi CImGui INIZIATO
+5. vedi Poptart.jl NON INIZIATO
+6. controlla cubo errori FATTO
+
+---
+
+### Giorno 20102020
+Inizio 1200            
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. vedi GeometricFlux.jl
+3. riordina codice seguendo style guidelines
+4. vedi statskit.jl 
+5. vedi Pluto.jl
+6. converti notebook senza codice in markdown
+
+
+Pausa pranzo 1400 - 1430                                            
+
+Fine 1830                                                          
+Stato compiti    
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+3. riordina codice seguendo style guidelines FATTO
+4. vedi statskit.jl FATTO
+5. vedi Pluto.jl FATTO
+6. converti notebook senza codice in markdown FATTO
+
+---
+### Giorno 19102020
+Inizio 1200            
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. ricerca parametri di compilazione pacchetto C hdf eos5
+6. snellire codice nei file singoli partizionando i sottopassaggi dlle singole funzioni
+4. vedi GeometricFlux.jl
+5. imparare come si fanno i package julia
+6. guarda pkg templates per trasformare in un pkg httpsgithub.cominveniaPkgTemplates.jl
+
+Pausa pranzo 1300 - 1400                                          
+
+Fine 1900                                                      
+Stato compiti    
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+2. ricerca parametri di compilazione pacchetto C hdf eos5 FATTO
+4. vedi GeometricFlux.jl INIZIATO
+6. snellire codice nei file singoli partizionando i sottopassaggi dlle singole funzioni FATTO
+5. imparare come si fanno i package julia FATTO
+6. guarda pkg templates per trasformare in un pkg httpsgithub.cominveniaPkgTemplates.jl FATTO
+
+
+---
+
+### Giorno 16102020
+Inizio 1200          
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. ricerca parametri di compilazione pacchetto C hdf eos5
+6. snellire codice nei file singoli partizionando i sottopassaggi dlle singole funzioni
+4. vedi GeometricFlux.jl
+6. pulisci codice
+6. vedere Queryverse.jl
+
+Pausa pranzo 1300 - 1400                                       
+
+Fine 1900                                                     
+Stato compiti    
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+2. ricerca parametri di compilazione pacchetto C hdf eos5 INIZIATO
+4. vedi GeometricFlux.jl INIZIATO
+6. snellire codice nei file singoli partizionando i sottopassaggi dlle singole funzioni INIZIATO
+6. pulisci codice FATTO
+6. vedere Queryverse.jl FATTO
+
+---
+
+### Giorno 15102020
+Inizio 1200          
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. ricerca parametri di compilazione pacchetto C hdf eos5
+6. snellire codice nei file singoli partizionando i sottopassaggi dlle singole funzioni
+6. pulisci codice
+6. testing su eos_convert
+6. vedere Queryverse.jl
+
+Pausa pranzo 1400 - 1500                                   
+
+Fine 1900                                                 
+Stato compiti    
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+2. ricerca parametri di compilazione pacchetto C hdf eos5 INIZIATO
+6. snellire codice nei file singoli partizionando i sottopassaggi dlle singole funzioni INIZIATO
+6. pulisci codice INIZIATO
+6. testing su eos_convert FATTO
+6. vedere Queryverse.jl INIZIATO
+
+---
+
+### Giorno 14102020
+Inizio 1200          
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. ricerca parametri di compilazione pacchetto C hdf eos5
+6. snellire codice nei file singoli partizionando i sottopassaggi dlle singole funzioni
+6. pulisci codice
+6. testing su eos_convert
+6. vedere Queryverse.jl
+
+Pausa pranzo 1400 - 1500                                  
+
+Fine 1900                                              
+Stato compiti    
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+2. ricerca parametri di compilazione pacchetto C hdf eos5 INIZIATO
+6. snellire codice nei file singoli partizionando i sottopassaggi dlle singole funzioni INIZIATO
+6. pulisci codice INIZIATO
+6. testing su eos_convert INIZIATO
+6. vedere Queryverse.jl INIZIATO
+
+---
+
+### Giorno 13102020
+Inizio 1200          
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. ricerca parametri di compilazione pacchetto C hdf eos5
+6. snellire codice nei file singoli partizionando i sottopassaggi dlle singole funzioni
+6. pulisci codice
+5. finalizzare eos_convert
+6. testing su eos_convert
+
+Pausa pranzo 1400 - 1600                               
+
+Fine 1900                                           
+Stato compiti    
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+2. ricerca parametri di compilazione pacchetto C hdf eos5 INIZIATO
+6. snellire codice nei file singoli partizionando i sottopassaggi dlle singole funzioni INIZIATO
+6. pulisci codice INIZIATO
+5. finalizzare eos_convert FATTO
+6. testing su eos_convert INIZIATO
+
+---
+
+### Giorno 12102020
+Inizio 1200          
+Compiti   
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. ricerca parametri di compilazione pacchetto C hdf eos5
+6. snellire codice nei file singoli partizionando i sottopassaggi dlle singole funzioni
+6. pulisci codice
+5. finalizzare eos_convert
+6. testing su eos_convert
+
+Pausa pranzo 1400 - 1500                            
+
+Fine 1900                                         
+Stato compiti    
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+2. ricerca parametri di compilazione pacchetto C hdf eos5 INIZIATO
+6. snellire codice nei file singoli partizionando i sottopassaggi dlle singole funzioni INIZIATO
+6. pulisci codice INIZIATO
+5. finalizzare eos_convert INIZIATO
+6. testing su eos_convert INIZIATO
+
+---
+
+### Giorno 9102020
+Inizio 1200        
+Compiti  
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. ricerca parametri di compilazione pacchetto C hdf eos5
+6. snellire codice nei file singoli partizionando i sottopassaggi dlle singole funzioni
+6. pulisci codice
+5. finalizzare eos_convert
+6. testing su eos_convert
+
+Pausa pranzo 1300 - 1430                      
+
+Fine 1900                                     
+Stato compiti    
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+2. ricerca parametri di compilazione pacchetto C hdf eos5 INIZIATO
+6. snellire codice nei file singoli partizionando i sottopassaggi dlle singole funzioni INIZIATO
+6. pulisci codice INIZIATO
+5. finalizzare eos_convert INIZIATO
+6. testing su eos_convert INIZIATO
+
+---
+
+
+### Giorno 8102020
+Inizio 1200        
+Compiti  
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. ricerca parametri di compilazione pacchetto C hdf eos5
+6. snellire codice nei file singoli partizionando i sottopassaggi dlle singole funzioni
+6. pulisci codice
+5. finalizzare eos_convert
+6. testing su eos_convert
+
+Pausa pranzo 1300 - 1330                     
+
+Fine 1830                                  
+Stato compiti    
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+2. ricerca parametri di compilazione pacchetto C hdf eos5 INIZIATO
+6. snellire codice nei file singoli partizionando i sottopassaggi dlle singole funzioni INIZIATO
+6. pulisci codice INIZIATO
+5. finalizzare eos_convert INIZIATO
+6. testing su eos_convert NON INIZIATO
+
+---
+
+### Giorno 7102020
+Inizio 1200        
+Compiti  
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. ricerca parametri di compilazione pacchetto C hdf eos5
+4. vedi ArchGDAL 
+5. vedi GDAL.jl
+6. snellire codice nei file singoli partizionando i sottopassaggi dlle singole funzioni
+6. pulisci codice
+
+Pausa pranzo 1330 - 1400                   
+
+Fine  1830                             
+Stato compiti    
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+2. ricerca parametri di compilazione pacchetto C hdf eos5 INIZIATO
+4. vedi ArchGDAL FATTO
+5. vedi GDAL.jl FATTO
+6. snellire codice nei file singoli partizionando i sottopassaggi dlle singole funzioni INIZIATO
+6. pulisci codice INIZIATO
+
+---
+
+### Giorno 6102020
+Inizio 1200        
+Compiti  
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. ricerca parametri di compilazione pacchetto C hdf eos5
+4. vedi ArchGDAL
+5. vedi GDAL.jl
+6. snellire codice nei file singoli partizionando i sottopassaggi dlle singole funzioni
+6. pulisci codice
+
+Pausa pranzo 1400 - 1500                
+
+Fine 1900                            
+Stato compiti    
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+2. ricerca parametri di compilazione pacchetto C hdf eos5 INIZIATO
+4. vedi ArchGDAL INIZIATO
+5. vedi GDAL.jl INIZIATO
+6. snellire codice nei file singoli partizionando i sottopassaggi dlle singole funzioni INIZIATO
+6. pulisci codice INIZIATO
+
+---
+
+### Giorno 5102020
+Inizio 1200       
+Compiti  
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. ricerca parametri di compilazione pacchetto C hdf eos5
+4. vedi ArchGDAL
+5. vedi GDAL.jl
+6. snellire codice nei file singoli partizionando i sottopassaggi dlle singole funzioni
+6. convertire eos_create_vnir in eos_create + eos_create_vnir  
+
+Pausa pranzo 1330 - 1400              
+
+Fine 1830                          
+Stato compiti    
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+2. ricerca parametri di compilazione pacchetto C hdf eos5 INIZIATO
+4. vedi ArchGDAL INIZIATO
+5. vedi GDAL.jl INIZIATO
+6. snellire codice nei file singoli partizionando i sottopassaggi dlle singole funzioni NON INIZIATO
+6. convertire eos_create_vnir in eos_create + eos_create_vnir FATTO
+
+---
+
+### Giorno 2102020
+Inizio 1330      
+Compiti  
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. ricerca parametri di compilazione pacchetto C hdf eos5
+3. vedere pacchetto hdf eos5 per R
+4. vedi ArchGDAL
+5. vedi GDAL.jl
+6. snellire codice nei file singoli partizionando i sottopassaggi dlle singole funzioni               
+
+Fine 1730                   
+Stato compiti    
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+2. ricerca parametri di compilazione pacchetto C hdf eos5 INIZIATO
+3. vedere pacchetto hdf eos5 per R FATTO
+4. vedi ArchGDAL
+5. vedi GDAL.jl INIZIATO
+6. snellire codice nei file singoli partizionando i sottopassaggi dlle singole funzioni 
+
+---
+
+
+### Giorno 1102020
+Inizio 1100    
+Compiti  
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. ricerca parametri di compilazione pacchetto C hdf eos5
+3. vedere pacchetto hdf eos5 per R
+7. convertire pr_compute_indexes
+10. convertire pr_basegeo
+8. convertire pr_create_pan, pr_setext_L2D
+
+
+Pausa pranzo 1330 - 1430                  
+
+Fine 1700                 
+Stato compiti    
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+2. ricerca parametri di compilazione pacchetto C hdf eos5 INIZIATO
+3. vedere pacchetto hdf eos5 per R INIZIATO
+7. convertire pr_compute_indexes FATTO
+10. convertire pr_basegeo FATTO
+8. convertire pr_create_pan, pr_setext_L2D FATTO
+
+
+---
+
+
+### Giorno 3092020
+Inizio 930     
+Compiti  
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. ricerca parametri di compilazione pacchetto C hdf eos5
+3. vedere pacchetto hdf eos5 per R
+5. convertire pr_get_geoloc
+6. convertire pr_rastwrite_lines
+7. convertire pr_compute_indexes
+
+
+Pausa pranzo 1030 - 1300                
+
+Fine 1800               
+Stato compiti    
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+2. ricerca parametri di compilazione pacchetto C hdf eos5 INIZIATO
+3. vedere pacchetto hdf eos5 per R INIZIATO
+5. convertire pr_get_geoloc FATTO
+6. convertire pr_rastwrite_lines FATTO
+7. convertire pr_compute_indexes INIZIATO
+
+
+---
+
+
+### Giorno 2992020
+Inizio 1130     
+Compiti  
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. ricerca parametri di compilazione pacchetto C hdf eos5
+3. vedere pacchetto hdf eos5 per R
+1. convertire pr_create_vnir
+2. convertire pr_create_additional
+4. convertirte pr_create_latlon
+
+
+Pausa pranzo 1400 - 1500            
+
+Fine 1830               
+Stato compiti    
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+2. ricerca parametri di compilazione pacchetto C hdf eos5 INIZIATO
+3. vedere pacchetto hdf eos5 per R INIZIATO
+1. convertire pr_create_vnir FATTO
+2. convertire pr_create_additional FATTO
+4. convertirte pr_create_latlon FATTO
+---
+
+### Giorno 2892020
+Inizio 1130     
+Compiti  
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. ricerca parametri di compilazione pacchetto C hdf eos5
+3. vedere pacchetto hdf eos5 per R
+1. convertire pr_make_atcor
+2. approfondisci == vs ===
+1. convertire pr_create_vnir
+
+
+Pausa pranzo 1300 -1430         
+
+Fine 1800            
+Stato compiti    
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+2. ricerca parametri di compilazione pacchetto C hdf eos5 INIZIATO
+3. vedere pacchetto hdf eos5 per R INIZIATO
+4. convertire pr_make_atcor FATTO
+2. approfondisci == vs === FATTO
+1. convertire pr_create_vnir INIZIATO
+---
+
+### Giorno 2592020
+Inizio 1200     
+Compiti  
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. ricerca parametri di compilazione pacchetto C hdf eos5
+3. vedere pacchetto hdf eos5 per R
+5. vedi awesome neural ode httpsgithub.comZymraelawesome-neural-ode
+2. singular value decomposition in julia (why)
+1. convertire pr_make_atcor
+
+
+Pausa pranzo 1300 - 1400       
+
+Fine 1830          
+Stato compiti    
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+2. ricerca parametri di compilazione pacchetto C hdf eos5 INIZIATO
+3. vedere pacchetto hdf eos5 per R INIZIATO
+5. vedi awesome neural ode httpsgithub.comZymraelawesome-neural-ode FATTO   
+2. singular value decomposition in julia (why) FATTO
+4. convertire pr_make_atcor INIZIATO
+
+---
+
+### Giorno 2492020
+Inizio 1130    
+Compiti  
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. ricerca parametri di compilazione pacchetto C hdf eos5
+3. vedere pacchetto hdf eos5 per R
+5. vedi awesome neural ode httpsgithub.comZymraelawesome-neural-ode  
+5. convertire pr_convert da r a julia
+2. singular value decomposition in julia (why)
+
+
+Pausa pranzo 1330 - 1430    
+
+Fine 1900        
+Stato compiti    
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+2. ricerca parametri di compilazione pacchetto C hdf eos5 INIZIATO
+3. vedere pacchetto hdf eos5 per R INIZIATO
+5. vedi awesome neural ode httpsgithub.comZymraelawesome-neural-ode NON FATTO  
+5. convertire pr_convert da r a julia FATTO 
+2. singular value decomposition in julia (why) INIZIATO
+
+
+
+---
+
+
+
+### Giorno 2392020
+Inizio 1200     
+Compiti  
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. ricerca parametri di compilazione pacchetto C hdf eos5
+3. vedere pacchetto hdf eos5 per R
+5. vedi awesome neural ode httpsgithub.comZymraelawesome-neural-ode  
+5. convertire pr_convert da r a julia
+1. convertire ogni funzione scritta in passato in un .jl a parte
+
+
+Pausa pranzo 1330 - 1430   
+
+Fine 1830       
+Stato compiti    
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+2. ricerca parametri di compilazione pacchetto C hdf eos5 INIZIATO
+3. vedere pacchetto hdf eos5 per R INIZIATO
+5. vedi awesome neural ode httpsgithub.comZymraelawesome-neural-ode  NON FATTO
+5. convertire pr_convert da r a julia INIZIATO
+1. convertire ogni funzione scritta in passato in un .jl a parte FATTO
+
+
+---
+
+### Giorno 2292020
+Inizio 1130   
+Compiti  
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. ricerca parametri di compilazione pacchetto C hdf eos5
+3. vedere pacchetto hdf eos5 per R
+4. prime prove di apertura file hdf eos5 del prisma con hdf5.jl
+5. vedi awesome neural ode httpsgithub.comZymraelawesome-neural-ode
+6. finire piccolo programmino per rappresentazione ad albero di file hdf5
+
+
+Pausa pranzo 1330 - 1430
+
+Fine 1900    
+Stato compiti  
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+2. ricerca parametri di compilazione pacchetto C hdf eos5 INIZIATO
+3. vedere pacchetto hdf eos5 per R INIZIATO
+4. prime prove di apertura file hdf eos5 del prisma con hdf5.jl FATTO
+5. vedi awesome neural ode httpsgithub.comZymraelawesome-neural-ode NON FATTO
+6. finire piccolo programmino per rappresentazione ad albero di file hdf5 FATTO
+
+
+---
+
+### Giorno 2192020
+Inizio 1130   
+Compiti  
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. ricerca parametri di compilazione pacchetto C hdf eos5
+3. vedere pacchetto hdf eos5 per R
+4. prime prove di apertura file hdf eos5 del prisma con hdf5.jl
+5. setup QGis
+6. vedi wrapper fortran
+
+Pausa pranzo 1300 - 1430
+
+Fine 1900   
+Stato compiti  
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+2. ricerca parametri di compilazione pacchetto C hdf eos5 INIZIATO
+3. vedere pacchetto hdf eos5 per R INIZIATO
+4. prime prove di apertura file hdf eos5 del prisma con hdf5.jl INIZIATO
+5. setup QGis FATTO
+6. vedi wrapper fortran FATTO
+
+---
+
+### Giorno 1892020
+Inizio 1430  
+Compiti  
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. approfondisci splat (...) e reduce
+3. lezione julia for data science  classification
+3. fai tutorial julia for data science  classification
+4. rivedere grafo struttura hdf5
+5. rivedi notebook ottimizzazione numerica 
+
+Fine 1830  
+Stato compiti 
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+2. approfondisci splat (...) e reduce FATTO
+3. lezione julia for data science  classification FATTO
+3. fai tutorial julia for data science  classification FATTO
+4. rivedere grafo struttura hdf5 FATTO
+5. rivedi notebook ottimizzazione numerica FATTO
+
+---
+
+
+### Giorno 1792020
+Inizio 1230  
+Compiti  
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. lezione julia for data science  other languages
+3. lezione julia for data science  visualization
+4. fare tutorial julia for data science  other languages
+5. fare tutorial julia for data science  visualization
+6. approfondisci splat (...) e reduce
+
+Pausa pranzo  1400 - 1430
+
+Fine 1900  
+Stato compiti 
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+2. lezione julia for data science  other languages FATTO
+3. lezione julia for data science  visualization FATTO
+4. fare tutorial julia for data science  other languages FATTO
+5. fare tutorial julia for data science  visualization FATTO
+6. approfondisci splat (...) e reduce NON FATTO
+
+---
+
+### Giorno 1692020
+Inizio 1100  
+Compiti  
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. lezione julia for data science  numerical optimization
+3. lezione julia for data science  neural nets
+4. fare tutorial julia for data science  numerical optimization
+5. fare tutorial julia for data science  neural nets
+7. vedere JuMP per julia
+
+Pausa pranzo  1300 - 1400
+
+Fine 1800 
+Stato compiti 
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+2. lezione julia for data science  numerical optimization FATTO
+3. lezione julia for data science  neural nets FATTO
+4. fare tutorial julia for data science  numerical optimization FATTO
+5. fare tutorial julia for data science  neural nets FATTO
+7. vedere JuMP per julia FATTO
+
+---
+
+### Giorno 1592020
+Inizio 1100  
+Compiti  
+    
+1. vedere binary builder.jl per usare C compilato da julia
+2. lezione julia for data science  regression
+3. lezione julia for data science  graphs
+4. fare tutorial julia for data science  regression
+5. fare tutorial julia for data science  graphs
+6. vedere pipe  in julia
+
+
+Pausa pranzo  1400 - 1530
+
+Fine 1830  
+Stato compiti 
+
+1. vedere binary builder.jl per usare C compilato da julia INIZIATO
+2. lezione julia for data science  regression FATTO
+3. lezione julia for data science  graphs FATTO
+4. fare tutorial julia for data science  regression FATTO
+5. fare tutorial julia for data science  graphs FATTO
+6. vedere pipe  in julia FATTO
+
+---
+
+### Giorno 1492020
+Inizio 1100  
+Compiti  
+    
+1. studiare input della macro @vgplot  
+2. seguire lezione clustering di julia academyjulia for data sciences
+3. fare tutorial su lezione clustering
+4. vedere binary builder.jl per usare C compilato da julia
+5. tipi parametrici in julia
+6. mettere diario in wiki della repo
+
+Pausa pranzo 1228 - 1329
+
+Fine  1800
+Stato compiti
+
+1. studiare input della macro @vgplot  FATTO  
+2. seguire lezione clustering di julia academyjulia for data sciences FATTO
+3. fare tutorial su lezione clustering  FATTO
+4. vedere binary builder.jl per usare C compilato da julia INIZIATO
+5. tipi parametrici in julia FATTO
+6. mettere diario in wiki della repo FATTO
+
+---
+
+### Giorno 1192020  
+Inizio 1200 Compiti
+
+1. lezione julia for data scienceDimensionality Reduction  
+2. fare struct list  
+3. fare tutorial lezione julia for data sciencedimensionality reduction  
+4. studiare input della macro @vgplot  
+5. vedere learning latex in jupyter notebooks per imparare latex in jupyter  
+6. vedere come creare ambiente virtuale per i notebook julia con manifestartifact.toml e project.toml  
+ 
+Pausa pranzo 1400 - 1500  
+  
+Fine 1800 Stato compiti  
+
+1. lezione julia for data scienceDimensionality Reduction FATTO  
+2. fare struct list FATTO    
+3. fare tutorial lezione julia for data sciencedimensionality reduction FATTO  
+4. studiare input della macro @vgplot INIZIATO  
+5. vedere learning latex in jupyter notebooks per imparare latex in jupyter FATTO  
+6. vedere come creare ambiente virtuale per i notebook julia con manifestartifact.toml e project.toml FATTO  
+ solo per versione pacchetti  
+
+---
+
+### Giorno 1092020  
+Inizio 1447  
+Compiti  
+
+1. fare tutorial su lezione julia for data sciencestatistics  
+2. convertire mail in diario  
+3. aggiornare tutorial su fare tutorial  
+4. fare tutorial su come fare commit a repo git  
+5. fare struct list esplicativa  
+6. inizia lezione julia for data scienceDimensionality Reduction  
+
+Fine 1942  
+Stato compiti  
+
+1. fare tutorial su lezione julia for data sciencestatistics FATTO  
+2. convertire mail in diario FATTO  
+3. aggiornare tutorial su fare tutorial FATTO  
+4. fare tutorial su come fare commit a repo git FATTO  
+5. fare struct list esplicativa INIZIATO  
+6. inizia lezione julia for data scienceDimensionality Reduction NON FATTO  
++ iniziato documento compiti futuri  
+ Julia non ha i puntatori  
+
+---
+
+### Giorno 9 sett  
+Inizio 1137  
+Compiti  
+
+1. finire lezione linear algebra  
+2. fare tutorialdemo su lezione data  
+3. fare tutorialdemo su lezione linear algebra  
+4. rivedere fattorizzazioniproprietà matrici  
+5. fare lezione statistics  
+6. fare tutorialdemo su lezione statistics  
+
+Pausa pranzo 1400 - 1502  
+
+Fine 1843  
+Stato compiti  
+
+1. finire lezione linear algebra FATTO  
+2. fare tutorialdemo su lezione data FATTO  
+3. fare tutorialdemo su lezione linear algebra FATTO  
+4. rivedere fattorizzazioniproprietà matrici FATTO  
+5. fare lezione statistics FATTO  
+6. fare tutorialdemo su lezione statistics NON FATTO  
++ aggiunto il diagramma ad albero al riassunto delle caratteristiche hdf5  
+
+---
+
+### Giorno 8 sett  
+Inizio 1107  
+Compiti  
+
+1. continuare a vedere manipolazione hdf5 via julia  
+2. scrivere un piccolo script che legga un hdf5 e ne descriva le parti  
+3. iniziare corso julia for data science  
+
+Pausa pranzo 1303 - 1407
+
+Fine 1834  
+Stato compiti  
+
+1. continuare a vedere manipolazione hdf5 via julia FATTO  
+2. scrivere un piccolo script che legga un hdf5 e ne descriva le parti FATTO  
+3. iniziare corso julia for data science INIZIATO  
+
+---
+
+### Giorno 7 sett   
+Inizio 1004 Compiti  
+
+1. studio struttura dati prismahdf5  
+2. approfondimento sui tools per dati hdf  
+3. capire come si fanno i grafi ad albero in latexnotebook  
+
+Pausa pranzo 1245 - 1345
+
+Fine 1749  
+Stato compiti  
+
+1. studio struttura dati prismahdf5 FATTO  
+2. approfondimento sui tools per dati hdf FATTO  
+3. capire come si fanno i grafi ad albero in latexnotebook INIZIATO  
++ iniziato a vedere pkg hdf5.jl ( httpsgithub.comJuliaIOHDF5.jl ) per file hdf5 in julia  
+
+
+---
+
+### Giorno 4 sett  
+Inizio 1008  
+Compiti  
+
+1. finire julia academy introduction to julia  
+2. tutorial esplicativi concetti imparati  
+3. studio struttura dati prismahdf5  
+
+Pausa pranzo 1254-1343
+
+Fine 1922 Stato compiti
+
+1. finire julia academy introduction to julia FATTO  
+2. tutorial esplicativi concetti imparati FATTO  
+3. studio struttura dati prismahdf5 INIZIATO  
+
+---
+
+### Giorno 3 sett  
+Inizio 1420  
+Compiti  
+
+1. imparare a fare tutorial in jupyter notebook  
+2. creazione repo github per lo stage
+3. tutorial crezione git, commit su git da git desktop   
+4. tutorial installazione julia, R, python, vs code, anaconda, docker  
+5. inizio corso julia academy  introduction to julia  
+
+Fine 1932  
+Stato compiti  
+
+1. imparare a fare tutorial in jupyter notebook FATTO  
+2. creazione repo github per lo stage FATTO  
+3. tutorial crezione git, commit su git da git desktop FATTO  
+4. tutorial installazione julia, R, python, vs code, anaconda, docker FATTO  
+5. inizio corso julia academy  introduction to julia INIZIATO  

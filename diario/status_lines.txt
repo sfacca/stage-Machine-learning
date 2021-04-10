@@ -1,0 +1,151 @@
+* inizio corso julia academy  introduction to julia
+* tutorial installazione julia, R, python, vs code, anaconda, docker
+* tutorial crezione git, commit su git da git desktop
+* creazione repo github per lo stage
+* imparare a fare tutorial in jupyter notebook
+* tutorial esplicativi concetti imparati
+* finire julia academy introduction to julia
+* capire come si fanno i grafi ad albero in latexnotebook
+* approfondimento sui tools per dati hdf
+* studio struttura dati prismahdf5
+* iniziare corso julia for data science
+* scrivere un piccolo script che legga un hdf5 e ne descriva le parti
+* continuare a vedere manipolazione hdf5 via julia
+* fare tutorialdemo su lezione statistics
+* fare lezione statistics
+* rivedere fattorizzazioniproprietà matrici
+* fare tutorialdemo su lezione linear algebra
+* fare tutorialdemo su lezione data
+* finire lezione linear algebra
+* inizia lezione julia for data scienceDimensionality Reduction
+* fare struct list esplicativa
+* fare tutorial su come fare commit a repo git
+* aggiornare tutorial su fare tutorial
+* convertire mail in diario
+* fare tutorial su lezione julia for data sciencestatistics
+* vedere come creare ambiente virtuale per i notebook julia con manifestartifact.toml e project.toml
+* vedere learning latex in jupyter notebooks per imparare latex in jupyter
+* fare tutorial lezione julia for data sciencedimensionality reduction
+* fare struct list
+* lezione julia for data scienceDimensionality Reduction
+* mettere diario in wiki della repo
+* tipi parametrici in julia
+* fare tutorial su lezione clustering
+* seguire lezione clustering di julia academyjulia for data sciences
+* studiare input della macro @vgplot
+* vedere pipe  in julia
+* fare tutorial julia for data science  graphs
+* fare tutorial julia for data science  regression
+* lezione julia for data science  graphs
+* lezione julia for data science  regression
+* vedere JuMP per julia
+* fare tutorial julia for data science  neural nets
+* fare tutorial julia for data science  numerical optimization
+* lezione julia for data science  neural nets
+* lezione julia for data science  numerical optimization
+* fare tutorial julia for data science  visualization
+* fare tutorial julia for data science  other languages
+* lezione julia for data science  visualization
+* lezione julia for data science  other languages
+* rivedi notebook ottimizzazione numerica
+* rivedere grafo struttura hdf5
+* fai tutorial julia for data science  classification
+* lezione julia for data science  classification
+* approfondisci splat (...) e reduce
+* vedi wrapper fortran
+* setup QGis
+* finire piccolo programmino per rappresentazione ad albero di file hdf5
+* prime prove di apertura file hdf eos5 del prisma con hdf5.jl
+* convertire ogni funzione scritta in passato in un .jl a parte
+* convertire pr_convert da r a julia
+* singular value decomposition in julia (why)
+* vedi awesome neural ode httpsgithub.comZymraelawesome-neural-ode
+* approfondisci == vs ===
+* convertire pr_make_atcor
+* convertirte pr_create_latlon
+* convertire pr_create_additional
+* convertire pr_create_vnir
+* convertire pr_rastwrite_lines
+* convertire pr_get_geoloc
+* convertire pr_create_pan, pr_setext_L2D
+* 10. convertire pr_basegeo
+* convertire pr_compute_indexes
+* vedere pacchetto hdf eos5 per R
+* convertire eos_create_vnir in eos_create + eos_create_vnir
+* vedi GDAL.jl
+* vedi ArchGDAL
+* finalizzare eos_convert
+* testing su eos_convert
+* vedere Queryverse.jl
+* pulisci codice
+* guarda pkg templates per trasformare in un pkg httpsgithub.cominveniaPkgTemplates.jl
+* imparare come si fanno i package julia
+* snellire codice nei file singoli partizionando i sottopassaggi dlle singole funzioni
+* ricerca parametri di compilazione pacchetto C hdf eos5
+* converti notebook senza codice in markdown
+* vedi Pluto.jl
+* vedi statskit.jl
+* riordina codice seguendo style guidelines
+* controlla cubo errori
+* fixa cubo errori
+* vedi DateFrameDBs
+* guarda invenia httpsinvenia.github.ioblog
+* 8888. guarda invenia httpsinvenia.github.ioblog
+* fare gui per eos_convert
+* vedi Poptart.jl
+* vedi CImGui
+* vedere AST di julia
+* vedi ImagePhaseCongruency
+* study on julia base struct (e.g. SparseMatrixCSC)
+* study on julia base struct (e.g. SparseMatrixCSC) [also take a look at
+* vedere presentazione dependency aware jupyter notebooks del giorno 2020729 juliacon
+* reinstallato Julia
+* vedi Turing jl httpsgithub.comTuringLangTuring.jl
+* vedi esempi Flux httpsgithub.comFluxMLmodel-zoo
+* vedi Flux
+* vedi CSTParser httpsgithub.comjulia-vscodeCSTParser.jl
+* vedi httpsarxiv.orgpdf1909.07930.pdf
+* vedi EasyData httpsgithub.comma-laforgeEasyData.jl (CMDimData)
+* vedi ImPlot
+* vedi EasyData httpsgithub.comma-laforgeEasyData.jl
+* vedi JuliaStatsStatsFuns
+* vedi JuliaStatsRmath
+* transition from jupyter notebooks (json) to Pluto.jl (pure julia reusable code) httpswww.youtube.comwatchv=IAF8DjrQSSk
+* vedi AlphaStableDistributions
+* vedi GSL
+* vedi GeneralizedLambdaDistribution
+* vedi PearsonDistribution
+* vedi ProjectManagement
+* vedi QuadraticFormsMGHyp
+* vedi SkewDist
+* vedi Genie
+* vedi primo capitolo stats with julia
+* vedi secondo capitolo stats with julia
+* crea scheletro per webapp prisma
+* vedi terzo capitolo stats with julia
+* vedi quarto capitolo stats with julia
+* vedi quinto capitolo stats with julia
+* vedi sesto capitolo stats with julia
+* vedi settimo capitolo stats with julia
+* converti funzioni R primo capitolo AHM
+* vedi ottavo capitolo stats with julia
+* vedi decimo capitolo stats with julia
+* vedi nono capitolo stats with julia
+* vedi appendice stats with julia
+* setup repo per pacchetto eos convert
+* diminuisci allocazioni eos convert
+* 99. grafo AST-CST del codice julia
+* grafo AST-CST del codice julia
+* prime analisi grafiche bande
+* fai pagine landing(signup, login) e 2 vuote linkate con geniestipple
+* documentazione prismaconvert
+* vedi semanticmodels.jl per gedtire informazioni con grafi
+* converti funzioni R secondo capitolo AHM
+* converti funzioni R terzo capitolo AHM
+* converti funzioni R quarto capitolo AHM
+* vedi AlgebricJulia  Catlab
+* converti funzioni R quinto capitolo AHM
+* fai view bandstats
+* vedi come fare wrapper con Clang.jl
+* vedi GeometricFlux.jl
+* vedere binary builder.jl per usare C compilato da julia
