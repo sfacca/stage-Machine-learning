@@ -38,7 +38,7 @@ using CSTParser
 using Pkg
 
 # ╔═╡ 37381660-6a2c-11eb-30b0-130e3fea8953
-using MethodAnalysis
+#using MethodAnalysis
 
 # ╔═╡ 7d83ff80-6a2c-11eb-28d7-d13eb6fe77e9
 using AbstractTrees

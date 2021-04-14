@@ -17,7 +17,7 @@ using Catlab.Programs
 using Catlab.Theories #overrides ≤, breaks @benchmark
 
 # ╔═╡ a6e59170-5674-11eb-067c-e1a99306d715
-using AlgebraicPetri
+#using AlgebraicPetri
 
 # ╔═╡ f2128170-567a-11eb-30bb-b369c3906d69
 using Catlab.Graphics

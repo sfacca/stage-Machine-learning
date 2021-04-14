@@ -1,13 +1,13 @@
 using JLD2, FileIO
 println("includeing code...")
-include("../docstring/doc_fun.jl")
+include("../doc_fun.jl")
 try
 	IEP
 catch e
 	println("including IEP code...")
-	include("../../IEP.jl")
+	include("../IEP.jl")
 end
-include("../docstring/_dir_to_docfuns.jl")
+include("../_dir_to_docfuns.jl")
 
 
 

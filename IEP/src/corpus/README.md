@@ -1,12 +1,10 @@
 # Corpus
 
-Questa cartella contiene codice e script per generare corpus dati per IEP.
+L'obiettivo di questa sezione è la raccolta di dati su cui andremo ad operare per ottenere modello di definizione di workflow.  
+Questi dati sono il codice e le docstring di vari pacchetti Julia.  
+Li otteniamo direttamente da internet, identificandoli per nome e raggiungendo l'url dove sono salvati utilizzando il registry Julia usato dal suo manager di pacchetti.  
+In questo modo possiamo scaricare ogni pacchetto installabile da Pkg.
 
-Tutti gli script van eseguiti solo dopo il setup dell workspace:
-
-```julia shell
-include("activate.jl")
-```
 
 ---
 

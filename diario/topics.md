@@ -1,3 +1,25 @@
+# IEP
+
+## corpus
+* raccolta/salvataggio/lettura dati
+* estendibilità
+* corpus espressioni, docstring
+* category set
+* struct per stabilità
+## nlp
+* lsa
+* dirichlet
+* bag of words
+* pos tagging
+* embeddings
+* sense annotation
+* pretrattamento (stemming, tokenize, rimozione punteggiatura etc)
+
+
+
+
+# da diario
+
 ## Julia
 * continuare a vedere manipolazione hdf5 via julia
 * fare struct list esplicativa
