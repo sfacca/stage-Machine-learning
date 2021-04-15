@@ -4,7 +4,7 @@ module IEP
     using Pkg, JLD2, FileIO
     using Catlab.CategoricalAlgebra, Catlab.WiringDiagrams, DataFrames, Match
     using Catlab.Theories, SCS, TikzPictures, Catlab.Graphics.ComposeWiringDiagrams, Catlab.Programs, Catlab.Syntax
-    using Catlab.CSetDataStructures
+    using Catlab.CSetDataStructures, JSON
     import Catlab.WiringDiagrams: to_hom_expr
     using Compose: draw, PGF
 

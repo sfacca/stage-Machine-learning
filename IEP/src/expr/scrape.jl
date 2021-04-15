@@ -311,5 +311,79 @@ function uniqueidx(x::AbstractArray{T}) where T
     idxs
 end
 
+"""we want this function to tell us what modules are included"""
+function module_scrape()
+
+end
+
+"""given the read_code (EXPR,file path) array result, we want to make an include tree"""
+function include_tree(arr)
+	#1 sort by source path
+	srcs = [x[2] for x in arr]
+	permut = sortperm(srcs)
+	sorted_arr = arr[permut]
+
+	#2 we only need includes
+end
+
+"""
+this function returns included file if the given expr is an include, nothing otherwise"""
+function is_include(e::CSTParser.EXPR)::Union{Nothing, String}
+    res = nothing
+    if e.head == :call
+        # it's a call, let's check called function
+        if !isnothing(e.args) && length(e.args)>1
+            if e.args[1].head == :IDENTIFIER && e.args[1].val == "include"
+                res = e.args[2].val
+            end
+        end
+    end
+    res
+end
+
+
+
+function scrape_includes(e::CSTParser.EXPR)::Array{String}
+	res = Array{String,1}(undef, 0)
+	tmp = is_include(e)
+	if !isnothing(tmp)
+		res = [tmp]
+	else
+        if _checkArgs(e)
+            for sube in e.args
+                res = vcat(res, scrape_includes(sube))
+            end
+        end
+	end
+    #println(typeof(res))
+	res
+end
+
+
+function scrape_includes(arr::Array{CSTParser.EXPR,1})::Array{String}
+	res = Array{String,1}(undef, 0)
+	for e in arr
+        res = vcat(res,scrape_includes(e))
+	end
+	res
+end
+
+
+function scrape_includes(tuple::Tuple{CSTParser.EXPR,String})
+	(scrape_includes(tuple[1]), tuple[2])
+end
+
+
+function aux_stuff(arr)
+	res = []
+	for tuple in arr
+		push!(res, scrape_includes(tuple))
+	end
+	res
+end
+
+
+
+
 
 	
