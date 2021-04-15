@@ -55,3 +55,8 @@ function set_Unit(typ::String, index::Int, unit::Union{String,Int}, data)
 		throw("typ is not an Ob name")
 	end
 end
+
+"""sets what function a code_block implements"""
+function set_ImplementsFunc(fun_id::Int, block_id::Int, data)
+	data[:block_id, :ImplementsFunc] = fun_id
+end

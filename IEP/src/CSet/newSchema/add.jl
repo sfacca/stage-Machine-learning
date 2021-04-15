@@ -22,6 +22,16 @@ function new_Unit(lang::String, data)
 end
 
 """
+adds a code block
+NB: block isnt typed
+"""
+function add_Code_block(block, data)
+	i = add_parts!(data, :Code_block, 1)[1]
+	data[i, :block] = block
+	i
+end
+
+"""
 adds calledby relations from every function in calls_set to the func function
 if a function in called_by is not present in data, it is added 
     """
@@ -97,3 +107,11 @@ function add_components(
 		add_AComponentOfB(get_Any(component_type, i, data), anyB, data)
 	end
 end	
+"""
+function is equivalent but slightly faster than running set_ImplementsFunc(fun_id, add_Code_block(block, data), data)
+"""
+function add_linked_code_block(fun_id::Int, block, data)
+	x = add_parts!(data, :Code_block, 1)[1]
+	data[x, :block] = block
+	data[x, :ImplementsFunc] = fun_id
+end

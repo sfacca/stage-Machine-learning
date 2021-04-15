@@ -15,12 +15,14 @@ function get_newSchema(scrape::Array{FunctionContainer,1})
 			Unit,
 			Entity,
 			Ontology,
+			Code_block,
 			Any
 			)::Ob
 		(value)::Data
 
 
 		#relazioni
+		ImplementsFunc::Hom(Code_block, Function)
 		Co_occurs::Hom(Any, Any)
 		IsMeasuredIn::Hom(Any, Unit)
 		ImplementsExpr::Hom(Function, Math_Expression)	
@@ -57,6 +59,7 @@ function get_newSchema(scrape::Array{FunctionContainer,1})
 		symbol::Attr(Symbol, value)
 		entity::Attr(Entity, value)
 		ontology::Attr(Ontology, value)
+		block::Attr(Code_block, value)
 	end
 
 	handle_Scrape(scrape, ACSetType(newSchema, index=[:IsSubClassOf]){Any}())
@@ -135,12 +138,14 @@ function type_to_value(typ::String)# this should be a @match
 		Symbol("concept")
 	elseif typ == "Unit"		
 		Symbol("unit")
+	elseif typ == "Code_block"
+		Symbol("block")
 	end
 end
 # ╔═╡ fc1da060-75e6-11eb-240c-45586c68abd3
 function _checkTyp(typ::String)::Bool
 	typ in ["Code_symbol", "Function","Variable", "Symbol", 
-				"Language",  "Math_Expression","Concept", "Unit"]
+				"Language",  "Math_Expression","Concept", "Unit", "Code_block"]
 end
 
 
@@ -190,6 +195,9 @@ function handle_FunctionContainer!(fc::FunctionContainer, data)
 	#4 language is julia
 	#println("setting language")
 	set_UsesLanguage("Function", i, "Julia", data)
+
+	#5 add code block
+	add_linked_code_block(i, fc.func.block, data)
 	
 end		
 
