@@ -32,18 +32,18 @@ function add_Code_block(block, data)
 end
 
 """
-adds calledby relations from every function in calls_set to the func function
-if a function in called_by is not present in data, it is added 
+adds calledby relations from every function in calls_set to the code_block of id block_id
+if a function in calls_set is not present in data, it is added 
     """
-function add_calls(func::Union{String, Int}, calls_set::Array{String,1}, data)
-	if typeof(func) == String
+function add_calls(block_id::Int, calls_set::Array{String,1}, data)
+	#=if typeof(func) == String
 		i = findfirst((x)->(x == func), data[:,:func])
 		if isnothing(i)
 			i = add_parts!(data, :Function, 1)[1]
 			data[i,:func] = func
 		end
 		func = i
-	end
+	end=#
 	
 	for call in calls_set
 		#1
@@ -52,8 +52,30 @@ function add_calls(func::Union{String, Int}, calls_set::Array{String,1}, data)
 			i = add_parts!(data, :Function, 1)[1]
 			data[i,:func] = call
 		end
-		add_XCalledByY(i, func, data) #func calls call -> call is called by func
+		add_XCalledByY(i, block_id, data) #func calls call -> call is called by func
 	end
+end
+
+function add_usings(modu::Union{String, Int}, modules_set::Array{String,1}, data)
+	if typeof(modu) == String
+		i = findfirst((x)->(x == modu), data[:,:modname])
+		if isnothing(i)
+			i = add_parts!(data, :Function, 1)[1]
+			data[i,:modname] = modu
+		end
+		modu = i
+	end
+	
+	for name in modules_set
+		#1
+		i = module_exists(name, data)
+		if isnothing(i)
+			i = add_parts!(data, :Module, 1)[1]
+			data[i,:modname] = name
+		end
+		add_XCalledByY(i, block_id, data) #func calls call -> call is called by func
+	end
+
 end
 
 
@@ -68,6 +90,13 @@ function add_XCalledByY(x::Int, y::Int, data)
 	i = add_parts!(data, :XCalledByY, 1)[1]
 	data[i, :X] = x	
 	data[i, :Y] = y
+	i
+end
+
+function add_CUsesD(c::Int, d::Int, data)
+	i = add_parts!(data, :CUsesD, 1)[1]
+	data[i, :C] = c	# :C
+	data[i, :D] = d # :D
 	i
 end
 
@@ -114,4 +143,5 @@ function add_linked_code_block(fun_id::Int, block, data)
 	x = add_parts!(data, :Code_block, 1)[1]
 	data[x, :block] = block
 	data[x, :ImplementsFunc] = fun_id
+	x
 end

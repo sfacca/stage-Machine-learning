@@ -13,7 +13,7 @@ function get_Any(typ::String, index::Int, data)
 			data[res, Symbol(string("is",typ))] = index
 		end
 	else
-		throw("typ is not an Ob name")
+		throw("typ: $typ is not an Ob name")
 	end
 	res
 end

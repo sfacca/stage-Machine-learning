@@ -66,6 +66,19 @@ function scrape(arr::Array{Any,1})::Array{FunctionContainer,1}
 	end
 	res
 end
+
+function _n_scrape(arr::Array{Any,1})::Array{Union{FunctionContainer, ModuleDef},1}
+	res = Array{Union{FunctionContainer, ModuleDef},1}(undef, 0)
+	sources = [x[2] for x in arr] # we save the list of files
+	i = 1
+	len = length(sources)
+	while len > 0
+		if sources[i] != ""
+			
+		end
+		i+=1 # goes to next
+	end
+end
 		
 function scrape_functions_starter(e::CSTParser.EXPR;source::Union{String,Nothing} = nothing)::Array{FunctionContainer,1}
 	tmp = scrapeFuncDef(e)

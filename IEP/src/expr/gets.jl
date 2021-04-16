@@ -39,6 +39,10 @@ function isOP(e::CSTParser.EXPR)
 	end
 end
 
+function isFunction(e::CSTParser.EXPR)
+
+end
+
 """
 flattens the input EXPR tree into a single EXPRT array
 """

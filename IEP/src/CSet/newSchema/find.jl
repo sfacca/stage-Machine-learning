@@ -25,6 +25,11 @@ function unit_exists(lang::String, data)
 	findfirst((x)->(x==lang), data[:,:unit])
 end
 
+"""searches data for a module of value name, returns its index or nothing if none is found"""
+function module_exists(name::String, data)
+	findfirst((x)->(x==name), data[:,:modname])
+end
+
 """searches data for a AComponentOfB or XCalledByY item linking Any Obs x to y
 returns its index or nothing is no item is found"""
 function findXYRelation(x::Int,y::Int,typ::String, data)# this is incredibly slow

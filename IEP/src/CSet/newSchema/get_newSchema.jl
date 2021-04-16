@@ -16,6 +16,7 @@ function get_newSchema(scrape::Array{FunctionContainer,1})
 			Entity,
 			Ontology,
 			Code_block,
+			Module,
 			Any
 			)::Ob
 		(value)::Data
@@ -29,6 +30,7 @@ function get_newSchema(scrape::Array{FunctionContainer,1})
 		ImplementsConc::Hom(Function, Concept)
 		VERB::Hom(Any,Any) # ?
 		IsSubClassOf::Hom(Concept, Concept)
+		DefinedIn::Hom(Code_block, Module)
 
 		UsesLanguage::Hom(Any, Language)
 
@@ -40,13 +42,16 @@ function get_newSchema(scrape::Array{FunctionContainer,1})
 		isFunction::Hom(Any, Function)
 		isVariable::Hom(Any, Variable)
 		isSymbol::Hom(Any, Symbol)
+		isCode_block::Hom(Any, Code_block)
 
 		# we handle 1 to many relations with auxiliary Obs
-		(AComponentOfB, XCalledByY)::Ob
+		(AComponentOfB, XCalledByY, CUsesD)::Ob
 		A::Hom(AComponentOfB, Any)	
 		B::Hom(AComponentOfB, Any)
 		X::Hom(XCalledByY, Function)
-		Y::Hom(XCalledByY, Function)
+		Y::Hom(XCalledByY, Code_block)
+		C::Hom(CUsesD, Module)
+		D::Hom(CUsesD, Module)
 
 		#attributi
 		language::Attr(Language, value)
@@ -60,6 +65,8 @@ function get_newSchema(scrape::Array{FunctionContainer,1})
 		entity::Attr(Entity, value)
 		ontology::Attr(Ontology, value)
 		block::Attr(Code_block, value)
+		num_call::Attr(Code_block, value)
+		modname::Attr(Module, value)
 	end
 
 	handle_Scrape(scrape, ACSetType(newSchema, index=[:IsSubClassOf]){Any}())
@@ -140,12 +147,14 @@ function type_to_value(typ::String)# this should be a @match
 		Symbol("unit")
 	elseif typ == "Code_block"
 		Symbol("block")
+	elseif typ == "Module"
+		Symbol("modname")
 	end
 end
 # ╔═╡ fc1da060-75e6-11eb-240c-45586c68abd3
 function _checkTyp(typ::String)::Bool
 	typ in ["Code_symbol", "Function","Variable", "Symbol", 
-				"Language",  "Math_Expression","Concept", "Unit", "Code_block"]
+				"Language",  "Math_Expression","Concept", "Unit", "Code_block", "Module"]
 end
 
 
@@ -160,11 +169,14 @@ function handle_FunctionContainer!(fc::FunctionContainer, data)
 		data[i, :func] = getName(fc.func.name)
 	end
 	# i is now the index of the Function
+
+	#5 add code block
+	block_id = add_linked_code_block(i, fc.func.block, data)
 	
 	#2 add calls
 	#println("adding calls")
 	calls = getName(get_calls(fc.func.block))
-	add_calls(i, calls, data)
+	add_calls(block_id, calls, data)
 	#2.2 remove duplicate XCalledByY	
 	#removeDuplicates!("XCalledByY", data)
 	
@@ -174,32 +186,80 @@ function handle_FunctionContainer!(fc::FunctionContainer, data)
 	#3.1 add .head components (Code_symbols)
 	#println("adding head components")
 	any_i = get_Any("Function", i, data)
+	
+	any_block = get_Any("Code_block", block_id, data)
 	#println("got any_i")
 	heads = _getHeads(fc)
 	#println("actual add")
-	add_components(any_i, heads, "Code_symbol", data)
+	add_components(any_block, heads, "Code_symbol", data)
 	
 	#3.2 add variable components (Variable)
 	#println("adding variable components")
 	vars = [string(get_all_vals(x)) for x in find_heads(fc.func.block, :IDENTIFIER)]
-	add_components(any_i, vars, "Variable", data)
+	add_components(any_block, vars, "Variable", data)
 	
 	#3.3 add Symbol components (they're actually strings)
 	#symbs = unique([String(Symbol(Expr(x))) for x in get_leaves(fc.func.block)])
 	#println("adding symbol components")
 	symbs = unique(string.(get_all_vals(fc.func.block)))
-	add_components(any_i, symbs, "Symbol", data)
+	add_components(any_block, symbs, "Symbol", data)
 	# 3.4 remove duplicate AComponentOfB
 	#removeDuplicates!("AComponentOfB", data)
 	
 	#4 language is julia
 	#println("setting language")
-	set_UsesLanguage("Function", i, "Julia", data)
+	set_UsesLanguage("Code_block", block_id, "Julia", data)
 
-	#5 add code block
-	add_linked_code_block(i, fc.func.block, data)
-	
+	block_id
 end		
+
+function handle_ModuleDef!(mdf, data)
+	#1 make the module if it doesnt exist
+	i = module_exists(mdf.name, data)
+	if isnothing(i)
+		i = add_parts!(data, :Module, 1)[1]
+		data[i, :modname] = mdf.name
+	end
+	# i is now the module id
+
+	#2 handle the module's function containers
+	for fc in mdf.implements		
+		#2.1 add fc to cset
+		tmp = handle_FunctionContainer!(fc, data)
+
+		#2.2 link the fc to the module
+		data[tmp, :DefinedIn] = i
+		
+		tmp = nothing
+	end
+	
+	#3 handle the usings
+	for used in mdf.usings
+		#3.1 gets the module id
+		tmp = module_exists(used, data)
+		if isnothing(tmp)
+			tmp = add_parts!(data, :Module, 1)[1]
+			data[tmp, :modname] = used
+		end
+
+		#3.2 links the modules
+		add_CUsesD(i,tmp,data)
+
+		tmp = nothing
+	end
+
+	i
+end
+
+#=
+struct ModuleDef
+    name::String
+    submodules::Union{Array{String,1},Nothing}
+    usings::Union{Array{String,1},Nothing}
+    includes::Union{Array{String,1},Nothing}
+    implements::Array{FunctionContainer, 1}
+end
+=#
 
 # ╔═╡ afed1ae0-7613-11eb-1b5d-f9e0d740d3ac
 function handle_Scrape(fcs::Array{FunctionContainer,1}, data)
