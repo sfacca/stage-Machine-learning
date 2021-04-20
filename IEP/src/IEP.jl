@@ -30,5 +30,7 @@ module IEP
     export NameDef, InputDef, FuncDef, FunctionContainer
     export getCode, getInputs, getName, isequal
 
+    export read_folder
+
 
 end
