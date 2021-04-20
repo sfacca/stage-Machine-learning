@@ -375,3 +375,72 @@ auxiliary function checks wether argument expression has an args parameter that 
 function _checkArgs(e)
 	!isnothing(e.args) && !isempty(e.args)
 end
+
+
+"""
+this function returns included file if the given expr is an include, nothing otherwise"""
+function is_include(e::CSTParser.EXPR)::Union{Nothing, String}
+    res = nothing
+    if e.head == :call
+        # it's a call, let's check called function
+        if !isnothing(e.args) && length(e.args)>1
+            if e.args[1].head == :IDENTIFIER && e.args[1].val == "include"
+                res = e.args[2].val
+            end
+        end
+    end
+    res
+end
+
+
+"""
+this function returns included file if the given expr is an include, nothing otherwise"""
+function is_include(e::CSTParser.EXPR)::Union{Nothing, String}
+    res = nothing
+    if e.head == :call
+        # it's a call, let's check called function
+        if !isnothing(e.args) && length(e.args)>1
+            if e.args[1].head == :IDENTIFIER && e.args[1].val == "include"
+                res = e.args[2].val
+            end
+        end
+    end
+    res
+end
+
+"""returns nothing if expression isnt a module def, expression of module otherwise"""
+function is_moduledef(e::CSTParser.EXPR)
+    (e.head == :module) ? e : nothing
+end
+
+
+function is_using(e::CSTParser.EXPR)
+    res = nothing
+    if e.head == :using
+        if _checkArgs(e)
+        else
+            # some modules might be dotted (eg TextAnalysis.Parse)
+            # we just get the base one
+            res = unique([string(x.args[1].val) for x in e.args])# unique because ^            
+            # we might get "nothing"
+            res = filter((x)->(x != "nothing"), res)
+        end
+    end
+    res
+end
+
+
+function getUsings(e::CSTParser.EXPR)::Array{String,1}
+    res = Array{String,1}(undef, 0)
+    if e.head == :using
+        if _checkArgs(e)
+        else
+            # some modules might be dotted (eg TextAnalysis.Parse)
+            # we just get the base one
+            res = unique([string(x.args[1].val) for x in e.args])# unique because ^            
+            # we might get "nothing"
+            res = filter((x)->(x != "nothing"), res)
+        end
+    end
+    res
+end

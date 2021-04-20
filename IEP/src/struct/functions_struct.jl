@@ -7,6 +7,11 @@
 
 =########################################################################
 
+function _con(arr::Array{FunctionContainer, 1})
+
+end
+
+
 struct NameDef
 	name::CSTParser.EXPR
 	padding::Nothing
@@ -34,7 +39,7 @@ struct FuncDef
 	)
 end
 
-struct FunctionContainer
+mutable struct FunctionContainer
 	func::FuncDef
 	docs::Union{String,Nothing}
 	source::Union{String,Nothing}
