@@ -30,6 +30,10 @@ function module_exists(name::String, data)
 	findfirst((x)->(x==name), data[:,:modname])
 end
 
+function file_exists(path::String, data)
+	findfirst((x)->(x==path), data[:,:filepath])
+end
+
 """searches data for a AComponentOfB or XCalledByY item linking Any Obs x to y
 returns its index or nothing is no item is found"""
 function findXYRelation(x::Int,y::Int,typ::String, data)# this is incredibly slow

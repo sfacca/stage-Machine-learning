@@ -100,6 +100,13 @@ function add_CUsesD(c::Int, d::Int, data)
 	i
 end
 
+function add_CUsesD(c::Int, d::Int, data)
+	i = add_parts!(data, :CUsesD, 1)[1]
+	data[i, :C] = c	# :C
+	data[i, :D] = d # :D
+	i
+end
+
 function new_Concept(expr::String, data)
 	i = add_parts!(data, :Concept, 1)[1]
 	data[i, :concept] = expr

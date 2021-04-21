@@ -213,43 +213,7 @@ function handle_FunctionContainer!(fc::FunctionContainer, data)
 	block_id
 end		
 
-function handle_ModuleDef!(mdf, data)
-	#1 make the module if it doesnt exist
-	i = module_exists(mdf.name, data)
-	if isnothing(i)
-		i = add_parts!(data, :Module, 1)[1]
-		data[i, :modname] = mdf.name
-	end
-	# i is now the module id
 
-	#2 handle the module's function containers
-	for fc in mdf.implements		
-		#2.1 add fc to cset
-		tmp = handle_FunctionContainer!(fc, data)
-
-		#2.2 link the fc to the module
-		data[tmp, :DefinedIn] = i
-		
-		tmp = nothing
-	end
-	
-	#3 handle the usings
-	for used in mdf.usings
-		#3.1 gets the module id
-		tmp = module_exists(used, data)
-		if isnothing(tmp)
-			tmp = add_parts!(data, :Module, 1)[1]
-			data[tmp, :modname] = used
-		end
-
-		#3.2 links the modules
-		add_CUsesD(i,tmp,data)
-
-		tmp = nothing
-	end
-
-	i
-end
 
 #=
 struct ModuleDef
@@ -273,4 +237,206 @@ function handle_Scrape(fcs::Array{FunctionContainer,1}, data)
 		end
 	end
 	data
+end
+
+# new cset builder using filedefs
+function get_newSchema(scrape::Array{FileDef,1})
+	
+	@present newSchema(FreeSchema) begin
+		(
+			Code_symbol, 
+			Function, 
+			Variable, 
+			Symbol, 
+			Language, 
+			Math_Expression, 
+			Concept, 
+			Unit,
+			Entity,
+			Ontology,
+			Code_block,
+			Module,
+			File,
+			Any
+			)::Ob
+		(value)::Data
+
+
+		#relazioni
+		ImplementsFunc::Hom(Code_block, Function)
+		Co_occurs::Hom(Any, Any)
+		IsMeasuredIn::Hom(Any, Unit)
+		ImplementsExpr::Hom(Function, Math_Expression)	
+		ImplementsConc::Hom(Function, Concept)
+		VERB::Hom(Any,Any) # ?
+		IsSubClassOf::Hom(Concept, Concept)
+		ImplementedInModule::Hom(Code_block, Module)
+		ImplementedInFile::Hom(Code_block, File)
+		SubmoduleOf::Hom(Module, Module)
+		DefinedIn::Hom(Module, File)
+
+		UsesLanguage::Hom(Any, Language)
+
+		isLanguage::Hom(Any, Language)
+		isMath_Expression::Hom(Any, Math_Expression)
+		isConcept::Hom(Any, Concept)
+		isUnit::Hom(Any, Unit)	
+		isCode_symbol::Hom(Any, Code_symbol)
+		isFunction::Hom(Any, Function)
+		isVariable::Hom(Any, Variable)
+		isSymbol::Hom(Any, Symbol)
+		isCode_block::Hom(Any, Code_block)
+
+		# we handle 1 to many relations with auxiliary Obs
+		(AComponentOfB, XCalledByY, CUsesD, EIncludesF)::Ob
+		A::Hom(AComponentOfB, Any)	
+		B::Hom(AComponentOfB, Any)
+		X::Hom(XCalledByY, Function)
+		Y::Hom(XCalledByY, Code_block)
+		C::Hom(CUsesD, Any)# both a file and module can have a using kw
+		D::Hom(CUsesD, Module)
+		E::Hom(EIncludesF, Any)# includes can be in files or in modules
+		F::Hom(EIncludesF, File)
+
+		#attributi
+		language::Attr(Language, value)
+		math_expression::Attr(Math_Expression, value)
+		concept::Attr(Concept, value)
+		unit::Attr(Unit, value)
+		code_symbol::Attr(Code_symbol, value)
+		func::Attr(Function, value)
+		variable::Attr(Variable, value)
+		symbol::Attr(Symbol, value)
+		entity::Attr(Entity, value)
+		ontology::Attr(Ontology, value)
+		block::Attr(Code_block, value)
+		num_call::Attr(Code_block, value)
+		modname::Attr(Module, value)
+		filepath::Attr(File, value)
+	end
+
+	handle_Scrape(scrape, ACSetType(newSchema, index=[:IsSubClassOf]){Any}())
+	
+end
+
+
+function handle_Scrape(fcs::Array{FileDef,1}, data)
+	for i in 1:length(fcs)
+		println("handling container $i")
+		try
+			handle_FunctionContainer!(fcs[i], data)
+		catch e
+			println("error at container: $i")
+			println(e)
+		end
+	end
+	data
+end
+
+function handle_FileDef!(fd::FileDef,data)
+	#1 check for same filename
+	i = file_exists(fd.path, data)
+	if isnothing(i)
+		#add file
+		i = add_parts!(data, :File, 1)[1]
+		data[i, :filepath] = fd.path
+	end
+
+	#2 handle usings
+	# fd.uses contains array of strings, these strings are module names
+	for modname in fd.uses
+		tmp = module_exists(modname, data)
+		if isnothing(tmp)
+			tmp = add_parts!(data, :Module, 1)[1]
+			data[tmp, :modname] = modname
+		end
+		add_CUsesD(any_i, tmp, data)
+	end
+
+	#3 handle modules
+	for moduledef in fd.modules
+		# make module if it doesnt exist
+		tmp = module_exists(moduledef.name, data)
+		if isnothing(tmp)
+			tmp = handle_ModuleDef!(moduledef, data)
+			data[tmp, :DefinedIn] = i
+		else
+			throw("module $(moduledef.name) was already defined?")
+		end		
+	end
+
+	#4 handle (add) functions
+	for funcont in fd.functions
+		tmp = handle_FunctionContainer!(funcont, data)
+		data[tmp, :ImplementedInFile] = i
+	end
+
+	#5 handle includes
+	for incl in fd.includes
+		tmp = file_exists(incl, data)
+		if isnothing(tmp)
+			tmp = add_parts!(data, :File, 1)[1]
+			data[tmp, :filepath] = incl
+		end
+		add_EIncludesF(any_i, tmp,data)
+	end
+
+	i
+end
+
+function handle_ModuleDef!(mdf::ModuleDef, data)
+	#1 make the module if it doesnt exist
+	i = module_exists(mdf.name, data)
+	if isnothing(i)
+		i = add_parts!(data, :Module, 1)[1]
+		data[i, :modname] = mdf.name
+	end
+	# i is now the module id
+	# get the any too
+	any_i = get_Any("Module", i, data)
+
+	# 2 handle submodules
+	for moduledef in mdf.submodules
+		tmp = module_exists(modname, data)
+		if isnothing(tmp)
+			tmp = add_parts!(data, :Module, 1)[1]
+			data[tmp, :modname] = modname
+		end
+		add_CUsesD(any_i, tmp, data)
+	end
+
+	# 3 handle usings
+	for used in mdf.usings
+		#3.1 gets the module id
+		tmp = module_exists(used, data)
+		if isnothing(tmp)
+			tmp = add_parts!(data, :Module, 1)[1]
+			data[tmp, :modname] = used
+		end
+		#3.2 links the modules
+		add_CUsesD(any_i,tmp,data)
+	end
+
+	# 4 handle includes
+	for incl in mdf.includes
+		tmp = file_exists(incl, data)
+		if isnothing(tmp)
+			tmp = add_parts!(data, :File, 1)[1]
+			data[tmp, :filepath] = incl
+		end
+		add_EIncludesF(any_i, tmp,data)
+	end
+
+	# 5 handle implements (add functions)
+	for fc in mdf.implements		
+		#2.1 add fc to cset
+		tmp = handle_FunctionContainer!(fc, data)
+
+		#2.2 link the fc to the module
+		data[tmp, :] = i
+		
+		tmp = nothing
+	end
+
+	i
 end
