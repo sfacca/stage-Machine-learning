@@ -38,8 +38,8 @@ function _call_lookup(call, code_block_id, cset)
     block_ids[findall((x)->(x == call),cset[cset[block_ids,:ImplementsFunc], :func])]
 end=#
 
-function call_lookup(call, code_block_id, data)
-    scope = get_scope(data[code_block_id, :DefinedIn], data)
+function call_lookup(call, code_block_id, data; scope=get_scope(data[code_block_id, :DefinedIn], data))
+    #scope = get_scope(data[code_block_id, :DefinedIn], data)
 
     res = findfirst((x)->(x[2] == call),scope)
     if isnothing(res)
@@ -49,3 +49,30 @@ function call_lookup(call, code_block_id, data)
     end
     res
 end
+
+#=
+X::Hom(XCalledByY, Function)
+Y::Hom(XCalledByY, Code_block)
+=#
+function function_lookup!(data)
+    tmpY = 0
+    fails = 0
+    for i in 1:length(data[:, :X])
+        Y = data[i, :Y]# block id
+        X = data[i, :X]# func id
+        if Y != tmpY
+            scope = get_scope(data[Y, :DefinedIn],data)
+            # recalc scope only on block id change
+            # because of how we build the CSet(a funcdef/code block at a time), same Ys should be contiguous
+            Y = tmpY
+        end
+
+        data[i, :block_ids] = call_lookup(data[X, :func], Y, data; scope=scope)
+        if data[i, :block_ids] == 0
+            fails+=1
+        end 
+
+    end
+    length(data[:, :X]) - fails
+end
+    

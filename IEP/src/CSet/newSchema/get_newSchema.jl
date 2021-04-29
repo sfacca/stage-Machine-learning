@@ -314,6 +314,7 @@ function get_newSchema(scrape::Array{FileDef,1})
 		num_call::Attr(Code_block, value)
 		modname::Attr(Module, value)
 		filepath::Attr(File, value)
+		block_ids::Attr(XCalledByY, value)# lookup goes here
 	end
 
 	handle_Scrape(scrape, ACSetType(newSchema, index=[:IsSubClassOf]){Any}())
