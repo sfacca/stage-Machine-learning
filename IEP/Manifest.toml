@@ -460,6 +460,12 @@ git-tree-sha1 = "e0fcfa0a2f6122fbe13603764c5310dde00c5593"
 uuid = "b14d175d-62b4-44ba-8fb7-3064adc8c3ec"
 version = "0.2.3"
 
+[[KnuthBendix]]
+deps = ["MacroTools"]
+git-tree-sha1 = "8736d124ceb5824065768633151d0bfced7f951b"
+uuid = "c2604015-7b3d-4a30-8a26-9074551ec60a"
+version = "0.1.1"
+
 [[LaTeXStrings]]
 git-tree-sha1 = "c7aebfecb1a60d59c0fe023a68ec947a208b1e6b"
 uuid = "b964fa9f-0449-5b57-a5c2-d3ea65f4040f"

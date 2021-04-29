@@ -7,11 +7,6 @@
 
 =########################################################################
 
-function _con(arr::Array{FunctionContainer, 1})
-
-end
-
-
 struct NameDef
 	name::CSTParser.EXPR
 	padding::Nothing

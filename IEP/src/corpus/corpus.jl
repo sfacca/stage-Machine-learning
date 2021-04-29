@@ -8,7 +8,12 @@ using InteractiveUtils
 using Pkg, CSTParser, FileIO, JLD2
 
 # ╔═╡ 81278630-778c-11eb-27c8-03e3def7f22b
-include("../IEP.jl")
+try
+	IEP
+catch
+	println("including IEP...")
+	include("../IEP.jl")
+end
 
 # ╔═╡ a3bf774e-77a7-11eb-020c-677baae4eceb
 include("unzip.jl")
@@ -95,6 +100,24 @@ function single_scrape_save(url)
 	parse = IEP.read_code("tmp/$name")
 	scrape = IEP.scrape(parse)
 	println("scraping...")
+	save("scrapes/$(name).jld2", Dict(name => scrape))
+	println("cleanup...")
+	rm("tmp/$name", recursive = true)
+	scrape = nothing
+	parse = nothing
+end
+
+function __get_mod(dict, name)
+	println("Module $name")
+	mkpath("tmp/$name")
+	println("downloading...")
+	download(dict[name], "tmp/$name/file.zip")
+	println("unzipping...")
+	unzip("tmp/$name/file.zip","tmp/$name")
+	println("parsing...")
+	scrape = IEP.read_folder("tmp/$name")
+	println("scraping...")
+	#scrape = IEP.scrape(parse)
 	save("scrapes/$(name).jld2", Dict(name => scrape))
 	println("cleanup...")
 	rm("tmp/$name", recursive = true)

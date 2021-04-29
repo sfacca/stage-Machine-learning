@@ -67,6 +67,7 @@ function get_newSchema(scrape::Array{FunctionContainer,1})
 		block::Attr(Code_block, value)
 		num_call::Attr(Code_block, value)
 		modname::Attr(Module, value)
+		scope::Attr(Module, value)# local scope of module (without external feunction defined in other modules)
 	end
 
 	handle_Scrape(scrape, ACSetType(newSchema, index=[:IsSubClassOf]){Any}())
@@ -349,6 +350,7 @@ function handle_FileDef!(fd::FileDef,data)
 		if isnothing(tmp)
 			tmp = add_parts!(data, :Module, 1)[1]
 			data[tmp, :modname] = modname
+			data[tmp, :scope] = 0
 		end
 		add_CUsesD(any_i, tmp, data)
 	end
@@ -389,7 +391,8 @@ function handle_ModuleDef!(mdf::ModuleDef, data)
 	i = module_exists(mdf.name, data)
 	if isnothing(i)
 		i = add_parts!(data, :Module, 1)[1]
-		data[i, :modname] = mdf.name
+		data[i, :modname] = mdf.name		
+		data[tmp, :scope] = 0
 	end
 	# i is now the module id
 	# get the any too
@@ -400,7 +403,8 @@ function handle_ModuleDef!(mdf::ModuleDef, data)
 		tmp = module_exists(modname, data)
 		if isnothing(tmp)
 			tmp = add_parts!(data, :Module, 1)[1]
-			data[tmp, :modname] = modname
+			data[tmp, :modname] = modname			
+			data[tmp, :scope] = 0
 		end
 		add_CUsesD(any_i, tmp, data)
 	end
@@ -411,7 +415,8 @@ function handle_ModuleDef!(mdf::ModuleDef, data)
 		tmp = module_exists(used, data)
 		if isnothing(tmp)
 			tmp = add_parts!(data, :Module, 1)[1]
-			data[tmp, :modname] = used
+			data[tmp, :modname] = used			
+			data[tmp, :scope] = 0
 		end
 		#3.2 links the modules
 		add_CUsesD(any_i,tmp,data)

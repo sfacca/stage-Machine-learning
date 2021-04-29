@@ -11,12 +11,12 @@ using JLD2
 include("../unzip.jl")
 
 # ╔═╡ 8e3e70c0-7847-11eb-110c-19b1bcef8a47
-struct ModuleDef
+struct ModDef
 	version::String
 	url::String
 	name::String
-	ModuleDef() = new("","","")
-	ModuleDef(a::String, b::String, c::String) = new(a,b,c)
+	ModDef() = new("","","")
+	ModDef(a::String, b::String, c::String) = new(a,b,c)
 end
 
 # ╔═╡ 1a4c2b70-7848-11eb-140e-c7dc624b2f8b
@@ -46,15 +46,15 @@ function Toml_to_ModuleDef(path::String)
 	end
 	
 	if isnothing(name) || isnothing(url) || isnothing(version)
-		ModuleDef()
+		ModDef()
 	else
-		ModuleDef(string(version), string(url), string(name))
+		ModDef(string(version), string(url), string(name))
 	end		
 end
 
 # ╔═╡ fe851dc0-7847-11eb-0b8d-bb5b049a48fd
 function get_ModuleDefs(dir)
-	res = Array{ModuleDef,1}(undef,0)
+	res = Array{ModDef,1}(undef,0)
 	i = 1
 	for (root, dirs, files) in walkdir(dir)	
         for file in files
@@ -69,11 +69,14 @@ function get_ModuleDefs(dir)
 end
 
 # ╔═╡ 6ae2f6d0-7853-11eb-084a-1b82a9d9523d
-function mds_to_dict(arr::Array{ModuleDef,1})
+function mds_to_dict(arr::Array{ModDef,1})
 	dict = Dict()
 	for md in arr
 		if md.name == "" || md.url == ""
 		else
+			#if md.name == "KnuthBendix"
+			#	println("we got it boys")
+			#end
 			push!(dict, md.name => md.url)
 		end
 	end
@@ -99,6 +102,6 @@ begin
 	rm("tmp", recursive=true)
 	
 	println("saving...")
-	save( "../registry/modules_dict.jld2", Dict("modules_dict"=>modules_dict))
+	save( "registry.jld2", Dict("registry"=>modules_dict))
 
 end
