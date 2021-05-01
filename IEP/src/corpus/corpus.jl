@@ -132,7 +132,7 @@ function save_scrapes_from_Modules(dict, names)
 	i = 1
 	for name in names
 		try
-			if contains(".zip", name)
+			if contains(name, ".zip")
 				single_scrape_save(name)
 			else
 				single_scrape_save(dict, name)

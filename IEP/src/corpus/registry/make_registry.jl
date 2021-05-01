@@ -28,15 +28,18 @@ function Toml_to_ModuleDef(path::String)
 	f = false
 	name = nothing
 	url = nothing
-	version = nothing
+	version = nothing	
 	for part in items
 		if occursin(r"repo =", part)
 			url = replace(
 				string(
-					split(part, "\"")[2]
+					split(part, "\"")[2]# https://github.com/ -> https://api.github.com/repos/
 					,
-					"12 34"),
-				r".git12 34"=>"/archive/master.zip"
+					"12 34"), # https://api.github.com/repos/octokit/octokit.rb/tarball
+				r".git12 34"=>"/zipball" #error code 22 e.exitcode == 22 -> error >400 -> wrong url
+			)
+			url = replace(
+				url, r"https://github.com/"=>"https://api.github.com/repos/"
 			)
 		elseif occursin(r"uuid = ", part)
 			version = split(part, "\"")[2]

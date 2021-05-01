@@ -9,7 +9,7 @@ end
 
 # load name -> url,name,version dictionary
 println("loading registry...")
-modules_dict = load("registry/modules_dict.jld2")["modules_dict"]
+modules_dict = load("registry/registry.jld2")["registry"]
 
 # get names of modules from pkg_corpus.txt
 names = unique([replace(string(x), r"\r"=>"") for x in split(read("pkg_corpus.txt",String),"\n")])
