@@ -238,7 +238,7 @@ end
 """
 gets calls from input expression as array of NameDefs
 """
-function get_calls(e::CSTParser.EXPR)::Array{NameDef,1}
+function get_calls(e::CSTParser.EXPR, unique=true)::Array{NameDef,1}
 	#if count([_checkArgs(x) for x in find_heads(e, :call)])
 	if e.head == :function
 		tmp = find_heads(e, :call)
@@ -252,7 +252,9 @@ function get_calls(e::CSTParser.EXPR)::Array{NameDef,1}
 		unique_sorted_names([scrapeName(x.args[1]) for x in find_heads(e, :call)])
 	end
 end
-
+function getName(namedef::NameDef)
+	getName(namedef.name)
+end
 function getName(e::CSTParser.EXPR)::String
 	# is this a module.name pattern?	
 	if isDotOP(e)
@@ -289,7 +291,7 @@ function getName(e::CSTParser.EXPR)::String
 		elseif e.head == :tuple 
 			res = string("(")
 			for i in 1:length(e.args)
-				res = string(res,",",getName(arg))
+				#res = string(res,",",getName(arg))
 				if i != length(e.args)
 					res = string(res,getName(e.args[i]),", ")
 				else

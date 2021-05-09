@@ -223,7 +223,7 @@ Il resto del procedimento è simile per entrambe le versioni
    coppia espressione/source
    ```julia shell
    if _checkArgs(e)
-		res = Array{FunctionContainer,1}(undef,0)
+		res = Array{FuncDef,1}(undef,0)
 		docs = nothing
 		for i in 1:length(e.args)
 			if e.args[i].head == :globalrefdoc
@@ -240,7 +240,7 @@ Il resto del procedimento è simile per entrambe le versioni
 		end
 		return res
 	else
-		return Array{FunctionContainer,1}(undef,0)
+		return Array{FuncDef,1}(undef,0)
 	end
    ```
    Per il riconoscimento delle docstring, vediamo se l'espressione che stiamo vedendo ha head = :globalrefdoc, in questo caso la prossima string trovata sarà il contenuto della docstring per la funzione successiva. Se nessuna string è trovata imposta docstring a "error finding triplestring" per convenzione.

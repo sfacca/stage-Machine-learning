@@ -1,13 +1,13 @@
 #=
     getters for FunctionContainer, NameDef, FuncDef, InputDef
 =#
-
+#=
 """
 getter for code block
 """
 function getCode(fc::FunctionContainer)::CSTParser.EXPR
 	getCode(fd.func)
-end
+end=#
 
 """
 getter for code block
@@ -15,10 +15,10 @@ getter for code block
 function getCode(fd::FuncDef)::CSTParser.EXPR
 	fd.block
 end
-
+#=
 function getInputs(fc::FunctionContainer)::Array{InputDef,1}
 	getInputs(fc.func)
-end
+end=#
 
 function getInputs(fd::FuncDef)::Array{InputDef,1}
 	fd.inputs
@@ -118,13 +118,16 @@ function unique_arrays(arr::Array{Array{NameDef,1}})::Array{Array{NameDef,1}}
 	end
 	res
 end
-
+#=
 function getCalls(fc::FunctionContainer)::Array{String,1}
 	getName(get_calls(fc.func.block))
+end=#
+function getCalls(fc::FuncDef)::Array{String,1}
+	getName(get_calls(fc.block))
 end
 
-function _getHeads(fc::FunctionContainer)::Array{String,1}
-	r = get_all_heads(fc.func.block)# returns array of Union(EXPR, Symbol)
+function _getHeads(fc::FuncDef)::Array{String,1}
+	r = get_all_heads(fc.block)# returns array of Union(EXPR, Symbol)
 	x = Array{String,1}(undef, length(r))
 	for i in 1:length(r)
 		if typeof(r[i]) == CSTParser.EXPR

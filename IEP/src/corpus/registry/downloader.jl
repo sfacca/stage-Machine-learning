@@ -21,22 +21,30 @@ function download_module(url::String)
 	    download(url, "out/$name/file.zip")
     end
 end
-function download_module(dict, names::Array{String,1})
+function download_module(dict, names::Array{String,1}; force=false)
     len = length(names)
     i = 0
     fails = []
     count = 0
     tick()
+    kys = [x[1] for x in dict]
     for name in names        
         try
-            if contains(name, ".zip")                    
+            if contains(name, ".zip")
                 download_module(name)
             else
-                if isfile("out/$name/file.zip")
+                if isfile("out/$name/file.zip") && !force
                     println("out/$name/file.zip already exists")
                     count -= 1
-                else
+                elseif name in kys
+                    if isfile("out/$name/file.zip") && force
+                        rm("out/$name/file.zip")
+                    end
                     download_module(dict, name)
+                else
+                    println("$name not in dictionary")
+                    push!(fails, name)
+                    count -= 1
                 end
             end
             i += 1
@@ -93,6 +101,35 @@ function download_from_file(filename; rate::Int=1, start::Int=1, number::Int=0)
     
     write_to_txt("fails", fails)
 
+    fails
+end
+
+function download_from_name(name::String; force=false)
+    println("loading registry...")
+    modules_dict = load("./registry.jld2")["registry"]
+    if isfile("out/$name/file.zip") && force
+        rm("out/$name/file.zip")
+    end
+    try
+        download_module(modules_dict, name)
+    catch e
+        e
+    end
+end
+function download_from_name(names::Array{String,1}; force=false)
+    println("loading registry...")
+    modules_dict = load("./registry.jld2")["registry"]
+    fails = []
+    for name in names
+        if isfile("out/$name/file.zip") && force
+            rm("out/$name/file.zip")
+        end
+        try
+            download_module(modules_dict, name)
+        catch e
+            push!(fails, (name, e))
+        end
+    end
     fails
 end
 

@@ -26,6 +26,7 @@ module IEP
     # expr
     export flattenExpr, get_all_heads, get_all_vals, find_heads, get_calls, getName
     export getName, folder_to_scrape, scrape, scrape_check
+    export read_folder
     # struct
     export NameDef, InputDef, FuncDef, FunctionContainer
     export getCode, getInputs, getName, isequal

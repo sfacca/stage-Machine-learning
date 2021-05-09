@@ -1,7 +1,6 @@
 https://github.com/alavendelm/julia-dynsys-resources/archive/main.zip
 https://github.com/MachineLearningJournalClub/MLJC-UniTo-ProjectX-2020-public/archive/rel2.zip
 AbstractAlgebra
-AbstractDifferentiation
 AbstractFFTs
 AbstractPlotting
 AbstractTrees
@@ -30,7 +29,7 @@ AlgebraicDynamics
 AlgebraicPetri
 AlgebraicRelations
 AlgebraOfGraphics
-Alloc
+https://github.com/FluxML/Alloc.jl/archive/refs/heads/master.zip
 Altro
 Anasol
 AndorSIF
@@ -71,8 +70,8 @@ AutocorrelationShell
 AutoGrad
 AutoHashEquals
 AutoLandmarking
-AutoOffload
-AutoOptimize
+https://github.com/SciML/AutoOffload.jl/archive/refs/heads/master.zip
+https://github.com/SciML/AutoOptimize.jl/archive/refs/heads/master.zip
 AvailablePotentialEnergyFramework
 AverageShiftedHistograms
 AxisAlgorithms
@@ -110,7 +109,7 @@ BLASBenchmarksGPU
 Blink
 BlobTracking
 Blosc
-BlossomMatching
+https://github.com/JuliaGraphs/BlossomMatching.jl/archive/refs/heads/master.zip
 BoltzmannMachinesPlots
 BoundaryValueDiffEq
 BridgeBidding
@@ -131,7 +130,7 @@ CanDecomp
 CaNNOLeS
 CanonicalTraits
 CapacityExpansion
-Capstan
+https://github.com/JuliaDiff/Capstan.jl/archive/refs/heads/master.zip
 CartesianGrids
 Catalyst
 CategoricalArrays
@@ -228,7 +227,7 @@ CumulantsUpdates
 CurricularVisualization
 CustomUnitRanges
 CxxWrap
-D3GraphPlot
+https://github.com/JuliaGraphs/D3GraphPlot.jl/archive/refs/heads/master.zip
 Dagger
 DASKR
 DASSL
@@ -240,7 +239,7 @@ DataDeps
 DataDrivenDiffEq
 DataFrames
 DataFramesMeta
-DataScienceTutorials
+https://github.com/alan-turing-institute/DataScienceTutorials.jl/archive/refs/heads/master.zip
 DataStructures
 DataTables
 DataValueInterfaces
@@ -248,7 +247,7 @@ DataValues
 DataVoyager
 Dates
 DBFTables
-DBGraphs
+https://github.com/JuliaGraphs/DBGraphs.jl/archive/refs/heads/master.zip
 DecFP
 DeconvOptim
 DeepForest

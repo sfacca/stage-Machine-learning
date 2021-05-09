@@ -1,0 +1,20 @@
+out\CausalityTools\file.zip
+SystemError("opening file \"C:\\\\Users\\\\i am\\\\Documents\\\\GitHub\\\\stage-Machine-learning\\\\IEP\\\\src\\\\corpus\\\\registry\\\\CausalityTools\\\\JuliaDynamics-CausalityTools.jl-709b3cc/docs/src/tutorials/causality/binned_uncertain_data/tutorial_BinnedDataCausalityTest_PredictiveAsymmetryTest_BinnedMeanResampling.md\"", 2, nothing)
+out\DSGE\file.zip
+SystemError("opening file \"C:\\\\Users\\\\i am\\\\Documents\\\\GitHub\\\\stage-Machine-learning\\\\IEP\\\\src\\\\corpus\\\\registry\\\\DSGE\\\\FRBNY-DSGE-DSGE.jl-bcd8ed2/test/estimate/smc/Brookings_test/m1002/ss22/estimate/raw/smc_cloud_friday=true_npart=20000_period=full_incZLB_reg2start=900331_reg=2_vint=191118_part1.jld2\"", 2, nothing)
+out\EchelleCCFs\file.zip
+SystemError("opening file \"C:\\\\Users\\\\i am\\\\Documents\\\\GitHub\\\\stage-Machine-learning\\\\IEP\\\\src\\\\corpus\\\\registry\\\\EchelleCCFs\\\\RvSpectML-EchelleCCFs.jl-055c4ce/data/line_lists/VALD_Fe1_DP_rejectTelluricSlope0.0_badLineFilterESPRESSO-strict-NEID-BIS_overlapcutoff6e-05_depthcutoff0.05_allowBlends0_wavesReiners_depthssolar_nbin1depth0.mas\"", 2, nothing)
+out\IndirectArrays\file.zip
+ErrorException("failed to find end of centeral directory record")
+out\InfiniteArrays\file.zip
+ErrorException("failed to find end of centeral directory record")
+out\JuliaBoxTutorials\file.zip
+SystemError("opening file \"C:\\\\Users\\\\i am\\\\Documents\\\\GitHub\\\\stage-Machine-learning\\\\IEP\\\\src\\\\corpus\\\\registry\\\\JuliaBoxTutorials\\\\JuliaBoxTutorials-master/introductory-tutorials/broader-topics-and-ecosystem/intro-to-julia-for-data-science/short-version/02.Julia_for_data_science-Algorithms.ipynb\"", 2, nothing)
+out\MLJC-UniTo-ProjectX-2020-public\file.zip
+SystemError("opening file \"C:\\\\Users\\\\i am\\\\Documents\\\\GitHub\\\\stage-Machine-learning\\\\IEP\\\\src\\\\corpus\\\\registry\\\\MLJC-UniTo-ProjectX-2020-public\\\\MLJC-UniTo-ProjectX-2020-public-rel2/Visualizations/Level set quantitative/Hausdorff distance measure/.ipynb_checkpoints/Fireline_Comparison_isom_creek-checkpoint.ipynb\"", 2, nothing)
+out\ReinforcementLearning\file.zip
+SystemError("opening file \"C:\\\\Users\\\\i am\\\\Documents\\\\GitHub\\\\stage-Machine-learning\\\\IEP\\\\src\\\\corpus\\\\registry\\\\ReinforcementLearning\\\\JuliaReinforcementLearning-ReinforcementLearning.jl-6397173/src/ReinforcementLearningCore/src/policies/q_based_policies/learners/approximators/abstract_approximator.jl\"", 2, nothing)
+out\ReinforcementLearningEnvironmentClassicControl\file.zip
+SystemError("opening file \"C:\\\\Users\\\\i am\\\\Documents\\\\GitHub\\\\stage-Machine-learning\\\\IEP\\\\src\\\\corpus\\\\registry\\\\ReinforcementLearningEnvironmentClassicControl\\\\JuliaReinforcementLearning-ReinforcementLearningEnvironmentClassicControl.jl-dc82a1e/src/ReinforcementLearningEnvironmentClassicControl.jl\"", 2, nothing)
+out\SDFReader\file.zip
+Base.InvalidCharError{Char}('\x9e')

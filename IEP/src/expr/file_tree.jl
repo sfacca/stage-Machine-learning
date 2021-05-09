@@ -20,38 +20,21 @@ end
 
 
 function scrapeModuleDef(e::CSTParser.EXPR)
-    
     res = nothing
     if e.head == :module
-        # initialize the module
         res = ModuleDef(e)
-
-        #scrape stuff from module block
         if _checkArgs(e)
             if _checkArgs(e.args[3])
-                res.includes, res.usings, res.submodules, res.implements = _handleExprArr(e.args[3].args)
-                #=res.usings = tusings
-                res.includes = tincludes
-                res.submodules = tsubmodules
-                res.implements = timplements=#
-                #res = ModuleDef(e.args[firstIdentifier(e)].val, tsubmodules, tusings, tincludes, timplements, "")
+                includes, usings, submodules, implements = _handleExprArr(e.args[3].args)
+                res.includes, res.usings, res.submodules, res.implements = includes, usings, submodules, implements
             end
         end
-        
     end
     res
 end
-#=
-name::String
-    submodules::Union{Array{String,1},Nothing}
-    usings::Union{Array{String,1},Nothing}
-    includes::Union{Array{String,1},Nothing}
-    implements::Union{Array{FunctionContainer, 1}, Nothing}
-    docs::Union{String, Nothing}=#
-
 
 function _handleExprArr(prs::Array{CSTParser.EXPR,1})
-    println("type of prs is $(typeof(prs))")
+    #println("type of prs is $(typeof(prs))")
     includes = []
     uses = []
     modules = []
@@ -59,9 +42,9 @@ function _handleExprArr(prs::Array{CSTParser.EXPR,1})
     _docs = nothing
     #docfind = false
     _docfind = false
-    println("before for")
+    
     for expr in prs
-        println("after for")
+        
         tmp = _genericScrape(expr)#=
         # this would be better as match case
         tincludes, tuses, tmodules, tfunctions = _parseHandler(tmp, docfind)
@@ -132,14 +115,15 @@ function _handleExprArr(prs::Array{CSTParser.EXPR,1})
 end
 
 
+
 function handleFile(folder::String, file::String)
     path = joinpath(folder, file)
-    println("parsing...")
+    #println("parsing...")
     prs = CSTParser.parse(read(joinpath(folder, file), String), true)
-    println("handling...")
+    #println("handling...")
     if _checkArgs(prs)
         includes, uses, modules, functions = _handleExprArr(prs.args) 
-        println("generating FileDef...")
+        #println("generating FileDef...")
         FileDef(path, uses, modules, functions, includes)
     else
         FileDef()
@@ -253,23 +237,16 @@ function is_using(e::CSTParser.EXPR)
 end
 
 function _genericScrape(expr::CSTParser.EXPR)
-    println("generic scrape")
-    # what is e?
-    res = is_include(expr)
-    println("ok dude")
+    res = is_include(expr)    
     if !isnothing(res)
         res = ("include", res)
     else
-        println("res is nothing")
         res = is_using(expr)
         if !isnothing(res)
             res = ("using", res)
         else
-            println("heeelp")
             res = scrapeModuleDef(expr)
-            println("after scrape module def")
-            if !isnothing(res)
-                
+            if !isnothing(res)                
                res = ("module", res)
             else
                 res = scrapeFuncDef(expr)
@@ -294,7 +271,6 @@ function _genericScrape(expr::CSTParser.EXPR)
             end
         end
     end
-    println("finished generic scrape")
     res
 end
 
@@ -441,14 +417,18 @@ end
 function setDocs!(elem::ModuleDef, doc)
     elem.docs = doc
 end
-
+#=
 function setDocs!(elem::FunctionContainer, doc)
+    elem.docs = doc
+end=#
+
+function setDocs!(elem::FuncDef, doc)
     elem.docs = doc
 end
 
-function setDocs!(a::Array{Any,1}, doc)
+function setDocs!(a::Array{T,1}, doc) where  {T}
     for e in a
-        setDocs!(a,doc)
+        setDocs!(e,doc)
     end
 end
 

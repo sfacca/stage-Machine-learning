@@ -37,7 +37,7 @@ function add_folder_to_cset!(dir, cset)
 				if endswith(file, ".jld2")	
 					println("handling $file")
 					name = string(split(file,".jld2")[1])
-					tmp = Array{IEP.FunctionContainer,1}(undef,0)
+					tmp = Array{IEP.FuncDef,1}(undef,0)
 					tmp = vcat(tmp, load(joinpath(root, file))[name])
 					println(unique([typeof(x) for x in tmp]))
 					if isnothing(tmp)
@@ -212,8 +212,8 @@ function find_url(names::Array{SubString{String},1})
 end
 
 # ╔═╡ b7a21a90-7890-11eb-0c6a-b70ff1c9345c
-function _in_src(fda::Array{IEP.FunctionContainer,1})
-	res = Array{IEP.FunctionContainer,1}(undef,0)
+function _in_src(fda::Array{IEP.FuncDef,1})
+	res = Array{IEP.FuncDef,1}(undef,0)
 	for fd in fda
 		if _in_src(fd.source)
 			push!(res, fd)
@@ -223,7 +223,7 @@ function _in_src(fda::Array{IEP.FunctionContainer,1})
 end
 
 # ╔═╡ 9b88ce30-7890-11eb-3dae-51ecd93bdb72
-function _in_src(fd::IEP.FunctionContainer)
+function _in_src(fd::IEP.FuncDef)
 	_in_src(fd.source)
 end
 
@@ -250,7 +250,7 @@ function get_dict(dir::String)
 		for file in files
 			if endswith(file, ".jld2")
 				name = string(split(file,".jld2")[1])
-				tmp = Array{IEP.FunctionContainer,1}(undef,0)
+				tmp = Array{IEP.FuncDef,1}(undef,0)
 				tmp = vcat(tmp, load(joinpath(root, file))[name])
 				println(unique([typeof(x) for x in tmp]))
 				#for item in _in_src(tmp)
@@ -277,7 +277,7 @@ function files_to_cset(dir)
 				if endswith(file, ".jld2")	
 					println("handling $file")
 					name = string(split(file,".jld2")[1])
-					tmp = Array{IEP.FunctionContainer,1}(undef,0)
+					tmp = Array{IEP.FuncDef,1}(undef,0)
 					tmp = vcat(tmp, load(joinpath(root, file))[name])
 					#println(unique([typeof(x) for x in tmp]))
 					if isnothing(cset)
@@ -306,6 +306,124 @@ function files_to_cset(dir)
 		end
 	end
 	cset
+end
+
+function make_scrape_from_zip(root, zipfile)
+	name = __get_name(root)	
+	mkpath("tmp")
+	unzip(joinpath(root, zipfile),"tmp/$(name)")
+	println("parse + scrape $(name)...")
+	scrape = IEP.read_folder("tmp/$(name)")
+	save("scrapes/$(name).jld2", Dict(name => scrape))
+	println("cleanup...")
+	rm("tmp/$(name)", recursive=true)
+end
+
+function __get_name(root)
+	split(root, "\\")[end]
+end
+
+function make_scrape_from_zips(dir)
+	i = 0
+	count = 0
+	fails = []
+
+	for (root, dirs, files) in walkdir(dir)
+		for file in files
+			if !isfile("scrapes/$(__get_name(root)).jld2")
+				count += 1
+			end
+		end
+	end
+
+	for (root, dirs, files) in walkdir(dir)
+		for file in files
+			if !isfile("scrapes/$(__get_name(root)).jld2") && endswith(file, ".zip")
+				try
+					make_scrape_from_zip(root, file)					
+				catch e
+					println(e)
+					push!(fails, (joinpath(root, file), e ))
+				end
+				i += 1
+				println("handled zip $(i) of $(count)")		
+			end	
+		end
+	end
+	println("failed $(length(fails)) files")
+	fails
+end
+
+function make_cset(dir,return_errors =false)
+
+	num = 0
+	for (root, dirs, files) in walkdir(dir)
+		for file in files
+			if endswith(file, ".jld2")
+				num += 1
+			end
+		end
+	end
+	cset = nothing
+	i = 0
+	for (root, dirs, files) in walkdir(dir)
+		for file in files
+			if endswith(file, ".jld2")
+				println("adding file $file")
+				tmp = load(joinpath(root, file))[splitext(file)[1]]
+				if isnothing(cset)
+					cset = IEP.get_newSchema(tmp)
+				else
+					if return_errors
+						cset, tmp_fails = IEP.handle_Scrape(tmp, cset; return_errors)
+						fails = vcat(fails, tmp_fails)
+					else
+						cset = IEP.handle_Scrape(tmp, cset)
+					end
+				end
+				i += 1
+				println("added file $file , $i / $num done")
+			end
+		end
+	end
+	if return_errors
+		cset, fails
+	else 
+		cset
+	end
+end
+
+function add_to_cset(cset, dir::String,return_errors = false)
+	num = 0
+	for (root, dirs, files) in walkdir(dir)
+		for file in files
+			if endswith(file, ".jld2")
+				num += 1
+			end
+		end
+	end
+	i = 0
+	for (root, dirs, files) in walkdir(dir)
+		for file in files
+			if endswith(file, ".jld2")
+				println("adding file $file")
+				tmp = load(joinpath(root, file))[splitext(file)[1]]
+				if return_errors
+					cset, tmp_fails = IEP.handle_Scrape(tmp, cset; return_errors)
+					fails = vcat(fails, tmp_fails)
+				else
+					cset = IEP.handle_Scrape(tmp, cset)
+				end
+				i += 1
+				println("added file $file , $i / $num done")
+			end
+		end
+	end
+	if return_errors
+		cset, fails
+	else 
+		cset
+	end
 end
 
 # ╔═╡ Cell order:

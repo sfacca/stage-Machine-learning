@@ -36,15 +36,7 @@ adds calledby relations from every function in calls_set to the code_block of id
 if a function in calls_set is not present in data, it is added 
     """
 function add_calls(block_id::Int, calls_set::Array{String,1}, data)
-	#=if typeof(func) == String
-		i = findfirst((x)->(x == func), data[:,:func])
-		if isnothing(i)
-			i = add_parts!(data, :Function, 1)[1]
-			data[i,:func] = func
-		end
-		func = i
-	end=#
-	
+		
 	for call in calls_set
 		#1
 		i = function_exists(call, data)
@@ -100,10 +92,10 @@ function add_CUsesD(c::Int, d::Int, data)
 	i
 end
 
-function add_CUsesD(c::Int, d::Int, data)
-	i = add_parts!(data, :CUsesD, 1)[1]
-	data[i, :C] = c	# :C
-	data[i, :D] = d # :D
+function add_EIncludesF(e::Int, f::Int, data)
+	i = add_parts!(data, :EIncludesF, 1)[1]
+	data[i, :E] = e
+	data[i, :F] = f
 	i
 end
 

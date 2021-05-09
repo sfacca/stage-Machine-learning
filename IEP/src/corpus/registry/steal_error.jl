@@ -7,3 +7,7 @@ function steal_error(func)
     end
     res
 end
+
+function attry(x, y=1,z=2)
+    x+y+z
+end

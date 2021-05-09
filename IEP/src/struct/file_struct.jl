@@ -12,5 +12,5 @@ mutable struct FileDef
     functions
     includes
     FileDef(a,b,c,d,e) = new(a,b,c,d,e)
-    FileDef() = new("empty", nothing, nothing, nothing, nothing)
+    FileDef() = new("empty", [],[], [], [])
 end

@@ -21,7 +21,7 @@ function folder_to_scrape(path::String)
 end
 
 function scrape_check(arr::Array{Any,1})
-	res = Array{FunctionContainer,1}(undef, 0)
+	res = Array{FuncDef,1}(undef, 0)
 	fails = []
 	for i in 1:length(arr)
 		x = arr[i]
@@ -30,11 +30,11 @@ function scrape_check(arr::Array{Any,1})
 			try
 				res = vcat(res, scrape_functions_starter(x[1]; source = x[2]))
 			catch e
-				println("scrape number $i errored")
+				#println("scrape number $i errored")
 				println(e)
 			end
 			if len == length(res)
-				println("scrape tuple number $i didnt do anything")
+				#println("scrape tuple number $i didnt do anything")
 				push!(fails, i)
 			end
 		end
@@ -46,8 +46,8 @@ end
 """
 takes output of read_code, returns info on functions defined in the EXPRs
 """
-function scrape(arr::Array{Any,1})::Array{FunctionContainer,1}
-	res = Array{FunctionContainer,1}(undef, 0)
+function scrape(arr::Array{Any,1})::Array{FuncDef,1}
+	res = Array{FuncDef,1}(undef, 0)
 	for i in 1:length(arr)
 		x = arr[i]
 		if typeof(x) == Tuple{CSTParser.EXPR,String}
@@ -55,11 +55,11 @@ function scrape(arr::Array{Any,1})::Array{FunctionContainer,1}
 			try
 				res = vcat(res, scrape_functions_starter(x[1]; source = x[2]))
 			catch e
-				println("scrape number $i errored")
+				#println("scrape number $i errored")
 				println(e)
 			end
 			if len == length(res)
-				println("scrape tuple number $i didnt do anything")
+				#println("scrape tuple number $i didnt do anything")
 				println("")
 			end
 		end
@@ -67,8 +67,8 @@ function scrape(arr::Array{Any,1})::Array{FunctionContainer,1}
 	res
 end
 
-function _n_scrape(arr::Array{Any,1})::Array{Union{FunctionContainer, ModuleDef},1}
-	res = Array{Union{FunctionContainer, ModuleDef},1}(undef, 0)
+function _n_scrape(arr::Array{Any,1})::Array{Union{FuncDef, ModuleDef},1}
+	res = Array{Union{FuncDef, ModuleDef},1}(undef, 0)
 	sources = [x[2] for x in arr] # we save the list of files
 	i = 1
 	len = length(sources)
@@ -80,10 +80,10 @@ function _n_scrape(arr::Array{Any,1})::Array{Union{FunctionContainer, ModuleDef}
 	end
 end
 		
-function scrape_functions_starter(e::CSTParser.EXPR;source::Union{String,Nothing} = nothing)::Array{FunctionContainer,1}
+function scrape_functions_starter(e::CSTParser.EXPR;source::Union{String,Nothing} = nothing)::Array{FuncDef,1}
 	tmp = scrapeFuncDef(e)
 	if isnothing(tmp)
-		res = Array{FunctionContainer,1}(undef,0)
+		res = Array{FuncDef,1}(undef,0)
 	else
 		res = [FunctionContainer(tmp,nothing,source)]
 	end
@@ -93,10 +93,10 @@ end
 """
 function iterates over EXPR tree, scrapes function definitions and documentation
 """
-function scrape_functions(e::CSTParser.EXPR;source::Union{String,Nothing} = nothing)::Array{FunctionContainer,1}
+function scrape_functions(e::CSTParser.EXPR;source::Union{String,Nothing} = nothing)::Array{FuncDef,1}
 	if _checkArgs(e)#leaves cant be functions
 		#println("expr is not a leaf")
-		res = Array{FunctionContainer,1}(undef,0)
+		res = Array{FuncDef,1}(undef,0)
 		docs = nothing
 		# iterates over e.args, looking for functions or docs
 		for i in 1:length(e.args)
@@ -119,12 +119,12 @@ function scrape_functions(e::CSTParser.EXPR;source::Union{String,Nothing} = noth
 		return res
 	else
 		#println("expr is a leaf")
-		return Array{FunctionContainer,1}(undef,0)
+		return Array{FuncDef,1}(undef,0)
 	end
 end
 
-function scrape_functions(arr::Array{CSTParser.EXPR,1};source::Union{String,Nothing} = nothing)::Array{FunctionContainer,1}
-	res = Array{FunctionContainer,1}(undef,0)
+function scrape_functions(arr::Array{CSTParser.EXPR,1};source::Union{String,Nothing} = nothing)::Array{FuncDef,1}
+	res = Array{FuncDef,1}(undef,0)
 	for x in arr
 		res = vcat(res, scrape_functions(x;source=source))
 	end
@@ -145,7 +145,7 @@ function scrapeFuncDef(e::CSTParser.EXPR)::Union{FuncDef, Nothing}
 			# e.args contains the lvalue and rvalue of the -> operation
 			# we also now know that the lvalue of the assignment operation 
 			# is the function name
-			println("funcdef?")
+			#println("funcdef?")
 			return FuncDef(
 				scrapeName(e.args[1]),
 				scrapeInputs(e.args[2].args[1]),
@@ -241,13 +241,13 @@ the expr needs to only contain argument definitions in its .args array
 :function -> :call function definitions have their function name in the same args
 """
 function scrapeInputs(e::CSTParser.EXPR)::Array{InputDef,1}
-	println("scrape inputs")
+	#println("scrape inputs")
 	if _checkArgs(e)
 		arr = Array{InputDef,1}(undef, length(e.args))
 		for i in 1:length(arr)
 			# is this a simple param name or is this a :: OP?
 			if isTypedefOP(e.args[i])
-				println("TYPEDEFOP")
+				#println("TYPEDEFOP")
 				try
 					if length(e.args[i].args)<2
 						#println("args < 2")
@@ -264,7 +264,7 @@ function scrapeInputs(e::CSTParser.EXPR)::Array{InputDef,1}
 					)
 					end
 				catch err
-					println("error!")
+					#println("error!")
 					println(err)
 					#println(e.args)
 				end
@@ -278,7 +278,7 @@ function scrapeInputs(e::CSTParser.EXPR)::Array{InputDef,1}
 	else
 		arr = Array{InputDef,1}(undef, 0)
 	end
-	println("finished scraping inputs")
+	#println("finished scraping inputs")
 	arr
 end
 

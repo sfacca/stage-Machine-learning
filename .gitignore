@@ -12,6 +12,12 @@ downloads*
 .Rhistory*
 *out/
 
+/IEP/src/corpus/registry/pain/*
+/IEP/src/corpus/registry/out/*
+/IEP/src/corpus/registry/scrapes/*
+
+*.vs/
+
 code/julia/stipple/loginApp/build/*
 code/julia/stipple/loginApp/cache/*
 code/julia/stipple/loginApp/log/*

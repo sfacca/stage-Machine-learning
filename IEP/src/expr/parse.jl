@@ -8,31 +8,19 @@ explores folder tree of dir, parses all .jl/.ipynb code found
 * file_type = "jl": file extension in which to find code to parse
 """
 function read_code(dir, verbose=false)
-	#=maxlen=500, 
-	file_type="jl"
-    comments = r"\#.*\n"
-    docstring = r"\"{3}.*?\"{3}"s=#
-
+	
     all_funcs = []
-    #sources = []
-
-	#fils = []
+	
     for (root, dirs, files) in walkdir(dir)
-		#println("root: $root")
-		#println("dirs: $dirs")
-		#println("files: $files")
         for file in files
             if endswith(file, ".jl")
-				#println("parsing $(joinpath(root, file))")
-				#push!(fils, joinpath(root, file))
               s = CSTParser.parse(read(joinpath(root, file), String), true)
               if !isnothing(s)
                 all_funcs = vcat(
 						all_funcs, get_expr(s, joinpath(root, file), verbose));
               end
             elseif endswith(file, ".ipynb")
-				#println("parsing $(joinpath(root, file))")
-				#push!(fils, joinpath(root, file))
+				
                 pj = [
 					string(y["source"]...) for y in filter(
 						(x)->(x["cell_type"] == "code") ,
@@ -48,8 +36,7 @@ function read_code(dir, verbose=false)
                     end
                 end
             elseif endswith(file, ".md")
-				#println("parsing $(joinpath(root, file))")
-				#push!(fils, joinpath(root, file))
+				
 				lines = readlines(joinpath(root, file))
 				code = false
 				tmp = ""
@@ -63,7 +50,7 @@ function read_code(dir, verbose=false)
 								all_funcs = vcat(
 										all_funcs, get_expr(s, joinpath(root, file), verbose));
 							end
-							#push!(all_funcs, tmp)
+							
 							tmp = ""
 						else
 							tmp = string(tmp, "\n", line)
@@ -79,9 +66,7 @@ function read_code(dir, verbose=false)
     end
 
     filter!(x->x!="",all_funcs)
-    #filter!(x -> length(x)<=maxlen, all_funcs)
 	unique(all_funcs)
-	#fils
 end
 
 function scrapeHeads(e)

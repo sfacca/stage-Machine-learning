@@ -27,7 +27,7 @@ uses ids from ids to overwrite func names in fds
 returns index of first unused id
 errors if there are more func defs than ids
 """
-function names_ids!(fd::Array{IEP.FunctionContainer,1}, ids)
+function names_ids!(fd::Array{IEP.FuncDef,1}, ids)
     i=1
     for f in fd
         if i>length(ids)
@@ -61,7 +61,7 @@ function names_in_dir(dir)
 				if endswith(file, ".jld2")	
 					println("handling $file")
 					name = string(split(file,".jld2")[1])
-					tmp = Array{IEP.FunctionContainer,1}(undef,0)
+					tmp = Array{IEP.FuncDef,1}(undef,0)
 					tmp = vcat(tmp, load(joinpath(root, file))[name])
 					println(unique([typeof(x) for x in tmp]))
 					if isnothing(tmp)
