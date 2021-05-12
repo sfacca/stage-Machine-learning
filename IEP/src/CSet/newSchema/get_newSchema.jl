@@ -331,6 +331,9 @@ function handle_ModuleDef!(mdf, data)
 	i
 end
 
+function resolve_include_path(origin::String, paths::Array{String,1})::Array{String,1}
+    [resolve_include_path(origin, path) for path in paths]
+end
 function resolve_include_path(origin::String, path::String)::String
     # get base path
     origin = split(origin,"\\")[1:(end-1)]# this removes the filename

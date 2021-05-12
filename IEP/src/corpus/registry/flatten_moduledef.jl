@@ -92,9 +92,6 @@ function _get_mdfs(fds::Array{FileDef,1})::Array{ModuleDef,1}
     res
 end
 
-
-
-
 function flatten_dir(dir::String)# wow this is terrible
     fails = []
     i = 0
@@ -116,6 +113,8 @@ function flatten_dir(dir::String)# wow this is terrible
         end
     end
 end
+
+
 
 function save_flat(root, file)
     filedefs = load(joinpath(root, file))[splitext(file)[1]]
