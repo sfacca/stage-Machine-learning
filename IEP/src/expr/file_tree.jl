@@ -338,7 +338,7 @@ function get_links(tuple)::Tuple{String,String}
             push!(origin, name)
         end
     end
-    (tuple[1],string(origin.*"\\"...)[1:(end-2)])
+    (tuple[1],string(origin.*"/"...)[1:(end-1)])
 end
 
 function make_tree(tuple)

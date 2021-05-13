@@ -1,5 +1,5 @@
 
-struct doc_fun
+mutable struct doc_fun
     doc::String
     fun::String
     doc_fun(doc::String,fun::String) = new(doc, fun);
@@ -15,19 +15,19 @@ function get_doc_fun(fds::Array{FileDef,1})::Array{doc_fun,1}
     end
     res
 end
-function get_doc_fun(fd::Array{FileDef,1})::Array{doc_fun,1}
+function get_doc_fun(fd::FileDef)::Array{doc_fun,1}
     father = fd.path
     res = Array{doc_fun,1}(undef, 0)
     
     if !isnothing(fd.functions) && !isempty(fd.functions)
         for funcdef in fd.functions
-            push!(res, doc_fun(funcdef.doc, string("($father).", getName(funcdef.name)))
+            push!(res, doc_fun(funcdef.docs, string("|$father|.", getName(funcdef.name))))
         end
     end
 
     if !isnothing(fd.modules) && !isempty(fd.modules)
         for mod in fd.modules
-            res = vcat(res , get_doc_fun(mod, "($father)"))
+            res = vcat(res , get_doc_fun(mod, "|$father|"))
         end
     end
 
@@ -45,7 +45,7 @@ function get_doc_fun(mdf::ModuleDef, father = nothing)::Array{doc_fun,1}
 
     if !isnothing(mdf.implements) && !isempty(mdf.implements)
         for func in mdf.implements
-            push!(res, doc_fun(func.doc, string(father, ".", func.name)))
+            push!(res, doc_fun(func.docs, string(father, ".", func.name)))
         end
     end
 
@@ -75,7 +75,7 @@ function _add_to_map!(fd::FileDef, res)
 
     if !isnothing(fd.includes) && !isempty(fd.includes)
         for incl in fd.includes
-            push!(res, (get_links(origin, incl)=> origin))
+            push!(res, ((lowercase(get_links((origin, incl))[2]))=> origin))
         end
     end
 
@@ -91,7 +91,7 @@ function _add_to_map!(mod::ModuleDef, res, origin)
 
     if !isnothing(mod.includes) && !isempty(mod.includes)
         for incl in mod.includes
-            push!(res, (get_links(origin, incl)=>mod.name))
+            push!(res, ((lowercase(get_links((origin, incl))[2]))=>mod.name))
         end
     end
 
@@ -102,14 +102,32 @@ function _add_to_map!(mod::ModuleDef, res, origin)
     end
     res
 end
-function apply_map!(dfs::Array{doc_fun,1}, map)
-    for df in dfs
-        apply_map!(df, map)
+
+function __swap_slash(str::String)
+    # replace \\ with /
+    replace(str, r"\\\\"=>"/")
+end
+function __extract_father(str::String)
+    __swap_slash(lowercase(split(str, "|")[2]))
+end
+function apply_map!(dfs::Array{doc_fun,1}, map)    
+    for i in 1:length(dfs)
+        dfs[i] = apply_map(dfs[i], map)
     end
 end
-function apply_map!(df::doc_fun, map)
-    parts = split(df.fun, ".")
-    
+function apply_map(df::doc_fun, map)
+    parts = split(df.fun, "|")
+    i = 0
+    if length(parts) == 3
+        father = replace(lowercase(parts[2]), r"\\\\"=>"/")
+        son = parts[3]
+        if haskey(map, father)
+            df.fun = string(map[father], son)
+        else
+            println("unhandled father $father")
+        end
+    end
+    df
 end
 
 
@@ -128,6 +146,11 @@ function dir_to_docfun(dir::String)
             end
         end
     end
+
+end
+
+
+
 
 
 

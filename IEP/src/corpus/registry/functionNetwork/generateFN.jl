@@ -83,7 +83,7 @@ function generateFN(scrape::Array{FileDef,1})
         block::Attr(Function, value)
         scope_type::Attr(Scope, value)
         scope_name::Attr(Scope, value)
-        unhandled_scope_extensions::Attr(Scope, value)
+        unhandled_scope_extensions::Attr(Scope, value)        
 	end
 
 	add_scrape_to_FN!(scrape, ACSetType(FNSchema, index=[:inModule]){Any}())
@@ -132,6 +132,8 @@ function add_FileDef_to_FN!(fd::FileDef, cset)
         end
     end
 
+    #3 add modules to scope
+
 
 end
 
@@ -151,7 +153,7 @@ function add_FuncDef_to_FN!(funcdef::FuncDef, cset, parent_scope::Int, module_i=
         cset[i, :inModule] = module_i
     end
 
-    #3 create scope
+    #3 create scope functionScope::Hom(Function, Scope)
     scope_name = func_name
     if scope_exists("function", scope_name, cset)
         scope_name = string(scope_name,"_1")
@@ -163,19 +165,23 @@ function add_FuncDef_to_FN!(funcdef::FuncDef, cset, parent_scope::Int, module_i=
     end
     scope_i = add_scope!("function", scope_name, cset)
 
+    
     #=
     inModule::Hom(Function, Module)
-    functionScope::Hom(Function, Scope)
+    
     A::Hom(ACallsB, Function)	
     B::Hom(ACallsB, Function)
+
     func::Attr(Function, value)
     unsolved_calls::Attr(Function, value)
     doc::Attr(Function, value)
     block::Attr(Function, value)
-    =#
+    =#        
 
-        
+    i
+end
 
+function add_ModuleDef_to_FN!(mdef::ModuleDef, )
 
 end
 
