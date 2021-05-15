@@ -3,8 +3,6 @@
 #2 make dictionary of unique tokens (word stems) (an array of unique stems)
 
 #3 turn strings in arrays where arr[i] = n -> the strings contains the i-th stem n times
-using WordTokenizers, SparseArrays
-
 """
 returns vocab array and sparse matrix of document vectors
 every column is the vector of a document
@@ -64,6 +62,7 @@ function unique_stems(arr::Array{String,1}, o=nothing)
     end
     res
 end
+
 
 """
 

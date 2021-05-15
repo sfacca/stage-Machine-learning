@@ -1,19 +1,3 @@
-#=
-include("../write_to_txt.jl")
-
-function __get_name(root)
-	split(root, "\\")[end]
-end
-
-res = []
-for (root, dirs, files) in walkdir("out")
-    push!(res, string("files: ", files))
-    push!(res, string("dirs: ", dirs))
-    push!(res, string("root: ", __get_name(root)))
-end
-write_to_txt("treeview", res)
-=#
-
 function get_filepaths(dir, extension=nothing)
     res = []
     for (root, dirs, files) in walkdir(dir)
@@ -25,11 +9,9 @@ function get_filepaths(dir, extension=nothing)
     end
     res
 end
-
 function load_file(root, file)#::Array{FileDef,1}
     load(joinpath(root, file))[splitext(file)[1]]
 end
-
 function get_module_names(mdf::IEP.ModuleDef)
     res = []
     for sub in mdf.submodules
