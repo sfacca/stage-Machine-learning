@@ -1,2 +1,5 @@
 include("bag_of_words.jl")
 include("tokenize.jl")
+include("make_documents.jl")
+include("make_lexicon.jl")
+include("dirichlet.jl")

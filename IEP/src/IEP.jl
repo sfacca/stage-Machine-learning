@@ -15,6 +15,9 @@ module IEP
     using AlgebraicRelations.Presentations, AlgebraicRelations.Interface, AlgebraicRelations.Queries, AlgebraicRelations.DB
     #using Flux
     #using InteractiveUtils, Markdown
+
+    # some functions have same name in different packages
+    load = FileIO.load
     
 
 

@@ -99,7 +99,7 @@ end
 """
 returns every .val of every EXPR
 """
-function get_all_vals(e::Array{CSTParser.EXPR,1})
+function get_all_vals(e::Array{CSTParser.EXPR,1})::Array{String,1}
 	res = []
 	for x in e
 		res = vcat(res, get_all_vals(x))
@@ -107,7 +107,7 @@ function get_all_vals(e::Array{CSTParser.EXPR,1})
 	res
 end	
 
-function get_all_vals(e::CSTParser.EXPR)
+function get_all_vals(e::CSTParser.EXPR)::Array{String,1}
 	if isnothing(e.val)
 		res = []
 	else

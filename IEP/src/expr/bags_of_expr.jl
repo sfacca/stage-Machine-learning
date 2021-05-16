@@ -4,10 +4,10 @@ struct doc_fun_block_bag
     block::Union{Array{String,1}, Array{Int,1}}  
 end
 
-function make_bags(dfbs::Array{doc_fun_block}, stemmer=Stemmer("english"), tokenizer=punctuation_space_tokenize; indexed=false)
+function make_bags(dfbs::Array{doc_fun_block,1}, stemmer=Stemmer("english"), tokenizer=punctuation_space_tokenize; indexed=false)
     bags = Array{doc_fun_block_bag,1}(undef, length(dfbs))
     for i in 1:length(dfbs)
-        bags[i] = make_bag(dfbs[i].block, stemmer, tokenizer)
+        bags[i] = make_bag(dfbs[i], stemmer, tokenizer)
     end
 
     if indexed
@@ -36,7 +36,7 @@ function make_bag(dfb::doc_fun_block, stemmer=Stemmer("english"), tokenizer=punc
     fun = dfb.fun
     block = get_all_vals(dfb.block)
     if dfb.doc != ""
-        doc = stem_tokenize_doc(TextAnalysis.StringDocument(dfb.doc); stemmer = stemmer, tokenizer = tokenizer)
+        doc = string.(stem_tokenize_doc(TextAnalysis.StringDocument(dfb.doc); stemmer = stemmer, tokenizer = tokenizer))
     else
         doc = Array{String,1}(undef,0)
     end
@@ -58,9 +58,11 @@ end
 function convert_to_matrix(bags::Array{doc_fun_block_bag,1})
     code_vocab = Array{String,1}(undef, 0)
     doc_vocab = Array{String,1}(undef, 0)
-    for bag in bags
-        code_vocab = vcat(code_vocab, bag.block)
-        doc_vocab = vcat(doc_vocab, bag.docs)
+    for i in 1:length(bags)
+        code_vocab = vcat(code_vocab, bags[i].block)
+        doc_vocab = vcat(doc_vocab, bags[i].doc)
+        println("bag $i added to vocabs")
+        println("code: $(length(code_vocab)) , doc: $(length(doc_vocab))")
     end
     len = length(bags)#(rows, cols)
     docs_mat = spzeros(length(doc_vocab),len)
@@ -75,6 +77,6 @@ function convert_to_matrix(bags::Array{doc_fun_block_bag,1})
         println("bag $j out of $len converted")
     end
 
-    (code_mat = blocks_mat, code_vocab = code_vocab, docs_mat = docs_mat, docs_vocab = docs_vocab)
+    (code_mat = blocks_mat, code_vocab = code_vocab, docs_mat = docs_mat, docs_vocab = doc_vocab)
 end
     

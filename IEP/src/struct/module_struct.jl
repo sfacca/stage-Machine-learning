@@ -9,7 +9,7 @@ mutable struct ModuleDef
     ModuleDef(a,b,c,d,e::Array{FuncDef, 1},f) = new(a,b,c,d,_conv(e),f)
     ModuleDef(name::String, doc::String) = new(name, [], [], [], [], doc)    
     ModuleDef(e::CSTParser.EXPR, doc::String) = ModuleDef(e.args[firstIdentifier(e)].val, doc)
-    ModuleDef(name::String) = new(name, [], [], [], [], [])
+    ModuleDef(name::String) = new(name, [], [], [], [], nothing)
     ModuleDef(e::CSTParser.EXPR) = ModuleDef(e.args[firstIdentifier(e)].val)
     
 end

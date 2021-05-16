@@ -1,3 +1,5 @@
+# spaghetti code starts here
+
 function read_folder(dir)
     fs = []
     for (root, dirs, files) in walkdir(dir)
@@ -90,7 +92,7 @@ function _handleExprArr(prs::Array{CSTParser.EXPR,1})
             end
         end
         if !isnothing(tfunctions)
-            tfunctions = [FunctionContainer(x,nothing, "") for x in tfunctions]
+            #tfunctions = [FunctionContainer(x,x.docs, "") for x in tfunctions] why did i ever do this
             if !isnothing(_docs)
                 setDocs!(tfunctions, _docs)
                 _setDocs = true
