@@ -79,3 +79,23 @@ function dir_to_doc_fun_block(dir::String)
     res
 end
 
+function file_to_doc_fun_block(root, file)
+    tmp = load(joinpath(root, file))[splitext(file)[1]]
+    res = get_doc_fun_block(tmp)                
+    map = get_file_module_map(tmp)
+    apply_map!(res, map)
+    println("finished $(splitext(file)[1])")
+    res
+end
+
+function make_dfbs(dir)
+    for (root, dirs, files) in walkdir(dir)
+        for file in files
+            if endswith(file ,"jld2")
+                
+            end
+        end
+    end
+end
+
+

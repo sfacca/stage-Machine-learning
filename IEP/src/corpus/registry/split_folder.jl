@@ -1,7 +1,7 @@
 # 1430+ packages are a lot
 # split them
 
-function split(dir, times=10)
+function split_folder(dir, times=10)
     for i in 1:times
         mkpath(joinpath(dir, "part $i"))
     end

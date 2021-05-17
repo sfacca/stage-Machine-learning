@@ -3,6 +3,8 @@
 
 using Markdown
 using InteractiveUtils
+using TextAnalysis
+using WordTokenizers
 
 # ╔═╡ 45bc8a80-77a7-11eb-051f-f72a421f3795
 using Pkg, CSTParser, FileIO, JLD2
@@ -319,11 +321,19 @@ function make_scrape_from_zip(root, zipfile)
 	rm("tmp/$(name)", recursive=true)
 end
 
+function make_dfb_from_jld2(root, file)
+	save("dfbs/$file", Dict(splitext(file)[1] => IEP.file_to_doc_fun_block(root, file)))
+end
+
+function make_bag_from_jld2(root, file, stemmer=Stemmer("english"), tokenizer=punctuation_space_tokenize)
+	save("bags/$file", Dict(splitext(file)[1] => IEP.file_to_bags(root, file, stemmer, tokenizer)))
+end
+
 function __get_name(root)
 	split(root, "\\")[end]
 end
 
-function make_scrape_from_zips(dir)
+function make_scrapes_from_zips(dir)
 	i = 0
 	count = 0
 	fails = []
@@ -347,6 +357,69 @@ function make_scrape_from_zips(dir)
 				end
 				i += 1
 				println("handled zip $(i) of $(count)")		
+			end	
+		end
+	end
+	println("failed $(length(fails)) files")
+	fails
+end
+
+function make_dfbs_from_dir(dir)
+	i = 0
+	count = 0
+	fails = []
+
+	for (root, dirs, files) in walkdir(dir)
+		for file in files
+			if !isfile("dfbs/$(__get_name(root)).jld2")
+				count += 1
+			end
+		end
+	end
+
+	for (root, dirs, files) in walkdir(dir)
+		for file in files
+			if !isfile("dfbs/$(__get_name(root)).jld2") && endswith(file, ".jld2")
+				try
+					make_dfb_from_jld2(root, file)					
+				catch e
+					println(e)
+					push!(fails, (joinpath(root, file), e ))
+				end
+				i += 1
+				println("handled file $(i) of $(count)")		
+			end	
+		end
+	end
+	println("failed $(length(fails)) files")
+	fails
+end
+
+function make_bags_from_dir(dir)
+	i = 0
+	count = 0
+	fails = []
+
+	for (root, dirs, files) in walkdir(dir)
+		for file in files
+			if !isfile("bags/$(__get_name(root)).jld2")
+				count += 1
+			end
+		end
+	end
+	stemmer=Stemmer("english")
+	tokenizer=punctuation_space_tokenize
+	for (root, dirs, files) in walkdir(dir)
+		for file in files
+			if !isfile("bags/$(__get_name(root)).jld2") && endswith(file, ".jld2")
+				#try
+					make_bag_from_jld2(root, file, stemmer, tokenizer)					
+				#catch e
+				#	println(e)
+				#	push!(fails, (joinpath(root, file), e ))
+				#end
+				i += 1
+				println("handled file $(i) of $(count)")		
 			end	
 		end
 	end
@@ -425,21 +498,3 @@ function add_to_cset(cset, dir::String,return_errors = false)
 		cset
 	end
 end
-
-# ╔═╡ Cell order:
-# ╠═81278630-778c-11eb-27c8-03e3def7f22b
-# ╠═a3bf774e-77a7-11eb-020c-677baae4eceb
-# ╠═45bc8a80-77a7-11eb-051f-f72a421f3795
-# ╠═07499d00-7825-11eb-3f75-17749dc56811
-# ╠═c78e78e0-7872-11eb-15c6-0b15dda320df
-# ╠═281664e0-785d-11eb-192c-a3cb9ae4aa2a
-# ╠═629f70f0-7882-11eb-35b2-b7de2fdfde38
-# ╠═aa8eb102-785a-11eb-0e7b-5f12b8514cb9
-# ╠═b93d1ffe-785b-11eb-0b87-dfaa5aaf7ad4
-# ╠═78524300-783c-11eb-3045-93c3d98ff10f
-# ╠═4ac94b80-788d-11eb-00e1-13a38ee9fc99
-# ╠═b7a21a90-7890-11eb-0c6a-b70ff1c9345c
-# ╠═9b88ce30-7890-11eb-3dae-51ecd93bdb72
-# ╠═e8c6ef22-788f-11eb-3611-17cb3e3e2bb8
-# ╠═6bc2bbc0-7890-11eb-090f-072d6da42eac
-# ╠═36915840-7894-11eb-31c0-0921e00ce8ca

@@ -79,4 +79,42 @@ function convert_to_matrix(bags::Array{doc_fun_block_bag,1})
 
     (code_mat = blocks_mat, code_vocab = code_vocab, docs_mat = docs_mat, docs_vocab = doc_vocab)
 end
-    
+function add_dfbs_to_dictionary(dfb::Array{doc_fun_block,1}; doc_vocab=nothing, expr_vocab=nothing, stemmer=Stemmer("english"), tokenizer=punctuation_space_tokenize)
+    for dfb in dfbs
+        if !isnothing(doc_vocab)
+
+        end
+        if !isnothing(expr_vocab)
+            
+        end
+    end
+    doc_vocab, expr_vocab
+end
+
+function make_dictionary(dfbs::Array{doc_fun_block,1}, docs=true, expr=true)
+    for dfb in dfbs
+    end
+end
+
+function make_bags_from_dir(dir)
+    stemmer=Stemmer("english")
+    tokenizer=punctuation_space_tokenize
+    res = Array{doc_fun_block_bag,1}(undef, 0)
+    for (root, dirs, files) in walkdir(dir)
+        for file in files
+            if endswith(file, ".jld2")
+                tmp = load(joinpath(root, file))[splitext(file)[1]]
+                push!(res, make_bags(tmp, stemmer, tokenizer))
+                println("added bag $(splitext(file)[1])")
+            end
+        end
+    end
+    res
+end
+
+function file_to_bags(root, file, stemmer=Stemmer("english"), tokenizer=punctuation_space_tokenize)
+    tmp = load(joinpath(root, file))[splitext(file)[1]]# these are dfbs
+    res = make_bags(tmp, stemmer, tokenizer)
+    println("finished $(splitext(file)[1])")
+    res
+end
