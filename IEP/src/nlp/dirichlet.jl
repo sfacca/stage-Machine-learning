@@ -1,3 +1,4 @@
+
 function dirichlet(documents, lexicon, topicnum = 10, numwords = 10, iterations = 10)    
     println("making documents/lexicon corpus...")
     crps = TopicModels.Corpus(documents, lexicon)
@@ -8,6 +9,6 @@ function dirichlet(documents, lexicon, topicnum = 10, numwords = 10, iterations 
     println("training model with $iterations iterations...")
     TopicModels.trainModel(mdl, st, iterations)
     println("check $numwords most prevalent words for each topic...")
-    topWords = TopicModels.topTopicWords(mdl, st, numwords)
+    topwords = TopicModels.topTopicWords(mdl, st, numwords)
     mdl, st, topwords
 end

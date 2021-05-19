@@ -453,11 +453,12 @@ function make_dfbv_from_dir(dir)
 	i
 end
 
+
 function make_voc_from_jld2(root, file)
 	save("dfbv/$file", Dict(splitext(file)[1] => IEP.file_to_dfbv(root, file)))
 end
 
-function make_lexicons_from_dir(dir)
+function make_lexicons_from_dir(dir,  LDAC=false)
 	i = 0
 	count = 0
 	x = 0
@@ -496,6 +497,10 @@ function make_lexicons_from_dir(dir)
 	#write_lexicons(doc_lexicon, block_lexicon)
 	save("doc_lexicon.jld2", Dict("doc_lexicon"=>doc_lexicon))
 	save("block_lexicon.jld2", Dict("block_lexicon"=>block_lexicon))
+	if LDAC
+		IEP.write_lexicon(doc_lexicon, "doc_vocab.lexicon")
+		IEP.write_lexicon(block_lexicon, "block_lexicon.lexicon")		
+	end
 	doc_lexicon, block_lexicon
 end
 
@@ -531,6 +536,104 @@ end
 function save_docvecs_from_file(root, file, doc_dict, block_dict)
 	save("dfbdocvecs/$file", Dict(splitext(file)[1] => IEP.file_to_docvecs(root, file, doc_dict, block_dict)))
 end
+
+
+"""doc_fun_block_docvecs => documents matrix"""
+function make_matrix_from_dir(dir)
+	#1 load every doc_fun_block_docvecs array in dir
+	doc_docvecs = []
+	block_docvecs = []
+	fun_names = []
+	source_ranges = []
+	i=0
+	println("loading docvecs...")
+	for (root, dirs, files) in walkdir(dir)
+		for file in files
+			if endswith(file, ".jld2")
+				tmp = FileIO.load(joinpath(root, file))[splitext(file)[1]]#this is an array of doc_fun_block_docvecs
+				
+
+
+				if length(tmp)>0
+					start = length(doc_docvecs)+1
+					doc_docvecs = vcat(doc_docvecs, [x.doc for x in tmp])
+					fun_names = vcat(fun_names, [x.fun for x in tmp])
+					block_docvecs = vcat(block_docvecs, [x.block for x in tmp])	
+					
+					range = start:(length(fun_names))
+				else
+					range= 0:0
+				end
+
+
+				push!(source_ranges, (splitext(file)[1], range))
+				i += 1
+				println("loaded file $(i)")
+			end	
+		end
+	end
+
+	# changing the way the block/doc vecs are taken + reshape might be much faster...
+
+	println("building doc mat...")
+	# one column is a docvec
+	doc_mat = spzeros(length(doc_docvecs[1]),length(doc_docvecs))#row, cols
+	for i in 1:length(doc_docvecs)
+		doc_mat[:,i] = doc_docvecs[i]
+		#println("built document vector column $i out of $(length(doc_docvecs))")
+	end
+	println("building block mat...")
+	block_mat = spzeros(length(block_docvecs[1]),length(block_docvecs))#row, cols
+	for i in 1:length(block_docvecs)
+		block_mat[:,i] = block_docvecs[i]
+		#println("built document vector column $i out of $(length(block_docvecs))")
+	end
+
+	println("returning doc_mat, block_mat, fun_names, source_ranges...")
+	doc_mat, block_mat, fun_names, source_ranges
+end
+
+
+function make_indexing(fun_names, src_ranges)
+	indexes = Array{NamedTuple{(:source, :fun),Tuple{String, String}},1}(undef,length(fun_names))
+
+	for tuple in src_ranges
+		name = tuple[1]
+		range = tuple[2]
+		if range != 0:0
+			for i in range
+				indexes[i] = (source = name, fun = fun_names[i])
+			end
+		end
+	end
+	indexes
+end
+
+function dirichlet()
+	doc_docus = readDocs(open("doc_bags.documents"))
+	doc_lexi = readLexicon(open("doc.lexicon"))
+
+
+	block_docus = readDocs(open("block_bags.documents"))
+	block_lexi = readLexicon(open("block.lexicon"))
+
+	IEP.dirichlet(doc_docus, doc_lexi), IEP.dirichlet(block_docus, block_lexi)
+end
+
+function doc_dirichlet()
+	IEP.dirichlet(readDocs(open("doc_bags.documents")), readLexicon(open("doc.lexicon")))
+end
+function block_dirichlet()
+	IEP.dirichlet(readDocs(open("block_bags.documents")), readLexicon(open("block.lexicon")))
+end
+
+
+	
+
+
+
+
+
 
 
 
@@ -608,14 +711,10 @@ end
 
 
 function check_bag(bagname::String, doc_lexicon=FileIO.load("doc_lexicon.jld2")["doc_lexicon"], block_lexicon=FileIO.load("block_lexicon.jld2")["block_lexicon"])
-
+	println("loading files...")
 	docvecs = FileIO.load("dfbdocvecs/$bagname.jld2")[bagname]
 	dfbvs = FileIO.load("dfbv/$bagname.jld2")[bagname]
 	dfbbags = FileIO.load("bags/$bagname.jld2")[bagname]
-
-	println("len docvecs: $(length(docvecs))")
-	println("len dfbvs: $(length(dfbvs))")
-	println("len dfbbags: $(length(dfbbags))")
 
 	res_docvecs = []
 	for docvec in docvecs
@@ -633,27 +732,69 @@ function check_bag(bagname::String, doc_lexicon=FileIO.load("doc_lexicon.jld2")[
 	end
 
 	misses = []
-	for i in 1:length(res_docvecs)
+
+	if length(res_dfbbags) != length(res_dfbvs) || length(res_dfbvs) != length(res_docvecs)
+		push!(misses, "BAGS DIMENSIONS MISSMATCH BAG $name")
+	end
+	len = length(res_docvecs)
+	for i in 1:length(res_docvecs)	
+		mss = false	
 		#check doc
 		if res_docvecs[i][1] != res_dfbvs[i][1]
 			push!(misses, "doc of res_docvec[$i] != res_dfbvs[$i] fun name is $(docvecs[i].fun)")
+			mss=true
 		end
 		if res_docvecs[i][1] != res_dfbbags[i][1]
 			push!(misses, "doc of res_docvec[$i] != res_dfbbags[$i] fun name is $(docvecs[i].fun)")
+			mss=true
 		end
 		if res_dfbvs[i][1] != res_dfbbags[i][1]
 			push!(misses, "doc of res_dfbvs[$i] != res_dfbbags[$i] fun name is $(dfbvs[i].fun)")
+			mss=true
 		end
 		#check block
 		if res_docvecs[i][2] != res_dfbvs[i][2]
 			push!(misses, "doc of res_docvec[$i] != res_dfbvs[$i] fun name is $(docvecs[i].fun)")
+			mss=true
 		end
 		if res_docvecs[i][2] != res_dfbbags[i][2]
 			push!(misses, "doc of res_docvec[$i] != res_dfbbags[$i] fun name is $(docvecs[i].fun)")
+			mss=true
 		end
 		if res_dfbvs[i][2] != res_dfbbags[i][2]
 			push!(misses, "doc of res_dfbvs[$i] != res_dfbbags[$i] fun name is $(dfbvs[i].fun)")
+			mss=true
+		end
+		println("done checking bag $i of $len in file $name")
+		if mss
+			println("there was a miss")
 		end
 	end
-	misses, (res_docvecs, res_dfbvs, res_dfbbags)
+	if isempty(misses)
+		nothing, nothing
+	else
+		misses, (res_docvecs, res_dfbvs, res_dfbbags)
+	end
+end
+
+function check_all_bags()
+	doc_lexicon=FileIO.load("doc_lexicon.jld2")["doc_lexicon"]
+	block_lexicon=FileIO.load("block_lexicon.jld2")["block_lexicon"]
+	names = []
+	for (root, dirs, files) in walkdir("bags")
+		for file in files
+			if endswith(file, ".jld2")
+				push!(names, splitext(file)[1])
+			end
+		end
+	end
+	fails =[]
+	misses = []
+	for name in names
+		tmp, res = check_bag(name, doc_lexicon, block_lexicon)
+		if !isnothing(tmp)
+			misses = vcat(misses, tmp)
+		end
+	end
+	misses, fails
 end

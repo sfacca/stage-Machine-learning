@@ -1,17 +1,20 @@
 """
 The lexicon file is assumed to have one word per line.
 """
-function make_lexicon(arr::Array)
+function make_lexicon(arr::Array, wordy=false)
     str = ""
-    for word in arr
-        str*="$word\n"
+    for i in 1:length(arr)
+        str*="$(arr[i])\n"
+        if wordy
+            println("word $i out of $(length(arr))")
+        end
     end
     str[1:end-1]#removing trailing whitespace
 end
 
-function write_lexicon(arr::Array, name="vocab.lexicon")
+function write_lexicon(arr::Array, name="vocab.lexicon", wordy=false)
     open(name, "w") do file
-        write(file, make_lexicon(arr))
+        write(file, make_lexicon(arr, wordy))
     end
 end
 function write_lexicon(str::String, name="vocab.lexicon")

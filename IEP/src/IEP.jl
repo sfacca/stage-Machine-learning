@@ -8,7 +8,7 @@ module IEP
     using WordTokenizers, SparseArrays
     import Catlab.WiringDiagrams: to_hom_expr
     using Compose: draw, PGF
-    using TextAnalysis
+    using TextAnalysis, TopicModels
 
     #using MethodAnalysis
 
