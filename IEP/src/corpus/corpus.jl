@@ -427,6 +427,113 @@ function make_bags_from_dir(dir)
 	fails
 end
 
+"""doc_fun_block_bag->doc_fun_block_voc"""
+function make_dfbv_from_dir(dir)
+	i = 0
+	count = 0
+	fails = []
+
+	for (root, dirs, files) in walkdir(dir)
+		for file in files
+			if !isfile("dfbv/$(__get_name(root)).jld2")
+				count += 1
+			end
+		end
+	end
+	
+	for (root, dirs, files) in walkdir(dir)
+		for file in files
+			if !isfile("dfbv/$(__get_name(root)).jld2") && endswith(file, ".jld2")
+				make_voc_from_jld2(root, file)
+				i += 1
+				println("handled file $(i) of $(count)")		
+			end	
+		end
+	end
+	i
+end
+
+function make_voc_from_jld2(root, file)
+	save("dfbv/$file", Dict(splitext(file)[1] => IEP.file_to_dfbv(root, file)))
+end
+
+function make_lexicons_from_dir(dir)
+	i = 0
+	count = 0
+	x = 0
+
+	doc_lexicon = []
+	block_lexicon = []
+	tmp_doc_lex = []
+	tmp_block_lex = []
+
+	for (root, dirs, files) in walkdir(dir)
+		for file in files
+			count += 1
+		end
+	end
+	
+	for (root, dirs, files) in walkdir(dir)
+		for file in files
+			# let's lower reallocation madness!
+			if x >= 20
+				doc_lexicon = unique(vcat(doc_lexicon, tmp_doc_lex))
+				block_lexicon = unique(vcat(block_lexicon, tmp_block_lex))
+				tmp_doc_lex = []
+				tmp_block_lex = []
+				x = 0
+			end
+			d, b = IEP.get_lexicons_from_file(root, file)
+			tmp_doc_lex = unique(vcat(tmp_doc_lex, d))
+			tmp_block_lex = unique(vcat(tmp_block_lex, b))
+			x +=1
+			i += 1
+			println("handled file $(i) of $(count)")	
+		end
+	end
+	doc_lexicon = unique(vcat(doc_lexicon, tmp_doc_lex))
+	block_lexicon = unique(vcat(block_lexicon, tmp_block_lex))
+	#write_lexicons(doc_lexicon, block_lexicon)
+	save("doc_lexicon.jld2", Dict("doc_lexicon"=>doc_lexicon))
+	save("block_lexicon.jld2", Dict("block_lexicon"=>block_lexicon))
+	doc_lexicon, block_lexicon
+end
+
+function make_docvecs_from_dir(dir, doc_lexicon=FileIO.load("doc_lexicon.jld2")["doc_lexicon"], block_lexicon=FileIO.load("block_lexicon.jld2")["block_lexicon"])
+	i = 0
+	count = 0
+
+	for (root, dirs, files) in walkdir(dir)
+		for file in files
+			if endswith(file, ".jld2")
+				count += 1
+			end
+		end
+	end
+
+	doc_dict = IEP.dict_of_lexicon(doc_lexicon)
+	block_dict = IEP.dict_of_lexicon(block_lexicon)
+	
+	for (root, dirs, files) in walkdir(dir)
+		for file in files
+			if endswith(file, ".jld2")
+
+				save_docvecs_from_file(root, file, doc_dict, block_dict)
+								
+				i += 1
+				println("handled file $(i) of $(count)")
+			end	
+		end
+	end
+	i
+end
+
+function save_docvecs_from_file(root, file, doc_dict, block_dict)
+	save("dfbdocvecs/$file", Dict(splitext(file)[1] => IEP.file_to_docvecs(root, file, doc_dict, block_dict)))
+end
+
+
+
 function make_cset(dir,return_errors =false)
 
 	num = 0
@@ -497,4 +604,56 @@ function add_to_cset(cset, dir::String,return_errors = false)
 	else 
 		cset
 	end
+end
+
+
+function check_bag(bagname::String, doc_lexicon=FileIO.load("doc_lexicon.jld2")["doc_lexicon"], block_lexicon=FileIO.load("block_lexicon.jld2")["block_lexicon"])
+
+	docvecs = FileIO.load("dfbdocvecs/$bagname.jld2")[bagname]
+	dfbvs = FileIO.load("dfbv/$bagname.jld2")[bagname]
+	dfbbags = FileIO.load("bags/$bagname.jld2")[bagname]
+
+	println("len docvecs: $(length(docvecs))")
+	println("len dfbvs: $(length(dfbvs))")
+	println("len dfbbags: $(length(dfbbags))")
+
+	res_docvecs = []
+	for docvec in docvecs
+		push!(res_docvecs, IEP.get_bags(docvec, doc_lexicon, block_lexicon))
+	end
+
+	res_dfbvs = []
+	for dfbv in dfbvs
+		push!(res_dfbvs, IEP.get_bags(dfbv))
+	end
+
+	res_dfbbags = []
+	for dfbbag in dfbbags
+		push!(res_dfbbags, IEP.get_bags(dfbbag))
+	end
+
+	misses = []
+	for i in 1:length(res_docvecs)
+		#check doc
+		if res_docvecs[i][1] != res_dfbvs[i][1]
+			push!(misses, "doc of res_docvec[$i] != res_dfbvs[$i] fun name is $(docvecs[i].fun)")
+		end
+		if res_docvecs[i][1] != res_dfbbags[i][1]
+			push!(misses, "doc of res_docvec[$i] != res_dfbbags[$i] fun name is $(docvecs[i].fun)")
+		end
+		if res_dfbvs[i][1] != res_dfbbags[i][1]
+			push!(misses, "doc of res_dfbvs[$i] != res_dfbbags[$i] fun name is $(dfbvs[i].fun)")
+		end
+		#check block
+		if res_docvecs[i][2] != res_dfbvs[i][2]
+			push!(misses, "doc of res_docvec[$i] != res_dfbvs[$i] fun name is $(docvecs[i].fun)")
+		end
+		if res_docvecs[i][2] != res_dfbbags[i][2]
+			push!(misses, "doc of res_docvec[$i] != res_dfbbags[$i] fun name is $(docvecs[i].fun)")
+		end
+		if res_dfbvs[i][2] != res_dfbbags[i][2]
+			push!(misses, "doc of res_dfbvs[$i] != res_dfbbags[$i] fun name is $(dfbvs[i].fun)")
+		end
+	end
+	misses, (res_docvecs, res_dfbvs, res_dfbbags)
 end

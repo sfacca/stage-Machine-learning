@@ -1,0 +1,8 @@
+/out (.zip of source code) ~4.8 GB
+/scrapes (.jld2 of FileDef/ModuleDef/FuncDef structs) ~10GB
+/dfbs (.jld2 of doc_fun_block where doc=docstring fun=function name and block=CSTParser.EXPR) ~9GB
+
+# from here forward AST is lost, replaced by .vals of EXPRs treated as "words" of the code block (CSTParser.EXPR => Array{String,1})
+/bags (.jld2 of doc_fun_block_bag where doc=array of docstring tokens, fun=func name, block=array of expr vals) ~647MB
+/dfbv (.jld2 of doc_fun_block_voc where doc*doc_voc is the docstring bag of words, block*block_voc is the block bag of words and fun is func name) ~360MB
+/dfbdocvecs (.jld2 of doc_fun_block_docvecs where doc*doc_lexicon is the docstring bag of words, block*block_lexicon is the block bag of words and fun is func name) ~157MB (+ lexicons ~30MB)
