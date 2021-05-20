@@ -8,7 +8,7 @@ using WordTokenizers
 
 # ╔═╡ 45bc8a80-77a7-11eb-051f-f72a421f3795
 using Pkg, CSTParser, FileIO, JLD2
-
+#Pkg.activate("../.")
 # ╔═╡ 81278630-778c-11eb-27c8-03e3def7f22b
 try
 	IEP
@@ -627,9 +627,52 @@ function block_dirichlet()
 	IEP.dirichlet(readDocs(open("block_bags.documents")), readLexicon(open("block.lexicon")))
 end
 
+function _stats(docs, lexi::Array{String,1})
+	reversi = Array{Array{Int,1},1}(undef,length(lexi))
 
-	
+	for i in 1:length(reversi)
+		reversi[i] = []
+	end
 
+	for i in 1:length(docs)
+		for elem in docs[i].terms
+			push!(reversi[elem], i)
+		end
+	end
+
+	abundance = [length(x) for x in reversi]
+	common = sortperm(abundance, rev=true)# indexes of words by most common
+	words_with_abundance_sorted = [(lexi[i], abundance[i]) for i in 1:length(lexi)][common]
+end
+
+
+function doc_stats()
+	_stats(readDocs(open("doc_bags.documents")), readLexicon(open("doc.lexicon")))
+end
+
+function block_stats()
+	_stats(readDocs(open("block_bags.documents")), readLexicon(open("block.lexicon")))
+end
+
+function get_bags(docu, lexi)
+	bags = Array{Array{String,1},1}(undef, length(docu))
+	for i in 1:length(docu)
+		bags[i] = Array{String,1}(undef, 0)
+		for term in docu[i].terms
+			push!(bags[i], lexi[term])
+		end
+		bags[i] = sort(bags[i])
+	end
+	bags
+end
+
+function get_doc_bags()
+	get_bags(readDocs(open("doc_bags.documents")), readLexicon(open("doc.lexicon")))
+end
+
+function get_block_bags()
+	get_bags(readDocs(open("block_bags.documents")), readLexicon(open("block.lexicon")))
+end
 
 
 
