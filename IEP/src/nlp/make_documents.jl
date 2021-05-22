@@ -51,8 +51,8 @@ function _make_doc_line(vals, ids)
     else
         str = "$(length(vals)) "
         for i in 1:length(vals)
-            str*="$(Int(ids[i])):$(Int(vals[i])) "
-        end
+            str*="$(Int(ids[i]-1)):$(Int(vals[i])) " #NB: indexes to lexicon are 1:lexicon length in Julia, 0:lexicon length-1 in LDA-C
+        end                                          # also to note, readDocs reverses this -1: readDocs(" 0:2") -> [1,1]
         str = str[1:end-1]#trailing whitespacesa break readDocs
         str*="\n"
     end

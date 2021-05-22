@@ -458,7 +458,7 @@ function make_voc_from_jld2(root, file)
 	save("dfbv/$file", Dict(splitext(file)[1] => IEP.file_to_dfbv(root, file)))
 end
 
-function make_lexicons_from_dir(dir,  LDAC=false)
+function make_lexicons_from_dir(dir,  LDAC=false, save_files=true)
 	i = 0
 	count = 0
 	x = 0
@@ -494,12 +494,14 @@ function make_lexicons_from_dir(dir,  LDAC=false)
 	end
 	doc_lexicon = unique(vcat(doc_lexicon, tmp_doc_lex))
 	block_lexicon = unique(vcat(block_lexicon, tmp_block_lex))
-	#write_lexicons(doc_lexicon, block_lexicon)
-	save("doc_lexicon.jld2", Dict("doc_lexicon"=>doc_lexicon))
-	save("block_lexicon.jld2", Dict("block_lexicon"=>block_lexicon))
-	if LDAC
-		IEP.write_lexicon(doc_lexicon, "doc_vocab.lexicon")
-		IEP.write_lexicon(block_lexicon, "block_lexicon.lexicon")		
+	if save_files
+		#write_lexicons(doc_lexicon, block_lexicon)
+		save("doc_lexicon.jld2", Dict("doc_lexicon"=>doc_lexicon))
+		save("block_lexicon.jld2", Dict("block_lexicon"=>block_lexicon))
+		if LDAC
+			IEP.write_lexicon(doc_lexicon, "doc_vocab.lexicon")
+			IEP.write_lexicon(block_lexicon, "block_lexicon.lexicon")		
+		end
 	end
 	doc_lexicon, block_lexicon
 end

@@ -143,6 +143,19 @@ function file_to_docvecs(root, file, doc_dict::Dict{T,Int64}, block_dict::Dict{S
     res
 end
 
+function get_bags(docu::Array{TopicModels.Document,1}, lexi::Array{String,1})
+	bags = Array{Array{String,1},1}(undef, length(docu))
+	for i in 1:length(docu)
+		bags[i] = Array{String,1}(undef, 0)
+		for term in docu[i].terms
+			push!(bags[i], lexi[term])
+		end
+		bags[i] = sort(bags[i])
+	end
+	bags
+end
+
+
 function make_docvec(tmp::doc_fun_block_voc, doc_dict::Dict{T,Int64}, block_dict::Dict{S,Int64}) where {T, S}
     doc_docvec = spzeros(length(doc_dict))
     block_docvec = spzeros(length(block_dict))
@@ -155,11 +168,40 @@ function make_docvec(tmp::doc_fun_block_voc, doc_dict::Dict{T,Int64}, block_dict
     doc_fun_block_docvecs(doc_docvec, tmp.fun, block_docvec)
 end
 
+
+function make_docvec(tmp::Array{doc_fun_block_voc,1}, doc_dict::Dict{T,Int64}, block_dict::Dict{S,Int64})::Array{doc_fun_block_docvecs,1} where {T, S}
+    res = []
+    for tm in tmp
+        push!(res, make_docvec(tm, doc_dict, block_dict))
+    end
+    res
+end
+
 struct doc_fun_block_docvecs
     doc::SparseVector{Float64,Int64}
     fun::String
     block::SparseVector{Float64,Int64}
 end
+
+function make_mat_from_docvecs(tmp::Array{doc_fun_block_docvecs,1})
+    doc_docvecs = [x.doc for x in tmp]
+    fun_names = [x.fun for x in tmp]
+    block_docvecs = [x.block for x in tmp]	
+	# one column is a docvec
+	doc_mat = spzeros(length(doc_docvecs[1]),length(doc_docvecs))#row, cols
+	for i in 1:length(doc_docvecs)
+		doc_mat[:,i] = doc_docvecs[i]
+		#println("built document vector column $i out of $(length(doc_docvecs))")
+	end
+	block_mat = spzeros(length(block_docvecs[1]),length(block_docvecs))#row, cols
+	for i in 1:length(block_docvecs)
+		block_mat[:,i] = block_docvecs[i]
+		#println("built document vector column $i out of $(length(block_docvecs))")
+	end
+	doc_mat, fun_names, block_mat
+end
+
+
 
 function _clean_block(block::Array{String}, unwanted = ["(",")",".",",","::","=","/", "", "!","!=","==","...",".."])
     filter((x)->(!(x in unwanted)),block)

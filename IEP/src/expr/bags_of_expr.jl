@@ -57,3 +57,5 @@ function file_to_bags(root, file, stemmer=Stemmer("english"), tokenizer=punctuat
     println("finished $(splitext(file)[1])")
     res
 end
+
+
