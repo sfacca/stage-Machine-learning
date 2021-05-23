@@ -539,9 +539,9 @@ function save_docvecs_from_file(root, file, doc_dict, block_dict)
 	save("dfbdocvecs/$file", Dict(splitext(file)[1] => IEP.file_to_docvecs(root, file, doc_dict, block_dict)))
 end
 
-
+using SparseArrays
 """doc_fun_block_docvecs => documents matrix"""
-function make_matrix_from_dir(dir)
+function make_matrix_from_dir(dir, save_files=true)
 	#1 load every doc_fun_block_docvecs array in dir
 	doc_docvecs = []
 	block_docvecs = []
@@ -582,16 +582,25 @@ function make_matrix_from_dir(dir)
 	doc_mat = spzeros(length(doc_docvecs[1]),length(doc_docvecs))#row, cols
 	for i in 1:length(doc_docvecs)
 		doc_mat[:,i] = doc_docvecs[i]
-		#println("built document vector column $i out of $(length(doc_docvecs))")
+		if i/100 == round(i/100)
+			println("built document vector column $i out of $(length(doc_docvecs)) for doc matrix")
+		end
 	end
 	println("building block mat...")
 	block_mat = spzeros(length(block_docvecs[1]),length(block_docvecs))#row, cols
 	for i in 1:length(block_docvecs)
 		block_mat[:,i] = block_docvecs[i]
-		#println("built document vector column $i out of $(length(block_docvecs))")
+		if i/100 == round(i/100)
+			println("built document vector column $i out of $(length(block_docvecs)) for block matrix")
+		end
 	end
 
 	println("returning doc_mat, block_mat, fun_names, source_ranges...")
+	if save_files
+		println("saving files block.documents and doc.documents")
+		IEP.write_documents(block_mat,"block_bags.documents")
+		IEP.write_documents(doc_mat,"doc_bags.documents")
+	end
 	doc_mat, block_mat, fun_names, source_ranges
 end
 
@@ -611,7 +620,7 @@ function make_indexing(fun_names, src_ranges)
 	indexes
 end
 
-function dirichlet()
+function dirichlet(; topicnum = 10, numwords = 10, iterations = 10)
 	doc_docus = readDocs(open("doc_bags.documents"))
 	doc_lexi = readLexicon(open("doc.lexicon"))
 
@@ -619,14 +628,14 @@ function dirichlet()
 	block_docus = readDocs(open("block_bags.documents"))
 	block_lexi = readLexicon(open("block.lexicon"))
 
-	IEP.dirichlet(doc_docus, doc_lexi), IEP.dirichlet(block_docus, block_lexi)
+	IEP.dirichlet(doc_docus, doc_lexi; topicnum, numwords, iterations), IEP.dirichlet(block_docus, block_lexi; topicnum, numwords, iterations)
 end
 
-function doc_dirichlet()
-	IEP.dirichlet(readDocs(open("doc_bags.documents")), readLexicon(open("doc.lexicon")))
+function doc_dirichlet(; topicnum = 10, numwords = 10, iterations = 10)
+	IEP.dirichlet(readDocs(open("doc_bags.documents")), readLexicon(open("doc.lexicon")); topicnum, numwords, iterations)
 end
-function block_dirichlet()
-	IEP.dirichlet(readDocs(open("block_bags.documents")), readLexicon(open("block.lexicon")))
+function block_dirichlet(; topicnum = 10, numwords = 10, iterations = 10)
+	IEP.dirichlet(readDocs(open("block_bags.documents")), readLexicon(open("block.lexicon")); topicnum, numwords, iterations)
 end
 
 function _stats(docs, lexi::Array{String,1})

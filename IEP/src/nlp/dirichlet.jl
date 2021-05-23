@@ -1,5 +1,5 @@
 
-function dirichlet(documents, lexicon, topicnum = 10, numwords = 10, iterations = 10)    
+function dirichlet(documents, lexicon; topicnum = 10, numwords = 10, iterations = 10)    
     println("making documents/lexicon corpus...")
     crps = TopicModels.Corpus(documents, lexicon)
     println("making model with $topicnum topics...")

@@ -4,7 +4,7 @@ the file consists of one document per line.
 * the line is prefixed by a number indicating the number of tuples for that document.
 * the tuples are separated by spaces
 * each document consists of a collection of tuples
-        * the first element of each tuple expresses the word indicated by an index into the lexicon file, starting at zero
+        * the first element of each tuple expresses the word indicated by an index into the lexicon file, **starting at zero**
         * the second element expresses the number of times that word appears in the document.
 """
 function make_documents(bags::SparseMatrixCSC)
