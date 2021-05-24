@@ -52,3 +52,7 @@ function presence(mat::SparseMatrixCSC)
     res
 end
 
+function word_abundance_presence(mat::SparseMatrixCSC, lexi::Array{String,1})    
+    word_abundance(presence(mat))
+end
+

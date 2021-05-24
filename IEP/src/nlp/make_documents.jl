@@ -22,6 +22,9 @@ function make_documents(bags::SparseMatrixCSC)
             range = bags.colptr[i]:(bags.colptr[i+1]-1)            
             str*=_make_doc_line(bags.nzval[range], bags.rowval[range])
             #str*="\n"
+        else
+            # empty bag handling
+            str*="0\n"
         end
         #if i != bags.n
             #str*="\n" # trailing newline breaks readDocs
@@ -30,7 +33,6 @@ function make_documents(bags::SparseMatrixCSC)
 
     str[1:end-1]
 end
-
 function write_documents(bags::SparseMatrixCSC, name="bags.documents")
     open(name,"w") do file
         write(file, make_documents(bags))
@@ -57,6 +59,34 @@ function _make_doc_line(vals, ids)
         str*="\n"
     end
     str
+end
+
+function make_docs_array(bags::SparseMatrixCSC)
+    res = Array{TopicModels.Document,1}(undef,bags.n)
+    for i in 1:bags.n
+        println("preparing documentline $i of $(bags.n)")
+        if bags.colptr[i] != (bags.colptr[i+1]-1)
+
+            res[i] = _sparse_to_document(bags[:,i])
+        else
+            res[i] = TopicModels.Document(Array{Int,1}(undef,0))            
+        end
+        #if i != bags.n
+            #str*="\n" # trailing newline breaks readDocs
+        #end 
+    end
+
+    res
+end
+
+function _sparse_to_document(spr)
+    res = Array{Int,1}(undef,0)
+    #nzind -> index
+    #nzval -> value
+    for i in 1:length(spr.nzind)
+       res = vcat(res, repeat([Int(spr.nzind[i])], Int(spr.nzval[i])))
+    end
+    TopicModels.Document(res)
 end
 
 #=

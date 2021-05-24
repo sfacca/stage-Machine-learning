@@ -632,10 +632,10 @@ function dirichlet(; topicnum = 10, numwords = 10, iterations = 10)
 end
 
 function doc_dirichlet(; topicnum = 10, numwords = 10, iterations = 10)
-	IEP.dirichlet(readDocs(open("doc_bags.documents")), readLexicon(open("doc.lexicon")); topicnum, numwords, iterations)
+	IEP.dirichlet(FileIO.open("doc_docs_documents.jld2")["doc_docs"], readLexicon(open("doc.lexicon")); topicnum, numwords, iterations)
 end
 function block_dirichlet(; topicnum = 10, numwords = 10, iterations = 10)
-	IEP.dirichlet(readDocs(open("block_bags.documents")), readLexicon(open("block.lexicon")); topicnum, numwords, iterations)
+	IEP.dirichlet(FileIO.open("block_docs_documents.jld2")["block_docs"], readLexicon(open("block.lexicon")); topicnum, numwords, iterations)
 end
 
 function _stats(docs, lexi::Array{String,1})
@@ -683,6 +683,16 @@ end
 
 function get_block_bags()
 	get_bags(readDocs(open("block_bags.documents")), readLexicon(open("block.lexicon")))
+end
+
+function count_nonempty_bags(bags)
+	c = 0
+	for i in 1:bags.m
+		if sum(bags[:,i]) > 0
+			c+=1
+		end
+	end
+	c
 end
 
 
