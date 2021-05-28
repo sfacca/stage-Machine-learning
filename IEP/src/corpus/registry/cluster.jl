@@ -19,11 +19,13 @@ function find_closest(arr, arr_of_arr)
     sort_perm[1], distances[sort_perm[1]]
 end
 
+# returns number of elements in arr1 that are not in arr2 + number of elements that are in arr2 but not in arr1
 function _differences(arr1, arr2)
     l = length(unique(vcat(arr1,arr2)))
     (l - length(arr1)) + (l - length(arr2))
 end
 
+#returns number of elements in arr1 that are in arr2
 function _similarities(arr1, arr2)
     s = 0
     for e in arr1
@@ -39,6 +41,10 @@ function find_all_close(arr_of_arr1, arr_of_arr2)
         push!(res, find_closest(arr, arr_of_arr2))
     end
     res
+end
+
+function non_empty_bags_indexes(mat)
+    filter((x)->(!isempty(mat[:,x].nzval)), [i for i in 1:size(mat)[2]])
 end
 
 #=
