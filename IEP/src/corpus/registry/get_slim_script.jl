@@ -4,7 +4,10 @@ using FileIO, SparseArrays
 t = FileIO.load("doc_mat.jld2")["doc_mat"]
 indexes = non_empty_bags_indexes(t)
 slim_doc = t[:,indexes]
+t = FileIO.load("fun_names.jld2")["fun_names"]
+function_names = t[indexes]
 t = nothing
 println("slim_doc contains the matrix")
 println("indexes contains the indexes of the whole mat that correspond with the reduced one")
 println("meaning slim_doc[:,i] == doc_mat[:,indexes[i]]")
+println("function names are in names")

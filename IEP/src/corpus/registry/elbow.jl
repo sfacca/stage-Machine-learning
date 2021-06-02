@@ -21,7 +21,7 @@ default range is 1:number of columns/50
 save_parts = true will have the function save each k means result as a jld2 called [name][k].jld2
 set step > 1 to skip values in the range, eg step = 2 will have the function calculate 1 every two k values in the range
 """
-function kmeans_range(mat, range=nothing, verbose=false, save_parts=false, name="kmeans_", step=1, parallel=false)
+function kmeans_range(mat, range=nothing, verbose=true, save_parts=true, name="kmeans_", step=1, parallel=false)
     if isnothing(range)
         range = 2:round(length(mat[:,1]/50))
     end
@@ -34,16 +34,26 @@ function kmeans_range(mat, range=nothing, verbose=false, save_parts=false, name=
         if step <= c_step  
             if parallel          
                 push!(res, ParallelKMeans.kmeans(mat, i; tol=1e-6, max_iters=300, verbose=verbose))
-            else
-                push!(res, Clustering.kmeans(mat, i))
-            end
-            if save_parts && !(isfile("kmeans/$name$i.jld2"))
+                if save_parts && !(isfile("kmeans/$name$i.jld2"))
                 FileIO.save("kmeans/$name$i.jld2", Dict("kmeans"=>res[end]))
                 println("saved k means $i to $name$i.jld2")
+                end
+                if verbose
+                    println("done k means $i in $range")
+                end
+            else
+                for j in i
+                    push!(res, Clustering.kmeans(mat, j))
+                    if save_parts && !(isfile("kmeans/$name$j.jld2"))
+                        FileIO.save("kmeans/$name$j.jld2", Dict("kmeans"=>res[end]))
+                        println("saved k means $j to $name$j.jld2")
+                    end
+                    if verbose
+                        println("done k means $j in $range")
+                    end
+                end
             end
-            if verbose
-                println("done k means $i in $range")
-            end
+            
             c_step = 1
         else
             println("skipping $i")
@@ -59,6 +69,72 @@ function clusters_distortion(kres)
     sum([x^2 for x in kres.costs])/length(kres.costs)    
 end
 
+function clusters_distance_to_center(kres, data, distance)
+    ds = zeros(data.n)
+    for i in 1:data.n 
+        ds[i] = distance(kres.centers[:,kres.assignments[i]], data[:,i])
+    end
+    ds
+end
+
+function mean_cluster_cheby(kres, data)
+    cheb = clusters_distance_to_center(kres, data, chebyshev)
+    counts = zeros(maximum(kres.assignments))
+    sums = zeros(maximum(kres.assignments))
+    for i in 1:length(cheb)
+        # i = document number/column in data+
+        sums[kres.assignments[i]] += cheb[i]
+        counts[kres.assignments[i]] += 1
+    end
+
+    for i in 1:length(sums)
+        sums[i] = sums[i]/counts[i]
+    end
+    sums
+end 
+
+function clusters_custom_distortion(kres, data, distance)
+    sum(clusters_distance_to_center(kres, data, distance))/data.n
+end
+
+function custom_elbow_folder(dir, data, distance)
+    k = []
+    distortions = []
+
+    for (root, dirs, files) in walkdir(dir)
+        for file in files
+            if endswith(file, ".jld2")
+                tmp = FileIO.load(joinpath(root,file))["kmeans"]
+                push!(distortions, clusters_custom_distortion(tmp, data, distance))
+                push!(k, maximum(tmp.assignments))
+            end
+        end
+    end
+    s = sortperm(k)
+    k[s], distortions[s]
+end
+
+
+function manha_elbow_folder(dir, data)    
+    custom_elbow_folder(dir, data, cityblock) 
+end
+function cheby_elbow_folder(dir, data)
+    custom_elbow_folder(dir, data, chebyshev)
+end
+
+using SparseArrays
+
+function clusters_sum(kres, data)
+    res = spzeros(size(kres.centers)[1], size(kres.centers)[2])
+    for i in 1:data.n
+        # grab a column = document
+        for j in 1:data.m 
+            # column number = assigned cluster
+            res[j, kres.assignments[i]] += data[j,i]
+        end
+    end
+    res
+end
 
 function elbow_folder(dir)
     k = []
