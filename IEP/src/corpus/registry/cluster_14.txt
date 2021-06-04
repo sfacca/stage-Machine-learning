@@ -1,0 +1,29 @@
+################################### FREQUENCY ###################################
+the, for, be, to, is, a, in, of, use, and, If, are, The, with, as, or, if, 1, by, this
+not, 2, function, will, that, number, it, an, This, each, on, default, can, return, type, from, all, julia, valu, argument
+which, set, 3, ref, data, For, have, vector, 0, onli, true, See, where, has, In, also, you, should, more, Exampl
+pass, call, then, one, option, case, at, run, no, 4, keyword, when, same, result, provid, tupl, first, A, indic, specifi
+time, follow, over, x, matrix, allow, input, array, see, need, chang, so, d, Julia, fals, real, they, doe, exampl, It
+
+################################# DIFF FREQUENCY ################################
+################################# more frequent ################################
+If, are, The, this, use, be, as, or, if, not, number, will, by, with, function, each, for, default, 1, 2
+in, is, This, that, it, on, type, can, and, all, For, an, have, argument, return, onli, set, julia, has, to
+In, which, 3, vector, you, more, valu, where, should, from, 0, data, See, true, pass, then, ref, also, call, option
+run, case, one, no, a, keyword, Exampl, of, when, same, result, tupl, provid, 4, indic, at, allow, first, follow, need
+over, see, real, they, chang, doe, input, Julia, so, matrix, time, A, d, how, specifi, array, exampl, may, fals, It
+
+################################# less frequent ################################
+const, char, id, void, OGR, AbstractArray, geometri, B, factor, F, doubl, q, io, Check, Set, vertex, num, Point, angl, Find
+atom, radius, Take, val, Fetch, domain, Determin, Remov, boundari, action, tree, insid, draw, binari, https://portal.hdfgroup.org/display/HDF, Update, libhdf, Test, callback, pointer
+hid, Get, sort, averag, rand, residu, constructor, dt, AbstractMatrix, OGRErr, OGRSpatialReferenceH, Draw, parent, kernel, interpol, surfac, mask, Run, fraction, veloc
+θ, Ptr, hSRS, scene, Input, day, face, suppli, chain, Time, depth, Make, queri, Object, pattern, Transform, alpha, mesh, itself, res
+keep, year, 64,2, ctx, regist, Initial, OGRGeometryH, Equival, dict, β, deviat, disk, geom, idx, Print, Node, Implement, col, proj, polynomi
+
+################################# FUNCTION NAMES ################################
+DataDep, NameDef(  1:10  canonalize, nothing), NameDef(  1:10  deploydocs, nothing), NameDef(  1:8   makedocs, nothing), RoutingData, Rows, TunedModel, abm_plot, abm_plot, addprocs, build_histogram, cmap, cudnnGetRNNWeightParams, dim, dim, direct_path_relink!, dispatch!, equalisecolourmap, fVec, find_zeros
+gdaldatasetgetvirtualmem, geometricMean, geometricMean, geometricpMean, histeq, imhist, innerjoin, leftjoin, logdet0Mean, logdet0Mean, model_parameters, open_video_out, outerjoin, path_relink!, plot, powerMean, powerMean, quadgk, ransac, remez
+rightjoin, run_opt, tess_tsv, wasMean, wasMean, while_loop, 
+############################### FUNCTION ORIGINS ################################
+BrkgaMpIpr, CSV, CUDNN, DataDeps, DataFrames, Dispatcher, Distributed, Filters, GDAL, ImageContrastAdjustment, ImageProjectiveGeometry, Images, MLJTuning, ModiaPlot, PerceptualColourMaps, PosDefManifold, QuadGK, Roots, Seleroute, VideoIO
+tmp/TensorFlow\malmaud-TensorFlow, tmp/Tesseract\pixel27-Tesseract, |tmp/BioEnergeticFoodWebs\PoisotLab-BioEnergeticFoodWebs, |tmp/CapacityExpansion\YoungFaithful-CapacityExpansion, |tmp/Documenter\JuliaDocs-Documenter, |tmp/InteractiveChaos\JuliaDynamics-InteractiveDynamics, |tmp/InteractiveDynamics\JuliaDynamics-InteractiveDynamics, |tmp/Pluto\fonsp-Pluto, 

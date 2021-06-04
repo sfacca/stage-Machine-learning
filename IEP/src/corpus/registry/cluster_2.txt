@@ -1,0 +1,26 @@
+################################### FREQUENCY ###################################
+the, for, use, as, and, by, it, an, will, be, to, is, a, 1, that, can, which, set, in, of
+The, with, or, one, first, valu, at, 0, 2, are, so, x, differ, if, true, from, This, For, each, have
+not, this, If, on, 3, also, when, function, point, exampl, where, has, below, f, no, array, option, indic, end, two
+relat, given, Exampl, julia, data, argument, call, number, specifi, time, follow, In, case, vector, correspond, but, all, then, return, default
+posit, interfac, than, s, defin, same, Note, more, A, c, index, 8, contain, fals, name, result, input, repres, see, need
+
+################################# DIFF FREQUENCY ################################
+################################# more frequent ################################
+differ, so, first, one, set, at, which, will, can, 0, it, valu, x, are, as, by, The, that, or, 2
+an, use, below, relat, exampl, two, be, end, indic, 1, no, For, when, has, have, option, f, with, where, point
+each, array, also, true, this, 3, This, If, not, for, on, in, if, is, function, from, and, interfac, control, depend
+perform, In, repres, follow, need, direct, see, start, than, more, 8, posit, iter, Note, c, case, correspond, defin, but, error
+then, index, same, input, time, result, call, contain, fals, specifi, argument, vector, default, A, name, to, number, s, given, all
+
+################################# less frequent ################################
+Return, model, Array, T, AbstractStr, node, Get, sampl, v, int, Real, graph, such, k, handl, Tupl, const, char, id, out
+run, add, calcul, write, random, void, Convert, exist, label, Construct, NULL, integ, ×, arg, document, Calcul, convert, test, version, Keyword
+center, entri, dim, OGR, AbstractArray, geometri, structur, featur, log, P, julia-repl, user, Add, dataset, pair, accord, distribut, doubl, condit, bound
+been, frame, io, block, compat, Check, definit, coeffici, tag, context, attribut, Name, vertex, Point, construct, Perform, Find, stream, mode, directori
+atom, Write, local, Take, automat, Plot, group, frequenc, region, 64,1, degre, content, except, val, Fetch, Model, Remov, integr, display, accept
+
+################################# FUNCTION NAMES ################################
+File, NameDef(  1:4   path, nothing), continuation, diva3d, find_zero, imgradients, 
+############################### FUNCTION ORIGINS ################################
+BifurcationKit, CSV, DIVAnd, ImageFiltering, Roots, |tmp/GR\jheinen-GR, 

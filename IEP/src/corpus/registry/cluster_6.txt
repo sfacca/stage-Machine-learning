@@ -1,0 +1,26 @@
+################################### FREQUENCY ###################################
+ref, the, for, given, use, and, support, by, Exampl, julia, 10, form, from, R, an, will, be, to, is, a
+1, that, each, can, which, set, in, of, The, specifi, with, 4, time, addit, must, or, one, valu, on, 5
+0, 3, 2, are, element, pixel, Option, posit, between, output, function, type, should, D, exampl, cc, circular, text, where, add
+Note, deriv, Refer, imag, beyond, T, matrix, box, below, more, detail, A, zero, You, 12, 24, Fill, 8, An, dimens
+6, input, Symbol, 20, array, option, base, align, negat, new, end, start, style, pad, two, document, condit, may, 30, around
+
+################################# DIFF FREQUENCY ################################
+################################# more frequent ################################
+imgpad, illustrations, ccccccccccccc, mathsf, cccc, padarray, Instanc, infin, multi-dimension, mathbf, mathbb, 1,1,1, extrapol, OffsetArray, 36, quad, cc, 4,4, beyond, prepend
+Pad, replic, images, Fill, border, 18, Valid, reflect, expans, circular, scheme, 25, yield, 24, design, Option, symmetr, pad, command, amount
+30, align, repeat, image, itself, particular, Detail, negat, 15, wrap, begin, style, detail, around, math, You, img, Each, below, deriv
+16, Output, pixel, boundari, 12, box, 20, describ, Refer, addit, specif, An, 9, condit, 7, text, relat, document, edg, support
+add, form, Gener, R, zero, 6, imag, exampl, 10, base, start, may, more, D, 8, posit, Note, two, end, dimens
+
+################################# less frequent ################################
+Return, as, if, return, x, it, not, If, data, Int, This, all, s, number, this, at, true, See, name, object
+default, 64, vector, also, argument, file, String, Argument, point, model, Vector, y, Float, t, Array, jldoctest, size, fals, contain, call
+method, get, result, Paramet, into, f, onli, Comput, n, paramet, Bool, Creat, first, string, have, p, has, same, index, then
+when, current, error, but, list, For, no, i, variabl, pass, defin, ani, path, length, Set, indic, d, b, Integer, correspond
+AbstractStr, field, comput, whether, node, case, noth, order, kwarg, creat, Union, Get, keyword, c, sampl, v, iter, It, provid, tupl
+
+################################# FUNCTION NAMES ################################
+padarray, 
+############################### FUNCTION ORIGINS ################################
+ImageFiltering, 

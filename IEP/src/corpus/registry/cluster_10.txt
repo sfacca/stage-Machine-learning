@@ -1,0 +1,26 @@
+################################### FREQUENCY ###################################
+ref, kwarg, the, for, algorithm, use, as, refer, if, and, support, by, Exampl, julia, data, size, true, it, from, R
+an, Keyword, argument, will, be, pass, to, This, is, a, conveni, call, 1, AbstractVector, such, that, For, each, creat, can
+filter, which, have, not, set, requir, length, in, of, The, number, specifi, with, limit, 4, applic, addit, inform, follow, keyword
+must, or, width, r, automat, In, do, case, vector, one, this, tuple, If, tupl, first, valu, on, into, at, 0
+3, 2, instanc, are, element, chang, onli, but, we, want, all, everi, then, return, default, See, also, posit, between, singl
+
+################################# DIFF FREQUENCY ################################
+################################# more frequent ################################
+sortkey, Formatt, subheaders, sub-headers, sub-head, left-align, center-align, right-align, rownum, cropped, nosubhead, summary, vcrop, terminals, Crayons.jl, https://github.com/KristofferC/Crayons.jl, highlighter, highlighted, unformat, HTMLTableFormat
+LatexHighlight, LatexTableFormat, egin, neglected, sortabl, continuously, highlighters, subhead, formatters, linebreak, unlimited, TextFormat, textbf, bg, previously, fall-back, compli, Pretti, aligned, nohead
+autowrap, displays, longtabl, hline, Header, vline, Alignment, sprint, Backend, tables, j-th, ellipsi, Environ, footer, back-end, br, standalon, Cell, mention, discarded
+bold, HTMLHighlight, HTMLDecor, Furthermor, foreground, cells, omitted, sorted, crayon, Crayon, tested, crop, IOContext, tabular, compliant, suppress, documentation, integers, Henc, printed
+public, AND, Titl, Text, formatt, body, bigger, added, Highlight, Tables.jl, filters, regex, newlin, isodd, computed, fd, title, verifi, generated, wherea
+
+################################# less frequent ################################
+Return, x, given, 64, file, array, Argument, model, y, Float, t, Array, jldoctest, method, get, result, Paramet, time, Comput, 5
+input, Creat, p, T, index, current, path, Set, d, b, Integer, correspond, AbstractStr, node, Get, Note, sampl, iter, provid, 8
+generat, X, D, int, Real, may, start, you, graph, 10, state, imag, e, k, m, Julia, 6, map, zero, grid
+weight, store, e.g, const, there, initi, plot, either, z, char, need, Gener, id, repres, step, g, form, out, run, add
+system, read, 1.0, take, determin, Type, normal, calcul, implement, edg, write, random, Matrix, void, Convert, check, exist, collect, transform, filenam
+
+################################# FUNCTION NAMES ################################
+pretty_table, 
+############################### FUNCTION ORIGINS ################################
+PrettyTables, 

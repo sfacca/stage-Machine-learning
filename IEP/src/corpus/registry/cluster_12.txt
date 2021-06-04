@@ -1,0 +1,26 @@
+################################### FREQUENCY ###################################
+the, approxim, for, given, algorithm, use, as, if, and, by, load, data, S, 10, size, true, form, it, from, R
+process, an, argument, will, be, pass, to, This, is, a, call, 1, such, that, under, For, each, can, which, have
+not, suffici, set, requir, length, in, unit, of, The, number, specifi, with, limit, e.g, 4, time, Becaus, applic, addit, inform
+follow, must, provid, or, width, measur, calcul, threshold, automat, In, version, do, implement, current, case, reduc, vector, one, correspond, this
+too, If, increas, linear, first, valu, last, on, 5, into, at, 0, 3, 2, Calcul, These, are, through, element, chang
+
+################################# DIFF FREQUENCY ################################
+################################# more frequent ################################
+DASKR, idid, rwork, lrw, iwork, liw, rpar, ipar, psol, nrt, jroot, IMPLICIT, A-H, O-Z, INTEGER, NEQ, IDID, LRW, LIW, IWORK
+IPAR, YPRIME, TOUT, RTOL, ATOL, RWORK, RPAR, RES, JAC, PSOL, CALL, DDASKR, NRT, JROOT, EXT, differential/algebra, INOUT, subroutines, Overview, arises
+half-bandwidth, SPIGMR, dG/di, CJ, dG/dYPRIME, P-invers, inexpens, extran, CINPUT, FIRST, SUBROUTINE, IRES, downward-compat, DDASSL, permitted, intermediate-output, TSTOP, questions, interval-output, ativ
+i-ML, i+MU, ML+MU, aNoth, HMAX, Differential/algebra, MAXORD, constrained, LID+I, LID, Except, MAXL, KMP, NRMAX, EPLI, WP, IWP, MXNIT, MXNJ, MXNH
+LSOFF, STPTOL, EPINIT, swing, EPCON, XSETUN, EWT, unreason, 4,7, MAXL-KMP, LENWP, LENIWP, dYPRIME, IROW, REWT, SAVR, WK, IER, DDAWTS, tried
+
+################################# less frequent ################################
+Return, ref, julia, Exampl, Int, object, 64, file, String, model, Vector, Float, Array, jldoctest, Paramet, f, n, Bool, Creat, string
+index, path, Symbol, Integer, AbstractStr, field, node, noth, kwarg, creat, Union, Get, keyword, c, sampl, v, tupl, X, D, int
+Real, coordin, column, graph, state, Function, imag, e, k, m, Julia, map, Tupl, format, Dict, grid, r, const, plot, z
+char, Default, key, id, g, support, read, singl, Type, AbstractVector, edg, random, void, Convert, second, collect, transform, filenam, label, Construct
+otherwis, NULL, refer, ×, color, we, arg, document, rang, convert, match, distanc, vertic, sum, Keyword, Number, center, assum, row, dim
+
+################################# FUNCTION NAMES ################################
+unsafe_solve, 
+############################### FUNCTION ORIGINS ################################
+DASKR, 

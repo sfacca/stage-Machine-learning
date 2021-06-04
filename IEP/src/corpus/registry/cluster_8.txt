@@ -1,0 +1,36 @@
+################################### FREQUENCY ###################################
+the, of, to, and, in, is, for, be, The, are, with, a, by, 1, If, use, valu, or, that, not
+this, will, as, 2, return, argument, on, true, an, can, which, function, specifi, if, all, it, ref, from, number, Return
+This, default, also, keyword, 0, 3, Argument, julia, each, type, option, array, set, fals, given, See, Exampl, element, name, Int
+have, Vector, vector, at, then, Float, list, Keyword, For, one, mean, matrix, y, object, data, Bool, size, sampl, onli, result
+noth, In, first, posit, case, where, equal, when, A, label, both, ani, should, contain, weight, you, x, String, length, calcul
+
+################################# DIFF FREQUENCY ################################
+################################# more frequent ################################
+The, be, are, in, is, If, for, and, with, by, this, valu, will, not, to, 1, or, that, use, argument
+as, of, true, specifi, return, 2, which, can, on, all, keyword, it, ref, number, function, also, if, option, default, Argument
+an, This, each, fals, from, array, 3, 0, type, set, Keyword, julia, mean, See, have, list, then, the, element, For
+given, Vector, matrix, Float, sampl, name, a, Exampl, y, Bool, In, one, noth, vector, equal, Int, size, object, posit, onli
+at, first, result, both, case, label, weight, values, when, data, you, calcul, where, ani, instead, Use, should, length, report, contain
+
+################################# less frequent ################################
+Get, Construct, graph, OGR, Add, Check, tag, Convert, Point, Fetch, Remov, obj, https://portal.hdfgroup.org/display/HDF, libhdf, hid, global, config, OGRErr, OGRSpatialReferenceH, download
+str, explicit, θ, hSRS, scene, popul, fix, F, mesh, Pars, src, ctx, circl, geom, Node, Bool=tru, proj, Extract, entiti, loop
+backend, axe, Element, Modul, xs, recurs, seed, PJ, PROJ, Build, layout, adjac, Link, mat, Materi, self, destin, Matrix, pt, MOI.ModelLik
+repo, shift, yet, destroy, AbstractGeometri, Adds, languag, pos, Simul, dims, ClustData, pdf, comp, num, Map, regress, ts, CONTEXT, trajectori, volum
+wire, job, mod, in-plac, Helper, λ, Tesseract, git, hGeom, sys, actor, itr, 1,2, Complex, directori, dual, loc, tess, ×, trigger
+
+################################# FUNCTION NAMES ################################
+DIVAnd_aexerr, DIVAnd_cpme, DIVAnd_cv, DIVAnd_diagapp, DIVAnd_superobs, EnsembleModel, EnsembleModel, GenerateNonlinearForm, NameDef(  1:7   capture, nothing), NameDef(  1:7   request, nothing), NameDef(  1:7   wavread, nothing), NameDef(  1:8   wavwrite, nothing), OperateOn, PFDO, Pad, RegularRectilinearGrid, VerticallyStretchedRectilinearGrid, abm_data_exploration, abm_data_exploration, accuracy_score
+add_parameters_to_cloud, applycycliccolourmap, asyncmap, augmentbatch!, balanced_accuracy_score, biascorrect_extremes, ccm, ccm_with_summary, circlesineramp, collect_results!, compute_accessibility_grid, compute_ir_line_annotations, cond, condition_negative, condition_positive, continuationPOTrap, contrast_curve, convergentcrossmap, corner2subpixel, correctly_classified
+crossmap, ct2lst, data_loader, define_editor, draw_periodscale_power_law_allowed_regions_mutualHill, evaluate!, evaluate!, evaluation_metrics_plot, f1_score, false_discovery_rate, false_negative_rate, false_omission_rate, false_positive_rate, features, filter_components!, find_threshold, find_threshold, flamepixels, fowlkes_mallows_index, fzero
+gdalbeginasyncreader, gdaldatasetgettiledvirtualmem, gdalopenex, gdalrasterbandgettiledvirtualmem, gdalrasterbandgetvirtualmem, gdalrasterizegeometries, gdalrasterizelayers, gdalrasterizelayersbuf, gdalviewshedgenerate, gdtw, generalizedMean, generalizedMean, get_faces, gettable, gibbs_sample, hchebyshevcenter, hclust, heatmap, histmatch, incorrectly_classified
+inductiveMean, informedness, interactive_billiard, interactive_billiard, interactive_orbitdiagram, interactive_orbitdiagram, interactive_poincaresos, interactive_poincaresos, isapprox, jaccard_score, kiops, learn!, learning_curve, loadtable, markedness, matthews_correlation_coeff, metropolis_hastings, negative_predictive_value, newton, norm
+openvideo, pdDocValidateSignatures, permutation_based_path_relink!, pix_write_ps, pix_write_ps, pix_write_ps, pix_write_ps_i, pmap, positive_predictive_value, precision_score, predict_point!, predicted_negative, predicted_positive, prevalence_threshold, qqmap, readtable, recall_score, remez, restrict, run_omniscape
+savename, shell_escape_wincmd, simulate, sineramp, splitobs, stereorectify, stereorectifytransforms, sunpos, supports_add_constrained_variables, svdl, test_manifold, testcapability, threat_score, tsvd, unsafe_copy, unsafe_read, varspacegrid, warpedview, write, zscale
+μVT_sim, 
+############################### FUNCTION ORIGINS ################################
+AIBECS, ArchGDAL, AstroLib, Augmentor, Base, BayesNets, BifurcationKit, BrkgaMpIpr, ClimateTools, Clustering, CrossMappings, DIVAnd, Distributed, DrWatson, DynamicAxisWarping, ExoplanetsSysSim, ExponentialUtilities, Filters, FlameGraphs, GDAL
+GradientRobustMultiPhysics, Grids, HistogramThresholding, IRShow, ImageMorphology, ImageProjectiveGeometry, ImageTransformations, Images, InteractiveUtils, IterativeSolvers, JuliaDB, KUparser, Lighthouse, LinearAlgebra, MLDataPattern, MLJ, MLJBase, MLJTuning, MathOptInterface, Metrics
+Models, Omniscape, PD, PerceptualColourMaps, PlotUtils, Polyhedra, PorousMaterials, PosDefManifold, ReferenceFEs, Roots, SMC, SignalOperators, StackedTimeSolver, TSVD, ULMFiT, UnicodePlots, VideoIO, XLSX, classification, tmp/Gen\probcomp-Gen
+tmp/TensorFlow\malmaud-TensorFlow, tmp/Tesseract\pixel27-Tesseract, |tmp/BayesNets\sisl-BayesNets, |tmp/DrWatson\JuliaDynamics-DrWatson, |tmp/GMT\GenericMappingTools-GMT, |tmp/HTTP\JuliaWeb-HTTP, |tmp/IOCapture\JuliaDocs-IOCapture, |tmp/InteractiveChaos\JuliaDynamics-InteractiveDynamics, |tmp/InteractiveDynamics\JuliaDynamics-InteractiveDynamics, |tmp/Manifolds\JuliaManifolds-Manifolds, |tmp/WAV\dancasimiro-WAV, 

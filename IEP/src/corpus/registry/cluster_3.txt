@@ -1,0 +1,26 @@
+################################### FREQUENCY ###################################
+the, for, and, be, to, is, a, that, in, of, use, 1, which, have, this, so, as, from, an, can
+are, all, Return, i, A, Float, 64, within, if, it, will, not, The, with, If, first, on, then, Argument, type
+point, x, name, Array, list, structur, atom, crystal, Crystal, by, data, each, number, specifi, inform, must, or, r, valu, 0.1
+at, 0, 2, onli, we, We, function, appli, includ, where, defin, same, has, P, j, p, assum, system, zero, coordin
+no, array, indic, Int, equal, new, both, find, present, period, mod, ref, true, form, subtract, pass, set, unit, 4, provid
+
+################################# DIFF FREQUENCY ################################
+################################# more frequent ################################
+that, so, have, be, this, which, for, within, in, is, use, i, and, Float, 1, 64, A, can, all, to
+are, as, Crystal, crystal, from, atom, structur, an, list, then, first, Array, point, Argument, name, a, type, will, of, If
+not, Return, it, on, x, if, mod, We, The, 0.1, present, period, j, find, P, both, equal, assum, we, inform
+system, r, appli, zero, includ, coordin, indic, defin, no, must, same, has, p, new, onli, where, specifi, each, array, with
+at, number, Int, 0, data, the, valu, function, characterized, Scipy, charges=fals, duplicates=fals, crystal.charges.coords.xf, crystal.atoms.coords.xf, Unweight, SymmetryInfo, inforom, crystal.atoms.speci, neutrality=tru, file=fals
+
+################################# less frequent ################################
+julia, given, See, element, Vector, one, get, Paramet, into, Comput, n, 5, should, input, Creat, string, T, variabl, between, path
+length, Integer, comput, end, node, two, case, kwarg, creat, Get, keyword, sampl, It, 8, X, int, Real, start, you, base
+state, Function, m, handl, Julia, 6, map, oper, format, Dict, weight, e.g, over, const, initi, plot, either, char, Default, R
+key, Gener, updat, repres, step, g, out, run, add, support, 1.0, algorithm, take, singl, determin, Type, AbstractVector, normal, calcul, implement
+write, random, Matrix, void, requir, Convert, collect, code, otherwis, NULL, refer, h, integ, ×, color, arg, scale, document, multipl, rang
+
+################################# FUNCTION NAMES ################################
+BatchedTridiagonalSolver, Crystal, Crystal, Forcing, detect_new_linearities, neighborhood, neighborhood, 
+############################### FUNCTION ORIGINS ################################
+Forcings, Polyhedra, PorousMaterials, Solvers, Xtals, 

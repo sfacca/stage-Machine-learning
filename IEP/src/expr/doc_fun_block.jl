@@ -50,7 +50,7 @@ function get_doc_fun_block(mdf::ModuleDef, father = nothing)::Array{doc_fun_bloc
 
     if !isnothing(mdf.implements) && !isempty(mdf.implements)
         for func in mdf.implements
-            push!(res, doc_fun_block(func.docs, string(father, ".", func.name), func.block))
+            push!(res, doc_fun_block(func.docs, string(father, ".", getName(func.name)), func.block))
         end
     end
 

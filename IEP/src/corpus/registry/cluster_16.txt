@@ -1,0 +1,26 @@
+################################### FREQUENCY ###################################
+│, the, julia, data, 1, in, 4, 5, 3, 2, ×, Row, to, is, a, of, 6, for, as, and
+The, with, function, 8, use, Exampl, from, will, be, This, can, which, specifi, all, default, DataFram, Int, given, if, by
+it, that, have, number, or, this, first, then, type, b, result, 64, option, String, 7, 9, ref, For, each, set
+target, If, last, on, 0, element, return, See, exampl, sampl, Note, paramet, i.e, allow, determin, f, 50, name, make, df
+information, true, an, argument, pass, not, inform, follow, keyword, must, implement, one, tupl, are, everi, also, Ani, s, same, has
+
+################################# DIFF FREQUENCY ################################
+################################# more frequent ################################
+│, Row, ×, 5, 4, 3, data, julia, 6, 2, 1, 8, in, DataFram, as, function, The, specifi, default, which
+will, can, all, This, Int, Exampl, is, 9, with, 7, b, then, have, option, first, result, from, String, 64, use
+type, for, number, this, given, be, information, 50, df, to, target, it, make, allow, last, determin, i.e, exampl, sampl, Note
+and, For, if, paramet, f, by, that, or, each, element, name, See, set, 0, If, ObsDim, DataT, DataTables.jl, LearnBase.getob, StatsBase.nob
+DataTables.DataT, ├─────┼───────────┼─────────────┼───┤, 0.226582, 0.0443222, 0.504629, 0.722906, 0.933372, 0.812814, 0.522172, 0.245457, 0.505208, 0.11202, 0.0997825, 0.000341996, row->row, subsets, undersampl, stratifiedob, imbalanc, DataSubset
+
+################################# less frequent ################################
+Return, file, array, point, t, get, Paramet, matrix, Comput, input, output, T, index, current, error, no, variabl, defin, path, Set
+indic, Integer, correspond, comput, node, kwarg, Get, v, iter, D, int, Real, may, coordin, start, base, graph, so, state, Function
+imag, k, m, handl, map, oper, format, Dict, zero, grid, store, r, over, const, direct, plot, either, z, char, need
+updat, id, repres, step, g, form, out, run, system, support, 1.0, algorithm, take, Type, normal, calcul, doe, edg, space, Matrix
+void, Convert, check, collect, transform, filenam, label, Construct, otherwis, NULL, h, integ, color, we, scale, document, rang, chang, H, load
+
+################################# FUNCTION NAMES ################################
+NameDef(  1:5   stack, nothing), createRegressionSetting, loci_dataframe, one_hot_encode, oversample, pivot_wider, simulate_sibship, stratifiedobs, undersample, vcat, 
+############################### FUNCTION ORIGINS ################################
+DataFrames, FeatureSelectors, LinRegOutliers, MLDataPattern, PopGen, PopGenSims, TidyStanza, |tmp/HTTP\JuliaWeb-HTTP, 

@@ -1,0 +1,31 @@
+################################### FREQUENCY ###################################
+1, the, 2, of, a, 3, Exampl, is, and, to, in, julia, 4, Int, for, be, 64, use, or, jldoctest
+as, are, with, 5, ×, by, The, that, 0, A, if, from, an, 6, number, data, Return, also, If, element
+ref, return, function, x, which, not, valu, on, argument, See, will, column, true, at, all, Argument, default, DataFram, row, it
+one, │, s, where, same, matrix, df, each, can, vector, this, first, onli, type, Array, Row, 10, i, 8, given
+must, order, output, c, have, y, fals, Matrix, array, 7, 9, contain, name, n, pass, we, 12, two, keyword, d
+
+################################# DIFF FREQUENCY ################################
+################################# more frequent ################################
+1, 2, 3, Exampl, 4, julia, Int, 64, ×, is, jldoctest, 5, in, and, of, use, are, be, as, or
+6, a, for, A, to, 0, by, The, also, with, number, element, that, data, column, if, If, DataFram, │, row
+the, which, argument, df, from, ref, not, See, Row, an, x, valu, return, Argument, will, same, one, on, function, default
+matrix, 10, 8, first, true, where, onli, at, i, 9, 7, all, Array, c, order, Matrix, must, each, output, vector
+12, s, AbstractDataFram, have, we, type, this, fals, can, it, y, two, n, pass, e, contain, array, keyword, 11, d
+
+################################# less frequent ################################
+Paramet, Set, t, handl, const, plot, char, step, system, void, Convert, NULL, Creat, Calcul, OGR, associ, geometri, avail, constraint, doubl
+state, bound, remov, through, connect, intern, Check, coeffici, close, context, success, byte, Read, stream, atom, format, Take, packag, shape, charact
+box, Fetch, domain, struct, display, boundari, limit, Appli, initi, offset, action, tree, link, equat, item, project, buffer, https://portal.hdfgroup.org/display/HDF, libhdf, solver
+period, own, configur, pointer, hid, segment, modul, measur, You, even, solv, your, seri, channel, TRUE, rand, config, request, constructor, build
+detail, messag, polygon, value, OGRErr, OGRSpatialReferenceH, style, Draw, kernel, class, free, Otherwis, Call, str, mask, fraction, train, explicit, band, bodi
+
+################################# FUNCTION NAMES ################################
+Hermitian, JLD2OutputWriter, NameDef(  1:11  larCellProd, nothing), NameDef(  1:11  larVertProd, nothing), NameDef(  1:12  getJacobians, nothing), NameDef(  1:20  characteristicMatrix, nothing), NameDef(  1:28  getBasisFunctionsForElements, nothing), NameDef(  1:3   foo, nothing), NameDef(  1:7   lar2obj, nothing), NameDef(  1:8   energies, nothing), NetCDFOutputWriter, SymTridiagonal, Symmetric, accumulate, all_induced_subgraphisomorph, all_isomorph, all_subgraphisomorph, antijoin, append!, arxar
+choleskyinv, circleintersectionpts, classification_report, compose_rotation, confusion_matrix, consecutive_view, crossjoin, describe, dict_list, dtm, eachrow, edit_distance, findall, ftest, get, getmatrix, hcat, hypothesis_matrix, insertcols!, keys
+label_smoothing, lrtest, matchbycorrelation, modularity, nashsolve, nonunique, operatorHp1, order, permutedims, push!, randPosDefMat, randPosDefMat, reduce, reflectinmodel, regularize!, regularize!, reject_candidate, rename, rename!, repeat
+repeat, repeat!, ronkinfunction, rownumber, run!, scaleseparation, semijoin, simulate, sortslices, statistics, statistics, structure, subset, subset!, sumOfSqr, sumOfSqr, tcopy, tess_parsed_tsv, tess_pipeline_tsv, tess_pipeline_tsv
+tess_pipeline_tsv, transitiveclosure, tril!, triu!, 
+############################### FUNCTION ORIGINS ################################
+Base, ControlSystemIdentification, DIVAnd, DataFrames, DispatcherCache, DrWatson, Experimental, GEMPIC, GLM, GeophysicalFlows, ImageProjectiveGeometry, LRSLib, LarSurf, LightGraphs, LinearAlgebra, LoopVectorization, Losses, Luxor, MatrixFactorizations, Mill
+OutputWriters, PolynomialAmoebas, PopGen, PopGenSims, PosDefManifold, ReferenceFrameRotations, StatsModels, TextAnalysis, Transducers, classification, tmp/ReinforcementLearningCore\JuliaReinforcementLearning-ReinforcementLearningCore, tmp/Tesseract\pixel27-Tesseract, |tmp/BayesNets\sisl-BayesNets, |tmp/Documenter\JuliaDocs-Documenter, |tmp/NNFEM\kailaix-NNFEM, 

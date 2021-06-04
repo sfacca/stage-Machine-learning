@@ -1,6 +1,6 @@
 module IEP
     using AbstractTrees, AlgebraicPetri, AlgebraicRelations, CSTParser, Catlab, Compose, Conda, Convex, DelimitedFiles, DifferentialEquations
-    using LabelledArrays, Match, OrdinaryDiffEq, PyCall, Reexport, SCS, TikzPictures, Tokenize
+    using LabelledArrays, Match, PyCall, Reexport, SCS, TikzPictures, Tokenize
     using Pkg, JLD2, FileIO
     using Catlab.CategoricalAlgebra, Catlab.WiringDiagrams, DataFrames, Match
     using Catlab.Theories, SCS, TikzPictures, Catlab.Graphics.ComposeWiringDiagrams, Catlab.Programs, Catlab.Syntax
@@ -9,6 +9,7 @@ module IEP
     import Catlab.WiringDiagrams: to_hom_expr
     using Compose: draw, PGF
     using TextAnalysis, TopicModels
+    #using OrdinaryDiffEq
 
     #using MethodAnalysis
 

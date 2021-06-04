@@ -1,0 +1,39 @@
+################################### FREQUENCY ###################################
+x, the, of, a, to, is, 2, 1, and, in, for, use, be, or, y, as, julia, 0, function, that
+valu, with, If, Exampl, can, The, 3, are, if, an, will, by, from, return, This, 4, where, A, not, Return
+ref, it, vector, f, See, jldoctest, data, true, this, exampl, method, size, on, one, same, at, s, result, matrix, each
+then, z, default, Note, more, comput, number, point, t, Usage, array, plot, may, all, when, iter, For, set, type, fals
+which, length, Argument, also, b, 8, given, argument, r, onli, but, Creat, option, their, such, 5, should, 64, have, Symbol
+
+################################# DIFF FREQUENCY ################################
+################################# more frequent ################################
+x, 2, 1, y, use, is, or, 0, julia, be, to, as, of, and, for, function, valu, in, a, that
+If, can, Exampl, 3, will, the, 4, where, The, are, A, with, exampl, f, if, This, jldoctest, vector, method, return
+same, by, not, size, z, Usage, See, an, result, more, one, plot, Note, ref, then, comput, matrix, from, may, true
+it, this, iter, data, their, when, each, 8, r, For, t, at, b, length, log, s, point, such, arg, array
+default, fals, but, assum, option, Creat, Draw, rand, code-block, onli, guess, on, Symbol, Real, provid, It, should, 5, zero, param
+
+################################# less frequent ################################
+file, Paramet, node, list, index, const, char, id, path, Set, void, label, NULL, document, handl, OGR, Get, geometri, featur, valid
+S, along, count, read, doubl, DataFram, specif, write, via, Check, tag, close, success, width, vertex, Point, filenam, Read, Construct, into
+graph, directori, atom, under, rotat, radius, frequenc, shape, load, includ, charact, 64,1, Ani, give, Fetch, Remov, vertic, order, network, unit
+dim, tree, info, produc, O, they, within, buffer, encod, well, associ, https://portal.hdfgroup.org/display/HDF, libhdf, keyword, while, alloc, those, period, callback, configur
+pointer, hid, global, page, segment, Each, warn, empti, w, measur, Load, Z, root, channel, TRUE, height, identifi, constructor, energi, build
+
+################################# FUNCTION NAMES ################################
+
+  1:11   Polynomials
+ 12:14   quotenode
+ 12:14    fit, nothing), >>, Array, DataLoader, Fμν, MH, NameDef(  1:10  unregister, nothing), NameDef(  1:13  beginprintext, nothing), NameDef(  1:13  broadcastable, nothing), NameDef(  1:4   grid, nothing), NameDef(  1:4   hold, nothing), NameDef(  1:4   plot, nothing), NameDef(  1:4   repr, nothing), NameDef(  1:4   stem, nothing), NameDef(  1:4   step, nothing), NameDef(  1:5   oplot, nothing), NameDef(  1:5   plot3, nothing), NameDef(  1:6   hexbin, nothing), NameDef(  1:7   contour, nothing), NameDef(  1:7   display, nothing)
+NameDef(  1:7   openraw, nothing), NameDef(  1:7   scatter, nothing), NameDef(  1:7   surface, nothing), NameDef(  1:7   tricont, nothing), NameDef(  1:7   trisurf, nothing), NameDef(  1:8   contourf, nothing), NameDef(  1:8   scatter3, nothing), NameDef(  1:8   writedlm, nothing), NameDef(  1:9   mh_accept, nothing), NameDef(  1:9   wireframe, nothing), PreconditionedConjugateGradientSolver, Transducer, ^, _compute_rhs_range, add_format, add_to_function_constant, area, ash, assert_approx_equal, autocor
+autocor!, autocov, autocov!, bar, bisection, cf, cg!, chebyshev!, classes, crosscor, crosscor!, crosscov, crosscov!, dataimage, decoder, diffrule, dlqr, fieldoffset, finalizer, findnext
+flatten_demo, forwarddiff, frule, gamma_inc, gamma_inc_asym, gamma_inc_taylor_x, generate, get_source_fun, getpath, gmres!, goldensection, groupreduce, homotrans, ifunreduced, imaginary_projection, inside_ellipse, interp1, inv, isconstant, isdifferentiable
+isequal, isstronglyconvex, jim, line, loggamma, loggamma, lqr, lsim, lsmr!, lsqr!, ltitr, map, mat, mat2grid, mat2img, merge, minres!, ncbeta_poisson, ncg, newton
+nilang_ir, objective_function, ogm_ls, operatorHs, optimize, pairwise, pairwise!, parse_options, plot, plot_implicit_surface, pogm_restart, polyfitA, powm!, qmr!, radialbar, ransacfitaffinefundmatrix, ransacfitfundmatrix, ransacfithomography, reducingfunction, regenerate
+register, register, register, relax_integrality, repr, rrule, sample!, save_at, schema, select, set_params!, solve!, sort_and_compress!, target_f, tess_unlv_latin1, test_qp_complementarity_constraint, transform, transform, unsafe_get, update
+variable_by_name, whiten, 
+############################### FUNCTION ORIGINS ################################
+Aperture, AsyPlots, AverageShiftedHistograms, Base, CalculusWithJulia, Causal, ChainRulesCore, ControlSystems, Data, DataFramesMeta, DiffRules, ECharts, FileIO, FiniteDifferences, GEMPIC, GMT, GR, Gen, Generic, GigaSOM
+ImageProjectiveGeometry, IndexedTables, Inference, IterativeSolvers, JuMP, KernelDensity, LaserTypes, LearnBase, LinRegOutliers, Luxor, MLJBase, MLJModelInterface, NiLangCore, NonDet, Nullables, Ops20, PDMats, PerceptualColourMaps, PolynomialAmoebas, Polynomials
+RayTracer, Regexp, Roots, Solvers, SpecialFunctions, StatsBase, StatsModels, Test, Train20, Transducers, Turing, Utilities, Zygote, tmp/FixedPointNumbers\JuliaMath-FixedPointNumbers, tmp/MIRT\JeffFessler-MIRT, tmp/Tesseract\pixel27-Tesseract, |tmp/GR\jheinen-GR, |tmp/HTTP\JuliaWeb-HTTP, |tmp/JuMP\jump-dev-JuMP, |tmp/Polynomials\JuliaMath-Polynomials
+|tmp/SnoopCompile\timholy-SnoopCompile, |tmp/Transducers\JuliaFolds-Transducers, |tmp/julia\julia-master\base\strings\io, |tmp/julia\julia-master\base\strings\search, |tmp/julia\julia-master\stdlib\DelimitedFiles\src\DelimitedFiles, 
