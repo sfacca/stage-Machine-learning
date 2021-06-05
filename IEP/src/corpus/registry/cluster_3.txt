@@ -1,9 +1,29 @@
+############################## HIGHEST CENTER RATIO #############################
+the, i, is, of, atom, 1, to, in, j, crystal, and, a, that, k, be, charg, for, if, from, r
+func, are, bond, paramet, field, forc, λ, 0, 64, not, 
+############################ CENTER NEAREST NEIGHBOHOR ############################
+the, the, the, the, the, the, the, the, the, the, the, the, the, the, atom, atom, atom, atom, atom, atom
+atom, atom, atom, atom, atom, atom, atom, atom, of, of, of, of, of, of, of, of, of, of, of, of
+i, i, i, i, i, i, i, i, i, i, i, crystal, crystal, crystal, crystal, crystal, crystal, crystal, The, The
+The, The, The, The, neighborhood, neighborhood, neighborhood, neighborhood, neighborhood, neighborhood, is, is, is, is, is, in, in, in, in, in
+Array, Array, Array, Array, Array, from, from, from, from, to, to, to, to, 1, 1, 1, 1, distanc, distanc, distanc
+distanc, Float, Float, Float, Float, 64, 64, 64, 64, r, r, r, 0, 0, 0, matrix, matrix, matrix, xs, xs
+xs, coordin, coordin, coordin, neighbor, neighbor, neighbor, am, am, am, adjac, adjac, adjac, be, be, all, all, been, been, Int
+Int, id, id, find, find, within, within, nearest, nearest, rs, rs, characterized, characterized, ref, for, use, as, and, subtract, will
+a, that, which, have, vector, correspond, this, first, at, 2, Return, Argument, posit, type, so, appli, Also, defin, has, imag
+other, these, A, system, origin, array, indic, see, new, list, Find, structur, period, maximum, off, surround, Index, image, convent, lie
+decomposit, choic, Cartesian, Voronoi, character, Crystal, crystal.atom, Scipy, 
 ################################### FREQUENCY ###################################
 the, for, and, be, to, is, a, that, in, of, use, 1, which, have, this, so, as, from, an, can
 are, all, Return, i, A, Float, 64, within, if, it, will, not, The, with, If, first, on, then, Argument, type
 point, x, name, Array, list, structur, atom, crystal, Crystal, by, data, each, number, specifi, inform, must, or, r, valu, 0.1
 at, 0, 2, onli, we, We, function, appli, includ, where, defin, same, has, P, j, p, assum, system, zero, coordin
 no, array, indic, Int, equal, new, both, find, present, period, mod, ref, true, form, subtract, pass, set, unit, 4, provid
+do, vector, correspond, 3, k, grid, distanc, default, posit, order, when, ani, than, method, s, note, convert, Also, cannot, been
+Note, imag, graph, file, matrix, box, fraction, other, paramet, speed, cell, z, construct, these, c, remov, xs, origin, e, read
+entri, AbstractStr, second, filenam, object, column, contain, fals, ensur, look, up, symbol, String, xyz, group, see, signatur, Attribut, label, error
+matter, id, When, later, Bool, show, pos, value, throw, absolut, depend, Find, neighbor, doe, check, maximum, off, infer, surround, space
+upper, Index, image, larger, undirect, nearest, rule, popul, neighborhood, overlap, solver, constraint, μ, convent, wrap, duplic, coord, describ, directly, tol
 
 ################################# DIFF FREQUENCY ################################
 ################################# more frequent ################################

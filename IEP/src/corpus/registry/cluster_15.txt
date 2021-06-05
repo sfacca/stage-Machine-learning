@@ -1,9 +1,21 @@
+############################## HIGHEST CENTER RATIO #############################
+1, 2, julia, the, 3, a, 0, 64, of, Int, 4, 0.0, is, to, A, element, x, and, ref, Exampl
+5, in, Float, Array, ×, for, 1.0, with, jldoctest, g, 
+############################ CENTER NEAREST NEIGHBOHOR ############################
+2, 2, 2, 2, 2, 1, 1, 1, 1, 0, 0, 0, 0, 3, 3, 3, julia, julia, 4, 4
+element, element, 64, 64, Vector, Vector, Int, Int, rpad, rpad, the, given, Exampl, to, a, length, of, with, Return, sequenc
+p, jldoctest, n, up, pad, maximum, 
 ################################### FREQUENCY ###################################
 1, 2, julia, the, Exampl, a, of, 3, jldoctest, Int, is, to, 64, and, 4, in, for, element, 0, use
 with, ×, Return, ref, Array, 5, an, be, A, x, Float, The, return, or, Vector, are, See, 6, as, if
 by, also, from, valu, that, function, true, Matrix, If, it, all, data, 8, not, vector, on, array, number, b, which
 s, 1.0, matrix, can, y, will, this, v, 7, type, where, f, 10, each, fals, 9, specifi, at, d, 0.0
 64,1, n, default, dimens, For, contain, This, input, given, collect, p, index, argument, result, i, c, String, Integer, g, first
+julia-repl, iter, size, end, but, Argument, same, one, dim, e, 2.0, 64,2, output, graph, Tupl, entri, Bool, have, set, must
+t, key, m, 11, 12, length, onli, than, r, order, Ani, point, other, zero, Dict, Union, indic, into, k, between
+defin, oper, object, integ, call, method, more, D, Note, over, z, path, dims, edg, time, node, Symbol, new, vertex, model
+Comput, creat, ani, has, Julia, two, 3.0, reshap, appli, Creat, column, miss, Real, 16, name, noth, perform, Gener, dimension, 15
+eltyp, 13, such, option, compat, sum, e.g, when, equival, store, 20, generat, provid, do, tupl, along, second, u, then, you
 
 ################################# DIFF FREQUENCY ################################
 ################################# more frequent ################################

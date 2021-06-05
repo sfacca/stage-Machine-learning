@@ -12,6 +12,8 @@ function revert_assignments(arr)
     res
 end
 
+
+
 function find_closest(arr, arr_of_arr)
     distances = Array{Int,1}(undef, length(arr_of_arr))
     for i in 1:length(arr_of_arr)

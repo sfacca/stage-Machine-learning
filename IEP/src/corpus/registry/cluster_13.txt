@@ -1,9 +1,23 @@
+############################## HIGHEST CENTER RATIO #############################
+the, of, to, a, is, and, in, be, for, 1, use, The, with, or, that, as, are, 2, valu, will
+if, an, function, can, If, it, 0, file, by, ref, 
+############################ CENTER NEAREST NEIGHBOHOR ############################
+the, the, the, the, the, the, the, the, the, the, the, the, the, the, the, of, of, of, of, of
+of, is, is, is, is, is, valu, valu, valu, valu, valu, and, and, and, be, be, in, in, polynomi, polynomi
+averag, averag, express, express, scalar, scalar, characterist, characterist, logarithm, logarithm, for, use, as, by, form, to, This, can, The, number
+with, first, standard, deviat, Return, order, effici, method, defin, oper, more, other, lower, second, optim, third, fourth, 2018, expr, fifth
+expon, computation, Optimal, Reed, exprval, Michael, 
 ################################### FREQUENCY ###################################
 the, of, to, a, is, in, and, be, for, use, The, that, with, are, or, 1, as, an, if, by
 it, will, not, can, If, 2, function, from, valu, which, on, this, This, default, Return, return, number, 0, at, argument
 all, each, true, data, s, specifi, one, Argument, set, A, ref, Exampl, have, where, also, given, type, onli, should, x
 julia, 3, time, then, name, file, object, contain, must, when, same, first, array, end, fals, keyword, output, you, case, size
 no, call, but, method, For, Int, ani, has, result, follow, 64, paramet, pass, Note, point, may, See, model, option, length
+In, vector, element, input, generat, indic, 4, other, correspond, Float, between, than, It, y, provid, line, need, whether, includ, defin
+kwarg, do, current, exampl, more, n, into, so, they, list, t, there, Bool, see, two, Keyword, determin, string, Default, start
+String, noth, tupl, 5, creat, run, dimens, Array, comput, either, Paramet, imag, differ, error, e.g, exist, new, posit, iter, index
+befor, doe, 10, order, coordin, second, path, T, column, was, we, singl, over, zero, field, after, Vector, some, inform, format
+matrix, i.e, Integer, Function, form, instanc, take, their, variabl, last, chang, appli, mean, direct, write, such, implement, e, get, R
 
 ################################# DIFF FREQUENCY ################################
 ################################# more frequent ################################

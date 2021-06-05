@@ -1,9 +1,20 @@
+############################## HIGHEST CENTER RATIO #############################
+a, the, of, to, is, and, in, for, be, 1, or, 2, x, julia, use, with, function, The, that, an
+valu, are, ref, if, Return, as, return, it, by, 0, 
+############################ CENTER NEAREST NEIGHBOHOR ############################
+a, a, a, the, the, of, of, veri, veri, for, to, valu, standard, distribut, interv, normal, larg, truncat, ∞, Varianc
+WARNING, Fail, tnvar, 
 ################################### FREQUENCY ###################################
 the, a, of, to, is, and, in, be, for, 1, with, or, use, that, The, Return, an, 2, function, are
 return, as, it, by, if, This, can, valu, from, julia, x, If, on, Exampl, ref, will, which, not, 0, this
 number, type, 3, true, argument, s, default, object, given, Argument, data, set, all, A, at, Int, also, vector, 64, array
 See, each, element, call, where, name, one, size, should, specifi, y, jldoctest, point, String, fals, Float, f, string, method, Paramet
 file, Array, must, result, new, matrix, option, contain, Bool, onli, when, t, pass, Creat, error, then, output, n, 4, input
+have, into, case, paramet, same, no, Vector, ani, time, may, b, model, has, Note, defin, get, For, iter, It, creat
+keyword, first, but, T, noth, list, p, you, whether, indic, end, length, tupl, more, provid, 5, Julia, order, sampl, Comput
+Symbol, d, correspond, either, than, kwarg, AbstractStr, other, variabl, between, such, generat, exampl, i, field, appli, c, index, e, so
+D, map, X, includ, comput, 8, column, Union, Integer, two, take, path, Function, NULL, k, repres, 10, e.g, there, do
+convert, coordin, see, oper, dimens, direct, m, base, Tupl, random, posit, Dict, format, Real, requir, imag, write, otherwis, 1.0, Default
 
 ################################# DIFF FREQUENCY ################################
 ################################# more frequent ################################

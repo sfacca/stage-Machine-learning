@@ -1,9 +1,21 @@
+############################## HIGHEST CENTER RATIO #############################
+x, the, a, y, julia, of, 2, 1, to, is, 0, and, for, f, valu, in, function, 3, use, be
+or, t, that, z, A, with, b, as, model, s, 
+############################ CENTER NEAREST NEIGHBOHOR ############################
+x, x, x, x, x, x, x, x, x, x, x, x, 2, 2, 2, 2, 2, 2, A, A
+A, A, 1, 1, 1, 3, 3, 3, Array, Array, Array, the, the, julia, julia, R, R, same, same, use
+Exampl, to, a, of, with, 0, elements, Convert, Julia, Matrix, MatrixElem, dimens, jldoctest, setup, AbstractAlgebra, ZZ, ×, BigInt, AbstractAlgebra.Generic.Poli, 
 ################################### FREQUENCY ###################################
 x, the, of, a, to, is, 2, 1, and, in, for, use, be, or, y, as, julia, 0, function, that
 valu, with, If, Exampl, can, The, 3, are, if, an, will, by, from, return, This, 4, where, A, not, Return
 ref, it, vector, f, See, jldoctest, data, true, this, exampl, method, size, on, one, same, at, s, result, matrix, each
 then, z, default, Note, more, comput, number, point, t, Usage, array, plot, may, all, when, iter, For, set, type, fals
 which, length, Argument, also, b, 8, given, argument, r, onli, but, Creat, option, their, such, 5, should, 64, have, Symbol
+Int, arg, log, provid, output, has, It, assum, object, end, Real, Bool, 10, pass, specifi, must, element, mean, zero, n
+ani, oper, model, column, 6, Float, rand, whether, Comput, either, param, Draw, kwarg, so, i, determin, input, noth, display, variabl
+maximum, guess, code-block, Keyword, call, linear, D, print, i.e, two, cos, math, follow, current, correspond, initi, defin, 1.0, name, indic
+befor, UInt, approxim, inform, In, k, between, you, I, c, e, coordin, line, Array, Vector, B, Function, normal, u, sin
+sqrt, do, case, differ, d, Julia, contain, no, String, updat, relat, side, callabl, match, seri, LinRang, algorithm, support, tupl, first
 
 ################################# DIFF FREQUENCY ################################
 ################################# more frequent ################################

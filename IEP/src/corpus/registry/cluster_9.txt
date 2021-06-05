@@ -1,9 +1,19 @@
+############################## HIGHEST CENTER RATIO #############################
+a, the, of, to, and, for, in, Return, x, 1, is, with, 2, from, an, 5, julia, ref, Int, t
+function, if, use, by, or, data, s, name, String, as, 
+############################ CENTER NEAREST NEIGHBOHOR ############################
+a, 
 ################################### FREQUENCY ###################################
 the, a, of, to, and, for, Return, in, with, is, 1, from, an, x, 2, if, by, use, function, or
 as, be, ref, that, return, Int, data, s, on, See, all, valu, julia, String, it, are, name, given, t, object
 type, Exampl, 0, file, true, The, 3, at, vector, get, 64, model, y, set, A, Vector, not, Creat, number, array
 n, Float, also, f, point, p, Comput, 5, node, Array, This, into, this, Get, element, time, Bool, size, default, T
 can, AbstractStr, string, Integer, d, Set, which, method, each, b, Symbol, argument, id, h, new, one, matrix, jldoctest, 4, Convert
+H, int, graph, void, path, fals, document, list, field, contain, kwarg, If, v, whether, Argument, paramet, index, X, Union, c
+sampl, will, where, variabl, has, i, call, Paramet, D, current, input, m, Real, specifi, char, creat, Type, result, const, Gener
+g, output, https://portal.hdfgroup.org/display/HDF, onli, between, libhdf, but, option, plot, grid, no, Function, order, two, format, Construct, hid, Dict, comput, state
+coordin, edg, z, iter, AbstractVector, length, ani, Julia, dimens, map, updat, noth, error, generat, Check, r, column, tupl, Tupl, random
+base, Calcul, initi, weight, system, when, indic, doubl, defin, zero, out, filenam, transform, e, step, line, have, posit, key, 8
 
 ################################# DIFF FREQUENCY ################################
 ################################# more frequent ################################

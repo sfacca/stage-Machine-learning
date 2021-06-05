@@ -1,9 +1,32 @@
+############################## HIGHEST CENTER RATIO #############################
+the, of, to, is, a, for, and, 1, in, 2, be, The, valu, 3, use, are, y, with, julia, weight
+class, that, If, true, 0, ref, or, will, Return, function, 
+############################ CENTER NEAREST NEIGHBOHOR ############################
+the, the, the, the, the, the, the, the, the, the, the, the, the, the, the, the, the, the, the, the
+the, the, the, the, the, of, of, of, of, of, of, of, of, of, of, of, of, of, of, fcolor
+fcolor, fcolor, fcolor, fcolor, fcolor, fcolor, fcolor, fcolor, fcolor, color, color, color, color, color, color, color, color, color, to, to
+to, to, to, to, to, to, a, a, a, a, a, a, a, j, j, j, j, j, j, for
+for, for, for, for, you, you, you, you, you, is, is, is, is, number, number, number, number, img, img, img
+img, nextidx, nextidx, nextidx, nextidx, if, if, if, by, by, by, size, size, size, call, call, call, 1, 1, 1
+that, that, that, choos, choos, choos, next, next, next, collect, collect, collect, costscal, costscal, costscal, ref, ref, approxim, approxim, use
+use, and, and, data, data, be, be, can, can, in, in, The, The, with, with, must, must, first, first, on
+on, return, return, default, default, than, than, mean, mean, node, node, proport, proport, dimens, dimens, font, font, would, would, custom
+custom, list, list, 1000, 1000, cycl, cycl, stack, stack, stacktrac, stacktrac, NodeData, NodeData, costscale, costscale, as, support, it, an, have
+not, set, limit, follow, provid, In, implement, current, correspond, this, If, valu, 5, are, through, want, pixel, Return, By, See
+when, function, should, exampl, sampl, along, matrix, other, depth, move, state, profil, bound, ensur, RGB, Vector, repres, Int, base, see
+some, background, noth, general, 0.2, may, constant, dure, chosen, API, g, upper, ident, access, less, hold, Howev, item, increment, larg
+total, impos, individu, choices, choice, colors, bg, flamegraph, FlameColor, colorbg, colorfont, flamepixel, costscale=noth, colornod, data.sf, stackframe, stacktraces, profiling, profiler, 
 ################################### FREQUENCY ###################################
 the, of, to, and, in, is, for, be, The, are, with, a, by, 1, If, use, valu, or, that, not
 this, will, as, 2, return, argument, on, true, an, can, which, function, specifi, if, all, it, ref, from, number, Return
 This, default, also, keyword, 0, 3, Argument, julia, each, type, option, array, set, fals, given, See, Exampl, element, name, Int
 have, Vector, vector, at, then, Float, list, Keyword, For, one, mean, matrix, y, object, data, Bool, size, sampl, onli, result
 noth, In, first, posit, case, where, equal, when, A, label, both, ani, should, contain, weight, you, x, String, length, calcul
+s, values, instead, no, Array, but, exampl, Use, two, pass, must, c, either, normal, method, comput, report, call, time, correspond
+point, see, condit, follow, output, same, Note, averag, per, may, binari, sum, we, t, paramet, perform, error, class, 4, 5
+so, defin, zero, indic, more, into, than, has, there, repres, 64,1, numer, divid, allow, differ, f, divis, provid, index, n
+end, macro, classif, ith, ignored, confus, pred, whilst, micro, algorithm, tupl, between, It, julia-repl, input, get, base, Predict, predict, True
+denomin, classwis, elementwis, sample-weight, sample-weigt, do, 1.0, rang, some, start, current, file, oper, i, model, 64, new, Default, whether, normalize=tru
 
 ################################# DIFF FREQUENCY ################################
 ################################# more frequent ################################

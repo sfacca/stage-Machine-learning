@@ -1,9 +1,47 @@
+############################## HIGHEST CENTER RATIO #############################
+the, to, of, a, is, 1, and, in, be, 2, for, use, 3, or, are, ref, that, function, with, 0
+as, iter, If, if, The, G, on, this, will, mean, 
+############################ CENTER NEAREST NEIGHBOHOR ############################
+the, the, the, the, the, the, the, the, the, the, the, the, the, the, the, the, the, the, the, the
+the, the, the, the, the, the, the, the, the, the, the, the, 1, 1, 1, 1, 1, 1, 1, 1
+1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, is, is, is, is, is, is, is, is
+is, is, is, is, is, is, is, is, G, G, G, G, G, G, G, G, G, G, G, G
+G, G, G, G, iter, iter, iter, iter, iter, iter, iter, iter, iter, iter, iter, iter, iter, iter, ref, ref
+ref, ref, ref, ref, ref, ref, ref, ref, ref, to, to, to, to, to, to, to, to, to, to, to
+of, of, of, of, of, of, of, of, of, of, of, 2, 2, 2, 2, 2, 2, 2, 2, 2
+Pset, Pset, Pset, Pset, Pset, Pset, Pset, Pset, Pset, 3, 3, 3, 3, 3, 3, 3, 3, mean, mean, mean
+mean, mean, mean, mean, mean, geometricMean, geometricMean, geometricMean, geometricMean, geometricMean, geometricMean, geometricMean, geometricMean, use, use, use, use, use, use, use
+a, a, a, a, a, a, a, k, k, k, k, k, k, k, w, w, w, w, w, w
+w, converg, converg, converg, converg, converg, converg, converg, conv, conv, conv, conv, conv, conv, conv, and, and, and, and, and
+and, are, are, are, are, are, are, i, i, i, i, i, i, option, option, option, option, option, option, weight
+weight, weight, weight, weight, weight, If, If, If, If, If, matric, matric, matric, matric, matric, log, log, log, log, log
+algorithm, algorithm, algorithm, algorithm, as, as, as, as, argument, argument, argument, argument, be, be, be, be, 4, 4, 4, 4
+or, or, or, or, vector, vector, vector, vector, this, this, this, this, 0, 0, 0, 0, See, See, See, See
+P, P, P, P, normal, normal, normal, normal, big, big, big, big, tol, tol, tol, tol, 𝐏, 𝐏, 𝐏, 𝐏
+for, for, for, if, if, if, each, each, each, number, number, number, keyword, keyword, keyword, return, return, return, posit, posit
+posit, type, type, type, definit, definit, definit, matrix, matrix, matrix, real, real, real, metric, metric, metric, Euclidean, Euclidean, Euclidean, sum
+sum, sum, textrm, textrm, textrm, w=weight, w=weight, w=weight, pass, pass, This, This, in, in, with, with, time, time, provid, provid
+tupl, tupl, at, at, 100, 100, default, default, initi, initi, when, when, function, function, should, should, print, print, d, d
+no, no, input, input, array, array, warn, warn, init, init, they, they, benchmark, benchmark, diagon, diagon, Mean, Mean, multi-thread, multi-thread
+Fisher, Fisher, attain, attain, unweight, unweight, ℍVector, ℍVector, 𝔻Vector, 𝔻Vector, Pset=randP, Pset=randP, ✓w=true, ✓w=true, ⏩=true, ⏩=true, Multi-thread, Multi-thread, ⍰, ⍰
+⍰=true, ⍰=true, by, Exampl, julia, data, true, it, will, alia, call, For, have, not, set, requir, The, follow, automat, In
+implement, correspond, on, chang, all, also, you, so, over, without, estim, note, signific, t, x, where, same, has, alreadi, otherwis
+diverg, below, more, allow, run, You, gradient, Julia, result, Given, up, 20, Vector, Union, indic, about, avail, see, now, unicod
+need, don, high, accord, two, Real, relat, repeat, Gener, root, doe, thread, check, uniqu, minus, random, solut, yield, vanish, satisfi
+nearest, still, LinearAlgebra, Experiment, disabl, success, bit, geometr, effect, circumst, toler, henc, squar, BenchmarkTool, criterion, digit, instruct, experiment, half, exp
+https://docs.julialang.org/en/v, manual/parallel-computing, suppos, logdet, non-neg, Thread, printed, well-known, descent, weights, normalized, 160, init=noth, ℍ, keword, single-thread, PosDefManifold, multi-threaded, SPD, Nota
+Bene, 𝐏=randP, ⏩=false, Multi-Thread, Multi-Threading, computer, powerMean, wasMean, ✓w=fals, ⍰=fals, gmean, ←G, closed-form, monothonically, happened, Base.ep, hasten, randP, init=G, 
 ################################### FREQUENCY ###################################
 the, for, be, to, is, a, in, of, use, and, If, are, The, with, as, or, if, 1, by, this
 not, 2, function, will, that, number, it, an, This, each, on, default, can, return, type, from, all, julia, valu, argument
 which, set, 3, ref, data, For, have, vector, 0, onli, true, See, where, has, In, also, you, should, more, Exampl
 pass, call, then, one, option, case, at, run, no, 4, keyword, when, same, result, provid, tupl, first, A, indic, specifi
 time, follow, over, x, matrix, allow, input, array, see, need, chang, so, d, Julia, fals, real, they, doe, exampl, It
+how, two, may, automat, into, order, s, note, i, below, correspond, 100, Return, ani, without, relat, algorithm, requir, posit, defin
+mean, other, w, these, Int, whether, normal, check, size, k, Note, b, object, name, up, about, maximum, do, element, but
+initi, t, 0.5, matric, differ, take, Given, Vector, accord, error, possibl, repeat, Gener, 5, Argument, By, than, estim, alreadi, otherwis
+print, paramet, determin, there, contain, 20, iter, perform, their, warn, multipl, thread, uniqu, weight, random, https://docs.julialang.org/en/v, 10, such, must, implement
+instanc, between, includ, f, pair, second, rang, Union, some, Default, end, bit, sum, support, creat, definit, You, 64, like, generat
 
 ################################# DIFF FREQUENCY ################################
 ################################# more frequent ################################

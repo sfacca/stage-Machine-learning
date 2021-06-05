@@ -1,9 +1,31 @@
+############################## HIGHEST CENTER RATIO #############################
+│, 1, 2, the, 3, val, a, data, b, to, miss, 6, julia, of, df, 4, ║, in, 0, X
+Int, 64, will, be, 5, and, observ, ×, 8, String, 
+############################ CENTER NEAREST NEIGHBOHOR ############################
+│, │, │, │, │, │, │, │, │, │, │, │, │, │, │, │, │, │, │, │
+│, │, │, │, │, │, │, │, │, │, │, │, │, │, │, │, │, │, │, │
+│, │, │, │, │, │, │, │, │, │, │, │, │, │, │, │, │, │, │, │
+│, │, │, │, │, │, │, │, │, │, │, │, │, │, │, │, │, │, │, │
+│, │, │, │, │, │, │, │, │, │, │, │, formula, formula, formula, formula, formula, formula, data, data
+data, data, data, the, the, the, the, a, a, a, call, call, call, DataFram, DataFram, DataFram, model, model, model, year
+year, year, object, object, object, 64, 64, 64, regress, regress, regress, RegressionSet, RegressionSet, RegressionSet, createRegressionSet, createRegressionSet, createRegressionSet, for, for, and
+and, set, set, in, in, linear, linear, 2, 2, 24, 24, hold, hold, objects, objects, 4.7, 4.7, given, use, as
+Exampl, julia, 10, This, is, 1, creat, 4, this, 5, 3, Argument, function, method, Note, julia-repl, A, Creat, 50, 8
+6, ×, Float, accept, 20, Int, 51, Implement, 7, 14, 19, helper, 15, 9, 16, packag, describ, 17, 63, 18
+72, 65, 23, 4.4, 53, 21, 55, 70, 54, 52, 56, estimations, 22, 68, Row, ⋮, 67, 59, 58, 57
+66, phone, 24.0, 69, 159.0, 73, FormulaTerm, ├─────┼───────┼─────────┤, 5.9, 6.6, 7.3, 8.1, 8.8, 10.6, 12.0, 21.2, 119.0, 124.0, 142.0, 182.0
+212.0, 43.0, 71, 27.0, 29.0, 
 ################################### FREQUENCY ###################################
 │, the, julia, data, 1, in, 4, 5, 3, 2, ×, Row, to, is, a, of, 6, for, as, and
 The, with, function, 8, use, Exampl, from, will, be, This, can, which, specifi, all, default, DataFram, Int, given, if, by
 it, that, have, number, or, this, first, then, type, b, result, 64, option, String, 7, 9, ref, For, each, set
 target, If, last, on, 0, element, return, See, exampl, sampl, Note, paramet, i.e, allow, determin, f, 50, name, make, df
 information, true, an, argument, pass, not, inform, follow, keyword, must, implement, one, tupl, are, everi, also, Ani, s, same, has
+i, more, assum, differ, how, A, You, observ, origin, work, column, contain, miss, dimens, jldoctest, Float, Symbol, extract, denot, see
+Default, rand, their, sens, X, nrow, featur, code, dataset, class, shuffl, Make, Y, concept, retriev, col, obsdim, imbalanc, nob, oversampl
+getob, DataSubset, ObsDim, DataT, DataTables.jl, LearnBase.getob, StatsBase.nob, DataTables.DataT, ├─────┼───────────┼─────────────┼───┤, 0.226582, 0.0443222, 0.504629, 0.722906, 0.933372, 0.812814, 0.522172, 0.245457, 0.505208, 0.11202, 0.0997825
+0.000341996, row->row, subsets, undersampl, stratifiedob, refer, 10, size, conveni, call, such, frame, creat, length, addit, In, version, valu, at, but
+order, empti, appli, togeth, method, encod, x, where, 0.5, fraction, other, print, It, d, header, after, second, object, fals, creation
 
 ################################# DIFF FREQUENCY ################################
 ################################# more frequent ################################

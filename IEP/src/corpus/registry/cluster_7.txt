@@ -1,9 +1,24 @@
+############################## HIGHEST CENTER RATIO #############################
+1, 2, the, 3, 0, │, of, a, julia, 4, Int, is, 64, to, in, df, and, 5, for, x
+×, DataFram, column, A, 6, be, with, are, ref, c, 
+############################ CENTER NEAREST NEIGHBOHOR ############################
+0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1
+1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3
+3, 3, 3, 3, 3, 3, 3, x, x, x, x, x, x, 4, 4, 4, 4, 4, of, of
+of, of, the, the, the, in, in, in, n, n, n, larVertProd, larVertProd, larVertProd, julia, julia, output, output, vertic, vertic
+coordin, coordin, Array, Array, Point, Point, larGrid, larGrid, vertList, vertList, by, Exampl, argument, to, a, correspond, are, via, grid, order
+function, point, cell, product, ×, 20, array, integ, Int, vertex, produc, Gener, dimension, 64,2, Cartesian, multidimension, Grid, n-vertic, R^n, 
 ################################### FREQUENCY ###################################
 1, the, 2, of, a, 3, Exampl, is, and, to, in, julia, 4, Int, for, be, 64, use, or, jldoctest
 as, are, with, 5, ×, by, The, that, 0, A, if, from, an, 6, number, data, Return, also, If, element
 ref, return, function, x, which, not, valu, on, argument, See, will, column, true, at, all, Argument, default, DataFram, row, it
 one, │, s, where, same, matrix, df, each, can, vector, this, first, onli, type, Array, Row, 10, i, 8, given
 must, order, output, c, have, y, fals, Matrix, array, 7, 9, contain, name, n, pass, we, 12, two, keyword, d
+e, AbstractDataFram, For, specifi, when, object, no, result, Symbol, size, This, frame, but, v, b, there, Vector, end, 11, then
+Note, differ, Float, Tupl, some, error, call, posit, has, T, take, f, pair, generat, String, Union, B, noth, their, collect
+Keyword, such, tupl, k, D, j, 1.0, equal, new, may, Bool, either, u, write, sum, time, follow, case, into, should
+exist, It, 0.0, model, string, An, miss, input, Dict, key, iter, start, g, support, set, requir, e.g, chang, sampl, note
+left, mean, allow, while, determin, entri, second, real, 20, option, Integer, base, direct, Default, complex, Optional, Bool=fals, variabl, ad, uniqu
 
 ################################# DIFF FREQUENCY ################################
 ################################# more frequent ################################

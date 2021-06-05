@@ -1,9 +1,79 @@
+############################## HIGHEST CENTER RATIO #############################
+the, x, 1, a, of, is, to, and, 0, 2, in, for, be, use, end, bmatrix, The, or, are, 3
+ref, with, p, begin, f, row, can, column, if, by, 
+############################ CENTER NEAREST NEIGHBOHOR ############################
+the, the, the, the, the, the, the, the, the, the, the, the, the, the, the, the, the, the, the, the
+the, the, the, the, the, the, the, the, the, the, the, the, the, the, the, the, the, the, the, the
+the, the, the, the, the, the, the, the, the, the, the, the, the, the, the, the, the, the, the, the
+the, the, the, the, the, the, the, the, the, the, the, the, the, the, the, the, the, the, the, the
+the, the, the, the, the, the, the, the, the, the, the, the, the, the, the, the, the, the, is, is
+is, is, is, is, is, is, is, is, is, is, is, is, is, is, is, is, is, is, is, is
+is, is, is, is, is, is, is, is, is, is, is, is, is, is, is, is, is, is, is, is
+is, is, is, is, of, of, of, of, of, of, of, of, of, of, of, of, of, of, of, of
+of, of, of, of, of, of, of, of, of, of, of, of, of, default, default, default, default, default, default, default
+default, default, default, default, default, default, default, default, default, default, default, default, default, default, default, default, default, default, to, to
+to, to, to, to, to, to, to, to, to, to, to, to, to, to, to, to, to, a, a, a
+a, a, a, a, a, a, a, a, a, a, a, a, a, a, a, a, observ, observ, observ, observ
+observ, observ, observ, observ, observ, observ, observ, observ, observ, observ, observ, observ, observ, observ, observ, for, for, for, for, for
+for, for, for, for, for, for, for, for, for, for, for, background, background, background, background, background, background, background, background, background
+background, background, background, background, background, background, background, if, if, if, if, if, if, if, if, if, if, if, if, if
+if, if, and, and, and, and, and, and, and, and, and, and, and, and, and, and, and, valu, valu, valu
+valu, valu, valu, valu, valu, valu, valu, valu, valu, valu, valu, valu, 2, 2, 2, 2, 2, 2, 2, 2
+2, 2, 2, 2, 2, 2, 2, be, be, be, be, be, be, be, be, be, be, be, be, be
+error, error, error, error, error, error, error, error, error, error, error, error, error, paramet, paramet, paramet, paramet, paramet, paramet, paramet
+paramet, paramet, paramet, paramet, paramet, residu, residu, residu, residu, residu, residu, residu, residu, residu, residu, residu, per, per, per, per
+per, per, per, per, per, per, per, by, by, by, by, by, by, by, by, by, by, length, length, length
+length, length, length, length, length, length, length, correl, correl, correl, correl, correl, correl, correl, correl, correl, correl, timeslic, timeslic, timeslic
+timeslic, timeslic, timeslic, timeslic, timeslic, timeslic, timeslic, use, use, use, use, use, use, use, use, use, true, true, true, true
+true, true, true, true, true, 1, 1, 1, 1, 1, 1, 1, 1, 1, with, with, with, with, with, with
+with, with, with, n, n, n, n, n, n, n, n, n, differ, differ, differ, differ, differ, differ, differ, differ
+mask, mask, mask, mask, mask, mask, mask, mask, len, len, len, len, len, len, len, len, epsilon, epsilon, epsilon, epsilon
+epsilon, epsilon, epsilon, epsilon, from, from, from, from, from, from, from, not, not, not, not, not, not, not, The, The
+The, The, The, The, The, tupl, tupl, tupl, tupl, tupl, tupl, tupl, 3, 3, 3, 3, 3, 3, 3, then
+then, then, then, then, then, then, function, function, function, function, function, function, function, should, should, should, should, should, should, should
+varianc, varianc, varianc, varianc, varianc, varianc, varianc, analysi, analysi, analysi, analysi, analysi, analysi, analysi, xi, xi, xi, xi, xi, xi
+xi, netCDF, netCDF, netCDF, netCDF, netCDF, netCDF, netCDF, can, can, can, can, can, can, vector, vector, vector, vector, vector, vector
+this, this, this, this, this, this, on, on, on, on, on, on, are, are, are, are, are, are, when, when
+when, when, when, when, x, x, x, x, x, x, select, select, select, select, select, select, variabl, variabl, variabl, variabl
+variabl, variabl, fitcorrlen, fitcorrlen, fitcorrlen, fitcorrlen, fitcorrlen, fitcorrlen, that, that, that, that, that, time, time, time, time, time, addit, addit
+addit, addit, addit, or, or, or, or, or, If, If, If, If, If, element, element, element, element, element, field, field
+field, field, field, vertic, vertic, vertic, vertic, vertic, noth, noth, noth, noth, noth, dictionari, dictionari, dictionari, dictionari, dictionari, set, set
+set, set, all, all, all, all, grid, grid, grid, grid, exampl, exampl, exampl, exampl, where, where, where, where, file, file
+file, file, comput, comput, comput, comput, L, L, L, L, fals, fals, fals, fals, no, no, no, no, transform, transform
+transform, transform, repres, repres, repres, repres, max, max, max, max, tran, tran, tran, tran, sel, sel, sel, sel, dbinfo, dbinfo
+dbinfo, dbinfo, it, it, it, will, will, will, This, This, This, which, which, which, have, have, have, in, in, in
+0, 0, 0, output, output, output, elements, elements, elements, point, point, point, Note, Note, Note, slice, slice, slice, layer, layer
+layer, save, save, save, i.e, i.e, i.e, determin, determin, determin, e, e, e, surfac, surfac, surfac, coordin, coordin, coordin, filenam
+filenam, filenam, name, name, name, dimens, dimens, dimens, option, option, option, interpret, interpret, interpret, control, control, control, their, their, their
+done, done, done, replac, replac, replac, varnam, varnam, varnam, Inf, Inf, Inf, cyclic, cyclic, cyclic, Everi, Everi, Everi, call-back, call-back
+call-back, bathymetri, bathymetri, bathymetri, xj, xj, xj, lenz, lenz, lenz, minfield, minfield, minfield, maxfield, maxfield, maxfield, saveindex, saveindex, saveindex, Salin
+Salin, Salin, as, as, Exampl, Exampl, data, data, an, an, argument, argument, creat, creat, filter, filter, e.g, e.g, threshold, threshold
+one, one, correspond, correspond, first, first, at, at, interpol, interpol, also, also, between, between, D, D, estim, estim, defin, defin
+0.5, 0.5, j, j, locat, locat, below, below, more, more, floor, floor, how, how, horizont, horizont, profil, profil, global, global
+scale, scale, base, base, 0.3, 0.3, iter, iter, end, end, dimensions, dimensions, possibl, possibl, factor, factor, relat, relat, substitut, substitut
+scalar, scalar, normal, normal, neighbor, neighbor, param, param, amount, amount, optim, optim, domain, domain, memori, memori, resp, resp, provided, provided
+attributes, attributes, DIVAndrun, DIVAndrun, DIVAndgo, DIVAndgo, decorrel, decorrel, qcvalu, qcvalu, analys, analys, depthr, depthr, fithorzcorrlen, fithorzcorrlen, fitvertcorrlen, fitvertcorrlen, julia, load
+under, For, number, retain, limit, follow, keyword, linear, 100, ratio, typic, everi, return, distanc, term, posit, Ani, you, empti, effici
+so, appli, fit, et, al, includ, note, signal-to-nois, left, right, mean, same, has, deriv, abov, matrix, sea, level, top, bottom
+m, It, allow, depth, veloc, A, At, there, d, thus, Creat, multipli, index, origin, 50, longitud, latitud, 8, second, contain
+just, result, input, Dict, key, Number, 20, array, plot, indic, fill, float, avail, see, path, Use, direct, qualiti, intern, usag
+activ, overrid, multipl, 30, similar, list, final, non-zero, express, value, depend, Optional, here, remain, ad, maximum, rd, minus, stat, g
+score, within, least, 200, sourc, overlap, howev, derivative, solver, cost, constrain, 16, forc, Zero, Input, understood, onto, meters, effect, larg
+total, everyth, niter, memory, routin, deprec, DateTim, exceed, invers, regular, 0,0,0, seri, Per, NaN, cut, subset, saved, doi, 2005, nc
+deep, coeff, DIVAnd, land-sea, moddim, erri, modulo, non-cycl, memtofit, ncvarattrib, ncglobalattrib, timeorigin, 1900,1,1,0,0,0, searchz, diva, lengths, filename, bathnam, DIVAnd-example-data/Global/Bathymetry/gebco, sec
+bathisglob, plotr, timeindex, Halo, zlevel, Anamorphosi, Anam.notransform, fithorz, fithorzlen, smoothz, fitvert, fitvertlen, distfun, DIVAnd.distanc, filterbackground, inversion, RAM, Desrozi, 10.1256, qj
+05.108, penal, surfextend, ocean, suffixes, divamethod, keywoard, aggred, 
 ################################### FREQUENCY ###################################
 the, for, use, as, and, by, it, an, will, be, to, is, a, 1, that, can, which, set, in, of
 The, with, or, one, first, valu, at, 0, 2, are, so, x, differ, if, true, from, This, For, each, have
 not, this, If, on, 3, also, when, function, point, exampl, where, has, below, f, no, array, option, indic, end, two
 relat, given, Exampl, julia, data, argument, call, number, specifi, time, follow, In, case, vector, correspond, but, all, then, return, default
 posit, interfac, than, s, defin, same, Note, more, A, c, index, 8, contain, fals, name, result, input, repres, see, need
+direct, iter, control, start, perform, error, depend, ref, kwarg, algorithm, S, 10, pass, under, requir, limit, e.g, 4, must, provid
+r, linear, 5, chang, via, onli, To, term, See, initi, between, you, output, ani, type, veri, should, D, togeth, exact
+method, note, right, mean, deriv, abov, along, file, matrix, j, locat, paramet, allow, how, comput, b, y, coordin, L, M
+second, filenam, close, lead, dimens, n, consid, N, plot, them, float, avail, B, per, intern, help, whether, general, their, max
+possibl, multipl, may, When, factor, identifi, absolut, scalar, mani, either, Optional, valid, doe, variabl, maximum, Method, used, cost, particular, border
 
 ################################# DIFF FREQUENCY ################################
 ################################# more frequent ################################

@@ -1,0 +1,7 @@
+#1
+ogr, plots, ode
+
+#2
+funzioni con docstring molto lunghe
+
+#3

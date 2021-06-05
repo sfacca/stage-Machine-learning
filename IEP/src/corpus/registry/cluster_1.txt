@@ -1,9 +1,19 @@
+############################## HIGHEST CENTER RATIO #############################
+the, of, to, a, and, in, Return, is, for, with, 1, from, be, x, by, valu, use, function, that, data
+an, if, 2, or, on, return, ref, The, name, as, 
+############################ CENTER NEAREST NEIGHBOHOR ############################
+the, the, of, Return, order, oper, ODE, 
 ################################### FREQUENCY ###################################
 the, of, to, a, Return, and, in, is, for, with, from, be, by, that, an, use, 1, return, function, or
 on, if, The, as, are, valu, given, ref, 2, data, it, at, not, x, name, This, model, If, all, Paramet
 set, s, which, number, file, will, point, object, type, this, Int, specifi, Comput, vector, String, current, 0, get, See, also
 A, can, result, Vector, Set, true, default, array, julia, new, 3, each, index, element, Argument, Exampl, contain, Get, 64, one
 t, first, method, into, where, variabl, matrix, handl, paramet, path, onli, argument, same, error, T, time, p, call, input, y
+correspond, Float, OGR, size, Creat, dimens, field, has, f, node, between, string, comput, output, should, i, defin, Array, int, list
+AbstractStr, posit, then, Symbol, length, state, option, coordin, have, v, but, start, fals, Integer, Calcul, Union, indic, pass, store, geometri
+ani, no, Real, must, when, two, order, noth, base, provid, n, const, It, X, weight, includ, line, column, end, Bool
+c, char, k, R, For, grid, D, system, associ, updat, imag, AbstractVector, d, tupl, inform, graph, jldoctest, kwarg, 4, case
+i.e, creat, distanc, add, Note, featur, other, refer, calcul, whether, NULL, doe, sampl, mean, space, plot, generat, g, void, such
 
 ################################# DIFF FREQUENCY ################################
 ################################# more frequent ################################

@@ -6,6 +6,8 @@ using Base: String
 #    significantly higher frequency compared to corpus frequency and words that have a significantly lower frequency   
 # 3. names of elements (function names)
 # 4. file/modules where elements are from
+# 5. center word fractions
+# 5. document closest to cluster center
 
 struct Cluster
     docs
@@ -17,6 +19,8 @@ struct Cluster_stats
     diff_freq
     names
     origins
+    center
+    closest_to_center
 end
 
 function clusters_info(kres, data, names)
@@ -38,14 +42,28 @@ function clusters_info(kres, data, names)
         push!(nms, names[cl.indexes])
     end
 
+    funcsorts = []
+    # costs orders for functions
+    for i in 1:length(clusters)# this is a bad way to do this
+        push!(funcsorts, sortperm(kres.costs[findall((x)->(x==i),kres.assignments)], rev=true))
+    end
+
     #4 origins
     ogs = []
-    for names in nms
-        push!(ogs, [split(n,".")[1] for n in names])
+    for i in 1:length(nms)
+        push!(ogs, [split(n,".")[1] for n in nms[i][funcsorts[i]]])
     end
     _nms = []
-    for names in nms
-        push!(_nms, [split(n,".")[end] for n in names])
+    for i in 1:length(nms)
+        push!(_nms, [split(n,".")[end] for n in nms[i][funcsorts[i]]])
+    end
+
+    #5,6 center stuff
+    centers = []
+    closests_to_center = []
+    for i in 1:length(clusters)
+        push!(centers, kres.centers[:,i])
+        push!(closests_to_center, data[:,clusters[i].indexes[argmin(kres.costs[clusters[i].indexes])]])
     end
 
     res = []
@@ -55,10 +73,13 @@ function clusters_info(kres, data, names)
             freq[i], 
             diff_freqs[i], 
             _nms[i], 
-            ogs[i]
+            ogs[i],
+            centers[i],
+            closests_to_center[i]
             )
             )
     end
+
 
     res
 end
@@ -104,7 +125,7 @@ function get_bag(doc::SparseVector{Float64,Int64}, lexi::Array{String,1})
     res
 end
 
-function get_clusters(kres, data)::Array{Cluster,1}
+function _get_Clusters(kres, data)::Array{Cluster,1}
     res = Array{Cluster,1}(undef,0)
     for i in 1:maximum(kres.assignments)
         indexes = findall((x)->(x==i), kres.assignments)
@@ -115,7 +136,7 @@ end
 
 
 function cluster_terms_frequency(kres, data)
-    clusters = get_clusters(kres,data)
+    clusters = _get_Clusters(kres,data)
     freqs = []
     for cluster in clusters
         push!(freqs, [count((x)->(x>0) , data[i,cluster.indexes])/(length(cluster.indexes)) for i in 1:data.m])# data.m = number of rows = number of words
@@ -123,6 +144,23 @@ function cluster_terms_frequency(kres, data)
     clusters, freqs  
 
 
+end
+
+function indexes_of_closest_to_center(kres, names=nothing)
+
+    cluster_num = maximum(kres.assignments)
+
+    cost_sort = sortperm(kres.costs)
+    sorted_ass = kres.assignments[cost_sort]
+    res = []
+    for i in 1:cluster_num
+        push!(res, cost_sort[findfirst((x)->(x==i), kres.assignments[cost_sort])])
+    end
+    if !isnothing(names)
+        names[res]
+    else
+        res
+    end
 end
 
 function word_frequency(data)
@@ -206,6 +244,8 @@ struct Cluster_stats
     diff_freq
     names
     origins
+    center
+    closest_to_center
 end
 =#
 
@@ -218,6 +258,15 @@ function txt_cluster_info(arr, lexi=nothing)
         i=1
         for cl_info in arr
             open("cluster_$i.txt", "w") do io
+                write(io, "############################## HIGHEST CENTER RATIO #############################\n")
+                num_nn0 = count((x)->(x>0), cl_info.center)
+                if num_nn0 > 30
+                    num_nn0=30
+                end
+                center_sort = sortperm(cl_info.center, rev=true)[1:num_nn0]
+                write_split(io, lexi[center_sort])
+                write(io, "############################ CENTER NEAREST NEIGHBOHOR ############################\n")
+                write_split(io, get_bag(cl_info.closest_to_center, lexi))
                 write(io, "################################### FREQUENCY ###################################\n")
                 lnn0 = length(findall((x)->(x>0), cl_info.freq))
                 srp = sortperm(cl_info.freq ,rev=true)
