@@ -1,46 +1,52 @@
 ############################## HIGHEST CENTER RATIO #############################
-the, i, is, of, atom, 1, to, in, j, crystal, and, a, that, k, be, charg, for, if, from, r
-func, are, bond, paramet, field, forc, λ, 0, 64, not, 
+y, class, c, weight, confus, matrix, averag, posit, ith, classwis, label, pred, score, values, binari, mean, result, noth, Vector, element
+macro, fals, name, end, bmatrix, Float, micro, average, predict, classif, 
 ############################ CENTER NEAREST NEIGHBOHOR ############################
-the, the, the, the, the, the, the, the, the, the, the, the, the, the, atom, atom, atom, atom, atom, atom
-atom, atom, atom, atom, atom, atom, atom, atom, of, of, of, of, of, of, of, of, of, of, of, of
-i, i, i, i, i, i, i, i, i, i, i, crystal, crystal, crystal, crystal, crystal, crystal, crystal, The, The
-The, The, The, The, neighborhood, neighborhood, neighborhood, neighborhood, neighborhood, neighborhood, is, is, is, is, is, in, in, in, in, in
-Array, Array, Array, Array, Array, from, from, from, from, to, to, to, to, 1, 1, 1, 1, distanc, distanc, distanc
-distanc, Float, Float, Float, Float, 64, 64, 64, 64, r, r, r, 0, 0, 0, matrix, matrix, matrix, xs, xs
-xs, coordin, coordin, coordin, neighbor, neighbor, neighbor, am, am, am, adjac, adjac, adjac, be, be, all, all, been, been, Int
-Int, id, id, find, find, within, within, nearest, nearest, rs, rs, characterized, characterized, ref, for, use, as, and, subtract, will
-a, that, which, have, vector, correspond, this, first, at, 2, Return, Argument, posit, type, so, appli, Also, defin, has, imag
-other, these, A, system, origin, array, indic, see, new, list, Find, structur, period, maximum, off, surround, Index, image, convent, lie
-decomposit, choic, Cartesian, Voronoi, character, Crystal, crystal.atom, Scipy, 
+the, the, the, the, the, the, the, the, the, the, the, the, the, the, the, the, the, the, the, the
+the, the, the, the, the, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2
+2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, of, of, of, of, of, of, of, of
+of, of, weight, weight, weight, weight, weight, weight, weight, weight, weight, weight, class, class, class, class, class, class, class, class
+class, class, julia, julia, julia, julia, julia, julia, julia, julia, Return, Return, Return, Return, Return, Return, Return, Return, c, c
+c, c, c, c, c, c, y, y, y, y, y, y, y, y, marked, marked, marked, marked, marked, marked
+marked, marked, for, for, for, for, for, for, for, 1, 1, 1, 1, 1, 1, 1, matrix, matrix, matrix, matrix
+matrix, matrix, matrix, confus, confus, confus, confus, confus, confus, confus, true, true, true, true, true, true, valu, valu, valu, valu
+valu, valu, averag, averag, averag, averag, averag, averag, ith, ith, ith, ith, ith, classwis, classwis, classwis, classwis, classwis, ref, ref
+ref, ref, given, given, given, given, label, label, label, label, values, values, values, values, pred, pred, pred, pred, in, in
+in, If, If, If, element, element, element, mean, mean, mean, result, result, result, Vector, Vector, Vector, macro, macro, macro, noth
+noth, noth, binari, binari, binari, average, average, average, to, to, specifi, specifi, with, with, keyword, keyword, posit, posit, name, name
+Array, Array, Float, Float, per, per, list, list, normal, normal, 64,1, 64,1, classif, classif, sum, sum, micro, micro, 0.2777777777777777, 0.2777777777777777
+and, by, Exampl, Keyword, argument, will, be, is, not, The, calcul, this, are, all, return, Argument, See, instead, sampl, Also
+divid, julia-repl, f, object, fals, array, option, String, Int, equal, Use, condit, Bool, both, report, Predict, score, True, numer, correl
+divis, es, normalize=tru, ignored, coeff, denomin, whilst, matthew, informed, elementwis, sample-weight, sample-weigt, 0.18181818181818177, 0.03468013468013468, 0.19999999999999996, 0.4691112238990908, 0.5160223462889999, 0.7166977031791665, 0.03831649831649832, 
 ################################### FREQUENCY ###################################
-the, for, and, be, to, is, a, that, in, of, use, 1, which, have, this, so, as, from, an, can
-are, all, Return, i, A, Float, 64, within, if, it, will, not, The, with, If, first, on, then, Argument, type
-point, x, name, Array, list, structur, atom, crystal, Crystal, by, data, each, number, specifi, inform, must, or, r, valu, 0.1
-at, 0, 2, onli, we, We, function, appli, includ, where, defin, same, has, P, j, p, assum, system, zero, coordin
-no, array, indic, Int, equal, new, both, find, present, period, mod, ref, true, form, subtract, pass, set, unit, 4, provid
-do, vector, correspond, 3, k, grid, distanc, default, posit, order, when, ani, than, method, s, note, convert, Also, cannot, been
-Note, imag, graph, file, matrix, box, fraction, other, paramet, speed, cell, z, construct, these, c, remov, xs, origin, e, read
-entri, AbstractStr, second, filenam, object, column, contain, fals, ensur, look, up, symbol, String, xyz, group, see, signatur, Attribut, label, error
-matter, id, When, later, Bool, show, pos, value, throw, absolut, depend, Find, neighbor, doe, check, maximum, off, infer, surround, space
-upper, Index, image, larger, undirect, nearest, rule, popul, neighborhood, overlap, solver, constraint, μ, convent, wrap, duplic, coord, describ, directly, tol
+the, for, and, be, to, is, of, valu, y, given, by, will, 1, in, The, with, If, 2, are, matrix
+array, Exampl, julia, true, not, this, 3, element, return, See, posit, sampl, c, object, Vector, Bool, ref, Keyword, specifi, keyword
+all, Return, Argument, instead, result, option, String, Int, equal, noth, label, list, weight, Predict, classif, confus, pred, argument, mean, julia-repl
+averag, fals, name, macro, condit, both, normal, report, binari, True, divis, sum, ignored, whilst, micro, calcul, divid, Array, Float, per
+Use, class, values, numer, ith, denomin, classwis, elementwis, sample-weight, sample-weigt, 64,1, normalize=tru, score, average, Also, accuraci, predict, or, f, es
+negat, either, also, 0.0, index, arguments, whole, balanc, exampl, rate, no, recal, 0.3, 0.4, Posit, First, Negat, Fals, a, 0
+sensit, 6, 9, correl, coeff, matthew, use, 10, that, each, 5, at, defin, below, 1.0, differ, 8, classifi, loss, 0.6
+ham, weights, omiss, threat, an, For, can, which, set, number, 4, follow, provid, vector, one, instanc, output, function, s, x
+right, 0.5, 0.25, second, two, 0.2, correct, Determin, 7, Condit, discoveri, 0.6666666666666666, incorrect, Classifi, informed, marked, jaccard, 0.18560606060606064, 0.6246950475544243, 0.7808688094430303
+0.3076923076923077, as, if, data, S, size, it, from, This, call, creat, target, threshold, In, case, first, on, chang, via, onli
 
 ################################# DIFF FREQUENCY ################################
 ################################# more frequent ################################
-that, so, have, be, this, which, for, within, in, is, use, i, and, Float, 1, 64, A, can, all, to
-are, as, Crystal, crystal, from, atom, structur, an, list, then, first, Array, point, Argument, name, a, type, will, of, If
-not, Return, it, on, x, if, mod, We, The, 0.1, present, period, j, find, P, both, equal, assum, we, inform
-system, r, appli, zero, includ, coordin, indic, defin, no, must, same, has, p, new, onli, where, specifi, each, array, with
-at, number, Int, 0, data, the, valu, function, characterized, Scipy, charges=fals, duplicates=fals, crystal.charges.coords.xf, crystal.atoms.coords.xf, Unweight, SymmetryInfo, inforom, crystal.atoms.speci, neutrality=tru, file=fals
+y, matrix, array, posit, sampl, c, confus, pred, Predict, classif, Bool, instead, valu, equal, Keyword, will, given, label, Vector, weight
+If, element, keyword, noth, micro, object, whilst, list, divis, ignored, True, macro, report, See, option, averag, binari, true, condit, this
+result, julia-repl, both, sum, normal, 3, specifi, mean, Exampl, Argument, String, not, are, julia, classwis, sample-weight, sample-weigt, ith, elementwis, denomin
+divid, class, numer, by, values, The, per, Use, fals, all, calcul, Int, 2, be, return, argument, name, ref, 64,1, Array
+Float, 1, normalize=tru, with, for, is, and, in, average, score, Return, to, accuraci, Also, of, predict, es, negat, f, either
 
 ################################# less frequent ################################
-julia, given, See, element, Vector, one, get, Paramet, into, Comput, n, 5, should, input, Creat, string, T, variabl, between, path
-length, Integer, comput, end, node, two, case, kwarg, creat, Get, keyword, sampl, It, 8, X, int, Real, start, you, base
-state, Function, m, handl, Julia, 6, map, oper, format, Dict, weight, e.g, over, const, initi, plot, either, char, Default, R
-key, Gener, updat, repres, step, g, out, run, add, support, 1.0, algorithm, take, singl, determin, Type, AbstractVector, normal, calcul, implement
-write, random, Matrix, void, requir, Convert, collect, code, otherwis, NULL, refer, h, integ, ×, color, arg, scale, document, multipl, rang
+a, from, as, if, an, model, t, jldoctest, get, on, Comput, it, Creat, string, p, function, 64, variabl, pass, use
+Symbol, length, Set, AbstractStr, node, kwarg, Union, Get, v, iter, It, tupl, file, int, more, you, graph, data, includ, state
+Function, such, k, handl, Julia, map, Tupl, Dict, appli, grid, i.e, store, e.g, over, const, z, This, char, Default, key
+updat, id, step, g, form, out, run, add, do, read, take, that, Type, AbstractVector, inform, implement, random, Matrix, void, Convert
+check, exist, collect, transform, Construct, NULL, ×, arg, scale, document, multipl, load, Calcul, convert, test, Ani, version, match, allow, distanc
 
 ################################# FUNCTION NAMES ################################
-BatchedTridiagonalSolver, Crystal, Crystal, Forcing, detect_new_linearities, neighborhood, neighborhood, 
+NameDef(  1:4   path, nothing), NameDef(  1:8   wavwrite, nothing), accuracy_score, balanced_accuracy_score, classification_report, condition_negative, condition_positive, confusion_matrix, correctly_classified, f1_score, false_discovery_rate, false_negative_rate, false_omission_rate, false_positive_rate, fowlkes_mallows_index, imgradients, incorrectly_classified, informedness, jaccard_score, markedness
+matthews_correlation_coeff, negative_predictive_value, positive_predictive_value, precision_score, predicted_negative, predicted_positive, prevalence_threshold, recall_score, threat_score, 
 ############################### FUNCTION ORIGINS ################################
-Forcings, Polyhedra, PorousMaterials, Solvers, Xtals, 
+ImageFiltering, classification, |tmp/GR\jheinen-GR, |tmp/WAV\dancasimiro-WAV, 

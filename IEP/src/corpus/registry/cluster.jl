@@ -12,6 +12,71 @@ function revert_assignments(arr)
     res
 end
 
+function remove_rows!(mat, rows)
+    for row in rows
+        asd = findall((x)->(x==row), mat.rowval)
+        for i in asd
+            mat.nzval[i] = 0
+        end
+    end
+    dropzeros(mat)
+end
+
+function find_words(lexi, sw)
+    res = []
+    lexi = lowercase.(lexi)
+    for word in sw
+        for i in 1:length(lexi)
+            if lexi[i] == word
+                push!(res, i)
+            end
+        end
+    end
+    res
+end
+
+function capitalization_duplicates_finder(arr)
+    lcarr = lowercase.(arr)
+    sortp = sortperm(lcarr)
+    lcarr = lcarr[sortp]
+    res = []
+    t = [sortp[1]]
+    for i in 2:length(lcarr)
+        if lcarr[i] == lcarr[i-1]
+            push!(t, sortp[i])
+        else
+            push!(res, t)
+            t = [sortp[i]]
+        end
+    end
+    res
+end
+
+function capitalization_fixer(mat, arr)
+    a2 = filter((x)->(length(x)>1),arr)
+    for dups in a2
+        for col in 1:mat.n
+            # sum vals in 
+            val = sum(mat[dups,col])
+            mat[dups[1], col] = val
+        end      
+    end
+
+    a2 = [x[2:end] for x in a2]
+    a3 = 0
+    for i in 1:length(a2)
+        a3 = vcat(a3, a2[i])
+    end
+    remove_rows!(mat, a3)
+end
+
+
+
+
+
+
+        
+
 
 
 function find_closest(arr, arr_of_arr)

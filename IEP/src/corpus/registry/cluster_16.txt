@@ -1,48 +1,68 @@
 ############################## HIGHEST CENTER RATIO #############################
-│, 1, 2, the, 3, val, a, data, b, to, miss, 6, julia, of, df, 4, ║, in, 0, X
-Int, 64, will, be, 5, and, observ, ×, 8, String, 
+default, method, vector, test, fx, measur, zero, observ, find, Order, n, error, weight, atol, point, per, background, retract, evalu, toler
+transport, fals, length, specifi, then, resampl, paramet, invers, tupl, residu, 
 ############################ CENTER NEAREST NEIGHBOHOR ############################
-│, │, │, │, │, │, │, │, │, │, │, │, │, │, │, │, │, │, │, │
-│, │, │, │, │, │, │, │, │, │, │, │, │, │, │, │, │, │, │, │
-│, │, │, │, │, │, │, │, │, │, │, │, │, │, │, │, │, │, │, │
-│, │, │, │, │, │, │, │, │, │, │, │, │, │, │, │, │, │, │, │
-│, │, │, │, │, │, │, │, │, │, │, │, formula, formula, formula, formula, formula, formula, data, data
-data, data, data, the, the, the, the, a, a, a, call, call, call, DataFram, DataFram, DataFram, model, model, model, year
-year, year, object, object, object, 64, 64, 64, regress, regress, regress, RegressionSet, RegressionSet, RegressionSet, createRegressionSet, createRegressionSet, createRegressionSet, for, for, and
-and, set, set, in, in, linear, linear, 2, 2, 24, 24, hold, hold, objects, objects, 4.7, 4.7, given, use, as
-Exampl, julia, 10, This, is, 1, creat, 4, this, 5, 3, Argument, function, method, Note, julia-repl, A, Creat, 50, 8
-6, ×, Float, accept, 20, Int, 51, Implement, 7, 14, 19, helper, 15, 9, 16, packag, describ, 17, 63, 18
-72, 65, 23, 4.4, 53, 21, 55, 70, 54, 52, 56, estimations, 22, 68, Row, ⋮, 67, 59, 58, 57
-66, phone, 24.0, 69, 159.0, 73, FormulaTerm, ├─────┼───────┼─────────┤, 5.9, 6.6, 7.3, 8.1, 8.8, 10.6, 12.0, 21.2, 119.0, 124.0, 142.0, 182.0
-212.0, 43.0, 71, 27.0, 29.0, 
+measur, measur, measur, measur, measur, measur, measur, measur, measur, measur, measur, measur, measur, measur, measur, measur, measur, measur, measur, measur
+measur, measur, measur, measur, measur, measur, measur, measur, of, of, of, of, of, of, of, of, of, of, of, of
+of, of, of, of, of, of, of, of, of, is, is, is, is, is, is, is, is, is, is, is
+is, is, is, is, is, is, is, is, is, the, the, the, the, the, the, the, the, the, the, the
+the, the, the, the, the, the, weight, weight, weight, weight, weight, weight, weight, weight, weight, weight, weight, weight, weight, weight
+weight, weight, weight, to, to, to, to, to, to, to, to, to, to, to, to, to, to, to, to, a
+a, a, a, a, a, a, a, a, a, a, a, a, vector, vector, vector, vector, vector, vector, vector, vector
+vector, vector, vector, vector, vector, resampl, resampl, resampl, resampl, resampl, resampl, resampl, resampl, resampl, resampl, resampl, resampl, resampl, for, for
+for, for, for, for, for, for, for, for, for, for, default, default, default, default, default, default, default, default, default, default
+default, default, use, use, use, use, use, use, use, use, use, use, use, in, in, in, in, in, in, in
+in, in, in, evalu, evalu, evalu, evalu, evalu, evalu, evalu, evalu, evalu, evalu, mach, mach, mach, mach, mach, mach, mach
+mach, mach, mach, be, be, be, be, be, be, be, be, be, class, class, class, class, class, class, class, class
+class, with, with, with, with, with, with, with, with, train, train, train, train, train, train, train, train, that, that, that
+that, that, that, that, specifi, specifi, specifi, specifi, specifi, specifi, specifi, fold, fold, fold, fold, fold, fold, fold, and, and
+and, and, and, and, support, support, support, support, support, support, 1, 1, 1, 1, 1, 1, which, which, which, which
+which, which, are, are, are, are, are, are, true, true, true, true, true, each, each, each, each, each, not, not
+not, not, not, test, test, test, test, test, observ, observ, observ, observ, observ, option, option, option, option, option, row, row
+row, row, row, per, per, per, per, per, repeat, repeat, repeat, repeat, repeat, predict, predict, predict, predict, predict, machin, machin
+machin, machin, machin, pass, pass, pass, pass, or, or, or, or, then, then, then, then, w, w, w, w, comput
+comput, comput, comput, these, these, these, these, model, model, model, model, report, report, report, report, confus, confus, confus, confus, if
+if, if, by, by, by, data, data, data, an, an, an, set, set, set, If, If, If, those, those, those
+perform, perform, perform, may, may, may, strategi, strategi, strategi, aggreg, aggreg, aggreg, resourc, resourc, resourc, MLJ.ResamplingStrategi, MLJ.ResamplingStrategi, MLJ.ResamplingStrategi, as, as
+argument, argument, call, call, For, For, The, The, must, must, one, one, valu, valu, These, These, To, To, you, you
+ani, ani, type, type, fit, fit, exampl, exampl, t, t, y, y, subtyp, subtyp, bound, bound, pair, pair, object, object
+contain, contain, 6, 6, don, don, 1:100, 1:100, dictionari, dictionari, X, X, check, check, Mont, Mont, Carlo, Carlo, isa, isa
+ignor, ignor, forc, forc, acceler, acceler, individu, individu, explict, explict, CV, CV, weights=noth, weights=noth, cross-valid, cross-valid, per-sampl, per-sampl, 101:200, 101:200
+nfolds, nfolds, MLJ.support, MLJ.support, weights=w, weights=w, mach.model, mach.model, 10, form, from, will, can, keyword, do, current, correspond, this, first, across
+5, instanc, but, all, Return, singl, appli, median, method, sampl, defin, mean, cannot, otherwis, oper, give, level, construct, A, 50
+An, miss, fals, no, generat, them, indic, integ, avail, see, higher, event, noth, error, list, etc, mode, both, restrict, manual
+dure, mutat, supervis, param, score, loss, properti, obtain, parallel, 200, details, verbos, wrap, Addition, unless, resampling, subsequ, total, Do, thrown
+CPU, classif, CPUThread, problem, inspect, determinist, Although, multi-thread, Estimat, operation, force=fals, Probabilist, untouched, Summari, shuffle=tru, expected, two-fold, verbosity, per-class, User-defin
+acceleration=default, ComputationalResources.AbstractResourc, accelerate/parallel, rows=noth, resampling=CV, measure=noth, operation=predict, repeats, measure=tru, strategies, aggregation, mach.arg, key-word, single-thread, CPUProcess, multi-process, cold-restart, property-access, PerformanceEvalu, pamarm
+
 ################################### FREQUENCY ###################################
-│, the, julia, data, 1, in, 4, 5, 3, 2, ×, Row, to, is, a, of, 6, for, as, and
-The, with, function, 8, use, Exampl, from, will, be, This, can, which, specifi, all, default, DataFram, Int, given, if, by
-it, that, have, number, or, this, first, then, type, b, result, 64, option, String, 7, 9, ref, For, each, set
-target, If, last, on, 0, element, return, See, exampl, sampl, Note, paramet, i.e, allow, determin, f, 50, name, make, df
-information, true, an, argument, pass, not, inform, follow, keyword, must, implement, one, tupl, are, everi, also, Ani, s, same, has
-i, more, assum, differ, how, A, You, observ, origin, work, column, contain, miss, dimens, jldoctest, Float, Symbol, extract, denot, see
-Default, rand, their, sens, X, nrow, featur, code, dataset, class, shuffl, Make, Y, concept, retriev, col, obsdim, imbalanc, nob, oversampl
-getob, DataSubset, ObsDim, DataT, DataTables.jl, LearnBase.getob, StatsBase.nob, DataTables.DataT, ├─────┼───────────┼─────────────┼───┤, 0.226582, 0.0443222, 0.504629, 0.722906, 0.933372, 0.812814, 0.522172, 0.245457, 0.505208, 0.11202, 0.0997825
-0.000341996, row->row, subsets, undersampl, stratifiedob, refer, 10, size, conveni, call, such, frame, creat, length, addit, In, version, valu, at, but
-order, empti, appli, togeth, method, encod, x, where, 0.5, fraction, other, print, It, d, header, after, second, object, fals, creation
+the, for, use, if, and, by, true, will, be, to, is, 1, that, not, set, in, of, with, vector, one
+this, valu, are, then, default, fals, as, it, from, an, argument, This, a, For, can, which, The, or, If, first
+on, at, 0, 2, all, function, type, point, method, has, differ, A, contain, no, option, indic, avail, see, noth, error
+relat, check, ref, Exampl, julia, data, 10, pass, call, under, each, have, length, number, specifi, limit, e.g, time, keyword, must
+implement, correspond, tupl, linear, 5, 3, but, return, posit, when, you, output, so, should, D, appli, fit, exampl, test, x
+where, defin, mean, Note, deriv, 0.5, oper, level, more, i.e, comput, determin, observ, multipli, subtyp, 12, 50, coordin, 8, M
+name, just, dimens, 6, n, those, Number, 20, evalu, base, float, per, Use, direct, iter, general, their, max, possibl, multipl
+may, list, dictionari, absolut, scalar, depend, Optional, mutat, maximum, param, score, properti, parallel, least, 200, cost, verbos, 16, forc, understood
+onto, toler, total, invers, atol, rtol, Estimat, kwarg, approxim, given, algorithm, support, load, S, size, form, AbstractVector, creat, filter, requir
+retain, 4, addit, follow, measur, r, radius, threshold, automat, In, do, current, case, across, 100, inject, instanc, These, through, ratio
 
 ################################# DIFF FREQUENCY ################################
 ################################# more frequent ################################
-│, Row, ×, 5, 4, 3, data, julia, 6, 2, 1, 8, in, DataFram, as, function, The, specifi, default, which
-will, can, all, This, Int, Exampl, is, 9, with, 7, b, then, have, option, first, result, from, String, 64, use
-type, for, number, this, given, be, information, 50, df, to, target, it, make, allow, last, determin, i.e, exampl, sampl, Note
-and, For, if, paramet, f, by, that, or, each, element, name, See, set, 0, If, ObsDim, DataT, DataTables.jl, LearnBase.getob, StatsBase.nob
-DataTables.DataT, ├─────┼───────────┼─────────────┼───┤, 0.226582, 0.0443222, 0.504629, 0.722906, 0.933372, 0.812814, 0.522172, 0.245457, 0.505208, 0.11202, 0.0997825, 0.000341996, row->row, subsets, undersampl, stratifiedob, imbalanc, DataSubset
+then, fals, one, vector, default, set, true, this, will, not, valu, are, if, by, that, use, be, 1, with, avail
+relat, check, differ, see, noth, for, indic, no, For, error, has, option, first, method, contain, in, is, point, argument, A
+type, and, at, which, can, all, This, 0, If, it, on, as, function, The, from, or, to, 2, an, understood
+rtol, atol, subtyp, onto, mutat, 200, multipli, Estimat, cost, float, parallel, 50, score, absolut, invers, toler, verbos, scalar, those, total
+deriv, 16, forc, just, limit, 12, properti, fit, 20, general, 0.5, under, least, dictionari, per, max, Optional, observ, level, evalu
 
 ################################# less frequent ################################
-Return, file, array, point, t, get, Paramet, matrix, Comput, input, output, T, index, current, error, no, variabl, defin, path, Set
-indic, Integer, correspond, comput, node, kwarg, Get, v, iter, D, int, Real, may, coordin, start, base, graph, so, state, Function
-imag, k, m, handl, map, oper, format, Dict, zero, grid, store, r, over, const, direct, plot, either, z, char, need
-updat, id, repres, step, g, form, out, run, system, support, 1.0, algorithm, take, Type, normal, calcul, doe, edg, space, Matrix
-void, Convert, check, collect, transform, filenam, label, Construct, otherwis, NULL, h, integ, color, we, scale, document, rang, chang, H, load
+Int, 64, String, Float, Array, Paramet, into, onli, Comput, new, Bool, p, T, i, Symbol, Set, AbstractStr, node, Union, Get
+c, v, provid, other, int, Real, column, graph, state, Function, imag, line, such, k, handl, Julia, map, Tupl, format, store
+over, const, either, z, char, R, Gener, updat, id, out, run, add, system, read, take, Type, calcul, inform, edg, write
+Matrix, void, Convert, exist, collect, label, code, Construct, NULL, refer, h, ×, color, we, document, C, H, last, Calcul, convert
+version, match, sum, Keyword, center, entri, befor, unit, dim, OGR, AbstractArray, they, process, was, associ, u, geometri, structur, part, featur
 
 ################################# FUNCTION NAMES ################################
-NameDef(  1:5   stack, nothing), createRegressionSetting, loci_dataframe, one_hot_encode, oversample, pivot_wider, simulate_sibship, stratifiedobs, undersample, vcat, 
+diva3d, evaluate!, find_zero, test_manifold, 
 ############################### FUNCTION ORIGINS ################################
-DataFrames, FeatureSelectors, LinRegOutliers, MLDataPattern, PopGen, PopGenSims, TidyStanza, |tmp/HTTP\JuliaWeb-HTTP, 
+DIVAnd, MLJBase, Roots, |tmp/Manifolds\JuliaManifolds-Manifolds, 

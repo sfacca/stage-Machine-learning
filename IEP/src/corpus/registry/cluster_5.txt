@@ -1,51 +1,46 @@
 ############################## HIGHEST CENTER RATIO #############################
-x, the, a, y, julia, of, 2, 1, to, is, 0, and, for, f, valu, in, function, 3, use, be
-or, t, that, z, A, with, b, as, model, s, 
+│, df, column, 64, name, DataFram, row, miss, 4, Row, ×, String, map, fals, join, frame, ID, A, colour, Bool
+Doe, pass, y, 5, argument, file, Symbol, then, AbstractDataFram, onli, 
 ############################ CENTER NEAREST NEIGHBOHOR ############################
-x, x, x, x, x, x, x, x, x, x, x, x, 2, 2, 2, 2, 2, 2, A, A
-A, A, 1, 1, 1, 3, 3, 3, Array, Array, Array, the, the, julia, julia, R, R, same, same, use
-Exampl, to, a, of, with, 0, elements, Convert, Julia, Matrix, MatrixElem, dimens, jldoctest, setup, AbstractAlgebra, ZZ, ×, BigInt, AbstractAlgebra.Generic.Poli, 
+1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
+1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, │
+│, │, │, │, │, │, │, │, │, │, │, │, │, │, │, df, df, df, df, df
+df, df, df, df, 4, 4, 4, 4, 4, 4, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3
+3, julia, julia, julia, julia, a, a, a, a, 8, 8, 8, 8, 64, 64, 64, 64, Int, Int, Int
+Int, nonuniqu, nonuniqu, nonuniqu, nonuniqu, ref, ref, ref, DataFram, DataFram, DataFram, x, x, x, i, i, i, column, column, column
+Vector, Vector, Vector, Bool, Bool, Bool, AbstractDataFram, AbstractDataFram, AbstractDataFram, to, to, or, or, element, element, ×, ×, transform, transform, row
+row, uniqu, uniqu, duplic, duplic, col, col, selector, selector, Row, Row, ─────┼──────────────, ─────┼──────────────, the, if, and, by, Exampl, true, be
+is, which, in, specifi, with, valu, 5, all, Return, Argument, See, also, ani, s, exist, A, there, entri, contain, jldoctest
+6, accept, indic, equal, accord, their, select, Can, rows, 7, prior, 1:4, vcat, isequ, compare, 
 ################################### FREQUENCY ###################################
-x, the, of, a, to, is, 2, 1, and, in, for, use, be, or, y, as, julia, 0, function, that
-valu, with, If, Exampl, can, The, 3, are, if, an, will, by, from, return, This, 4, where, A, not, Return
-ref, it, vector, f, See, jldoctest, data, true, this, exampl, method, size, on, one, same, at, s, result, matrix, each
-then, z, default, Note, more, comput, number, point, t, Usage, array, plot, may, all, when, iter, For, set, type, fals
-which, length, Argument, also, b, 8, given, argument, r, onli, but, Creat, option, their, such, 5, should, 64, have, Symbol
-Int, arg, log, provid, output, has, It, assum, object, end, Real, Bool, 10, pass, specifi, must, element, mean, zero, n
-ani, oper, model, column, 6, Float, rand, whether, Comput, either, param, Draw, kwarg, so, i, determin, input, noth, display, variabl
-maximum, guess, code-block, Keyword, call, linear, D, print, i.e, two, cos, math, follow, current, correspond, initi, defin, 1.0, name, indic
-befor, UInt, approxim, inform, In, k, between, you, I, c, e, coordin, line, Array, Vector, B, Function, normal, u, sin
-sqrt, do, case, differ, d, Julia, contain, no, String, updat, relat, side, callabl, match, seri, LinRang, algorithm, support, tupl, first
+1, 2, julia, Int, the, a, of, 3, DataFram, │, Exampl, ×, 64, Row, in, data, 4, and, or, jldoctest
+row, df, to, is, with, default, column, name, be, for, as, by, are, that, If, valu, AbstractDataFram, true, an, which
+5, from, argument, return, contain, fals, ref, use, if, it, frame, number, on, then, also, miss, String, will, pass, not
+first, A, Symbol, error, each, The, i, can, specifi, at, onli, all, Argument, See, s, allow, object, duplic, vector, differ
+result, start, element, type, x, string, 8, 6, may, uniqu, suffix, makeuniqu, have, chang, Return, order, function, found, same, Note
+no, two, sourc, tupl, than, take, b, transform, Float, key, indic, equal, present, doe, Bool=fals, match, rais, given, support, must
+case, into, you, pair, input, like, Pair, perform, whether, their, Bool, Each, 7, values, This, such, In, this, 0, should
+over, includ, more, tabl, how, y, second, need, new, identifi, throw, Can, valid, behavior, Perform, ─────┼────────────────────, ─────┼──────────────, 10, Keyword, AbstractVector
+follow, keyword, but, By, left, right, It, these, part, c, 0.0, undefin, option, noth, accord, multipl, When, copi, repeat, check
+append, join, 11, 9, col, 1:3, isequ, subset, makeunique=tru, makeunique=fals, innerjoin, leftjoin, rightjoin, outerjoin, semijoin, antijoin, crossjoin, ─────┼───────────────, creat, requir
 
 ################################# DIFF FREQUENCY ################################
 ################################# more frequent ################################
-x, 2, 1, y, use, is, or, 0, julia, be, to, as, of, and, for, function, valu, in, a, that
-If, can, Exampl, 3, will, the, 4, where, The, are, A, with, exampl, f, if, This, jldoctest, vector, method, return
-same, by, not, size, z, Usage, See, an, result, more, one, plot, Note, ref, then, comput, matrix, from, may, true
-it, this, iter, data, their, when, each, 8, r, For, t, at, b, length, log, s, point, such, arg, array
-default, fals, but, assum, option, Creat, Draw, rand, code-block, onli, guess, on, Symbol, Real, provid, It, should, 5, zero, param
+│, DataFram, Int, Row, julia, ×, 2, 3, 64, 1, Exampl, df, row, 4, jldoctest, data, column, default, name, AbstractDataFram
+or, 5, in, If, miss, are, frame, as, true, contain, fals, by, which, valu, with, argument, then, be, String, that
+Symbol, pass, also, error, first, and, number, is, duplic, i, return, a, A, an, ref, allow, it, on, will, from
+each, not, onli, if, of, differ, start, specifi, Argument, for, makeuniqu, suffix, uniqu, object, See, use, result, at, s, 6
+can, all, may, 8, to, vector, string, found, sourc, chang, The, Note, order, element, two, rais, no, same, present, have
 
 ################################# less frequent ################################
-file, Paramet, node, list, index, const, char, id, path, Set, void, label, NULL, document, handl, OGR, Get, geometri, featur, valid
-S, along, count, read, doubl, DataFram, specif, write, via, Check, tag, close, success, width, vertex, Point, filenam, Read, Construct, into
-graph, directori, atom, under, rotat, radius, frequenc, shape, load, includ, charact, 64,1, Ani, give, Fetch, Remov, vertic, order, network, unit
-dim, tree, info, produc, O, they, within, buffer, encod, well, associ, https://portal.hdfgroup.org/display/HDF, libhdf, keyword, while, alloc, those, period, callback, configur
-pointer, hid, global, page, segment, Each, warn, empti, w, measur, Load, Z, root, channel, TRUE, height, identifi, constructor, energi, build
+model, size, method, Paramet, matrix, Comput, output, p, path, Set, node, array, sampl, point, int, coordin, graph, state, e, handl
+zero, grid, weight, const, initi, char, step, out, system, Array, algorithm, implement, edg, write, random, space, Matrix, void, Convert, NULL
+h, color, document, H, Calcul, version, distanc, center, unit, dim, OGR, process, u, geometri, structur, featur, log, save, P, julia-repl
+S, along, express, factor, M, dataset, compon, constraint, evalu, F, locat, layer, problem, distribut, doubl, G, solut, Optional, bound, remov
+target, through, io, block, term, connect, compat, Check, definit, coeffici, equival, tag, context, success, least, axi, Descript, width, estim, vertex
 
 ################################# FUNCTION NAMES ################################
-
-  1:11   Polynomials
- 12:14   quotenode
- 12:14    fit, nothing), >>, Array, DataLoader, Fμν, MH, NameDef(  1:10  unregister, nothing), NameDef(  1:13  beginprintext, nothing), NameDef(  1:13  broadcastable, nothing), NameDef(  1:4   grid, nothing), NameDef(  1:4   hold, nothing), NameDef(  1:4   plot, nothing), NameDef(  1:4   repr, nothing), NameDef(  1:4   stem, nothing), NameDef(  1:4   step, nothing), NameDef(  1:5   oplot, nothing), NameDef(  1:5   plot3, nothing), NameDef(  1:6   hexbin, nothing), NameDef(  1:7   contour, nothing), NameDef(  1:7   display, nothing)
-NameDef(  1:7   openraw, nothing), NameDef(  1:7   scatter, nothing), NameDef(  1:7   surface, nothing), NameDef(  1:7   tricont, nothing), NameDef(  1:7   trisurf, nothing), NameDef(  1:8   contourf, nothing), NameDef(  1:8   scatter3, nothing), NameDef(  1:8   writedlm, nothing), NameDef(  1:9   mh_accept, nothing), NameDef(  1:9   wireframe, nothing), PreconditionedConjugateGradientSolver, Transducer, ^, _compute_rhs_range, add_format, add_to_function_constant, area, ash, assert_approx_equal, autocor
-autocor!, autocov, autocov!, bar, bisection, cf, cg!, chebyshev!, classes, crosscor, crosscor!, crosscov, crosscov!, dataimage, decoder, diffrule, dlqr, fieldoffset, finalizer, findnext
-flatten_demo, forwarddiff, frule, gamma_inc, gamma_inc_asym, gamma_inc_taylor_x, generate, get_source_fun, getpath, gmres!, goldensection, groupreduce, homotrans, ifunreduced, imaginary_projection, inside_ellipse, interp1, inv, isconstant, isdifferentiable
-isequal, isstronglyconvex, jim, line, loggamma, loggamma, lqr, lsim, lsmr!, lsqr!, ltitr, map, mat, mat2grid, mat2img, merge, minres!, ncbeta_poisson, ncg, newton
-nilang_ir, objective_function, ogm_ls, operatorHs, optimize, pairwise, pairwise!, parse_options, plot, plot_implicit_surface, pogm_restart, polyfitA, powm!, qmr!, radialbar, ransacfitaffinefundmatrix, ransacfitfundmatrix, ransacfithomography, reducingfunction, regenerate
-register, register, register, relax_integrality, repr, rrule, sample!, save_at, schema, select, set_params!, solve!, sort_and_compress!, target_f, tess_unlv_latin1, test_qp_complementarity_constraint, transform, transform, unsafe_get, update
-variable_by_name, whiten, 
+File, Rows, allele_freqtable, antijoin, append!, cmap, crossjoin, describe, eachrow, generate_meta, geno_freqtable, get, hcat, innerjoin, insertcols!, leftjoin, nonunique, outerjoin, parse_options, permutedims
+push!, reduce, rename, rename!, repeat, repeat!, rightjoin, rownumber, semijoin, simulate, subset, subset!, 
 ############################### FUNCTION ORIGINS ################################
-Aperture, AsyPlots, AverageShiftedHistograms, Base, CalculusWithJulia, Causal, ChainRulesCore, ControlSystems, Data, DataFramesMeta, DiffRules, ECharts, FileIO, FiniteDifferences, GEMPIC, GMT, GR, Gen, Generic, GigaSOM
-ImageProjectiveGeometry, IndexedTables, Inference, IterativeSolvers, JuMP, KernelDensity, LaserTypes, LearnBase, LinRegOutliers, Luxor, MLJBase, MLJModelInterface, NiLangCore, NonDet, Nullables, Ops20, PDMats, PerceptualColourMaps, PolynomialAmoebas, Polynomials
-RayTracer, Regexp, Roots, Solvers, SpecialFunctions, StatsBase, StatsModels, Test, Train20, Transducers, Turing, Utilities, Zygote, tmp/FixedPointNumbers\JuliaMath-FixedPointNumbers, tmp/MIRT\JeffFessler-MIRT, tmp/Tesseract\pixel27-Tesseract, |tmp/GR\jheinen-GR, |tmp/HTTP\JuliaWeb-HTTP, |tmp/JuMP\jump-dev-JuMP, |tmp/Polynomials\JuliaMath-Polynomials
-|tmp/SnoopCompile\timholy-SnoopCompile, |tmp/Transducers\JuliaFolds-Transducers, |tmp/julia\julia-master\base\strings\io, |tmp/julia\julia-master\base\strings\search, |tmp/julia\julia-master\stdlib\DelimitedFiles\src\DelimitedFiles, 
+CSV, DataFrames, PerceptualColourMaps, PopGen, PopGenSims, Regexp, 
