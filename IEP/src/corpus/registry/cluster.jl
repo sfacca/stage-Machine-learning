@@ -14,6 +14,7 @@ end
 
 function remove_rows!(mat, rows)
     for row in rows
+        println("removing row $row")
         asd = findall((x)->(x==row), mat.rowval)
         for i in asd
             mat.nzval[i] = 0
@@ -52,23 +53,94 @@ function capitalization_duplicates_finder(arr)
     res
 end
 
+function capitalization_fixer_rowwise(mat, arr)
+    a2 = filter((x)->(length(x)>1),arr)
+    for rows in a2
+        mat[rows[1],:] = mat[]
+    end
+
+end
+
+
+function capitalization_fixer_colwise(mat, arr)
+    a2 = filter((x)->(length(x)>1),arr)
+    println("sum of duplicates")
+    
+    for col in 1:mat.n
+        println("fixing column $col / $(mat.n)")
+        for dups in a2
+            #println("handling duplicates $dups")
+            mat[dups[1],col] = sum(mat[dups,col])            
+        end
+    end
+    cleanup_rows(mat, a2)
+end
+
+function sum_check(fll, slim)
+    fllsums = zeros(fll.n)
+    slimsums = zeros(fll.n)
+
+    for col in 1:fll.n
+        fllsums[col] = sum(fll[:,col])
+        slimsums[col] = sum(slim[:,col])
+    end
+
+    res = true
+    i=1
+    while res && i<length(fllsums)
+        if fllsums[i] != slimsums[i]
+            res = false
+
+        end
+    end
+    res
+end
+
+
+
+#=
 function capitalization_fixer(mat, arr)
     a2 = filter((x)->(length(x)>1),arr)
+    println("sum of duplicates")
     for dups in a2
+        println("duplicates $dups")
         for col in 1:mat.n
             # sum vals in 
             val = sum(mat[dups,col])
             mat[dups[1], col] = val
         end      
     end
+    cleanup_rows(mat, a2)
+end=#
 
-    a2 = [x[2:end] for x in a2]
-    a3 = 0
-    for i in 1:length(a2)
-        a3 = vcat(a3, a2[i])
+function cleanup_rows(mat, arrs)
+    for arr in arrs
+        mat = remove_rows!(mat, arr[2:end])
     end
-    remove_rows!(mat, a3)
+    mat
 end
+
+function capitalization_fixer_sp(mat, arr)
+    a2 = filter((x)->(length(x)>1),arr)
+    rowvals = [findall((x)->(x in tple), mat.rowval) for tple in a2]
+    colptr_len = length(mat.colptr)
+    for tple_i in 1:length(rowvals)
+        # should be sorted
+        summ = 0
+        col_i = 1
+        for tple_elem in rowvals[tple_i]
+            while mat.colptr[col_i] < rowvals[tple_i]
+                col_i += 1
+                if col_i > colptr_len
+                    break
+                end
+            end
+        end
+    end
+
+end
+    
+
 
 
 
