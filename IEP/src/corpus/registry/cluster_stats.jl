@@ -294,6 +294,89 @@ function txt_cluster_info(arr, lexi=nothing)
     
 end
 
+using Clustering
+
+function nmi_folder(dir)
+    kresses = []
+    for (root, dirs, files) in walkdir(dir)
+        for file in files
+            if endswith(file, ".jld2")
+                push!(kresses, FileIO.load(joinpath(root,file))["kmeans"])
+            end
+        end
+    end
+
+    res = zeros(length(kresses), length(kresses))
+
+    for kres_i in 1:length(kresses)
+        #i = kres_i+1
+        for i in 1:length(kresses)
+            res[kres_i,i] = Clustering.mutualinfo(kresses[kres_i], kresses[i]; normed=true)            
+        end
+    end
+
+    res
+end
+
+"""
+p(word | class)
+p(word | class)
+p(word)"""
+function frequent_and_predictive_words_method(kres, data)
+    # get p(word)
+    cols = data.n
+    rows = data.m
+    wsums = [count((x)->(x>0),data[i,:]) for i in 1:rows]
+    pword = [(wsums[i] == 0 ? 0 : wsums[i]/cols) for i in 1:rows]
+
+    res = []
+    for cluster in 1:maximum(kres.assignments)
+        ids = findall((x)->(x==cluster),kres.assignments)
+        sums = [count((x)->(x>0),data[i,ids]) for i in 1:rows]
+        frqs = [(sums[i]==0 ? 0 : sums[i]/length(ids)) for i in 1:rows]
+        push!(res, [(frqs[i]==0 ? 0 : frqs[i]*(frqs[i]/pword[i])) for i in 1:rows])
+    end
+
+    res
+
+end
+
+function print_fapwm(arr, name="frequent and predictive words.txt")
+    open(name, "w") do io
+        for i in 1:length(arr)
+            write(io, "################# CLUSTER $i\n")
+            ln = length(arr[i])>50 ? 50 : length(arr[i])
+            for j in 1:ln
+                write(io, arr[i][j])
+                if round(j/10) == j/10
+                    write(io, "\n")
+                else
+                    write(io, ", ")
+                end
+            end
+            write(io, "\n################################\n")
+        end
+
+    end
+end
+
+function to_presence_mat(mat)
+    res = copy(mat)
+
+    for i in 1:length(res.nzval)
+        res.nzval[i] = 1
+    end
+    res
+
+end
+
+function sorted_non0_frqs(frqs)
+    res = []
+
+    for arr in frqs
+    end
+end
+
 function write_split(io, str, len=100)
     
     
@@ -316,4 +399,26 @@ function test_ws()
     open("tset.jl", "w") do io 
         write_split(io, rand(100))
     end
+end
+
+function cluster_distributions(dir)
+    res = []
+    for (root, dirs, files) in walkdir(dir)
+        for file in files
+            if endswith(file, ".jld2")
+                push!(res, FileIO.load(joinpath(root,file))["kmeans"].counts)
+            end
+        end
+    end
+    res
+end 
+
+
+function intr_dist(arr)
+    res = []
+    for ar in arr
+        mn = sum(ar)/length(ar)
+        push!(res, [abs(x-mn) for x in ar])
+    end
+    res
 end

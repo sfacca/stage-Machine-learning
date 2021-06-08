@@ -97,21 +97,14 @@ function sum_check(fll, slim)
 end
 
 
-
-#=
-function capitalization_fixer(mat, arr)
-    a2 = filter((x)->(length(x)>1),arr)
-    println("sum of duplicates")
-    for dups in a2
-        println("duplicates $dups")
-        for col in 1:mat.n
-            # sum vals in 
-            val = sum(mat[dups,col])
-            mat[dups[1], col] = val
-        end      
+"""sums every column"""
+function sumwords(mat)    
+    res = zeros(mat.n)
+    for colptr_i in 1:mat.n
+        res[colptr_i] = sum(mat.nzval[mat.colptr[colptr_i]:mat.colptr[colptr_i+1]])
     end
-    cleanup_rows(mat, a2)
-end=#
+    res
+end
 
 function cleanup_rows(mat, arrs)
     for arr in arrs
@@ -278,6 +271,21 @@ function txt_freqs(arr, lexi, name="freqs", num::Int=0)
         end
     end
 
+end
+
+
+function word_is_numeric(word)
+    return tryparse(Float64, word) !== nothing
+end
+
+
+function __savearr(arr, name)
+    open(name, "w") do io
+        for el in arr
+            write(io, el)
+            write(io, "\n")
+        end
+    end
 end
 #=
 function cluster_terms_frequency(clusters::Array{Cluster,1})
