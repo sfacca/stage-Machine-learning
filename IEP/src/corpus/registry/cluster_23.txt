@@ -1,0 +1,39 @@
+############################## HIGHEST CENTER RATIO #############################
+4, lz, compress, buffer, size, dst, Block, decod, decompress, srcsize, data, max, byte, src, frame, function, dstcapac, valu, input, KB
+return, 64, Ani, necessarili, hc, 1, provid, 0, includ, encod, 
+############################ CENTER NEAREST NEIGHBOHOR ############################
+compress, compress, compress, compress, compress, compress, compress, size, size, size, 64, 64, 64, buffer, buffer, buffer, KB, KB, KB, data
+data, 4, 4, Ani, Ani, includ, includ, input, input, previous, previous, Block, Block, special, special, src, src, lz, lz, dst
+dst, srcsize, srcsize, dstcapac, dstcapac, 1, 2, ratio, onli, return, continu, alreadi, Invalid, assum, faster, run, stream, content, error, succeed
+reset, remain, Fast, guarante, memori, freed, improv, status, acceler, compressBound, streamptr, allocated, unmodifi, double-buff, ring-buff, 
+################################### FREQUENCY ###################################
+size, 4, lz, data, compress, srcsize, return, function, input, buffer, byte, src, dst, valu, alreadi, Block, dstcapac, 1, Ani, read
+content, max, guarante, necessarili, decompress, compressBound, provid, 0, includ, 64, alloc, error, remain, written, memori, Larg, decod, KB, support, frame
+default, continu, exact, entir, allow, faster, stop, stream, previous, succeed, possibl, mani, sourc, success, streamptr, allocated, algorithm, call, Becaus, follow
+2, onli, output, note, detect, oper, speed, run, origin, header, indic, outsid, compression, start, updat, respect, alway, value, reset, befor
+context, doe, fail, maximum, minimum, safe, Fast, larger, scenario, dictionary, complet, destin, expect, write, consum, special, consecut, ring, hint, acceler
+hc, worst, bytes, compressionlevel, unmodifi, dctx, srcBuffer, srcSizePtr, kwarg, Exampl, true, process, Fulli, Keyword, creat, set, limit, time, applic, inform
+automat, implement, current, 3, ratio, chang, typic, posit, initi, singl, veri, encod, Invalid, fine, level, save, paramet, Schemat, assum, modifi
+zero, 12, Fill, 8, ensur, result, key, extract, accept, 32, evalu, assumpt, Integer, avail, revers, Flush, usag, macro, condit, factor
+dictionari, whenev, select, Normal, Proper, Replac, throw, Check, etc, mode, handl, copi, Link, synchron, immedi, dure, Optional, valid, structur, API
+Bool=fals, partial, variabl, failur, termin, modified, access, rule, tune, skip, necessari, Slower, inputs, purpos, boundari, independ, clean, except, dest, anoth
+
+################################# DIFF FREQUENCY ################################
+################################# more frequent ################################
+lz, size, 4, srcsize, compress, data, dst, src, buffer, byte, input, dstcapac, alreadi, Block, function, compressBound, decompress, necessarili, guarante, content
+max, read, valu, Ani, return, KB, decod, remain, Larg, written, alloc, memori, includ, provid, error, 64, 0, streamptr, allocated, succeed
+faster, entir, continu, stop, exact, previous, mani, stream, success, frame, sourc, possibl, allow, 1, support, default, compressionlevel, srcBuffer, srcSizePtr, dctx
+unmodifi, hc, worst, compression, ring, scenario, hint, consecut, bytes, dictionary, consum, acceler, speed, safe, larger, Fast, destin, outsid, reset, fail
+complet, detect, special, value, header, Becaus, expect, alway, minimum, respect, context, befor, maximum, origin, updat, follow, doe, algorithm, oper, write
+
+################################# less frequent ################################
+julia, int, argument, vector, ref, Array, string, type, name, object, comput, element, file, specifi, model, matrix, Float, method, jldoctest, fals
+contain, tupl, 5, Option, Bool, Symbol, index, list, defin, noth, pass, path, length, real, calcul, node, convert, correspond, Field, AbstractStr
+dimens, Union, sampl, appli, add, iter, base, refer, determin, generat, coordin, construct, column, perform, graph, mean, Plot, line, dict, map
+10, otherwis, imag, Char, store, format, id, 6, requir, e.g, grid, test, weight, direct, i.e, Exampl, transform, const, system, form
+load, repres, Gener, step, null, random, 1.0, Void, scale, AbstractVector, collect, filenam, space, document, code, edg, exist, remov, label, Multipl
+
+################################# FUNCTION NAMES ################################
+LZ4F_decompress, LZ4F_getFrameInfo, LZ4FrameCompressor, LZ4_compressBound, LZ4_compress_HC, LZ4_compress_HC_continue, LZ4_compress_destSize, LZ4_compress_fast, LZ4_compress_fast_continue, LZ4_decompress_safe, LZ4_decompress_safe_continue, 
+############################### FUNCTION ORIGINS ################################
+CodecLz4, 

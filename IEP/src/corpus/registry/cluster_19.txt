@@ -1,0 +1,42 @@
+############################## HIGHEST CENTER RATIO #############################
+imag, pix, write, 1, file, default, img, image, stream, name, noth, 2, argument, valu, 0, format, 32, error, descript, tess
+int, detail, fals, Integer, Array, TIFF, return, qualiti, page, 8, 
+############################ CENTER NEAREST NEIGHBOHOR ############################
+pix, pix, pix, pix, imag, imag, imag, write, write, write, Array, Array, bmp, bmp, byte, byte, argument, default, format, name
+noth, error, Bool, returned, descript, 
+################################### FREQUENCY ###################################
+imag, argument, default, name, pix, descript, error, detail, return, 1, image, write, format, noth, returned, 0, file, Union, 8, fals
+Integer, 32, 2, int, Bool, restrict, valu, Array, byte, specifi, UInt, leptonica, resolut, method, rang, stream, set, io, AbstractStr, call
+img, Exampl, pointer, read, 3, filenam, ref, librari, 4, vector, contain, result, tupl, data, provid, output, paramet, load, true, encod
+exist, memori, overwritten, julia, function, string, sampl, line, input, Free, memory, page, Tesseract, size, width, 5, onli, pixel, null, jldoctest
+jpeg, alloc, qualiti, intern, Respons, howev, caller, meant, images, languag, lept, pass, 100, text, box, assum, Float, ptr, Csize, ppi
+implement, reduc, instanc, allow, equal, factor, tess, TessInst, algorithm, 10, reduct, Ani, download, level, height, API, remaind, mirror, half, 72
+Inst, process, requir, type, empti, caus, test, Usage, 1.0, extract, AbstractArray, repres, base, png, Multipl, correct, 11, bit, TIFF, inch
+support, 0.0, AbstractFloat, scale, lossless, colour, println, variabl, recogn, word, iff, Option, singl, Gamma, oper, comput, cmap, generat, gray, split
+300, 1:5, jp, 600, PixBox, keepempti, distribut, 0.5, 64, consid, color, pdf, path, 500, specif, Gener, featur, disk, 9, 16
+ignor, region, histogram, LSTM, refer, Keyword, creat, follow, pixels, contrast, posit, veri, appear, appli, convert, map, determin, pair, object, column
+
+################################# DIFF FREQUENCY ################################
+################################# more frequent ################################
+imag, argument, default, pix, descript, name, error, detail, image, write, format, returned, noth, Union, 8, file, 0, 32, fals, Integer
+1, restrict, Bool, byte, leptonica, UInt, resolut, stream, rang, int, io, img, specifi, pointer, AbstractStr, return, method, 2, Array, valu
+read, filenam, librari, call, overwritten, encod, set, memori, exist, memory, load, provid, Tesseract, contain, result, 4, Free, page, tupl, lept
+jpeg, images, qualiti, meant, caller, languag, howev, Respons, alloc, pixel, ppi, Csize, width, intern, output, ptr, line, box, 3, null
+TessInst, tess, 100, sampl, text, assum, reduc, Exampl, remaind, mirror, 72, reduct, Inst, half, API, factor, instanc, download, equal, height
+
+################################# less frequent ################################
+model, Symbol, matrix, index, list, object, element, coordin, graph, dict, real, node, Char, current, weight, function, Normal, creat, const, system
+add, iter, defin, Void, AbstractVector, inform, construct, sum, center, 64, unit, Plot, print, valid, OGR, save, structur, time, geometri, param
+calcul, otherwis, Field, select, count, copi, dataset, instead, express, tabl, grid, DataFram, zero, i.e, Fetch, constraint, layer, condit, doe, coeffici
+initi, key, VAL, step, throw, updat, frame, attribut, context, miss, definit, via, tag, type, vertex, squar, optim, rotat, estim, Fill
+Atom, Build, none, simul, document, code, complex, properti, represent, boundari, degre, alreadi, Check, remov, accept, content, struct, network, info, rate
+
+################################# FUNCTION NAMES ################################
+Drawing, NameDef(  1:6   imshow, nothing), applycolormap, augment, augment!, augmentbatch!, circlesineramp, create_features, determine_feature_size, grey2lbp, grey2lbp!, histeq, histmatch, histtruncate, histtruncate, histtruncate, image_alpha!, label_components, label_components, load
+load_image, load_imgs, log_images, pix_delete!, pix_get_dimensions, pix_read, pix_read, pix_read_bmp, pix_read_gif, pix_read_jp2k, pix_read_jp2k, pix_read_jp2k, pix_read_jpeg, pix_read_jpeg, pix_read_jpeg, pix_read_png, pix_read_pnm, pix_read_spix, pix_read_tiff, pix_read_tiff
+pix_read_tiff, pix_read_webp, pix_write, pix_write, pix_write, pix_write_bmp, pix_write_bmp, pix_write_bmp, pix_write_bmp_i, pix_write_gif, pix_write_gif, pix_write_gif, pix_write_gif_i, pix_write_i, pix_write_implied_format, pix_write_jp2k, pix_write_jp2k, pix_write_jp2k, pix_write_jp2k_i, pix_write_jpeg
+pix_write_jpeg, pix_write_jpeg, pix_write_jpeg_i, pix_write_pam, pix_write_pam, pix_write_pam, pix_write_pam_i, pix_write_pdf, pix_write_pdf, pix_write_pdf, pix_write_pdf_i, pix_write_png, pix_write_png, pix_write_png, pix_write_png_i, pix_write_pnm, pix_write_pnm, pix_write_pnm, pix_write_pnm_i, pix_write_ps
+pix_write_ps, pix_write_ps, pix_write_ps_i, pix_write_spix, pix_write_spix, pix_write_spix, pix_write_spix_i, pix_write_tiff, pix_write_tiff, pix_write_tiff, pix_write_tiff_i, pix_write_webp, pix_write_webp, pix_write_webp, pix_write_webp_i, readrplraw, run_tesseract, run_tesseract, sample_pix, sample_tiff
+separate_components, sineramp, step2line, tess_alto, tess_confidences, tess_hocr, tess_image, tess_lstm_box, tess_resolution, tess_text, tess_text_box, tess_unlv, tess_word_box, trixi2img, zscale, 
+############################### FUNCTION ORIGINS ################################
+Augmentor, AutoLandmarking, FaceDetection, GMT, ImagePhaseCongruency, ImageProjectiveGeometry, Images, Luxor, NeXLSpectrum, OCReract, PNGFiles, PerceptualColourMaps, PlotUtils, TensorBoardLogger, Tesseract, Trixi2Img, tmp/Tesseract\pixel27-Tesseract, |tmp/ImageComponentAnalysis\zygmuntszpak-ImageComponentAnalysis, |tmp/ImageView\JuliaImages-ImageView, 

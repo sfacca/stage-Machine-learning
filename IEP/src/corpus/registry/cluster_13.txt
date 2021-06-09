@@ -1,0 +1,83 @@
+############################## HIGHEST CENTER RATIO #############################
+row, column, default, function, header, highlight, data, line, string, type, print, true, vector, file, align, tabl, cell, Keyword, onli, pars
+drawn, name, crayon, return, 1, noth, Symbol, valu, provid, filter, 
+############################ CENTER NEAREST NEIGHBOHOR ############################
+column, column, column, column, column, column, column, column, column, column, column, column, column, column, column, column, column, column, column, column
+column, column, column, column, column, column, column, column, column, column, column, column, column, column, column, column, column, column, column, column
+column, column, column, column, column, column, column, column, column, row, row, row, row, row, row, row, row, row, row, row
+row, row, row, row, row, row, row, row, row, row, row, row, row, row, row, row, row, row, row, row
+row, row, row, row, row, row, row, row, row, row, row, row, row, row, row, file, file, file, file, file
+file, file, file, file, file, file, file, file, file, file, file, file, file, file, file, file, file, file, file, file
+file, file, file, file, file, file, file, string, string, string, string, string, string, string, string, string, string, string, string, string
+string, string, string, string, string, string, string, string, string, string, string, string, type, type, type, type, type, type, type, type
+type, type, type, type, type, type, type, type, type, type, type, type, type, type, type, type, pars, pars, pars, pars
+pars, pars, pars, pars, pars, pars, pars, pars, pars, pars, pars, pars, pars, pars, pars, pars, pars, pars, pars, CSV.File
+CSV.File, CSV.File, CSV.File, CSV.File, CSV.File, CSV.File, CSV.File, CSV.File, CSV.File, CSV.File, CSV.File, CSV.File, CSV.File, CSV.File, CSV.File, name, name, name, name, name
+name, name, name, name, name, name, name, name, name, name, provid, provid, provid, provid, provid, provid, provid, provid, provid, provid
+provid, provid, provid, provid, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, argument, argument, argument, argument
+argument, argument, argument, argument, argument, argument, argument, int, int, int, int, int, int, int, int, int, int, int, header, header
+header, header, header, header, header, header, header, header, header, Float, Float, Float, Float, Float, Float, Float, Float, Float, Float, Float
+64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, dict, dict, dict, dict, dict, dict, dict, dict, dict
+dict, vector, vector, vector, vector, vector, vector, vector, vector, vector, indic, indic, indic, indic, indic, indic, indic, indic, indic, Bool
+Bool, Bool, Bool, Bool, Bool, Bool, Bool, Bool, comment, comment, comment, comment, comment, comment, comment, comment, comment, valu, valu, valu
+valu, valu, valu, valu, valu, note, note, note, note, note, note, note, note, read, read, read, read, read, read, read
+read, csv, csv, csv, csv, csv, csv, csv, csv, julia, julia, julia, julia, julia, julia, julia, default, default, default, default
+default, default, default, detect, detect, detect, detect, detect, detect, detect, i.e, i.e, i.e, i.e, i.e, i.e, i.e, support, support, support
+support, support, support, data, data, data, data, data, data, Symbol, Symbol, Symbol, Symbol, Symbol, Symbol, delimit, delimit, delimit, delimit, delimit
+delimit, true, true, true, true, true, set, set, set, set, set, onli, onli, onli, onli, onli, return, return, return, return
+return, function, function, function, function, function, map, map, map, map, map, start, start, start, start, start, thread, thread, thread, thread
+thread, access, access, access, access, access, Drop, Drop, Drop, Drop, Drop, datarow, datarow, datarow, datarow, datarow, pass, pass, pass, pass
+specifi, specifi, specifi, specifi, limit, limit, limit, limit, via, via, via, via, Field, Field, Field, Field, format, format, format, format
+entir, entir, entir, entir, mean, mean, mean, mean, Invalid, Invalid, Invalid, Invalid, tabl, tabl, tabl, tabl, line, line, line, line
+miss, miss, miss, miss, ensur, ensur, ensur, ensur, result, result, result, result, input, input, input, input, Char, Char, Char, Char
+Check, Check, Check, Check, Bool=fals, Bool=fals, Bool=fals, Bool=fals, Task, Task, Task, Task, ignor, ignor, ignor, ignor, quot, quot, quot, quot
+Larg, Larg, Larg, Larg, pool, pool, pool, pool, 10, 10, 10, Keyword, Keyword, Keyword, AbstractVector, AbstractVector, AbstractVector, e.g, e.g, e.g
+Option, Option, Option, DataFram, DataFram, DataFram, empti, empti, empti, exact, exact, exact, actual, actual, actual, index, index, index, date, date
+date, 8, 8, 8, charact, charact, charact, object, object, object, fals, fals, fals, Union, Union, Union, iter, iter, iter, warn
+warn, warn, select, select, select, uniqu, uniqu, uniqu, skip, skip, skip, sourc, sourc, sourc, chunk, chunk, chunk, multithread, multithread, multithread
+non-commented/non-empti, non-commented/non-empti, non-commented/non-empti, non-com, non-com, non-com, skipto, skipto, skipto, maxwarn, maxwarn, maxwarn, load, load, form, form, call, call, 0.1, 0.1
+0, 0, everi, everi, Tables.jl, Tables.jl, interfac, interfac, text, text, print, print, avoid, avoid, allow, allow, DateFormat, DateFormat, buffer, buffer
+alloc, alloc, direct, direct, tri, tri, Multipl, Multipl, noth, noth, error, error, Replac, Replac, etc, etc, copi, copi, manual, manual
+treat, treat, valid, valid, doe, doe, correct, correct, collect, collect, packag, packag, anoth, anoth, UTF, UTF, duplic, duplic, SQLITE, SQLITE
+url, url, consecut, consecut, bodi, bodi, materi, materi, selector, selector, db, db, transpos, transpos, ignored, ignored, CSV.Row, CSV.Row, getproperti, getproperti
+ignoreemtpylin, ignoreemtpylin, footerskip, footerskip, parsing, parsing, header/data, header/data, missingstr, missingstr, Date/DateTim, Date/DateTim, LazyStringVector, LazyStringVector, silenc, silenc, kwarg, refer, Exampl, combin
+time, correspond, increas, 5, 100, 2, instanc, chang, standard, separ, singl, Ani, veri, found, window, togeth, util, includ, encod, becom
+oper, count, sink, cell, assum, faster, slight, modifi, proport, io, filenam, contain, close, undefin, lead, Array, consid, key, rang, span
+repres, Integer, equal, avail, iso, doesn, Control, intern, help, custom, perform, pad, 30, isn, specif, Normal, identifi, throw, println, layout
+delet, consist, adjust, befor, repeat, databas, behavior, num, spawn, variabl, mutabl, environ, obj, match, append, Bool=tru, split, push, assign, setindex
+strict, ident, df, properti, UInt, affect, necessari, complet, values, decim, particular, concurr, unless, hold, byte, begin, escap, datetim, parser, contigu
+matrix-lik, Dates.DateFormat, Concaten, comma, invers, THREADS, individu, times, St, delim, cmd, formatted, altern, auto-gener, won, Integer=Threads.nthread, FilePaths.jl, codeunit, IOBuffer, HTTP.jl
+HTTP.Respons, HTTP.get, StringEncodings.jl, https://github.com/JuliaStrings/StringEncodings.jl, enc, 8859, https://github.com/JuliaData/Tables.jl, propertynam, f.col, row.a, row.b, row.c, SQLite.DB, tbl, SQLite.load, header=fals, normalizenames=fals, row.col, threaded=fals, ignoreemptylin
+rows/lin, transpose=tru, 1.3, sentinel, ignorerep, fixed-width, quotechar, openquotechar, closequotechar, textual, newlin, escapechar, AbstractDict, decimal, 3.14, 3,14, truestr, falsestr, typemap, lazystr
+caveat, lot, silencewarn, strict=fals, 
+################################### FREQUENCY ###################################
+kwarg, support, Exampl, julia, data, true, Keyword, argument, pass, 1, AbstractVector, set, specifi, limit, vector, valu, 0, 2, instanc, chang
+onli, everi, return, Field, default, Option, singl, format, type, Tables.jl, interfac, empti, togeth, includ, note, int, mean, tabl, print, cell
+i.e, assum, header, io, string, charact, object, column, contain, fals, name, ensur, consid, dict, Symbol, Union, indic, row, noth, error
+Bool, specif, Replac, etc, befor, treat, valid, doe, match, affect, skip, packag, ignor, decim, begin, bodi, newlin, ref, refer, 10
+combin, call, e.g, provid, current, 100, via, separ, Ani, function, veri, found, util, convert, text, entir, map, detect, otherwis, Invalid
+becom, file, oper, actual, avoid, slight, construct, modifi, index, pars, line, read, date, DateFormat, 8, filenam, miss, input, Float, 64
+user, key, rang, span, repres, equal, avail, Char, buffer, alloc, direct, doesn, Control, tri, iter, custom, start, Multipl, perform, pad
+warn, select, Normal, identifi, throw, println, layout, str, delet, consist, manual, adjust, repeat, behavior, num, Bool=fals, variabl, uniqu, environ, obj
+infer, append, Bool=tru, assign, strict, access, collect, properti, UInt, sourc, complet, values, anoth, chunk, duplic, unless, url, consecut, byte, quot
+escap, Larg, contigu, matrix-lik, Dates.DateFormat, Concaten, comma, individu, materi, St, delim, delimit, cmd, auto-gener, transpos, csv, comment, ignored, CSV.File, FilePaths.jl
+
+################################# DIFF FREQUENCY ################################
+################################# more frequent ################################
+Tables.jl, newlin, decim, affect, togeth, treat, skip, interfac, ensur, ignor, bodi, begin, header, etc, consid, Replac, limit, charact, cell, packag
+everi, specif, tabl, empti, instanc, io, assum, befor, valid, print, row, match, chang, AbstractVector, singl, doe, support, i.e, format, includ
+dict, mean, column, kwarg, Union, Field, indic, pass, noth, error, Keyword, note, Symbol, Bool, Option, contain, onli, fals, specifi, object
+name, true, default, type, 0, string, data, set, vector, Exampl, argument, int, julia, valu, 2, 1, FilePaths.jl, CSV.Row, row.c, ignoreemtpylin
+non-commented/non-empti, non-com, normalizenames=fals, row.col, datarow, skipto, header/data, ignoreemptylin, rows/lin, missingstr, ignorerep, openquotechar, closequotechar, Date/DateTim, decimal, 3,14, truestr, falsestr, typemap, lazystr
+
+################################# less frequent ################################
+model, method, jldoctest, path, real, calcul, node, AbstractStr, sampl, add, determin, generat, graph, Plot, run, imag, store, write, id, 6
+implement, grid, test, weight, zero, transform, const, system, initi, Gener, step, null, random, 1.0, Void, scale, document, code, edg, exist
+remov, ×, arg, sum, distanc, process, version, unit, pair, equival, entri, dim, 0.0, OGR, AbstractArray, geometri, linear, param, associ, featur
+log, factor, descript, dataset, express, 32, Draw, distribut, compon, 7, accord, Fetch, constraint, layer, bound, doubl, level, detail, max, connect
+condit, Block, solut, observ, coeffici, Optional, target, 9, term, frame, attribut, context, definit, success, vertex, squar, axi, optim, rotat, estim
+
+################################# FUNCTION NAMES ################################
+File, Rows, pretty_table, 
+############################### FUNCTION ORIGINS ################################
+CSV, PrettyTables, 

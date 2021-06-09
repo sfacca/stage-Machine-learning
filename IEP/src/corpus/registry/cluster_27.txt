@@ -1,0 +1,38 @@
+############################## HIGHEST CENTER RATIO #############################
+repo, 2, commit, LibGit, file, branch, ref, julia, OID, 1, path, merg, default, Exampl, Build, document, set, head, makedoc, true
+git, Keyword, GitRepo, GitHash, repositori, return, string, generat, argument, test, 
+############################ CENTER NEAREST NEIGHBOHOR ############################
+repo, repo, repo, repo, repo, repo, julia, julia, julia, julia, 2, 2, 2, 2, commit, commit, commit, commit, LibGit, LibGit
+LibGit, LibGit, test, test, add, add, file, file, string, string, id, id, OID, OID, GitRepo, GitRepo, iscommit, iscommit, ref, Exampl
+true, form, julia-repl, AbstractStr, path, Bool, Check, repository, GitHash, 
+################################### FREQUENCY ###################################
+repo, Exampl, julia, 2, commit, LibGit, GitRepo, 1, file, git, ref, true, path, repositori, Keyword, argument, branch, head, OID, return
+GitHash, default, Option, equival, string, add, AbstractStr, joinpath, kwarg, set, vector, chang, Ani, test, fals, name, Bool=fals, AbstractString, repository, form
+call, current, instanc, onli, Sinc, Bool, remot, refer, creat, time, function, note, exist, histori, perform, Forc, Check, tree, doe, merg
+checkout, specifi, Becaus, provid, format, otherwis, count, i.e, determin, local, user, tri, signatur, id, list, println, therefor, fail, push, walker
+write, none, author, directori, track, begin, usual, Walk, discard, ancestor, fastforward, GitRevWalk, by=LibGit, Consts.SORT, support, 10, combin, e.g, addit, follow
+automat, version, valu, 0, everi, appli, method, includ, left, map, section, Build, julia-repl, run, move, index, contain, null, rang, generat
+content, revers, Flush, doc, start, noth, document, error, respect, previous, possibl, relat, throw, mode, forward, request, reset, manual, Link, befor
+produc, html, Markdown, root, msg, uniqu, opt, configur, featur, Bool=tru, patch, sort, topolog, Develop, tag, packag, written, Releas, and/or, url
+executed, reverse, information, status, hello, folder, Revis, Using, topological, host, GitHub, recent, guid, backward, master, documentation, 111, diff, current-directory, makedoc
+docs/make.jl, minor, changes, ancestors, Rev, CLI, branch/a, branch/b, committish, cnt, oid=commit, GitHash=GitHash, Cint=Consts.SORT, ancient, pass, filter, requir, target, inform, tupl
+
+################################# DIFF FREQUENCY ################################
+################################# more frequent ################################
+repo, Exampl, commit, LibGit, julia, GitRepo, 2, git, repositori, file, path, OID, branch, head, true, Keyword, ref, GitHash, 1, argument
+equival, Option, joinpath, add, default, AbstractStr, string, repository, AbstractString, Bool=fals, chang, test, kwarg, Ani, fals, remot, Sinc, instanc, form, name
+current, set, Bool, onli, call, vector, checkout, histori, merg, tree, Forc, exist, doe, perform, Check, refer, note, time, by=LibGit, Consts.SORT
+GitRevWalk, fastforward, walker, ancestor, discard, Walk, therefor, author, track, signatur, println, push, fail, usual, begin, Becaus, tri, creat, none, directori
+local, user, count, return, i.e, format, id, write, otherwis, determin, provid, list, branch/b, cnt, oid=commit, GitHash=GitHash, Cint=Consts.SORT, ancient, reverse, topological
+
+################################# less frequent ################################
+Array, data, type, paramet, 64, comput, element, int, model, matrix, Float, 4, jldoctest, size, input, 5, Symbol, length, Integer, real
+3, calcul, node, correspond, Field, dimens, Union, sampl, posit, 8, coordin, construct, column, graph, Plot, dict, handl, imag, Char, 6
+implement, oper, grid, weight, zero, algorithm, transform, const, load, repres, Gener, random, singl, Void, scale, AbstractVector, filenam, space, edg, color
+object, integ, ×, arg, sum, center, distanc, process, unit, row, vertic, equal, dim, 0.0, io, OGR, save, AbstractArray, geometri, linear
+param, associ, log, factor, select, descript, text, dataset, express, tabl, DataFram, Control, 32, Draw, distribut, compon, 7, 100, constraint, layer
+
+################################# FUNCTION NAMES ################################
+GitRevWalker, NameDef(  1:10  deploydocs, nothing), NameDef(  1:10  diff_files, nothing), NameDef(  1:14  is_ancestor_of, nothing), NameDef(  1:5   clone, nothing), NameDef(  1:6   merge!, nothing), NameDef(  1:6   reset!, nothing), NameDef(  1:7   authors, nothing), NameDef(  1:7   branch!, nothing), NameDef(  1:7   isdirty, nothing), NameDef(  1:8   iscommit, nothing), NameDef(  1:8   makedocs, nothing), NameDef(  1:8   revcount, nothing), NameDef(  1:9   checkout!, nothing), commit, count, map, merge!, 
+############################### FUNCTION ORIGINS ################################
+LibGit2, |tmp/Documenter\JuliaDocs-Documenter, |tmp/julia\julia-master\stdlib\LibGit2\src\LibGit2, 

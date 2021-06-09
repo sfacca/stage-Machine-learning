@@ -1,0 +1,57 @@
+############################## HIGHEST CENTER RATIO #############################
+1, 2, 3, julia, 4, int, 0, 64, Array, ref, 5, matrix, ×, Exampl, return, function, element, 6, vector, │
+valu, type, jldoctest, Float, 8, mean, 10, true, data, model, 
+############################ CENTER NEAREST NEIGHBOHOR ############################
+1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, julia, julia
+julia, julia, julia, count, count, count, count, count, int, int, int, 64, 64, 64, 4, 4, 3, 3, element, element
+matrix, matrix, ×, ×, 1.5, 1.5, Exampl, true, vector, 0, return, result, dimens, jldoctest, compat, ad, write, inplac, singleton, In-place
+f=ident, 
+################################### FREQUENCY ###################################
+1, 2, Exampl, 3, julia, 4, int, return, Array, jldoctest, 64, ×, function, ref, 0, matrix, element, 5, vector, valu
+6, argument, type, true, data, onli, default, 10, specifi, 8, Float, dimens, output, note, size, comput, 7, set, Ani, 9
+time, result, input, Keyword, sum, fals, real, tupl, dim, 1.0, Integer, call, model, posit, contain, method, defin, paramet, follow, correspond
+string, column, indic, integ, iter, index, object, length, 12, perform, Option, mean, count, coordin, generat, complex, relat, algorithm, test, matric
+zero, row, Bool, collect, dimension, creat, oper, construct, name, math, pass, i.e, pair, entri, 64,1, form, provid, determin, rang, Union
+direct, error, list, Gener, variabl, match, 11, e.g, │, assum, equal, express, th, dims, diagon, 64,2, refer, 100, definit, appli
+sampl, imag, 0.0, key, 0.5, 20, compat, Optional, repeat, doe, obtain, Hermitian, PosDefManifold, requir, singl, DataFram, exist, frac, store, lower
+dict, noth, 2.0, expect, begin, instanc, grid, convert, otherwis, graph, julia-repl, miss, AbstractMatrix, start, condit, vertex, code, edg, Concaten, reshap
+support, abov, node, run, Symbol, repres, base, possibl, Normal, copi, befor, log, random, 14, numer, includ, equival, degre, allow, vertic
+AbstractArray, scale, path, Multipl, dimensions, previous, similar, depend, produc, ad, df, 1:2, 16, write, 13, combin, current, distanc, term, Usage
+
+################################# DIFF FREQUENCY ################################
+################################# more frequent ################################
+2, 1, 3, Exampl, julia, 4, int, Array, jldoctest, ×, 64, 5, matrix, element, 0, ref, 6, function, vector, valu
+10, return, 8, onli, 7, dimens, type, true, 9, specifi, Float, argument, note, output, size, sum, data, default, dim, 1.0
+Ani, Keyword, time, comput, real, result, input, Integer, 12, integ, posit, complex, follow, matric, tupl, fals, dimension, count, math, column
+relat, iter, defin, 64,1, row, 11, │, correspond, dims, perform, indic, collect, 64,2, diagon, algorithm, mean, zero, test, th, entri
+contain, pair, PosDefManifold, coordin, generat, call, Hermitian, oper, length, repeat, express, match, set, rang, i.e, index, obtain, definit, assum, construct
+
+################################# less frequent ################################
+file, Char, AbstractStr, const, handl, Void, OGR, id, geometri, load, null, constraint, io, kwarg, format, attribut, filenam, stream, Atom, add
+Link, standard, pointer, Fetch, callback, https://portal.hdfgroup.org/display/HDF, libhdf, associ, byte, Hid, intern, messag, Polygon, calcul, Display, OGRERR, Kernel, OGRSpatialReferenceH, style, ptr
+read, dataset, date, scene, center, queri, day, bodi, Modul, hSRS, depth, box, action, Mesh, ctx, res, Interact, doubl, OGRGeometryH, level
+cluster, url, geom, connect, constructor, doc, librari, idx, Helper, gdal, Render, configur, destroy, segment, Backend, solver, Diagram, raster, environ, driver
+ω, context, profil, pad, machin, pressur, composit, folder, pj, freed, datetim, extra, covari, geometry, name, document, trajectori, destin, volum, trace
+
+################################# FUNCTION NAMES ################################
+, -, /, AveragedTimeInterval, BatchedTridiagonalSolver, DIVAnd_cv, G, JLD2OutputWriter, KFold, MaxTree, NGramDocument, NameDef(  1:10  canonalize, nothing), NameDef(  1:10  lambertwbp, nothing), NameDef(  1:11  complicated, nothing), NameDef(  1:11  larVertProd, nothing), NameDef(  1:11  permutedims, nothing), NameDef(  1:11  permutedims, nothing), NameDef(  1:11  permutedims, nothing), NameDef(  1:11  set_Lattice, nothing), NameDef(  1:12  alignsignals, nothing)
+NameDef(  1:12  getJacobians, nothing), NameDef(  1:12  partialsort!, nothing), NameDef(  1:12  skipmissings, nothing), NameDef(  1:13  getDerivative, nothing), NameDef(  1:15  larGridSkeleton, nothing), NameDef(  1:17  getBasisFunctions, nothing), NameDef(  1:25  has_negative_weight_cycle, nothing), NameDef(  1:28  getBasisFunctionsForElements, nothing), NameDef(  1:3   foo, nothing), NameDef(  1:3   foo, nothing), NameDef(  1:4   path, nothing), NameDef(  1:4   sort, nothing), NameDef(  1:5   sort!, nothing), NameDef(  1:5   sort!, nothing), NameDef(  1:6   fluxes, nothing), NameDef(  1:6   grid_1, nothing), NameDef(  1:7   lar2obj, nothing), NameDef(  1:7   larGrid, nothing), NameDef(  1:7   predict, nothing), NameDef(  1:7   subsets, nothing)
+NameDef(  1:8   energies, nothing), NameDef(  1:8   ising2d!, nothing), SymTridiagonal, Tridiagonal, WeightedBagNode, _ql!, accumulate, accumulate!, add_parameters_to_cloud, adjoint!, allele_freqtable, argmax, argmin, asyncmap, b_to_pp_2d_cell!, barycenter_convolutional, binarycrossentropy, boolean_mask, build_histogram, build_symbolic_loss_function
+build_symbolic_loss_function, center_extract, cgasample, choleskyinv, circleintersectionpts, circletangent2circles, circshift, circsine, coerce, cohen_kappa_score, compare_convergence, compose_rotation, concrete_term, cond, conj!, consecutive_view, convexhull, corner2subpixel, count, count!
+count_induced_subgraphisomorph, count_isomorph, count_subgraphisomorph, cp, crossoverswap!, cudnnGetRNNWeightParams, cumprod, cumprod, cumsum, data_lens, default_inputs_pairgen, default_pairgen, dict_list, direct_path_relink!, dispatch!, dropdims, dropdims, dtm, dtw, duplicate
+eachcol, eachrow, eachrow, eachslice, eigvecs, evolvemodel, explicitbranch!, extract_initial_and_endstate, fVec, fcollect, feedback, find_threshold, find_zeros, findall, findall, findfirst, findlast, findmax, findmin, findprev
+findterminating, fit!, fitline2d, flatten_batch, ftest, generalizedMean, generalizedMean, generate_container, generate_downsample, generate_meta, geno_freqtable, get, get_faces, get_iterated_I, get_iterated_I!, get_value, getindex, getpath, group, haar_coordinates
+hamming_loss, has_induced_subgraphisomorph, has_isomorph, has_negative_weight_cycle, has_subgraphisomorph, hcat, hcat_1, hrep, hvcat, imhist, inductiveMean, inline, insert!, insertafter!, intersect, invalidation_trees, isambiguous, isbanded, isdiag, ishermitian
+issymmetric, istril, istriu, itrigs_demo, keys, kldivergence, lag, list_lens, lrtest, mapdata, mapslices, mat2grid, mat2img, matchbycorrelation, means, means, mergewith!, model_lens, modularity, mri_objects
+mv, nashsolve, nextind, nll, norm, normalize, operatorHp1, operatorHp2, opnorm, optSlices, order, orthogonal, parent, partition, path_relink!, pin, pixel_shuffle, place, polyfitA, pop!
+predict_point!, prevind, promote_shape, prune_json, pushfirst!, randEigvalsMat, randEigvalsMat, randPosDefMat, randPosDefMat, ransacfitaffinefundmatrix, ransacfitfundmatrix, ransacfithomography, readdata, regularize!, regularize!, repeat, repeat, repeat, repeat, repeat!
+repeat!, replace!, replacein, residues, restrict, reverse, ronkinfunction, rot180, rotl90, rotr90, run!, run_opt, safesave, scaleseparation, sim_pairs, skipmissing, softmax, solveaffine, sparsevec, spikesfromrecord
+splice!, splitdims, splitdimsview, stack, statistics, statistics, stereorectify, stereorectifytransforms, sumOfSqr, sumOfSqr, sumOfSqrTril, sumOfSqrTril, target_f, tcopy, tess_parsed_tsv, tess_tsv, test_pvtofromstreamfunction_2layer, test_pvtofromstreamfunction_3layer, tf, tf_idf
+transitiveclosure, transpose, transpose!, tril!, truncate, uniform_bsplines_eval_basis, unique, unpack, unsqueeze, unwind, update!, upsample_bilinear, vcat, vcat_1, vrep, write, write!, write!, 
+############################### FUNCTION ORIGINS ################################
+Base, BridgeLandmarks, BrkgaMpIpr, CUDNN, Causal, Containers, ControlSystems, CrossMappings, DIVAnd, DSP, DataFrames, DeconvOptim, Dispatcher, DispatcherCache, DrWatson, DynamicAxisWarping, Experimental, FileTrees, Flux, Functors
+GAlgebra, GEMPIC, GLM, GMT, GeophysicalFlows, HistogramThresholding, ImageContrastAdjustment, ImageMorphology, ImagePhaseCongruency, ImageProjectiveGeometry, ImageTracking, ImageTransformations, Images, Inner, JsonGrinder, LRSLib, LarSurf, LightGraphs, LinRegOutliers, LinearAlgebra
+Losses, Luxor, MLJBase, MLJFlux, MLJScientificTypes, MatrixFactorizations, Mill, ModularFormsModuloTwo, NNlib, NaiveGAflux, NaiveNASlib, NeuralPDE, Ops20, OutputWriters, Polyhedra, PolynomialAmoebas, Polynomials, PopGen, PosDefManifold, RayTracer
+ReferenceFEs, ReferenceFrameRotations, Roots, SMC, SMM, ShiftedArrays, ShortestPaths, SignalAnalysis, Skcore, Solvers, SparseArrays, SpectralDistances, SplitApplyCombine, StatsModels, StochasticDiffEq, TextAnalysis, Thebes, Thorn, TinyModia, Train20
+Transducers, Turing, XLSX, classification, tmp/BayesNets\sisl-BayesNets, tmp/FixedPointNumbers\JuliaMath-FixedPointNumbers, tmp/MIRT\JeffFessler-MIRT, tmp/Mill\CTUAvastLab-Mill, tmp/ReinforcementLearningCore\JuliaReinforcementLearning-ReinforcementLearningCore, tmp/TensorFlow\malmaud-TensorFlow, tmp/Tesseract\pixel27-Tesseract, |tmp/BayesNets\sisl-BayesNets, |tmp/CapacityExpansion\YoungFaithful-CapacityExpansion, |tmp/DocumenterEpub\laborg-DocumenterEpub, |tmp/Documenter\JuliaDocs-Documenter, |tmp/GR\jheinen-GR, |tmp/GeophysicalFlows\FourierFlows-GeophysicalFlows, |tmp/Ising2D\genkuroki-Ising2D, |tmp/IterTools\JuliaCollections-IterTools, |tmp/LambertW\jlapeyre-LambertW
+|tmp/Missings\JuliaData-Missings, |tmp/NNFEM\kailaix-NNFEM, |tmp/Pluto\fonsp-Pluto, |tmp/Polynomials\JuliaMath-Polynomials, |tmp/Roots\JuliaMath-Roots, |tmp/SemanticModels\jpfairbanks-SemanticModels, |tmp/SnoopCompile\timholy-SnoopCompile, |tmp/TightBinding\cometscome-TightBinding, 

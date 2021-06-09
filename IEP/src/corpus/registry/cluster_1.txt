@@ -1,0 +1,39 @@
+############################## HIGHEST CENTER RATIO #############################
+graph, download, edg, network, string, Symbol, box, type, OSM, bound, node, drive, format, metadata, return, true, argument, AbstractFloat, method, name
+Bool=fals, label, OpenStreetMap, threshold, algorithm, data, flow, coordinate, set, histogram, 
+############################ CENTER NEAREST NEIGHBOHOR ############################
+download, download, download, download, OSM, OSM, OSM, OSM, radius, radius, radius, format, format, format, box, box, box, metadata, metadata, metadata
+bound, bound, bound, string, string, string, centroid, centroid, centroid, return, return, Build, Build, Symbol, Symbol, Bool=fals, Bool=fals, km, km, geoloc
+geoloc, OpenStreetMap, OpenStreetMap, data, true, argument, set, calcul, distanc, coordin, Respons, network, corner, Draw, XML, JSON, 
+################################### FREQUENCY ###################################
+argument, return, true, set, Symbol, string, network, download, Bool=fals, OSM, XML, edg, JSON, data, format, metadata, filter, OpenStreetMap, type, box
+graph, node, none, distanc, bound, pick, Walk, privat, drive, servic, bike, rail, specifi, Ani, left, Build, object, Draw, 1, function
+method, name, AbstractFloat, km, algorithm, creat, vector, note, top, bottom, store, Respons, search, minlat, minlon, maxlat, maxlon, time, radius, onli
+output, longitud, latitud, Array, Union, repres, label, choos, API, corner, coordinate, centroid, geoloc, Nominatim, kwarg, requir, length, valu, default, file
+locat, dict, scale, Polygon, noth, queri, minimum, weight, match, disk, digraph, Exampl, julia, form, call, AbstractVector, threshold, 0, 2, Simpl
+includ, int, imag, save, paramet, index, coordin, compon, attribut, associ, connect, bbox, depend, img, maximum, sourc, light, refer, size, 3
+everi, effici, distribut, interv, due, count, detail, modifi, comput, pars, hour, contain, dimens, frequenc, bin, input, real, AbstractArray, color, largest
+drawn, Sinc, limits, possibl, parent, dictionari, select, relat, static, Gener, tree, Bool=tru, amount, DOI, distribution, shown, coordinates, memori, describ, seek
+cross, Larg, partit, AbstractRang, histogram, vol, https://doi.org, precomput, package, meta, 256, lane, discard, EDGE, bins, pp, pairs, TestImag, Nov, XMLDocument
+longitude-latitud, SimpleWeightedDiGraph, UnimodalRosin, divided, ImageContrastAdjust, HistogramThreshold, Dijkstra, Overpass, OSMGraph, LightGraphs.AbstractGraph, StaticDiGraph, MetaDiGraph, obejct, ref, process, rotat, unit, 4, calcul, Option
+
+################################# DIFF FREQUENCY ################################
+################################# more frequent ################################
+argument, true, Symbol, network, set, OSM, XML, download, Bool=fals, JSON, edg, string, metadata, format, OpenStreetMap, return, filter, box, data, none
+graph, node, bike, rail, drive, servic, privat, Walk, pick, bound, distanc, type, Build, Draw, left, km, AbstractFloat, Ani, specifi, maxlon
+minlat, minlon, maxlat, object, bottom, Respons, top, search, method, algorithm, store, Nominatim, coordinate, geoloc, centroid, choos, latitud, longitud, corner, API
+note, radius, name, label, repres, creat, Union, digraph, disk, queri, Polygon, minimum, output, locat, onli, time, match, scale, weight, requir
+dict, kwarg, length, bbox, light, noth, threshold, vector, img, Simpl, attribut, connect, compon, function, sourc, associ, depend, save, maximum, AbstractVector
+
+################################# less frequent ################################
+element, jldoctest, fals, 5, current, ref, error, list, defin, variabl, 64, indic, Field, AbstractStr, sampl, provid, posit, appli, base, determin
+start, Check, construct, perform, read, 10, otherwis, Char, write, matrix, implement, Float, oper, grid, test, direct, 2, Normal, support, transform
+const, doe, system, initi, follow, updat, null, random, 1.0, Void, collect, filenam, inform, chang, document, code, exist, remov, rang, integ
+×, arg, allow, sum, center, version, row, print, equal, pair, equival, befor, valid, entri, dim, 0.0, io, OGR, structur, geometri
+linear, param, instanc, featur, log, factor, result, user, descript, text, ad, copi, julia-repl, dataset, avail, instead, standard, tabl, Control, 32
+
+################################# FUNCTION NAMES ################################
+NameDef(  1:11  to_graphviz, nothing), NameDef(  1:11  to_graphviz, nothing), add_hash_cache!, build_network_graph, buildings_from_download, download_osm_buildings, download_osm_network, felzenszwalb, find_threshold, find_threshold, find_threshold, graph_from_download, graph_from_file, graph_from_object, kruskal_mst, maximum_flow, osm_buildings_from_bbox, osm_buildings_from_place_name, osm_buildings_from_point, osm_network_from_bbox
+osm_network_from_place_name, osm_network_from_point, osm_network_from_polygon, overpass_bbox_network_query, overpass_polygon_network_query, overpass_query, plot, plot, smallgraph, 
+############################### FUNCTION ORIGINS ################################
+DispatcherCache, Graphics, HistogramThresholding, ImageSegmentation, LightGraphsFlows, LightOSM, PhyloPlots, PowerModelsAnalytics, |tmp/GerryChain\mggg-GerryChainJulia-193f298\src\balance_edges, |tmp/LightGraphs\JuliaGraphs-LightGraphs, 

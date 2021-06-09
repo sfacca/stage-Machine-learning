@@ -253,6 +253,18 @@ function ind_half_safe(i, rate=2)
     Int.(round(i/rate))
 end
 
+function prepare_labels(kres)
+    open("cluster_labels.txt", "w") do io
+        cnts = kres.counts
+        for i in 1:length(cnts)
+
+            write(io , "# cluster $i, $(cnts[i]) items\n\n\n")
+
+        end
+
+    end
+end
+
 function txt_cluster_info(arr, lexi=nothing)
     if !isnothing(lexi)
         i=1
@@ -341,11 +353,25 @@ function frequent_and_predictive_words_method(kres, data)
 
 end
 
+function print_fapwm(arr, lexi::Array{String,1}, name::String="frequent and predictive words.txt")
+    res = []
+    for clust in arr
+        srp = sortperm(clust, rev=true)
+        limit = findfirst(iszero, clust[srp])
+        if !isnothing(limit)
+            push!(res, lexi[srp][1:limit])
+        else
+            push!(res, lexi[srp])
+        end
+    end
+    print_fapwm(res, name)
+end
+
 function print_fapwm(arr, name="frequent and predictive words.txt")
     open(name, "w") do io
         for i in 1:length(arr)
             write(io, "################# CLUSTER $i\n")
-            ln = length(arr[i])>50 ? 50 : length(arr[i])
+            ln = length(arr[i])#>50 ? 50 : length(arr[i])
             for j in 1:ln
                 write(io, arr[i][j])
                 if round(j/10) == j/10

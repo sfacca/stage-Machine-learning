@@ -1,0 +1,81 @@
+# cluster 1, 29 items
+
+
+# cluster 2, 278 items
+
+
+# cluster 3, 92 items
+
+
+# cluster 4, 19614 items
+
+
+# cluster 5, 2 items
+
+
+# cluster 6, 1 items
+
+
+# cluster 7, 1 items
+
+
+# cluster 8, 1 items
+
+
+# cluster 9, 810 items
+
+
+# cluster 10, 45 items
+
+
+# cluster 11, 262 items
+
+
+# cluster 12, 2 items
+
+
+# cluster 13, 3 items
+
+
+# cluster 14, 58 items
+
+
+# cluster 15, 3115 items
+
+
+# cluster 16, 9 items
+
+
+# cluster 17, 10 items
+
+
+# cluster 18, 80 items
+
+
+# cluster 19, 115 items
+
+
+# cluster 20, 9 items
+
+
+# cluster 21, 1404 items
+
+
+# cluster 22, 10 items
+
+
+# cluster 23, 11 items
+
+
+# cluster 24, 2 items
+
+
+# cluster 25, 26 items
+
+
+# cluster 26, 43 items
+
+
+# cluster 27, 18 items
+
+

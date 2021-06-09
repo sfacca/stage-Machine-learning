@@ -1,0 +1,40 @@
+############################## HIGHEST CENTER RATIO #############################
+Plot, 1, particl, function, Interact, time, vector, valu, billiard, 2, color, julia, Keyword, kwarg, 0, result, argument, ref, default, data
+name, Diagram, set, click, variabl, true, applic, Array, Exampl, save, 
+############################ CENTER NEAREST NEIGHBOHOR ############################
+Plot, Plot, Plot, Plot, Plot, Plot, Plot, input, input, input, return, return, Render, Render, support, true, creat, onli, output, type
+add, otherwis, direct, noth, updat, id, button, request, server, slow, package, hook, refresh, wish, sliders, rapid, 
+################################### FREQUENCY ###################################
+Plot, function, 1, color, argument, kwarg, Keyword, valu, julia, 2, vector, Exampl, default, Interact, time, return, name, data, true, ref
+0, real, Ani, size, creat, set, applic, pass, current, left, add, fals, accept, Display, direct, click, e.g, 4, 3, onli
+int, save, line, contain, start, noth, button, 10, 100, posit, type, otherwis, file, particl, string, object, scale, Control, anim, label
+befor, variabl, dynam, total, ps, requir, length, limit, output, empti, window, index, result, Array, colormap, scatter, video, figur, alway, titl
+frame, specifi, 5, discret, initi, dx, map, step, axi, paramet, speed, key, rang, indic, path, updat, y-axi, Bool, slider, reset
+amount, random, dt, 1000, df, evolv, shown, bd, tail, launch, seri, explor, billiard, tailwidth, fade, res, follow, element, grid, Option
+densiti, DataFram, instead, mean, trajectori, abov, Usage, i.e, observ, origin, record, column, input, Symbol, generat, axis, base, x-axi, specif, alpha
+select, obtain, Diagram, package, 10.0, support, form, call, addit, width, correspond, tupl, resolut, everi, interpol, format, continu, exact, Φ, allow
+system, xs, store, surfac, coordin, extra, transform, Float, 64, cmap, Union, repres, linewidth, marker, insid, framer, rand, perform, ylabel, ylim
+labels, condit, α, drag, decid, propag, value, ys, chosen, Gener, maximum, transient, sin, param, space, Notic, dimension, DiscreteDynamicalSystem, Draw, ds
+
+################################# DIFF FREQUENCY ################################
+################################# more frequent ################################
+Plot, color, kwarg, function, Keyword, argument, Interact, 1, valu, julia, time, default, vector, real, name, Exampl, 2, applic, true, click
+Ani, data, accept, Display, left, 0, direct, button, size, add, pass, save, ref, current, creat, e.g, line, fals, ps, anim
+start, dynam, particl, total, 100, Control, noth, befor, label, scale, otherwis, 10, colormap, contain, onli, figur, scatter, video, set, 4
+titl, posit, alway, limit, window, variabl, empti, requir, tailwidth, billiard, fade, explor, bd, slider, tail, evolv, shown, speed, y-axi, launch
+dx, 1000, amount, reset, discret, dt, seri, df, length, axi, frame, index, file, rang, 3, random, updat, step, initi, key
+
+################################# less frequent ################################
+jldoctest, calcul, sampl, method, read, imag, Char, write, oper, test, Normal, const, doe, null, Void, AbstractVector, code, integ, ×, sum
+center, process, version, print, dim, io, relat, OGR, AbstractArray, possibl, list, associ, instanc, factor, copi, tabl, locat, compon, model, accord
+Fetch, constraint, doubl, level, max, Block, correct, pars, 9, UInt, byte, definit, compat, success, vertex, squar, optim, rotat, stream, angl
+Atom, found, directori, numer, memori, gradient, Build, frequenc, Integer, radius, extract, assign, domain, 20, represent, boundari, degre, 64,1, content, struct
+network, info, except, 12, Replac, pointer, obj, project, convert, warn, Field, buffer, period, sequenc, tree, constructor, search, execut, deriv, equat
+
+################################# FUNCTION NAMES ################################
+GridVisualizer, NameDef(  1:4   plot, nothing), NameDef(  1:5   title, nothing), NameDef(  1:7   subplot, nothing), NameDef(  1:7   tricont, nothing), NameDef(  1:7   trisurf, nothing), animate, billiard_video, billiard_video, billiard_video_timeseries, billiard_video_timeseries, heatmap, hit, interactive_billiard, interactive_billiard, interactive_cobweb, interactive_cobweb, interactive_orbitdiagram, interactive_orbitdiagram, interactive_poincaresos
+interactive_poincaresos, mveltsplot, plot, plot, plot, plot, plot_dataframe, plot_density!, plot_hexbin!, plot_load_summary, plot_nodes!, plot_pgdata, plotabm, plotabm, plotdata, plots_output, pplot, randEigvals, randEigvals, save_plot
+trajectory_highlighter, trajectory_highlighter, unzip, 
+############################### FUNCTION ORIGINS ################################
+AgentsPlots, AsyPlots, CalculusWithJulia, GR, GridVisualize, Immerse, LassoPlot, LinRegOutliers, Matte, ModiaPlot, OpenStreetMapXPlot, PICDataStructures, PlotPlants, Plots, PosDefManifold, PowerGraphics, PowerModelsAnalytics, UnicodePlots, |tmp/Agents\JuliaDynamics-Agents, |tmp/Gadfly\GiovineItalia-Gadfly
+|tmp/InteractiveChaos\JuliaDynamics-InteractiveDynamics, |tmp/InteractiveDynamics\JuliaDynamics-InteractiveDynamics, |tmp/LowLevelParticleFilters\baggepinnen-LowLevelParticleFilters, 
