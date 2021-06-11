@@ -317,13 +317,19 @@ function nmi_folder(dir)
             end
         end
     end
+    # sorting
+    kresses = kresses[sortperm([maximum(k.assignments) for k in kresses])]
 
-    res = zeros(length(kresses), length(kresses))
-
+    res = zeros(length(kresses)+1, length(kresses)+1)
+    res[1,1] = 1
+    for kres_i in 1:length(kresses)
+        res[1,kres_i+1] = maximum(kresses[kres_i].assignments)        
+        res[1+kres_i,1] = maximum(kresses[kres_i].assignments)
+    end
     for kres_i in 1:length(kresses)
         #i = kres_i+1
         for i in 1:length(kresses)
-            res[kres_i,i] = Clustering.mutualinfo(kresses[kres_i], kresses[i]; normed=true)            
+            res[kres_i+1,i+1] = Clustering.mutualinfo(kresses[kres_i], kresses[i]; normed=true)            
         end
     end
 
