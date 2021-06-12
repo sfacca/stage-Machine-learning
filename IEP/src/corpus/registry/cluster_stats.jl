@@ -1,4 +1,4 @@
-using Base: String
+ using Base: String
 # we want to analyze clusters of documents(bag of words)
 
 # 1. frequency of every word (documents word appears in/ number of documents)
@@ -376,7 +376,11 @@ end
 function print_fapwm(arr, name="frequent and predictive words.txt")
     open(name, "w") do io
         for i in 1:length(arr)
-            write(io, "################# CLUSTER $i\n")
+            write(io, "[Cluster $i](#cluster$i)\n")
+        end
+
+        for i in 1:length(arr)
+            write(io, "# Cluster$i\n")
             ln = length(arr[i])#>50 ? 50 : length(arr[i])
             for j in 1:ln
                 write(io, arr[i][j])
