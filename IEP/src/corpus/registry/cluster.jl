@@ -134,22 +134,13 @@ function capitalization_fixer_sp(mat, arr)
 end
 
 function cluster_clusters(kres, data, k::Int)
-    tmp_sp = sortperm(kres.assignments)
-    indexing = []
-    tmp = kres.assignments[tmp_sp]
-    x = 1
-    for i in 2:length(tmp)
-        if tmp[x] != tmp[i]
-            push!(indexing, tmp_sp[x:(i-1)]) #we assume there are no clusters with 0 elements
-            x=i
-        end
-    end
+    cls = get_cluster_mats(kres, data)
     sqr_clusters = []
     c = 1
-    for cluster in indexing
-        if length(cluster) > k
+    for sub_data in cls
+        if sub_data.n > k
             println("calculating clustering of cluster $c (indexes $cluster) with k = $k...")
-            push!(sqr_clusters, Clustering.kmeans(data[:,cluster], k))
+            push!(sqr_clusters, Clustering.kmeans(sub_data, k))
         else
             println("cluster $c has $(length(cluster)) elements, cant generate $k clusters...")
             push!(sqr_clusters, nothing)
@@ -158,6 +149,15 @@ function cluster_clusters(kres, data, k::Int)
     indexing, sqr_clusters
 end
     
+
+function get_cluster_mats(kres, data)
+    cls = [[] for _ in 1:maximum(kres.assignments)]
+    for i in 1:length(kres.assignments)
+        push!(cls[kres.assignments[i]], i)
+    end
+    [data[:,x] for x in cls]
+end
+
 
 
 

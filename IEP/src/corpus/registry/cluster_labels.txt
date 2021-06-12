@@ -19,34 +19,34 @@ cmap
 derivative
 
 # cluster 7, 1 items
-
+pretty_table
 
 # cluster 8, 27 items
-
+classify_accurcay
 
 # cluster 9, 441 items
-
+file
 
 # cluster 10, 21684 items
 
 
 # cluster 11, 25 items
-
+dataframe
 
 # cluster 12, 2 items
-
+get_iterated_I
 
 # cluster 13, 1 items
-
+unsafe_solve
 
 # cluster 14, 1 items
-
+draw_path
 
 # cluster 15, 2 items
-
+tables
 
 # cluster 16, 2 items
-
+norm
 
 # cluster 17, 15 items
 
