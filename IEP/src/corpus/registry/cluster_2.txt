@@ -1,0 +1,39 @@
+############################## HIGHEST CENTER RATIO #############################
+set, regress, julia, outlier, Array, object, algorithm, RegressionSet, reg, formula, argument, residu, Float, robust, Ani, refer, Exampl, julia-repl, indic, perform
+createRegressionSet, data, int, iter, subset, matrix, call, valu, observ, calcul, 
+############################ CENTER NEAREST NEIGHBOHOR ############################
+set, set, set, julia, julia, regress, regress, reg, reg, studentizedResidu, studentizedResidu, Exampl, argument, call, calcul, element, residu, student, julia-repl, object
+Array, Float, 64,1, setting, formula, phone, RegressionSet, createRegressionSet, 
+################################### FREQUENCY ###################################
+argument, set, regress, object, RegressionSet, Exampl, julia, formula, refer, julia-repl, Array, createRegressionSet, algorithm, perform, reg, call, output, Float, outlier, indic
+setting, phone, int, descript, entri, dict, observ, dataset, residu, valu, Ani, statist, data, calcul, robust, subset, linear, estim, 64,1, Journal
+outliers, iter, matrix, element, distanc, initi, method, start, alpha, probabl, coeffici, squar, threshold, detect, Multipl, search, Ali, Hadi, identifi, clean
+beta, regression, diagnost, American, standard, model, basic, obtain, enlarg, size, residuals, vector, appli, note, paramet, run, comput, determin, string, weight
+covari, critic, minim, Estimat, Peter, Observations, LTS, Rousseeuw, e.g, return, default, function, step, index, scale, noth, minimum, Stage, random, analysi
+Associat, sum, quantil, crit, Multivari, Wiley, Van, observation, influenti, true, reject, version, fit, distribut, locat, construct, floor, Plot, null, generat
+base, error, select, Optional, report, maximum, th, paper, Fast, design, exceed, estimates, David, Mahalanobi, Objectiv, stackloss, airflow, watertemp, acidcond, Chatterje
+hypothesis, Samprit, ref, implement, DataFram, includ, mean, concentr, name, result, direct, recurs, forward, modif, Respons, omit, converg, Royal, visual, procedur
+samples, lms, seri, identif, statistic, estimation, maxit, Trim, SON, John, HS, Societi, chi-squar, models, Indice, methodolog, Billor, Nedret, Jeffrey, hbk
+Satman, best.subset, Hakan, Simonoff, Katrien, Driessen, mve, length, time, addit, measur, correspond, ratio, onli, deviat, singl, Helper, veri, instead, sampl
+
+################################# DIFF FREQUENCY ################################
+################################# more frequent ################################
+argument, regress, set, RegressionSet, formula, object, julia-repl, refer, createRegressionSet, Exampl, julia, Array, algorithm, reg, perform, outlier, phone, setting, output, call
+indic, Float, descript, entri, dict, observ, dataset, residu, statist, int, robust, Ani, subset, calcul, 64,1, estim, linear, outliers, Journal, data
+valu, iter, alpha, probabl, squar, coeffici, matrix, distanc, initi, Hadi, Ali, start, threshold, detect, search, Multipl, American, regression, diagnost, clean
+beta, identifi, method, element, enlarg, basic, obtain, standard, LTS, Rousseeuw, residuals, critic, Peter, Observations, Estimat, covari, minim, influenti, crit, observation
+Associat, weight, Wiley, Van, Multivari, quantil, run, Stage, analysi, determin, appli, minimum, model, sum, note, scale, random, step, stackloss, airflow
+
+################################# less frequent ################################
+return, type, file, specifi, jldoctest, function, input, ref, tupl, creat, Option, Symbol, current, Keyword, pass, path, Integer, real, node, convert
+Field, AbstractStr, Union, kwarg, posit, add, fals, contain, coordin, Check, graph, line, read, map, imag, Char, store, write, format, id
+oper, grid, test, zero, i.e, support, transform, const, doe, system, key, form, load, repres, updat, Void, AbstractVector, collect, filenam, inform
+chang, document, code, edg, exist, remov, color, rang, list, allow, center, process, unit, row, print, equal, pair, befor, valid, assum
+name, dim, io, OGR, save, defin, AbstractArray, geometri, param, filter, instanc, featur, empti, log, factor, count, copi, avail, express, left
+
+################################# FUNCTION NAMES ################################
+adjustedResiduals, asm2000, atkinson94, atkinsonstalactiteplot, bacon, bch, bchplot, ccf, ccf, cm97, cooks, covratio, designMatrix, dfbeta, dffit, dffit, galts, get_axes_name, hadi1992, hadi1994
+hadimeasure, hatmatrix, hs93, hs93basicsubset, hs93initialset, imon2005, import_settings!, iterateCSteps, jacknifedS, ks89, ks89RecursiveResidual, lad, lms, lta, lts, mcd, mve, mveltsplot, parse_settings!, py95
+ransac, responseVector, satman2013, satman2015, set!, smr98, studentizedResiduals, 
+############################### FUNCTION ORIGINS ################################
+ArgParse, Cos, LinRegOutliers, MHLib, |tmp/CapacityExpansion\YoungFaithful-CapacityExpansion, 

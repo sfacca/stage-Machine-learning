@@ -1,0 +1,38 @@
+############################## HIGHEST CENTER RATIO #############################
+crystal, Atom, charg, molecul, bond, tol, Float, box, energi, argument, Bool, return, structur, int, grid, unit, distanc, appli, Array, true
+overlap, period, file, boundari, includ, rule, simul, Speci, LJForceField, symmetri, 
+############################ CENTER NEAREST NEIGHBOHOR ############################
+charg, charg, charg, charg, charg, true, true, true, molecul, molecul, molecul, crystal, crystal, crystal, fals, fals, onli, Ani, 
+################################### FREQUENCY ###################################
+crystal, argument, return, Atom, Float, Bool, structur, true, charg, inform, int, molecul, Array, appli, period, contain, ref, distanc, tol, unit
+boundari, calcul, coordin, includ, box, fraction, comput, Symbol, Check, bond, cell, determin, LJForceField, data, remov, fals, toler, pass, file, simul
+energi, set, valu, default, posit, print, filenam, base, condit, rule, overlap, coord, Net, Speci, pbc, tupl, onli, Ani, frac, pair
+name, dict, id, Interact, cartesian, verbos, rules, voronoi, molecular, type, appear, defin, matrix, system, zero, index, string, result, Forc, list
+absolut, infer, duplic, describ, sum, neutral, replic, crystal.charg, adsorb, e.g, Field, note, convert, imag, i.e, assum, mass, model, store, origin
+Fill, AbstractStr, look, label, dictionari, minimum, append, space, nearest, seek, information, temperatur, Van, der, Jone, Waal, Lennard, radius, grid, distance
+save, particl, allow, construct, potenti, read, Union, indic, insid, direct, accord, warn, min, ad, maximum, popul, neighborhood, precis, convent, write
+Kelvin, cif, comment, symmetri, CART, symmetry, wish, Ewald, electrostat, verbose=fals, summat, pts, bondingrul, species, crystal.atom, charges, atoms/charg, xtal, ljff, porous
+Exampl, correspond, Option, densiti, function, method, otherwis, graph, object, column, ensur, close, consid, equal, path, perform, error, factor, latter, throw
+Bool=tru, assign, Mont, Carlo, compar, flag, desir, iff, adjac, pressur, DM, cycl, sim, forcefield, coval, coords=tru, molecule-cryst, adsorpt, subtract, Wrap
+
+################################# DIFF FREQUENCY ################################
+################################# more frequent ################################
+crystal, argument, Atom, Float, structur, Bool, charg, molecul, return, inform, period, true, appli, tol, distanc, boundari, contain, unit, int, Array
+coordin, calcul, bond, fraction, box, LJForceField, includ, cell, Check, Symbol, toler, ref, determin, remov, energi, simul, pbc, comput, Net, Speci
+overlap, coord, rule, condit, fals, print, molecular, voronoi, rules, filenam, pass, cartesian, Interact, frac, verbos, base, posit, pair, crystal.charg, adsorb
+neutral, replic, duplic, appear, infer, id, absolut, dict, Forc, describ, file, sum, Lennard, Jone, Waal, der, Van, seek, information, system
+nearest, mass, append, temperatur, zero, look, minimum, tupl, data, Fill, dictionari, onli, Ani, assum, crystal.atom, charges, atoms/charg, species, porous, symmetry
+
+################################# less frequent ################################
+function, julia, vector, element, Exampl, paramet, time, jldoctest, size, input, Keyword, variabl, call, Integer, real, node, creat, kwarg, provid, output
+add, iter, generat, specifi, mean, Plot, line, handl, current, Char, format, object, Normal, support, transform, const, doe, key, form, load
+repres, Gener, step, updat, null, Void, AbstractVector, collect, chang, document, code, exist, Multipl, color, integ, ×, arg, match, process, version
+length, equival, valid, dim, io, relat, OGR, AbstractArray, linear, possibl, depend, param, filter, instanc, featur, empti, sourc, count, user, descript
+text, copi, julia-repl, dataset, avail, instead, express, tabl, Control, Draw, distribut, compon, Fetch, constraint, layer, bound, evalu, specif, doubl, level
+
+################################# FUNCTION NAMES ################################
+Crystal, Crystal, adjacency_matrix, apply_symmetry_operations, apply_symmetry_operations, assign_charges, assign_charges, bonded_atoms, bonded_atoms, chemical_formula, chemical_formula, compare_bonds_in_crystal, compute_accessibility_grid, crystal_density, crystal_density, distance_matrix, distortion, electrostatic_potential_energy, energy_grid, find_energy_minimum
+find_energy_minimum_gridsearch, forcefield_coverage, has_charges, has_charges, henry_coefficient, henry_result_savename, infer_bonds!, infer_bonds!, infer_geometry_based_bonds!, infer_geometry_based_bonds!, inside, inside, is_bonded, is_bonded, isotherm_sim_results_to_dataframe, molecular_weight, molecular_weight, neighborhood, neighborhood, net_charge
+net_charge, neutral, neutral, overlap, overlap, remove_duplicate_atoms_and_charges, remove_duplicate_atoms_and_charges, remove_duplicates, remove_duplicates, replicate, replicate, strip_numbers_from_atom_labels!, strip_numbers_from_atom_labels!, total_electrostatic_potential_energy, total_vdw_energy, vdw_energy, write_bond_information, write_cif, μVT_sim, 
+############################### FUNCTION ORIGINS ################################
+PorousMaterials, Xtals, 

@@ -1,0 +1,45 @@
+############################## HIGHEST CENTER RATIO #############################
+│, column, row, df, name, int, miss, data, julia, DataFram, string, ×, fals, true, type, id, frame, ref, job, doe
+join, argument, Bool, file, default, pass, valu, Symbol, contain, element, 
+############################ CENTER NEAREST NEIGHBOHOR ############################
+│, │, │, │, │, │, │, │, │, │, │, │, │, │, │, │, │, │, │, │
+│, │, │, │, │, │, │, │, │, │, │, │, │, │, int, int, int, int, int, int
+int, int, int, int, int, int, DataFram, DataFram, DataFram, DataFram, DataFram, DataFram, DataFram, DataFram, DataFram, miss, miss, miss, miss, miss
+miss, miss, miss, miss, df, df, df, df, df, df, df, df, julia, julia, julia, julia, julia, ×, ×, ×
+×, ×, Union, Union, Union, Union, Union, row, row, row, row, row, vcat, vcat, vcat, vcat, vcat, AbstractDataFram, AbstractDataFram, AbstractDataFram
+AbstractDataFram, AbstractDataFram, AbstractVector, AbstractVector, AbstractVector, AbstractVector, reduc, reduc, reduc, reduc, Symbol, Symbol, Symbol, Symbol, sourc, sourc, sourc, sourc, ─────┼──────────────, ─────┼──────────────
+─────┼──────────────, ─────┼──────────────, AbstractStr, AbstractStr, AbstractStr, tupl, tupl, noth, noth, col, col, 1:3, 1:3, 4:6, 4:6, 7:9, 7:9, ref, Exampl, Keyword
+argument, specifi, follow, vector, type, pair, column, name, result, jldoctest, typeof, behavior, rule, Vararg, source, dfs, cols, setequ, ─────┼─────────────────────────────────, Efficient
+
+################################### FREQUENCY ###################################
+Exampl, julia, row, │, ×, data, default, DataFram, int, argument, return, column, df, miss, name, jldoctest, true, specifi, note, allow
+contain, result, ref, valu, string, fals, Symbol, vector, tupl, element, type, error, AbstractDataFram, pass, onli, function, frame, match, sourc, Keyword
+object, pair, key, start, identifi, doe, duplic, follow, chang, found, includ, input, equal, perform, behavior, uniqu, Option, determin, origin, transform
+Float, indic, Multipl, noth, accord, id, Bool, throw, valid, Bool=fals, suffix, rais, makeuniqu, support, requir, Ani, add, mix, i.e, undefin
+Union, Check, values, subset, ─────┼────────────────────, set, appli, left, defin, level, tabl, run, modifi, real, merg, categor, passed, append, comparison, affect
+join, VALIDATE, futur, job, imaginari, performed, preced, isequ, makeunique=fals, ─────┼─────────────────────────────, innerjoin, matchmissing, releases, left=>right, matchmiss, CategoricalArrays.jl, CategoricalVector, leftjoin, rightjoin, outerjoin
+semijoin, antijoin, crossjoin, John, Jane, Joe, Blog, ─────┼──────────────────, Lawyer, Doctor, Farmer, ─────┼───────────────, AbstractVector, creat, everi, singl, appear, sampl, assum, dict
+alway, ident, renam, col, individu, 1:3, altern, uppercas, unchanged, call, addit, implement, empti, togeth, exact, convert, alreadi, print, header, AbstractStr
+base, alloc, possibl, parent, etc, depend, copi, treat, Bool=tru, class, rule, collect, skip, popul, promot, information, Concaten, selector, propertynam, AbstractDict
+dfs, lowercas, makeunique=tru, cols, ─────┼──────────────, setequ, ─────┼─────────────────────────, ─────┼───────────────────────────, renamecols, renamecol, length, e.g, target, inform, provid, encod, mean, map, becom, paramet
+
+################################# DIFF FREQUENCY ################################
+################################# more frequent ################################
+row, │, ×, Exampl, julia, DataFram, data, default, int, df, column, miss, jldoctest, allow, argument, name, note, contain, result, specifi
+Symbol, AbstractDataFram, true, fals, error, tupl, string, element, ref, pass, valu, onli, type, frame, sourc, match, vector, Keyword, duplic, identifi
+pair, key, doe, start, return, function, object, behavior, uniqu, found, equal, chang, follow, includ, perform, makeuniqu, suffix, rais, input, Bool=fals
+throw, accord, valid, Multipl, origin, transform, id, determin, indic, noth, ─────┼────────────────────, Bool, undefin, Option, mix, subset, values, Float, support, i.e
+requir, Check, add, Union, ─────┼─────────────────────────────, matchmissing, releases, left=>right, matchmiss, CategoricalArrays.jl, CategoricalVector, Jane, Blog, ─────┼──────────────────, Lawyer, Doctor, Farmer, makeunique=fals, leftjoin, rightjoin
+
+################################# less frequent ################################
+comput, matrix, output, path, calcul, node, graph, Plot, handl, imag, write, grid, zero, algorithm, const, system, step, updat, null, model
+Array, Void, scale, space, document, edg, remov, label, color, integ, center, maximum, distanc, process, unit, equival, entri, dim, OGR, save
+structur, geometri, param, associ, log, factor, descript, express, locat, compon, Fetch, constraint, layer, bound, evalu, doubl, detail, max, connect, method
+Block, solut, coeffici, Optional, term, attribut, context, definit, compat, width, tag, success, vertex, squar, axi, optim, rotat, estim, Display, angl
+Atom, local, mode, constant, directori, numer, automat, fit, respect, Link, gradient, Build, none, shape, region, radius, domain, Modul, complex, represent
+
+################################# FUNCTION NAMES ################################
+File, Rows, antijoin, append!, createRegressionSetting, innerjoin, leftjoin, loci_dataframe, one_hot_encode, outerjoin, oversample, permutedims, push!, reduce, rename, rightjoin, rownumber, semijoin, simulate, simulate_sibship
+stratifiedobs, subset, subset!, undersample, vcat, 
+############################### FUNCTION ORIGINS ################################
+CSV, DataFrames, FeatureSelectors, LinRegOutliers, MLDataPattern, PopGen, PopGenSims, 

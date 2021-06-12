@@ -1,0 +1,68 @@
+############################## HIGHEST CENTER RATIO #############################
+map, colour, cmap, valu, cyclic, diverg, name, indic, light, linear, string, default, appli, imag, list, VIEWERS, test, SR, rgbimg, function
+note, attribut, Display, label, rainbow, hue, PyPlot, grey, true, Keyword, 
+############################ CENTER NEAREST NEIGHBOHOR ############################
+map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map
+map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map
+map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map
+map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map, map
+map, map, colour, colour, colour, colour, colour, colour, colour, colour, colour, colour, colour, colour, colour, colour, colour, colour, colour, colour
+colour, colour, colour, colour, colour, colour, colour, colour, colour, colour, colour, colour, colour, colour, colour, colour, colour, colour, colour, colour
+colour, colour, colour, colour, colour, colour, colour, colour, colour, colour, colour, colour, colour, colour, colour, colour, colour, colour, colour, colour
+colour, colour, colour, cmap, cmap, cmap, cmap, cmap, cmap, cmap, cmap, cmap, cmap, cmap, cmap, cmap, cmap, cmap, cmap, cmap
+cmap, cmap, valu, valu, valu, valu, valu, valu, valu, valu, valu, valu, valu, valu, valu, valu, valu, cyclic, cyclic, cyclic
+cyclic, cyclic, cyclic, cyclic, cyclic, cyclic, cyclic, cyclic, cyclic, cyclic, cyclic, diverg, diverg, diverg, diverg, diverg, diverg, diverg, diverg, diverg
+diverg, diverg, name, name, name, name, name, name, name, name, name, name, name, indic, indic, indic, indic, indic, indic, indic
+indic, indic, indic, indic, light, light, light, light, light, light, light, light, light, linear, linear, linear, linear, linear, linear, linear
+linear, string, string, string, string, string, string, string, string, default, default, default, default, default, default, default, appli, appli, appli, appli
+appli, appli, appli, imag, imag, imag, imag, imag, imag, list, list, list, list, list, list, VIEWERS, VIEWERS, VIEWERS, VIEWERS, VIEWERS
+VIEWERS, test, test, test, test, test, SR, SR, SR, SR, SR, rgbimg, rgbimg, rgbimg, rgbimg, rgbimg, function, function, function, function
+note, note, note, note, attribut, attribut, attribut, attribut, Display, Display, Display, Display, label, label, label, label, rainbow, rainbow, rainbow, rainbow
+hue, hue, hue, hue, PyPlot, PyPlot, PyPlot, PyPlot, grey, grey, grey, grey, true, true, true, Keyword, Keyword, Keyword, creat, creat
+creat, specifi, specifi, specifi, return, return, return, mean, mean, mean, Usage, Usage, Usage, Plot, Plot, Plot, revers, revers, revers, shift
+shift, shift, Bool, Bool, Bool, code, code, code, image, image, image, descript, descript, descript, heat, heat, heat, diagnost, diagnost, diagnost
+chroma, chroma, chroma, perceptu, perceptu, perceptu, nomin, nomin, nomin, searchstr, searchstr, searchstr, colourmap, colourmap, colourmap, isolumin, isolumin, isolumin, protanop, protanop
+protanop, deuteranop, deuteranop, deuteranop, tritanop, tritanop, tritanop, sineramp, sineramp, sineramp, circlesineramp, circlesineramp, circlesineramp, data, data, argument, argument, rotat, rotat, length
+length, Becaus, Becaus, addit, addit, correspond, correspond, onli, onli, Option, Option, pi, pi, real, real, rang, rang, RGB, RGB, generat
+generat, labels, labels, possibl, possibl, Gener, Gener, param, param, search, search, howev, howev, values, values, centr, centr, convent, convent, design
+design, satur, satur, imshow, imshow, cr, cr, false, false, reversed, reversed, colours, colours, desc, desc, ImageView, ImageView, tk, tk, CBC
+CBC, applycolourmap, applycolourmap, applycycliccolourmap, applycycliccolourmap, applydivergingcolourmap, applydivergingcolourmap, cyclelength, cyclelength, returnname=tru, returnname=tru, CBL, CBL, CBD, CBD, CBTL, CBTL, CBTC, CBTC, chroma/satur
+chroma/satur, kryw, kryw, diverging-linear, diverging-linear, vivid, vivid, refer, Exampl, julia, Fulli, conveni, librari, applic, inform, follow, provid, reduc, tupl, contrast
+various, typic, singl, Ani, type, veri, int, sequenc, fine, fraction, paramet, allow, determin, care, gradient, entri, charact, contain, fals, ensur
+Array, frequenc, Float, scale, blue, colormap, uniform, main, usag, help, style, associ, warn, red, attribute, relat, value, str, etc, constant
+depend, choos, befor, produc, appropri, channel, omit, maximum, minimum, append, spatial, 64,1, white, black, percentag, Plots.scatt, returned, independ, flag, recommend
+unless, applied, bit, brief, crash, Larg, occur, Green, honour, Indicat, magnitud, Using, ColorTypes.RGBA, slow, instruct, artifact, altern, sequence, comment, Adding
+listed, straightforward, Peter, Winston, dead, domin, gamut, Orang, clip, negative, arXiv, rise, yellow, plots, y=rand, MatPlotLib, blind, cyan, magenta, jet
+spot, unimportant, CBTD, readability, chromaK, designed, returnnam, zcolor=i, marker=ColorGradi, ImageView.view, PyPlot.imshow, coexist, wrwbw, isoluminant, cyclic-isoluminant, violet, rhyme, predomin, lightness/dark, greyscale
+Kovesi, cs.GR, https://arXiv, equalisecolourmap, viewlabspac, 
+################################### FREQUENCY ###################################
+refer, Exampl, julia, data, true, Fulli, Keyword, argument, conveni, librari, creat, rotat, length, specifi, Becaus, applic, addit, inform, follow, provid
+reduc, correspond, tupl, linear, valu, contrast, various, onli, typic, return, default, Option, singl, Ani, function, type, veri, appli, test, note
+int, pi, mean, map, imag, sequenc, diverg, fine, fraction, Usage, paramet, allow, determin, care, gradient, Plot, entri, string, charact, contain
+fals, name, ensur, Array, frequenc, Float, real, attribut, cmap, rang, scale, blue, colormap, RGB, generat, indic, Display, uniform, revers, main
+usag, help, shift, style, associ, label, warn, labels, red, possibl, colour, Bool, list, attribute, relat, value, str, etc, constant, depend
+choos, befor, produc, Gener, appropri, channel, omit, maximum, minimum, param, code, append, spatial, 64,1, search, image, white, black, percentag, Plots.scatt
+returned, howev, values, independ, centr, convent, design, flag, recommend, unless, applied, bit, brief, crash, Larg, occur, Green, honour, Indicat, descript
+SR, magnitud, heat, Using, satur, ColorTypes.RGBA, slow, cyclic, instruct, artifact, altern, sequence, imshow, comment, Adding, listed, straightforward, Peter, Winston, dead
+diagnost, domin, rainbow, hue, chroma, PyPlot, gamut, light, Orang, perceptu, clip, cr, nomin, negative, searchstr, false, reversed, arXiv, colours, rise
+desc, yellow, plots, y=rand, MatPlotLib, ImageView, grey, blind, cyan, VIEWERS, magenta, tk, CBC, jet, spot, colourmap, rgbimg, applycolourmap, applycycliccolourmap, applydivergingcolourmap
+
+################################# DIFF FREQUENCY ################################
+################################# more frequent ################################
+returnname=tru, CBL, protanop, deuteranop, CBD, CBTL, tritanop, CBTD, CBTC, readability, chromaK, designed, chroma/satur, returnnam, zcolor=i, marker=ColorGradi, ImageView.view, PyPlot.imshow, coexist, kryw
+wrwbw, isoluminant, diverging-linear, cyclic-isoluminant, violet, rhyme, predomin, lightness/dark, vivid, greyscale, honour, gamut, VIEWERS, cyclelength, unimportant, isolumin, Kovesi, cs.GR, https://arXiv, viewlabspac
+Winston, searchstr, blind, cyan, magenta, colours, rise, y=rand, rgbimg, Plots.scatt, listed, rainbow, tk, CBC, jet, sineramp, circlesineramp, straightforward, chroma, Orang
+reversed, desc, applycolourmap, equalisecolourmap, crash, ColorTypes.RGBA, spot, applydivergingcolourmap, SR, perceptu, MatPlotLib, colourmap, applycycliccolourmap, ImageView, negative, Adding, dead, domin, yellow, plots
+attribute, grey, PyPlot, heat, hue, Peter, fine, brief, Indicat, sequence, imshow, arXiv, centr, nomin, applied, labels, Green, cyclic, satur, clip
+
+################################# less frequent ################################
+vector, ref, set, object, comput, element, file, model, matrix, call, method, time, jldoctest, size, result, output, input, Symbol, current, index
+error, defin, noth, pass, variabl, path, Integer, calcul, node, convert, Field, AbstractStr, dimens, Union, sampl, kwarg, posit, add, iter, base
+start, coordin, Check, construct, column, perform, graph, line, dict, read, handl, includ, run, otherwis, Char, store, write, format, id, requir
+implement, e.g, oper, grid, weight, zero, direct, i.e, Normal, algorithm, support, transform, const, doe, system, initi, key, form, load, repres
+step, updat, null, random, Void, AbstractVector, collect, filenam, chang, space, document, origin, edg, exist, remov, Multipl, color, integ, ×, arg
+
+################################# FUNCTION NAMES ################################
+cmap, 
+############################### FUNCTION ORIGINS ################################
+PerceptualColourMaps, 

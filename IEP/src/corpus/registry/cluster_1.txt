@@ -1,0 +1,42 @@
+############################## HIGHEST CENTER RATIO #############################
+histogram, edg, bin, count, img, imag, threshold, specifi, interv, function, omega, math, TestImag, frac, valu, ldot, distribut, detail, frequenc, hat
+probabl, nbin, Option, sum, minVal, maxVal, type, choic, densiti, quad, 
+############################ CENTER NEAREST NEIGHBOHOR ############################
+edg, edg, edg, edg, edg, edg, edg, edg, threshold, threshold, threshold, threshold, threshold, threshold, threshold, histogram, histogram, histogram, histogram, histogram
+histogram, histogram, count, count, count, count, count, specifi, specifi, specifi, smooth, smooth, smooth, interv, interv, interv, frequenc, frequenc, frequenc, maxit
+maxit, maxit, TestImag, TestImag, TestImag, algorithm, algorithm, argument, argument, valu, valu, detail, detail, store, store, bin, bin, img, img, AbstractRang
+AbstractRang, cameraman, cameraman, Intermod, Intermod, bimod, bimod, cgip, cgip, refer, Exampl, julia, process, filter, set, length, return, default, output, function
+method, distribut, left, int, mean, imag, paramet, Build, comput, model, index, averag, dimens, Array, real, AbstractArray, assumpt, repres, iter, Sinc
+associ, select, mode, remain, maximum, match, image, DOI, distribution, iterations, fall, describ, seek, analysi, partit, vol, graphic, https://doi.org, package, discard
+modes, EDGE, bins, pp, unspecifi, Nov, UnimodalRosin, divided, ImageContrastAdjust, HistogramThreshold, Glasbey, Histogram-Bas, CVGIP, 
+################################### FREQUENCY ###################################
+Exampl, julia, bin, histogram, refer, specifi, return, function, detail, img, TestImag, interv, imag, paramet, comput, repres, image, edg, describ, bins
+valu, Option, output, distribut, int, count, Array, frequenc, partit, AbstractRang, process, argument, length, various, left, Build, model, dimens, real, maximum
+match, gray, probabl, DOI, https://doi.org, choic, math, nbin, algorithm, threshold, default, densiti, type, method, convert, text, defin, frac, store, index
+AbstractArray, rang, Sinc, associ, channel, minimum, fall, seek, vol, discard, EDGE, ldot, quad, ImageView, mandril, ref, data, combin, set, follow
+discret, sampl, consid, integ, select, relat, Gener, hat, upper, distribution, particular, grayscal, sum, graphic, package, pp, FileIO, minVal, maxVal, mathbf
+Nov, cameraman, UnimodalRosin, divided, ImageContrastAdjust, HistogramThreshold, concomit, piecewise-const, operatornam, imhist, approxim, support, pass, filter, Becaus, width, automat, tupl, smooth, togeth
+estim, pi, Gamma, entir, mean, map, divid, intens, otherwis, sequenc, level, height, construct, cumul, determin, zero, mass, lower, bound, record
+close, result, transform, input, color, assumpt, denot, equal, align, direct, iter, accord, red, possibl, colour, value, mode, constant, common, handl
+depend, adjust, types, remain, variabl, th, random, yield, Scienc, satisfi, spread, properti, iterations, design, bit, varieti, region, begin, total, analysi
+Univers, Sci, cdot, hist, digit, imshow, Suppos, cap, Germani, subset, comp, modes, maxit, mathrm, properties, NEQ, computed, GE, Integrat, frequencies
+
+################################# DIFF FREQUENCY ################################
+################################# more frequent ################################
+histogram, bin, TestImag, Exampl, julia, img, detail, refer, specifi, bins, interv, image, describ, edg, repres, imag, function, comput, paramet, AbstractRang
+partit, frequenc, distribut, count, Option, output, Array, nbin, https://doi.org, gray, DOI, various, choic, int, valu, math, probabl, Build, left, return
+process, maximum, match, dimens, real, length, model, mandril, ldot, ImageView, quad, seek, EDGE, discard, fall, vol, argument, frac, threshold, densiti
+channel, Sinc, minimum, text, associ, AbstractArray, rang, algorithm, store, convert, defin, index, method, default, type, UnimodalRosin, ImageContrastAdjust, HistogramThreshold, concomit, piecewise-const
+imhist, divided, cameraman, mathbf, Nov, minVal, operatornam, maxVal, grayscal, FileIO, hat, distribution, graphic, package, pp, discret, particular, upper, combin, consid
+
+################################# less frequent ################################
+string, true, name, creat, element, file, Float, call, jldoctest, size, fals, Ani, contain, Bool, Symbol, current, note, list, noth, path
+Integer, indic, calcul, node, Field, AbstractStr, Union, kwarg, posit, appli, add, generat, start, coordin, Check, column, graph, Plot, dict, read
+run, Char, write, format, id, implement, e.g, oper, grid, test, Normal, const, doe, system, key, form, load, step, updat, null
+Void, AbstractVector, filenam, inform, chang, document, origin, code, exist, remov, label, ×, arg, allow, center, version, unit, row, vertic, print
+pair, equival, befor, valid, entri, dim, io, OGR, save, structur, geometri, linear, param, instanc, featur, empti, log, factor, user, descript
+
+################################# FUNCTION NAMES ################################
+build_histogram, find_threshold, find_threshold, find_threshold, find_threshold, fit, histeq, histmatch, imhist, 
+############################### FUNCTION ORIGINS ################################
+HistogramThresholding, ImageContrastAdjustment, Images, StatsBase, 

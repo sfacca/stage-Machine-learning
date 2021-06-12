@@ -66,7 +66,8 @@ end
 function clusters_distortion(kres)
     #1 square distances
     #2 mean
-    sum([x^2 for x in kres.costs])/length(kres.costs)    
+    sum([x^2 for x in kres.costs])/length(kres.costs) 
+    #sum(kres.costs)/length(kres.costs)    
 end
 
 function clusters_distance_to_center(kres, data, distance)

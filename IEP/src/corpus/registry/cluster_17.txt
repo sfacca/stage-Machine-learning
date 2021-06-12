@@ -1,0 +1,39 @@
+############################## HIGHEST CENTER RATIO #############################
+trace, argument, arg, choic, updat, propos, valu, weight, Option, function, return, fwd, gradient, tupl, ref, model, julia, set, generat, default
+Ani, name, involut, provid, random, opt, LR, ChoiceMap, Symbol, grad, 
+############################ CENTER NEAREST NEIGHBOHOR ############################
+propos, propos, propos, propos, propos, propos, propos, propos, trace, trace, trace, trace, trace, trace, model, model, model, accept, accept, accept
+argument, argument, valu, valu, function, function, move, move, generat, generat, arg, arg, address, address, provid, current, tupl, return, Ani, sampl
+flow, modifi, determin, indic, equal, Control, updat, perform, previous, Bool, remain, random, newli, check=fals, Metropolis-Hast, Metropoli, Hast, choic, subset, GenerativeFunct
+observations=EmptyChoiceMap, 
+################################### FREQUENCY ###################################
+argument, arg, function, valu, trace, provid, return, Ani, tupl, default, generat, updat, choic, ref, Option, exist, previous, address, weight, propos
+random, Keyword, follow, sampl, note, ChoiceMap, support, Exampl, julia, set, length, model, trail, equal, Update, merg, log, math, GenerativeFunct, true
+pass, move, contain, name, Symbol, intern, custom, perform, argdiff, call, filter, onli, includ, distribut, particl, i.e, frac, construct, determin, gradient
+origin, transform, possibl, Bool, select, consist, produc, doe, remain, omit, Args, opt, and/or, cdot, subset, sim, TraceTransformDSLProgram, bwd, fwd, form
+specifi, correspond, chang, posit, separ, appear, left, map, add, tabl, paramet, modifi, comput, Kernel, observ, store, pars, string, charact, fals
+dict, key, accept, evalu, repres, indic, Control, help, macro, noth, error, respect, alway, condit, similar, Replac, regist, Check, forward, restrict
+Link, adjust, behavior, therefor, actor, self, lk, variabl, sta, value/vari, choosen, annot, param, infer, correct, match, score, assign, satisfi, obtain
+distribution, expect, constraint, import, newli, begin, ArgParseSet, COMMAND, descript, check=fals, grad, latent, Metropolis-Hast, Metropoli, Hast, backward, ∇, determinist, discard, involut
+regener, non-default, addresses, retdiff, over-written, retgrad=noth, retgrad, observations=EmptyChoiceMap, ParticleFilterSt, pf, reweight, proposal, approxim, algorithm, refer, requir, e.g, time, addit, automat
+version, current, vector, tuple, discret, standard, Field, term, central, singl, signal, empti, caus, instead, continu, statist, found, appli, togeth, equival
+
+################################# DIFF FREQUENCY ################################
+################################# more frequent ################################
+arg, argument, function, trace, provid, Ani, valu, choic, updat, generat, tupl, address, propos, previous, exist, default, random, weight, Option, ChoiceMap
+follow, sampl, Keyword, note, ref, GenerativeFunct, trail, merg, math, Update, log, equal, support, length, model, argdiff, move, custom, intern, return
+perform, set, pass, Symbol, Exampl, contain, julia, bwd, fwd, TraceTransformDSLProgram, cdot, Args, and/or, omit, remain, sim, consist, frac, subset, opt
+particl, produc, gradient, name, distribut, select, filter, possibl, origin, true, doe, transform, i.e, includ, construct, determin, Bool, onli, call, value/vari
+over-written, retgrad=noth, proposal, choosen, ArgParseSet, non-default, addresses, retdiff, regener, retgrad, reweight, observations=EmptyChoiceMap, sta, check=fals, Hast, Metropoli, Metropolis-Hast, involut, latent, ParticleFilterSt
+
+################################# less frequent ################################
+data, type, creat, element, file, Float, method, jldoctest, size, int, output, vector, index, path, Integer, real, Array, calcul, node, convert
+AbstractStr, dimens, kwarg, start, coordin, column, graph, mean, Plot, line, read, run, otherwis, imag, Char, write, format, id, implement, oper
+grid, test, zero, direct, Normal, const, system, initi, load, Gener, step, null, Void, AbstractVector, filenam, inform, document, code, edg, remov
+label, Multipl, color, rang, integ, ×, sum, center, maximum, distanc, process, unit, row, vertic, print, pair, assum, entri, dim, io
+OGR, save, structur, AbstractArray, geometri, linear, depend, instanc, featur, sourc, count, text, dataset, avail, express, DataFram, Draw, locat, compon, accord
+
+################################# FUNCTION NAMES ################################
+accumulate_param_gradients!, add_arg_group!, choice_gradients, generate, metropolis_hastings, metropolis_hastings, move_reweight, parse_args, pf_update!, pf_update!, regenerate, update, update!, update!, update!, 
+############################### FUNCTION ORIGINS ################################
+Actors, ArgParse, Gen, GenParticleFilters, Train20, YAActL, tmp/Gen\probcomp-Gen, 

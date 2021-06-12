@@ -1,0 +1,46 @@
+############################## HIGHEST CENTER RATIO #############################
+class, weight, return, confus, matrix, julia, true, averag, valu, ith, classwis, posit, score, label, pred, ref, Predict, values, binari, vector
+noth, fals, Keyword, element, mean, Array, result, macro, name, negat, 
+############################ CENTER NEAREST NEIGHBOHOR ############################
+weight, weight, weight, weight, weight, weight, weight, weight, weight, weight, class, class, class, class, class, class, class, class, class, class
+return, return, return, return, return, return, return, return, return, julia, julia, julia, julia, julia, julia, julia, julia, marked, marked, marked
+marked, marked, marked, marked, marked, true, true, true, true, true, true, true, matrix, matrix, matrix, matrix, matrix, matrix, matrix, confus
+confus, confus, confus, confus, confus, confus, valu, valu, valu, valu, valu, valu, averag, averag, averag, averag, averag, averag, ith, ith
+ith, ith, ith, classwis, classwis, classwis, classwis, classwis, ref, ref, ref, ref, label, label, label, label, values, values, values, values
+pred, pred, pred, pred, Keyword, Keyword, Keyword, vector, vector, vector, element, element, element, mean, mean, mean, result, result, result, Array
+Array, Array, macro, macro, macro, noth, noth, noth, binari, binari, binari, AVERAGE, AVERAGE, AVERAGE, argument, argument, specifi, specifi, posit, posit
+name, name, Float, Float, list, list, Normal, Normal, 64,1, 64,1, classif, classif, sum, sum, micro, micro, Exampl, calcul, Option, instead
+sampl, int, divid, julia-repl, string, object, fals, equal, condit, Bool, report, Predict, score, numer, correl, divis, es, normalize=tru, ignored, coeff
+denomin, whilst, matthew, informed, elementwis, sample-weight, sample-weigt, 
+################################### FREQUENCY ###################################
+true, Keyword, argument, vector, valu, return, sampl, object, noth, list, Predict, classif, confus, Exampl, element, matrix, fals, label, Bool, report
+weight, pred, julia, specifi, Option, posit, instead, int, mean, julia-repl, averag, string, name, Array, equal, macro, condit, Normal, class, binari
+divis, ignored, whilst, micro, ref, calcul, divid, result, values, numer, sum, ith, denomin, classwis, elementwis, sample-weight, sample-weigt, Float, 64,1, normalize=tru
+score, AVERAGE, accuraci, es, negat, arguments, index, balanc, Recal, rate, Loss, correl, coeff, matthew, sensit, classifi, ham, omiss, threat, instanc
+correct, discoveri, incorrect, weights, informed, marked, jaccard, call, set, threshold, default, type, defin, construct, determin, error, specif, dictionari, 1,2,3, param
+precis, ignor, coeffici, summari, preval, fowlk, mallow, refer, support, data, size, form, pass, Wrap, length, target, provid, measur, current, correspond
+Field, singl, Ani, output, function, appear, statist, appli, fit, median, test, method, note, otherwis, section, oper, level, print, │, comput
+zero, model, observ, subtyp, bound, Fill, io, pair, entri, contain, miss, dict, generat, Union, evalu, indic, integ, row, avail, event
+don, 1:100, perform, Forc, warn, axe, Replac, Check, etc, mode, restrict, manual, dure, befor, Mutat, resampl, repeat, produc, Gener, supervis
+strategi, uniqu, train, constructor, metric, ground, truth, Mont, Carlo, properti, obtain, aggreg, parallel, sort, isa, details, expect, machin, resourc, verbos
+
+################################# DIFF FREQUENCY ################################
+################################# more frequent ################################
+confus, classif, Predict, sampl, noth, list, pred, Keyword, report, label, weight, object, micro, whilst, divis, ignored, Bool, macro, class, averag
+binari, true, fals, condit, instead, julia-repl, equal, matrix, Normal, mean, element, posit, vector, classwis, sample-weight, sample-weigt, ith, elementwis, denomin, divid
+argument, Option, valu, values, numer, sum, specifi, calcul, Exampl, name, 64,1, result, string, Array, normalize=tru, int, julia, Float, ref, score
+AVERAGE, return, accuraci, es, negat, balanc, arguments, Recal, index, rate, matthew, coeff, correl, Loss, threat, omiss, ham, sensit, classifi, informed
+discoveri, marked, jaccard, incorrect, weights, correct, instanc, fowlk, mallow, preval, 1,2,3, summari, precis, ignor, threshold, coeffici, dictionari, specif, param, construct
+
+################################# less frequent ################################
+function, paramet, creat, file, data, time, jldoctest, onli, input, tupl, Symbol, variabl, path, Integer, real, node, convert, AbstractStr, comput, dimens
+kwarg, add, iter, base, start, coordin, column, graph, Plot, line, read, map, handl, includ, run, imag, Char, store, format, id
+set, requir, implement, model, e.g, grid, direct, i.e, algorithm, transform, const, doe, system, initi, key, follow, load, repres, step, updat
+null, random, Void, scale, AbstractVector, collect, filenam, inform, chang, space, document, origin, code, edg, exist, remov, Multipl, color, rang, ×
+arg, allow, match, center, maximum, distanc, process, version, unit, vertic, equival, valid, assum, dim, relat, OGR, save, structur, AbstractArray, geometri
+
+################################# FUNCTION NAMES ################################
+accuracy_score, balanced_accuracy_score, classification_report, condition_negative, condition_positive, confusion_matrix, correctly_classified, evaluate!, f1_score, false_discovery_rate, false_negative_rate, false_omission_rate, false_positive_rate, fowlkes_mallows_index, incorrectly_classified, informedness, jaccard_score, markedness, matthews_correlation_coeff, negative_predictive_value
+positive_predictive_value, precision_score, predicted_negative, predicted_positive, prevalence_threshold, recall_score, threat_score, 
+############################### FUNCTION ORIGINS ################################
+MLJBase, classification, 

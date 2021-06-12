@@ -1,0 +1,43 @@
+############################## HIGHEST CENTER RATIO #############################
+default, int, file, observ, valu, train, word, background, set, paramet, vector, save, error, length, residu, output, correl, timeslic, true, Exampl
+data, mask, iter, len, epsilon, time, tupl, function, varianc, analysi, 
+############################ CENTER NEAREST NEIGHBOHOR ############################
+default, default, default, default, default, default, default, default, default, default, default, default, int, int, int, int, int, int, int, int
+int, int, int, int, train, train, train, train, train, train, train, train, train, file, file, file, file, file, file, file
+file, word, word, word, word, word, word, word, set, set, set, set, set, save, save, save, save, save, data, data
+data, size, size, size, vector, vector, vector, output, output, output, model, model, model, read, read, read, iter, iter, iter, debug
+debug, debug, appear, appear, window, window, count, count, result, result, AbstractFloat, AbstractFloat, negat, negat, min, min, alpha, alpha, mode, mode
+thread, thread, binari, binari, vocabulari, vocabulari, HS, HS, vocab, vocab, cbow, cbow, Exampl, length, time, threshold, valu, continu, sampl, text
+rate, print, paramet, run, construct, frequenc, vec, start, max, Bool, common, dure, info, cluster, learn, random, softmax, skip, verbos, binary
+THREADS, sample, occurr, discard, Hierarch, words, negative, verbose=fals, vocab=noth, down-sampl, vocal=Noth, skip-gram, 
+################################### FREQUENCY ###################################
+Exampl, data, set, length, time, threshold, vector, valu, default, output, file, save, paramet, result, iter, max, size, appear, continu, window
+sampl, text, int, rate, count, print, run, construct, model, read, frequenc, AbstractFloat, negat, start, min, Bool, alpha, mode, common, dure
+thread, info, cluster, train, learn, random, softmax, skip, binari, verbos, binary, word, THREADS, sample, occurr, debug, discard, Hierarch, words, negative
+vocabulari, verbose=fals, HS, vocab=noth, vocab, down-sampl, cbow, vocal=Noth, skip-gram, julia, load, true, Keyword, argument, creat, filter, retain, limit, e.g, addit
+follow, correspond, tupl, linear, ratio, element, typic, everi, interpol, grid, return, Field, distanc, term, Option, posit, Ani, function, empti, elements
+effici, appli, fit, estim, residu, et, al, includ, note, signal-to-nois, left, defin, mean, deriv, abov, slice, matrix, locat, sea, level
+top, layer, bottom, i.e, allow, depth, veloc, floor, comput, determin, zero, observ, varianc, multipli, index, origin, Plot, horizont, surfac, mask
+vertic, longitud, latitud, profil, coordin, Fill, filenam, contain, fals, name, dimens, Array, transform, input, Float, dict, global, key, scale, repres
+indic, base, vec, avail, interpret, path, direct, qualiti, Control, intern, usag, background, Multipl, noth, Forc, activ, dimensions, error, overrid, possibl
+similar, factor, list, dictionari, select, relat, Normal, final, non-zero, express, Replac, substitut, value, scalar, Cut, depend, Optional, len, neighbor, remain
+
+################################# DIFF FREQUENCY ################################
+################################# more frequent ################################
+threshold, max, save, iter, length, output, result, time, file, paramet, default, data, set, vector, Exampl, valu, cbow, vocal=Noth, skip-gram, vocab=noth
+down-sampl, binary, words, negative, vocab, sample, softmax, vocabulari, Hierarch, HS, THREADS, occurr, discard, debug, verbose=fals, skip, learn, AbstractFloat, appear, common
+cluster, alpha, thread, dure, negat, continu, train, verbos, word, min, binari, rate, info, window, frequenc, mode, text, count, print, random
+run, read, construct, start, sampl, Bool, size, model, int, diva, fitcorrlen, DIVAnd-example-data/Global/Bathymetry/gebco, plotr, Anamorphosi, Anam.notransform, fithorzcorrlen, fitvertcorrlen, fithorz, fithorzlen, smoothz
+fitvert, fitvertlen, DIVAnd.distanc, lenz, filterbackground, minfield, maxfield, saveindex, Desrozi, surfextend, timeslic, suffixes, divamethod, keywoard, aggred, erri, non-cycl, qcvalu, call-back, dbinfo
+
+################################# less frequent ################################
+ref, string, type, object, specifi, call, method, jldoctest, onli, Symbol, current, pass, Integer, real, calcul, node, convert, AbstractStr, Union, kwarg
+provid, add, refer, generat, Check, column, perform, graph, line, map, handl, otherwis, imag, Char, store, write, format, id, requir, implement
+oper, test, weight, algorithm, support, const, doe, system, initi, form, Gener, step, updat, null, singl, Void, AbstractVector, collect, inform, chang
+space, document, code, edg, exist, remov, label, color, rang, integ, ×, arg, sum, match, center, process, version, unit, row, equal
+pair, equival, befor, valid, assum, entri, dim, io, OGR, structur, AbstractArray, geometri, associ, instanc, featur, log, return, user, descript, copi
+
+################################# FUNCTION NAMES ################################
+diva3d, word2clusters, word2vec, 
+############################### FUNCTION ORIGINS ################################
+DIVAnd, Word2Vec, 

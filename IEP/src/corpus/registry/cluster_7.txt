@@ -1,0 +1,151 @@
+############################## HIGHEST CENTER RATIO #############################
+default, column, row, function, highlight, line, print, align, true, data, tabl, cell, header, drawn, vector, crayon, Keyword, noth, filter, return
+onli, Notic, Symbol, width, appli, fals, format, text, tupl, horizont, 
+############################ CENTER NEAREST NEIGHBOHOR ############################
+default, default, default, default, default, default, default, default, default, default, default, default, default, default, default, default, default, default, default, default
+default, default, default, default, default, default, default, default, default, default, default, default, default, default, default, default, default, default, default, default
+default, default, default, default, default, default, default, default, default, default, default, default, default, default, default, default, default, default, default, default
+default, default, default, default, default, default, default, default, default, default, default, default, default, column, column, column, column, column, column, column
+column, column, column, column, column, column, column, column, column, column, column, column, column, column, column, column, column, column, column, column
+column, column, column, column, column, column, column, column, column, column, column, column, column, column, column, column, column, column, column, column
+column, column, column, column, column, column, column, column, column, column, column, column, column, column, column, column, row, row, row, row
+row, row, row, row, row, row, row, row, row, row, row, row, row, row, row, row, row, row, row, row
+row, row, row, row, row, row, row, row, row, row, row, row, row, row, row, row, row, row, row, row
+row, row, row, row, row, row, row, row, row, row, row, row, row, row, row, row, function, function, function, function
+function, function, function, function, function, function, function, function, function, function, function, function, function, function, function, function, function, function, function, function
+function, function, function, function, function, function, function, function, function, function, function, function, function, function, function, function, function, function, function, function
+function, function, function, function, function, function, function, function, function, function, function, function, function, function, function, highlight, highlight, highlight, highlight, highlight
+highlight, highlight, highlight, highlight, highlight, highlight, highlight, highlight, highlight, highlight, highlight, highlight, highlight, highlight, highlight, highlight, highlight, highlight, highlight, highlight
+highlight, highlight, highlight, highlight, highlight, highlight, highlight, highlight, highlight, highlight, highlight, highlight, highlight, highlight, highlight, highlight, highlight, highlight, highlight, highlight
+highlight, highlight, highlight, highlight, highlight, highlight, highlight, highlight, highlight, highlight, highlight, highlight, highlight, highlight, line, line, line, line, line, line
+line, line, line, line, line, line, line, line, line, line, line, line, line, line, line, line, line, line, line, line
+line, line, line, line, line, line, line, line, line, line, line, line, line, line, line, line, line, line, line, line
+line, line, line, line, line, line, print, print, print, print, print, print, print, print, print, print, print, print, print, print
+print, print, print, print, print, print, print, print, print, print, print, print, print, print, print, print, print, print, print, print
+print, print, print, print, print, print, print, print, print, print, print, print, print, print, print, print, print, align, align, align
+align, align, align, align, align, align, align, align, align, align, align, align, align, align, align, align, align, align, align, align
+align, align, align, align, align, align, align, align, align, align, align, align, align, align, align, align, align, align, align, align
+align, align, align, align, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true
+true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true
+true, true, true, true, true, true, true, true, true, data, data, data, data, data, data, data, data, data, data, data
+data, data, data, data, data, data, data, data, data, data, data, data, data, data, data, data, data, data, data, data
+data, data, data, data, data, data, data, data, data, data, data, data, data, tabl, tabl, tabl, tabl, tabl, tabl, tabl
+tabl, tabl, tabl, tabl, tabl, tabl, tabl, tabl, tabl, tabl, tabl, tabl, tabl, tabl, tabl, tabl, tabl, tabl, tabl, tabl
+tabl, tabl, tabl, tabl, tabl, tabl, tabl, tabl, tabl, tabl, tabl, tabl, cell, cell, cell, cell, cell, cell, cell, cell
+cell, cell, cell, cell, cell, cell, cell, cell, cell, cell, cell, cell, cell, cell, cell, cell, cell, cell, cell, cell
+cell, cell, cell, cell, cell, cell, cell, cell, cell, cell, header, header, header, header, header, header, header, header, header, header
+header, header, header, header, header, header, header, header, header, header, header, header, header, header, header, header, header, header, header, header
+header, header, header, header, header, header, header, drawn, drawn, drawn, drawn, drawn, drawn, drawn, drawn, drawn, drawn, drawn, drawn, drawn
+drawn, drawn, drawn, drawn, drawn, drawn, drawn, drawn, drawn, drawn, drawn, drawn, drawn, drawn, drawn, drawn, drawn, drawn, drawn, drawn
+drawn, drawn, vector, vector, vector, vector, vector, vector, vector, vector, vector, vector, vector, vector, vector, vector, vector, vector, vector, vector
+vector, vector, vector, vector, vector, vector, vector, vector, vector, vector, vector, vector, vector, vector, vector, vector, crayon, crayon, crayon, crayon
+crayon, crayon, crayon, crayon, crayon, crayon, crayon, crayon, crayon, crayon, crayon, crayon, crayon, crayon, crayon, crayon, crayon, crayon, crayon, crayon
+crayon, crayon, crayon, crayon, crayon, crayon, crayon, crayon, crayon, crayon, Keyword, Keyword, Keyword, Keyword, Keyword, Keyword, Keyword, Keyword, Keyword, Keyword
+Keyword, Keyword, Keyword, Keyword, Keyword, Keyword, Keyword, Keyword, Keyword, Keyword, Keyword, Keyword, Keyword, Keyword, Keyword, Keyword, Keyword, Keyword, Keyword, Keyword
+noth, noth, noth, noth, noth, noth, noth, noth, noth, noth, noth, noth, noth, noth, noth, noth, noth, noth, noth, noth
+noth, noth, noth, noth, noth, noth, noth, noth, noth, filter, filter, filter, filter, filter, filter, filter, filter, filter, filter, filter
+filter, filter, filter, filter, filter, filter, filter, filter, filter, filter, filter, filter, filter, filter, filter, filter, return, return, return, return
+return, return, return, return, return, return, return, return, return, return, return, return, return, return, return, return, return, return, return, return
+return, return, onli, onli, onli, onli, onli, onli, onli, onli, onli, onli, onli, onli, onli, onli, onli, onli, onli, onli
+onli, onli, onli, onli, onli, onli, Notic, Notic, Notic, Notic, Notic, Notic, Notic, Notic, Notic, Notic, Notic, Notic, Notic, Notic
+Notic, Notic, Notic, Notic, Notic, Notic, Notic, Notic, Notic, Notic, Symbol, Symbol, Symbol, Symbol, Symbol, Symbol, Symbol, Symbol, Symbol, Symbol
+Symbol, Symbol, Symbol, Symbol, Symbol, Symbol, Symbol, Symbol, Symbol, Symbol, Symbol, Symbol, width, width, width, width, width, width, width, width
+width, width, width, width, width, width, width, width, width, width, width, width, width, appli, appli, appli, appli, appli, appli, appli
+appli, appli, appli, appli, appli, appli, appli, appli, appli, appli, appli, appli, appli, appli, fals, fals, fals, fals, fals, fals
+fals, fals, fals, fals, fals, fals, fals, fals, fals, fals, fals, fals, fals, fals, fals, format, format, format, format, format
+format, format, format, format, format, format, format, format, format, format, format, format, format, format, text, text, text, text, text, text
+text, text, text, text, text, text, text, text, text, text, text, text, text, tupl, tupl, tupl, tupl, tupl, tupl, tupl
+tupl, tupl, tupl, tupl, tupl, tupl, tupl, tupl, tupl, tupl, tupl, horizont, horizont, horizont, horizont, horizont, horizont, horizont, horizont, horizont
+horizont, horizont, horizont, horizont, horizont, horizont, horizont, horizont, horizont, titl, titl, titl, titl, titl, titl, titl, titl, titl, titl, titl
+titl, titl, titl, titl, titl, titl, titl, element, element, element, element, element, element, element, element, element, element, element, element, element
+element, element, element, element, select, select, select, select, select, select, select, select, select, select, select, select, select, select, select, select
+select, pass, pass, pass, pass, pass, pass, pass, pass, pass, pass, pass, pass, pass, pass, pass, pass, section, section, section
+section, section, section, section, section, section, section, section, section, section, section, section, section, formatt, formatt, formatt, formatt, formatt, formatt, formatt
+formatt, formatt, formatt, formatt, formatt, formatt, formatt, formatt, formatt, hline, hline, hline, hline, hline, hline, hline, hline, hline, hline, hline
+hline, hline, hline, hline, hline, specifi, specifi, specifi, specifi, specifi, specifi, specifi, specifi, specifi, specifi, specifi, specifi, specifi, specifi, specifi
+Option, Option, Option, Option, Option, Option, Option, Option, Option, Option, Option, Option, Option, Option, Option, vertic, vertic, vertic, vertic, vertic
+vertic, vertic, vertic, vertic, vertic, vertic, vertic, vertic, vertic, vertic, variabl, variabl, variabl, variabl, variabl, variabl, variabl, variabl, variabl, variabl
+variabl, variabl, variabl, variabl, variabl, crop, crop, crop, crop, crop, crop, crop, crop, crop, crop, crop, crop, crop, crop, crop
+valu, valu, valu, valu, valu, valu, valu, valu, valu, valu, valu, valu, valu, valu, Backend, Backend, Backend, Backend, Backend, Backend
+Backend, Backend, Backend, Backend, Backend, Backend, Backend, Backend, string, string, string, string, string, string, string, string, string, string, string, string
+string, fd, fd, fd, fd, fd, fd, fd, fd, fd, fd, fd, fd, fd, table, table, table, table, table, table
+table, table, table, table, table, table, table, size, size, size, size, size, size, size, size, size, size, size, size, set
+set, set, set, set, set, set, set, set, set, set, set, latex, latex, latex, latex, latex, latex, latex, latex, latex
+latex, latex, latex, equal, equal, equal, equal, equal, equal, equal, equal, equal, equal, equal, equal, signatur, signatur, signatur, signatur, signatur
+signatur, signatur, signatur, signatur, signatur, signatur, signatur, anchor, anchor, anchor, anchor, anchor, anchor, anchor, anchor, anchor, anchor, anchor, anchor, none
+none, none, none, none, none, none, none, none, none, none, none, follow, follow, follow, follow, follow, follow, follow, follow, follow
+follow, follow, integ, integ, integ, integ, integ, integ, integ, integ, integ, integ, integ, tf, tf, tf, tf, tf, tf, tf
+tf, tf, tf, tf, alignment, alignment, alignment, alignment, alignment, alignment, alignment, alignment, alignment, alignment, alignment, note, note, note, note, note
+note, note, note, note, note, relat, relat, relat, relat, relat, relat, relat, relat, relat, relat, ad, ad, ad, ad, ad
+ad, ad, ad, ad, ad, match, match, match, match, match, match, match, match, match, match, printed, printed, printed, printed, printed
+printed, printed, printed, printed, printed, regex, regex, regex, regex, regex, regex, regex, regex, regex, regex, Wrap, Wrap, Wrap, Wrap, Wrap
+Wrap, Wrap, Wrap, Wrap, singl, singl, singl, singl, singl, singl, singl, singl, singl, type, type, type, type, type, type, type
+type, type, otherwis, otherwis, otherwis, otherwis, otherwis, otherwis, otherwis, otherwis, otherwis, contain, contain, contain, contain, contain, contain, contain, contain, contain
+style, style, style, style, style, style, style, style, style, html, html, html, html, html, html, html, html, html, instanc, instanc
+instanc, instanc, instanc, instanc, instanc, instanc, defin, defin, defin, defin, defin, defin, defin, defin, paramet, paramet, paramet, paramet, paramet, paramet
+paramet, paramet, io, io, io, io, io, io, io, io, name, name, name, name, name, name, name, name, consid, consid
+consid, consid, consid, consid, consid, consid, bodi, bodi, bodi, bodi, bodi, bodi, bodi, bodi, back-end, back-end, back-end, back-end, back-end, back-end
+back-end, back-end, nohead, nohead, nohead, nohead, nohead, nohead, nohead, nohead, sub-head, sub-head, sub-head, sub-head, sub-head, sub-head, sub-head, sub-head, left, left
+left, left, left, left, left, int, int, int, int, int, int, int, dict, dict, dict, dict, dict, dict, dict, environ
+environ, environ, environ, environ, environ, environ, affect, affect, affect, affect, affect, affect, affect, begin, begin, begin, begin, begin, begin, begin
+key, key, key, key, key, key, indic, indic, indic, indic, indic, indic, Display, Display, Display, Display, Display, Display, insid, insid
+insid, insid, insid, insid, direct, direct, direct, direct, direct, direct, Control, Control, Control, Control, Control, Control, fallback, fallback, fallback, fallback
+fallback, fallback, decor, decor, decor, decor, decor, decor, valid, valid, valid, valid, valid, valid, behavior, behavior, behavior, behavior, behavior, behavior
+structur, structur, structur, structur, structur, structur, Exampl, Exampl, Exampl, Exampl, Exampl, conveni, conveni, conveni, conveni, conveni, chang, chang, chang, chang
+chang, top, top, top, top, top, bottom, bottom, bottom, bottom, bottom, lower, lower, lower, lower, lower, user, user, user, user
+user, avail, avail, avail, avail, avail, overrid, overrid, overrid, overrid, overrid, specif, specif, specif, specif, specif, info, info, info, info
+info, append, append, append, append, append, columns, columns, columns, columns, columns, ignored, ignored, ignored, ignored, ignored, i-th, i-th, i-th, i-th
+i-th, subhead, subhead, subhead, subhead, subhead, LatexHighlight, LatexHighlight, LatexHighlight, LatexHighlight, LatexHighlight, longtabl, longtabl, longtabl, longtabl, longtabl, ref, ref, ref, ref
+kwarg, kwarg, kwarg, kwarg, call, call, call, call, requir, requir, requir, requir, tuple, tuple, tuple, tuple, Field, Field, Field, Field
+convert, convert, convert, convert, matrix, matrix, matrix, matrix, i.e, i.e, i.e, i.e, Multipl, Multipl, Multipl, Multipl, alway, alway, alway, alway
+final, final, final, final, vline, vline, vline, vline, omit, omit, omit, omit, configur, configur, configur, configur, mention, mention, mention, mention
+furthermor, furthermor, furthermor, furthermor, import, import, import, import, border, border, border, border, integers, integers, integers, integers, effect, effect, effect, effect
+pretti, pretti, pretti, pretti, HTMLHighlight, HTMLHighlight, HTMLHighlight, HTMLHighlight, refer, refer, refer, julia, julia, julia, limit, limit, limit, addit, addit, addit
+automat, automat, automat, Ani, Ani, Ani, tabular, tabular, tabular, Helper, Helper, Helper, togeth, togeth, togeth, mean, mean, mean, construct, construct
+construct, middl, middl, middl, origin, origin, origin, coordin, coordin, coordin, charact, charact, charact, label, label, label, respect, respect, respect, list
+list, list, dictionari, dictionari, dictionari, value, value, value, str, str, str, depend, depend, depend, receiv, receiv, receiv, produc, produc, produc
+num, num, num, maximum, maximum, maximum, th, th, th, minimum, minimum, minimum, intersect, intersect, intersect, obtain, obtain, obtain, fix, fix
+fix, otherwise, otherwise, otherwise, tables, tables, tables, col, col, col, summari, summari, summari, discarded, discarded, discarded, tested, tested, tested, neglected
+neglected, neglected, footer, footer, footer, bold, bold, bold, linebreak, linebreak, linebreak, cropped, cropped, cropped, TextFormat, TextFormat, TextFormat, nosubhead, nosubhead, nosubhead
+highlighted, highlighted, highlighted, unformat, unformat, unformat, HTMLDecor, HTMLDecor, HTMLDecor, support, support, AbstractVector, AbstractVector, creat, creat, posit, posit, output, output, empti
+empti, continu, continu, found, found, fit, fit, includ, includ, assum, assum, comput, comput, rest, rest, object, object, color, color, blue
+blue, evalu, evalu, background, background, mani, mani, compact, compact, doe, doe, space, space, black, black, shown, shown, skip, skip, tag
+tag, packag, packag, compliant, compliant, VAL, VAL, desir, desir, break, break, π, π, ellipsi, ellipsi, env, env, Render, Render, suppress
+suppress, foreground, foreground, wherea, wherea, newlin, newlin, preced, preced, page, page, omitted, omitted, body, body, sub-headers, sub-headers, autowrap, autowrap, highlighter
+highlighter, LatexTableFormat, LatexTableFormat, textbf, textbf, algorithm, argument, length, applic, inform, current, everi, Tables.jl, interfac, elements, instead, appear, center, oper, locat
+save, julia-repl, modifi, convers, multipli, ensur, dimens, odd, look, AbstractMatrix, Union, base, unicod, content, bigger, compat, custom, updat, vectors, error
+possibl, Bool, recurs, Replac, etc, mode, delet, handl, befor, treat, modif, IOContext, API, overwrit, infer, account, search, larger, public, properti
+third, complet, explain, ignor, decim, pointer, logic, referenc, special, describ, filters, Larg, generated, henc, respectively, thrown, j-th, added, title, br
+stdout, verifi, performed, hand, documentation, cells, Character, names, computed, bg, previously, standalon, sorted, sortabl, fall-back, compli, isodd, aligned, UNLIMITED, continuously
+sortkey, subheaders, left-align, center-align, right-align, highlighters, rownum, formatters, displays, summary, vcrop, terminals, Crayons.jl, https://github.com/KristofferC/Crayons.jl, HTMLTableFormat, egin, sprint, 
+################################### FREQUENCY ###################################
+ref, kwarg, algorithm, refer, support, Exampl, julia, data, size, true, Keyword, argument, pass, conveni, call, AbstractVector, Wrap, creat, filter, set
+requir, length, specifi, limit, applic, addit, inform, follow, width, automat, current, vector, tuple, tupl, valu, instanc, element, chang, onli, everi
+return, Field, default, Option, posit, singl, Ani, tabular, format, output, function, type, Tables.jl, interfac, empti, Helper, elements, instead, appear, continu
+found, appli, fit, togeth, center, includ, note, convert, text, left, int, defin, mean, otherwis, section, matrix, oper, locat, top, tabl
+print, save, latex, paramet, cell, bottom, i.e, julia-repl, assum, construct, modifi, comput, rest, middl, convers, multipli, origin, horizont, vertic, coordin
+lower, header, io, line, string, charact, object, column, contain, fals, name, ensur, dimens, odd, consid, dict, Symbol, look, user, key
+color, blue, AbstractMatrix, Union, evalu, indic, integ, base, row, equal, align, avail, Display, unicod, insid, Backend, content, direct, bigger, Control
+compat, signatur, custom, drawn, background, Multipl, style, noth, updat, vectors, label, error, respect, overrid, alway, possibl, titl, formatt, Bool, specif
+list, dictionari, recurs, select, relat, final, Replac, value, str, etc, anchor, mode, fallback, hline, vline, delet, mani, handl, decor, depend
+receiv, befor, treat, valid, produc, html, behavior, modif, structur, compact, IOContext, doe, num, API, overwrit, omit, variabl, ad, info, maximum
+
+################################# DIFF FREQUENCY ################################
+################################# more frequent ################################
+sortkey, subheaders, sub-headers, sub-head, left-align, center-align, right-align, rownum, cropped, nosubhead, summary, vcrop, terminals, Crayons.jl, https://github.com/KristofferC/Crayons.jl, highlighter, highlighted, unformat, HTMLTableFormat, LatexHighlight
+LatexTableFormat, egin, neglected, sortabl, continuously, highlighters, subhead, formatters, linebreak, TextFormat, textbf, bg, previously, fall-back, compli, aligned, UNLIMITED, nohead, autowrap, displays
+longtabl, sprint, vline, tables, j-th, ellipsi, footer, back-end, standalon, mention, discarded, HTMLHighlight, HTMLDecor, foreground, omitted, sorted, bold, crayon, br, tested
+crop, IOContext, furthermor, tabular, hline, compliant, documentation, integers, suppress, alignment, printed, formatt, cells, body, bigger, Tables.jl, filters, added, public, isodd
+newlin, computed, generated, title, middl, wherea, pretti, hand, verifi, decor, performed, compact, anchor, i-th, blue, explain, Character, odd, preced, regex
+
+################################# less frequent ################################
+Array, file, model, Float, method, time, jldoctest, result, input, index, path, Integer, real, calcul, node, correspond, AbstractStr, sampl, provid, add
+iter, determin, generat, start, Check, perform, graph, Plot, read, map, run, imag, Char, store, write, id, implement, e.g, grid, test
+weight, zero, Normal, transform, const, system, initi, form, load, repres, Gener, step, null, random, Void, scale, collect, filenam, document, code
+edg, exist, remov, rang, ×, arg, allow, sum, distanc, process, version, unit, pair, equival, entri, dim, OGR, AbstractArray, geometri, linear
+param, associ, featur, log, factor, sourc, count, descript, copi, dataset, express, standard, DataFram, Draw, distribut, compon, accord, Fetch, constraint, layer
+
+################################# FUNCTION NAMES ################################
+pretty_table, 
+############################### FUNCTION ORIGINS ################################
+PrettyTables, 
