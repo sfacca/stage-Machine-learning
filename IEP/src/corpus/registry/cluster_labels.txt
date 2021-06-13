@@ -49,20 +49,20 @@ tables
 norm
 
 # cluster 17, 15 items
-
+compare_argument
 
 # cluster 18, 1 items
-
+pad_array
 
 # cluster 19, 86 items
-
+model
 
 # cluster 20, 13 items
-
+mean
 
 # cluster 21, 2280 items
-
+array
 
 # cluster 22, 3 items
-
+train_save
 

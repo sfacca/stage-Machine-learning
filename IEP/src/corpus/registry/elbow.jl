@@ -15,6 +15,8 @@ end
 # Multi-threaded Implementation of Lloyd's Algorithm by default
 #c = [ParallelKMeans.kmeans(X, i; tol=1e-6, max_iters=300, verbose=true) for i = 2:10]
 """
+kmeans_range(mat, range=nothing, verbose=true, save_parts=true, name="kmeans_", folder="kmeans", step=1, parallel=false)  
+
 calculates k-means clusterings with ks ranginge from range[1] to range[2]
 mat is supposed to be a sparse matrix where each column represents a data point
 default range is 1:number of columns/50
