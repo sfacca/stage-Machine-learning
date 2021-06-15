@@ -22,7 +22,9 @@ struct Cluster_stats
     center
     closest_to_center
 end
-
+"""
+clusters_info(kres, data, names)
+"""
 function clusters_info(kres, data, names)
     #1 word frequency
     tmp = cluster_terms_frequency(kres, data)
@@ -253,6 +255,32 @@ function ind_half_safe(i, rate=2)
     Int.(round(i/rate))
 end
 
+function k_index_maximum(dir)
+    counts = []
+    ks = []
+    for (root, dirs, files) in walkdir(dir)
+        for file in files
+            if endswith(file, ".jld2")
+                tmp = FileIO.load(joinpath(root,file))["kmeans"]
+                push!(counts, tmp.counts)
+                push!(ks, maximum(tmp.assignments))
+            end
+        end
+    end
+
+    srp = sortperm(ks)
+    counts = counts[srp]
+    ks = ks[srp]
+    res = []
+
+    for i in 1:length(ks)
+        tmp = findmax(counts[i])
+        push!(res, "k= $(ks[i]) maximum cluster population is $(tmp[1]) at cluster index $(tmp[2])")
+    end
+    res
+
+end
+
 function prepare_labels(kres)
     open("cluster_labels.txt", "w") do io
         cnts = kres.counts
@@ -359,7 +387,7 @@ function frequent_and_predictive_words_method(kres, data)
 
 end
 
-function print_fapwm(arr, lexi::Array{String,1}, name::String="frequent and predictive words.txt")
+function print_fapwm(arr, lexi::Array{String,1}, name::String="frequent and predictive words.md")
     res = []
     for clust in arr
         srp = sortperm(clust, rev=true)
@@ -373,7 +401,7 @@ function print_fapwm(arr, lexi::Array{String,1}, name::String="frequent and pred
     print_fapwm(res, name)
 end
 
-function print_fapwm(arr, name="frequent and predictive words.txt")
+function print_fapwm(arr, name="frequent and predictive words.md")
     open(name, "w") do io
         for i in 1:length(arr)
             write(io, "[Cluster $i](#cluster$i)\n")
