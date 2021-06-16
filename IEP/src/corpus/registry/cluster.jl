@@ -312,6 +312,29 @@ function __savearr(arr, name)
         end
     end
 end
+
+
+function print_exprs(arr, name = "blocks.txt")
+    errs = []
+    open(name, "w") do io
+        for i in 1:length(arr)
+            write(io, "#####################\n $(arr[i].fun)\n")
+            try
+                write(io, string(Expr(arr[i].block)))
+            catch e
+                push!(errs, (i,e))
+                write(io, string(arr[i].block))
+            end
+            write(io, "\n")
+        end
+    end
+    errs
+end
+
+                
+
+
+
 #=
 function cluster_terms_frequency(clusters::Array{Cluster,1})
     freqs = []

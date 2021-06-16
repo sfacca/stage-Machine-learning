@@ -1,0 +1,9 @@
+function expand_rotate(frame, angles, threshold; kwargs...)
+    N = length(angles)
+    _frame = max.(frame, threshold)
+    cube = similar(frame, N, size(frame)...)
+    Threads.@threads for idx = axes(cube, 1)
+            cube[idx, :, :] .= derotate(_frame, -(angles[idx]); kwargs...)
+        end
+    return cube
+end

@@ -178,3 +178,9 @@ end
 # distortion: mean sum of squared distances to centers
 # silhouette: mean ratio of intra-cluster and nearest-cluster distance
 # calinski_harabasz: ratio of within to between cluster dispersion
+
+
+function _dendro(data)
+    #1 make distance matrix
+    hclust(make_dmat(data))
+end
