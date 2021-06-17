@@ -314,11 +314,15 @@ function __savearr(arr, name)
 end
 
 
-function print_exprs(arr, name = "blocks.txt")
+function print_exprs(arr, name = "blocks.txt", mds = nothing)
     errs = []
     open(name, "w") do io
         for i in 1:length(arr)
-            write(io, "#####################\n $(arr[i].fun)\n")
+            if isnothing(mds)
+                write(io, "#####################\n $(arr[i].fun)\n")
+            else                
+                write(io, "#####################\n from module: $(mds[i])\n $(arr[i].fun)\n")
+            end
             try
                 write(io, string(Expr(arr[i].block)))
             catch e
@@ -329,6 +333,14 @@ function print_exprs(arr, name = "blocks.txt")
         end
     end
     errs
+end
+
+function find_mods(ids, rngs, mods)
+    res = []
+    for id in ids
+        push!(res, mods[findfirst((x)->(id in x),rngs)])
+    end
+    res
 end
 
                 
