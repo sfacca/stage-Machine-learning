@@ -321,7 +321,7 @@ function print_exprs(arr, name = "blocks.txt", mds = nothing)
             if isnothing(mds)
                 write(io, "#####################\n $(arr[i].fun)\n")
             else                
-                write(io, "#####################\n from module: $(mds[i])\n $(arr[i].fun)\n")
+                write(io, "#####################\n from package: $(mds[i])\n $(arr[i].fun)\n")
             end
             try
                 write(io, string(Expr(arr[i].block)))
