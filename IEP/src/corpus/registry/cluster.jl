@@ -314,7 +314,52 @@ function __savearr(arr, name)
 end
 
 
-function print_exprs(arr, name = "blocks.txt", mds = nothing)
+function print_exprs(arr, name = "blocks.txt", mds = nothing, mat=nothing, lexi=nothing)
+    errs = []
+    open(name, "w") do io
+        for i in 1:length(arr)
+            if isnothing(mds)
+                write(io, "#####################\n function number $i \n$(arr[i].fun)\n")
+            else                
+                write(io, "#####################\n function number $i \n from package: $(mds[i])\n $(arr[i].fun)\n")
+            end
+            try
+                write(io, string(Expr(arr[i].block)))
+            catch e
+                push!(errs, (i,e))
+                write(io, string(arr[i].block))
+            end
+            write(io, "\n")
+            if !isnothing(lexi)&&!isnothing(mat)
+                write(io, "### bag of words\n")
+                # write bag of words
+                # bag i = mat[:,i]
+                bag = mat[:,i]
+                srp = sortperm(mat[:,i].nzval, rev=true)#most repeated words first
+                els = ["$(lexi[bag.nzind[i]]) : $(Int(bag.nzval[i]))" for i in 1:length(bag.nzval)][srp]#word: times
+                nd = length(srp) > 50 ? 50 : length(srp)
+                i = 1
+                while i+10<nd
+                    write(io, join(els[i:i+10], ", ") )
+                    write(io, "\n")
+                    i = i + 10
+                end
+                write(io, join(els[i:nd], ", ") )
+                write(io, "\n")
+            end
+
+
+        end
+    end
+    errs
+end
+
+#=
+function print_exprs(dfbs, hcl, name = "blocks.txt", mds = nothing, mat=nothing, lexi=nothing)
+    # order dfbs according to hclust order
+    dfbs = dfbs[hcl.order]
+    mat = mat[:,hcl.order]
+
     errs = []
     open(name, "w") do io
         for i in 1:length(arr)
@@ -330,10 +375,20 @@ function print_exprs(arr, name = "blocks.txt", mds = nothing)
                 write(io, string(arr[i].block))
             end
             write(io, "\n")
+            if !isnothing(lexi)&&!isnothing(mat)
+                # write bag of words
+                # bag i = mat[:,i]
+                bag = mat[:,i]
+                srp = sortperm(mat[:,i].nzval, rev=true)#most repeated words first
+                els = ["$(lexi[bag.nzind[i]]) : $(bag.nzval[i])" for i 1:length(bag.nzval)][srp]#word: times
+
+
         end
     end
     errs
 end
+=#
+
 
 function find_mods(ids, rngs, mods)
     res = []
@@ -341,6 +396,12 @@ function find_mods(ids, rngs, mods)
         push!(res, mods[findfirst((x)->(id in x),rngs)])
     end
     res
+end
+
+function find_mods(idx, dict)
+    rngs = [value for (key, value) in dict]
+    mds = [key for (key, value) in dict]
+    find_mods(idx, rngs, mds)
 end
 
                 

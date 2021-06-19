@@ -1,0 +1,4 @@
+(5664, ArgumentError("cannot parse \"-10_000e0\" as Float32"))
+(14979, ArgumentError("cannot parse \"-10_000e0\" as Float32"))
+(19042, ArgumentError("cannot parse \"-10_000e0\" as Float32"))
+(19049, ArgumentError("cannot parse \"-10_000e0\" as Float32"))
