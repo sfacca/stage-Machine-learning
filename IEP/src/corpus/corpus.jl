@@ -413,6 +413,7 @@ function make_bags_from_dir(dir)
 		for file in files
 			if !isfile("bags/$(__get_name(root)).jld2") && endswith(file, ".jld2")
 				#try
+				println("doing $file")
 					make_bag_from_jld2(root, file, stemmer, tokenizer)					
 				#catch e
 				#	println(e)

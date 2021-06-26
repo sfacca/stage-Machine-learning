@@ -9,6 +9,7 @@ module IEP
     import Catlab.WiringDiagrams: to_hom_expr
     using Compose: draw, PGF
     using TextAnalysis, TopicModels
+    using Clustering
     #using OrdinaryDiffEq
 
     #using MethodAnalysis
@@ -36,6 +37,10 @@ module IEP
     # struct
     export NameDef, InputDef, FuncDef, FunctionContainer
     export getCode, getInputs, getName, isequal
+
+    #
+    export word_is_numeric
+
 
     export read_folder
 

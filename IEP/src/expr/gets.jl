@@ -114,7 +114,7 @@ function get_all_vals(e::CSTParser.EXPR)::Array{String,1}
 		res = [e.val]
 	end
 	if _checkArgs(e)
-		for x in e
+		for x in e.args
 			res = vcat(res, get_all_vals(x))
 		end
 	end
@@ -167,6 +167,10 @@ function find_heads(e::CSTParser.EXPR, head::Symbol)
 		res = [e]
 	else
 		res = []
+	end
+
+	if typeof(e.head) == CSTParser.EXPR
+		res = vcat(res, find_heads(e.head,head))
 	end
 	
 	for x in e

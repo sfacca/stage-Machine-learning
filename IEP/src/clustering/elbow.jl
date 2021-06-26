@@ -1,8 +1,3 @@
-#=
-this file contains functions to run elbow method to spot best k for kmeans clustering
-use kmeans range to generate the sample clusterings at certain Ks
-=#
-
 using ParallelKMeans, Distances
 using Clustering
 

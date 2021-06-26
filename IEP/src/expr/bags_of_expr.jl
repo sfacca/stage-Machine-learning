@@ -12,16 +12,51 @@ function make_bags(dfbs::Array{doc_fun_block,1}, stemmer=Stemmer("english"), tok
     bags
 end
 
-function make_bag(dfb::doc_fun_block, stemmer=Stemmer("english"), tokenizer=punctuation_space_tokenize, block_tokenize = get_all_vals)
+function make_bag(dfb::doc_fun_block, stemmer=Stemmer("english"), tokenizer=punctuation_space_tokenize, block_tokenize = block_to_bag)
     fun = dfb.fun
     block = block_tokenize(dfb.block)
     if dfb.doc != ""
-        doc = string.(stem_tokenize_doc(TextAnalysis.StringDocument(dfb.doc); stemmer = stemmer, tokenizer = tokenizer))
+        doc = lowercase.(rm_nums(string.(stem_tokenize_doc(TextAnalysis.StringDocument(dfb.doc); stemmer = stemmer, tokenizer = tokenizer))))
     else
         doc = Array{String,1}(undef,0)
     end
     doc_fun_block_bag(doc,fun,block)
 end
+
+
+function block_to_bag(block::CSTParser.EXPR)
+    #lowercase.(rm_nums(get_all_vals(block))) # this iterates 2n times
+
+    r=get_all_vals(block)
+    res = Array{String,1}(undef, length(r))#prealloc oh
+    i=0
+    for x in r# this iterates n times
+        if !_word_is_numeric(x)
+            i+=1
+            res[i] = lowercase(x)            
+        end
+    end
+    if i==0
+        []
+    else
+        res[1:i]
+    end
+end
+
+#=
+function block_to_bag(block::CSTParser.EXPR)
+    rm_nums([lowercase(x.val) for x in find_heads(block, :IDENTIFIER)])
+end=#
+
+function _word_is_numeric(word)
+    return tryparse(Float64, word) !== nothing
+end
+
+function rm_nums(arr::Array{String,1})
+    filter(!_word_is_numeric, arr)
+end
+
+
 
 function convert_to_index(bag::doc_fun_block_bag, doc_vocab, code_vocab)
     doc = Int.(zeros(length(doc_vocab)))    
