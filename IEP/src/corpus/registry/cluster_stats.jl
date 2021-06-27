@@ -487,3 +487,120 @@ function intr_dist(arr)
     end
     res
 end
+
+function txt_cluster(arr, name="clusters", presort=true)
+    open("$name.txt", "w") do io 
+        for i in 1:length(arr)
+            write(io, "####################################### CLUSTER $i #######################################\n")
+            str = "# "
+            if presort
+                a = sort(arr[i])
+            else
+                a = arr[i]
+            end
+            for j in 1:length(a)
+                if length(str) + length(a[j]) >= 89
+                    
+                    write(io, str)
+                    if length(str)<79
+                        write(io, repeat(" ", 89-length(str)))
+                    end
+                    write(io, "#\n")
+                    str = "# "
+                else
+                    str*=" ; "
+                end
+                str*=a[j]                
+            end
+            write(io, str)
+            if length(str)<79
+                write(io, repeat(" ", 89-length(str)))
+            end
+            write(io, "#\n")
+            write(io, "##########################################################################################\n")
+        end
+    end
+end
+
+function txt_freqs(arr, lexi, name="freqs", num::Int=0)
+
+    open("$name.txt", "w") do io 
+        for i in 1:length(arr)
+            write(io, "####################################### CLUSTER $i #######################################\n")
+            str = "# "
+
+
+
+            sort_p = sortperm(arr[i].nzval, rev=true)
+            a = lexi[arr[i].nzind]
+            a = a[sort_p]
+            if num > 0 && num < length(a)
+                a = a[1:num]
+            end
+
+            for j in 1:length(a)
+                if length(str) + length(a[j]) >= 89
+                    
+                    write(io, str)
+                    if length(str)<79
+                        write(io, repeat(" ", 89-length(str)))
+                    end
+                    write(io, "#\n")
+                    str = "# "
+                else
+                    str*=" ; "
+                end
+                str*=a[j]                
+            end
+            write(io, str)
+            if length(str)<79
+                write(io, repeat(" ", 89-length(str)))
+            end
+            write(io, "#\n")
+            write(io, "##########################################################################################\n")
+        end
+    end
+
+end
+
+function print_exprs(arr, name = "blocks.txt", mds = nothing, mat=nothing, lexi=nothing)
+    errs = []
+    open(name, "w") do io
+        for i in 1:length(arr)
+            if isnothing(mds)
+                write(io, "#####################\n function number $i \n$(arr[i].fun)\n")
+            else                
+                write(io, "#####################\n function number $i \n from package: $(mds[i])\n $(arr[i].fun)\n")
+            end
+            try
+                write(io, string(Expr(arr[i].block)))
+            catch e
+                push!(errs, (i,e))
+                write(io, string(arr[i].block))
+            end
+            write(io, "\n")
+            if !isnothing(lexi)&&!isnothing(mat)
+                write(io, "### bag of words\n")
+                # write bag of words
+                # bag i = mat[:,i]
+                bag = mat[:,i]
+                srp = sortperm(mat[:,i].nzval, rev=true)#most repeated words first
+                els = ["$(lexi[bag.nzind[i]]) : $(Int(bag.nzval[i]))" for i in 1:length(bag.nzval)][srp]#word: times
+                nd = length(srp) > 50 ? 50 : length(srp)
+                i = 1
+                while i+10<nd
+                    write(io, join(els[i:i+10], ", ") )
+                    write(io, "\n")
+                    i = i + 10
+                end
+                write(io, join(els[i:nd], ", ") )
+                write(io, "\n")
+            end
+
+
+        end
+    end
+    errs
+end
+
+
