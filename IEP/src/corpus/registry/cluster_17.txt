@@ -1,39 +1,44 @@
 ############################## HIGHEST CENTER RATIO #############################
-trace, argument, arg, choic, updat, propos, valu, weight, Option, function, return, fwd, gradient, tupl, ref, model, julia, set, generat, default
-Ani, name, involut, provid, random, opt, LR, ChoiceMap, Symbol, grad, 
+pipelin, tiff, tess, page, ref, map, add, colour, write, line, pix, sampl, text, read, file, output, instanc, run, tesspipelin, gener
+pipe, box, book, name, data, tesseract, tsv, return, default, pdf, 
 ############################ CENTER NEAREST NEIGHBOHOR ############################
-propos, propos, propos, propos, propos, propos, propos, propos, trace, trace, trace, trace, trace, trace, model, model, model, accept, accept, accept
-argument, argument, valu, valu, function, function, move, move, generat, generat, arg, arg, address, address, provid, current, tupl, return, Ani, sampl
-flow, modifi, determin, indic, equal, Control, updat, perform, previous, Bool, remain, random, newli, check=fals, Metropolis-Hast, Metropoli, Hast, choic, subset, GenerativeFunct
-observations=EmptyChoiceMap, 
+pipelin, pipelin, pipelin, pipelin, pipelin, pipelin, pipelin, pipelin, pipelin, pipelin, pipelin, pipelin, tiff, tiff, tiff, tiff, tiff, tiff, tiff, tiff
+tiff, tess, tess, tess, tess, tess, tess, tess, tess, page, page, page, page, page, page, page, ref, ref, ref, ref
+ref, text, text, text, text, text, add, add, add, add, count, count, count, count, sampl, sampl, sampl, read, read, read
+pix, pix, pix, write, write, write, book, book, book, instanc, instanc, pipe, pipe, output, output, run, run, line, line, string
+string, noth, noth, gener, gener, transient, transient, busi, busi, watch, watch, tesspipelin, tesspipelin, scrutinis, scrutinis, exampl, load, data, argument, various
+return, default, download, file, save, multipli, name, close, jldoctest, global, generat, union, pdf, println, ad, split, collect, believ, themselv, files
+drop, descript, 1:10, studi, mortal, languag, intellig, swarm, concern, world, perhap, tsv, creatur, centuri, tesseract, tessinst, hocr, alto, nineteenth, keen
+tessoutput, piplin, narrowli, microscop, 
 ################################### FREQUENCY ###################################
-argument, arg, function, valu, trace, provid, return, Ani, tupl, default, generat, updat, choic, ref, Option, exist, previous, address, weight, propos
-random, Keyword, follow, sampl, note, ChoiceMap, support, Exampl, julia, set, length, model, trail, equal, Update, merg, log, math, GenerativeFunct, true
-pass, move, contain, name, Symbol, intern, custom, perform, argdiff, call, filter, onli, includ, distribut, particl, i.e, frac, construct, determin, gradient
-origin, transform, possibl, Bool, select, consist, produc, doe, remain, omit, Args, opt, and/or, cdot, subset, sim, TraceTransformDSLProgram, bwd, fwd, form
-specifi, correspond, chang, posit, separ, appear, left, map, add, tabl, paramet, modifi, comput, Kernel, observ, store, pars, string, charact, fals
-dict, key, accept, evalu, repres, indic, Control, help, macro, noth, error, respect, alway, condit, similar, Replac, regist, Check, forward, restrict
-Link, adjust, behavior, therefor, actor, self, lk, variabl, sta, value/vari, choosen, annot, param, infer, correct, match, score, assign, satisfi, obtain
-distribution, expect, constraint, import, newli, begin, ArgParseSet, COMMAND, descript, check=fals, grad, latent, Metropolis-Hast, Metropoli, Hast, backward, ∇, determinist, discard, involut
-regener, non-default, addresses, retdiff, over-written, retgrad=noth, retgrad, observations=EmptyChoiceMap, ParticleFilterSt, pf, reweight, proposal, approxim, algorithm, refer, requir, e.g, time, addit, automat
-version, current, vector, tuple, discret, standard, Field, term, central, singl, signal, empti, caus, instead, continu, statist, found, appli, togeth, equival
+exampl, data, argument, return, default, output, name, descript, ref, instanc, sampl, download, read, jldoctest, pix, gener, ad, write, languag, page
+tess, tesseract, tessinst, load, pipe, file, run, generat, pipelin, files, tiff, book, tesspipelin, piplin, add, line, collect, text, fals, detail
+println, bool, save, word, 1:10, tsv, hocr, alto, pdf, believ, true, filter, string, various, function, call, includ, box, abstractstr, close
+union, noth, themselv, mortal, busi, intellig, concern, world, watch, centuri, nineteenth, keen, split, utf, lstm, unlv, tessoutput, pass, specifi, filenam
+time, exist, count, multipli, global, func, callback, transient, drop, client, overwritten, studi, swarm, perhap, creatur, scrutinis, narrowli, microscop, version, via
+print, termin, caller, readlin, ocr, imag, encoding, xml, par, org, xmlns, http://www.w, julia, creat, inform, onli, font, howev, provid, width
+valu, method, left, level, top, height, contain, array, block, image, conf, latin, process, librari, length, singl, type, test, int, fine
+water, object, look, integer, content, id, befor, html, num, public, infinit, head, values, images, meta, bytes, transcod, littl, globe, description
+text/html, en, lang, xsd, content-typ, charset=utf, doctype, carea, ocrx, wconf, wordstr, http://www.loc.gov/standards/alto/ns-v, xlink, xsi, xmlschema-inst, schemalocation, http://www.loc.gov/alto/v, measurementunit>pixel</measurementunit, sourceimageinformation, filename>mi
+book</filename, ocrprocess, ocrprocessingstep, processingsoftware, fontinfo, c//dtd, xhtml, transitional//en, org/tr/xhtml, dtd/xhtml, transitional.dtd, title>mi, book</title, http-equiv, ocr-system, 4.1.1, ocr-cap, ocrp, complac, fro
 
 ################################# DIFF FREQUENCY ################################
 ################################# more frequent ################################
-arg, argument, function, trace, provid, Ani, valu, choic, updat, generat, tupl, address, propos, previous, exist, default, random, weight, Option, ChoiceMap
-follow, sampl, Keyword, note, ref, GenerativeFunct, trail, merg, math, Update, log, equal, support, length, model, argdiff, move, custom, intern, return
-perform, set, pass, Symbol, Exampl, contain, julia, bwd, fwd, TraceTransformDSLProgram, cdot, Args, and/or, omit, remain, sim, consist, frac, subset, opt
-particl, produc, gradient, name, distribut, select, filter, possibl, origin, true, doe, transform, i.e, includ, construct, determin, Bool, onli, call, value/vari
-over-written, retgrad=noth, proposal, choosen, ArgParseSet, non-default, addresses, retdiff, regener, retgrad, reweight, observations=EmptyChoiceMap, sta, check=fals, Hast, Metropoli, Metropolis-Hast, involut, latent, ParticleFilterSt
+descript, tessinst, tess, tesseract, languag, pix, download, page, output, ad, instanc, default, gener, write, read, data, sampl, piplin, tesspipelin, book
+tiff, pipe, pipelin, files, exampl, name, argument, jldoctest, load, run, generat, add, file, ref, collect, line, text, fals, println, detail
+return, bool, word, save, 1:10, hocr, alto, tsv, believ, pdf, filter, various, mortal, nineteenth, keen, busi, concern, centuri, watch, themselv
+intellig, world, box, close, true, includ, string, union, abstractstr, tessoutput, unlv, lstm, noth, utf, split, call, filenam, scrutinis, narrowli, microscop
+swarm, perhap, studi, creatur, transient, pass, overwritten, client, drop, multipli, func, global, callback, count, function, exist, specifi, readlin, ocr, caller
 
 ################################# less frequent ################################
-data, type, creat, element, file, Float, method, jldoctest, size, int, output, vector, index, path, Integer, real, Array, calcul, node, convert
-AbstractStr, dimens, kwarg, start, coordin, column, graph, mean, Plot, line, read, run, otherwis, imag, Char, write, format, id, implement, oper
-grid, test, zero, direct, Normal, const, system, initi, load, Gener, step, null, Void, AbstractVector, filenam, inform, document, code, edg, remov
-label, Multipl, color, rang, integ, ×, sum, center, maximum, distanc, process, unit, row, vertic, print, pair, assum, entri, dim, io
-OGR, save, structur, AbstractArray, geometri, linear, depend, instanc, featur, sourc, count, text, dataset, avail, express, DataFram, Draw, locat, compon, accord
+comput, model, matrix, size, vector, symbol, current, index, error, variabl, path, calcul, node, field, dimens, kwarg, posit, element, iter, base
+set, coordin, check, construct, column, perform, graph, dict, handl, otherwis, char, store, implement, e.g, oper, grid, zero, direct, i.e, algorithm
+support, transform, const, system, initi, key, repres, step, updat, null, random, void, abstractvector, space, origin, color, integ, ×, arg, sum
+center, distanc, unit, row, vertic, paramet, equal, pair, equival, valid, dim, ogr, structur, abstractarray, geometri, log, factor, select, sourc, copi
+julia-repl, dataset, avail, instead, express, standard, tabl, datafram, control, draw, distribut, locat, fetch, constraint, layer, bound, evalu, specif, int, doubl
 
 ################################# FUNCTION NAMES ################################
-accumulate_param_gradients!, add_arg_group!, choice_gradients, generate, metropolis_hastings, metropolis_hastings, move_reweight, parse_args, pf_update!, pf_update!, regenerate, update, update!, update!, update!, 
+cmap, equalisecolourmap, tess_pipeline_alto, tess_pipeline_alto, tess_pipeline_alto, tess_pipeline_hocr, tess_pipeline_hocr, tess_pipeline_hocr, tess_pipeline_lstm_box, tess_pipeline_lstm_box, tess_pipeline_lstm_box, tess_pipeline_pdf, tess_pipeline_pdf, tess_pipeline_text, tess_pipeline_text, tess_pipeline_text, tess_pipeline_tsv, tess_pipeline_tsv, tess_pipeline_tsv, tess_pipeline_unlv
+tess_pipeline_unlv, tess_pipeline_unlv, tess_pipeline_unlv_latin1, tess_pipeline_word_box, tess_pipeline_word_box, tess_pipeline_word_box, tess_run_pipeline, tess_run_pipeline, tess_tsv, 
 ############################### FUNCTION ORIGINS ################################
-Actors, ArgParse, Gen, GenParticleFilters, Train20, YAActL, tmp/Gen\probcomp-Gen, 
+PerceptualColourMaps, tmp/Tesseract\pixel27-Tesseract, 

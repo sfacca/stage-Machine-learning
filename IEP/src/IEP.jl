@@ -9,7 +9,7 @@ module IEP
     import Catlab.WiringDiagrams: to_hom_expr
     using Compose: draw, PGF
     using TextAnalysis, TopicModels
-    using Clustering
+    using Clustering, Languages, FileIO
     #using OrdinaryDiffEq
 
     #using MethodAnalysis

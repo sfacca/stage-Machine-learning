@@ -127,3 +127,18 @@ function capitalization_fixer_sp(mat, arr)
     end
 
 end
+
+using Languages
+
+
+
+function findall_stopwords(lexicon)
+    sw = stopwords(Languages.English())
+    findall((x)->(x in sw),lexicon)
+end
+
+function rm_stopwords(mat, lexi)
+    sw = stopwords(Languages.English())
+    not_sw = findall((x)->!(x in sw),lexi)
+    mat[not_sw,:], lexi[not_sw]
+end

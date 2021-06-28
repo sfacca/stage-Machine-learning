@@ -1,43 +1,41 @@
 ############################## HIGHEST CENTER RATIO #############################
-model, function, julia, variabl, ref, constraint, paramet, optim, set, type, data, return, valu, output, Float, Plot, agent, default, Exampl, Field
-name, dict, true, object, support, argument, time, noth, iter, onli, 
+│, data, miss, julia, class, int, observ, ×, datafram, df, row, frame, ref, specifi, column, ploidi, tupl, fullsib, element, test
+result, parent, train, stratifiedob, exampl, string, generat, offspr, sim, bal, 
 ############################ CENTER NEAREST NEIGHBOHOR ############################
-model, model, model, model, model, model, model, model, variabl, variabl, variabl, variabl, variabl, variabl, VariableRef, VariableRef, Exampl, time, current, vector
-element, return, output, jldoctest, setup, Array, creation, list, JuMP, 
+│, │, │, │, │, │, │, │, │, │, │, │, │, │, │, │, │, │, │, │
+│, │, │, │, │, │, │, │, │, │, │, │, │, │, │, │, │, │, │, │
+│, │, │, │, │, │, │, │, │, │, │, │, │, │, │, │, │, │, │, │
+│, │, │, │, │, │, │, │, │, │, │, │, │, │, │, │, │, tupl, tupl, tupl
+tupl, tupl, datafram, datafram, datafram, column, column, miss, miss, loci, loci, exampl, julia, data, return, sampl, print, ×, row, omit
+ommit, popul, information, wide, dataframe, popdata, nancycat, ├─────┼────────────┼────────────┼────────────┼────────────┼────────────┤, 
 ################################### FREQUENCY ###################################
-model, function, Exampl, return, ref, argument, julia, true, set, valu, variabl, call, type, data, onli, note, jldoctest, paramet, vector, constraint
-default, object, Keyword, time, Float, provid, Ani, optim, support, creat, fals, name, Symbol, iter, doe, JuMP, correspond, input, kwarg, noth
-perform, current, output, step, run, construct, setup, requir, method, sampl, defin, pass, specifi, Option, includ, i.e, comput, contain, generat, error
-follow, Field, fit, add, result, real, list, size, tupl, instanc, int, print, pair, Array, indic, direct, label, Bool, ad, form
-element, determin, origin, Plot, string, base, mode, befor, simul, solver, e.g, addit, automat, everi, singl, estim, updat, decid, log, train
-schedul, combin, implement, standard, instead, distribut, matrix, assum, key, progress, start, Multipl, constant, copi, Predict, agent, bridg, refer, inform, appli
-test, mean, map, allow, dimens, attribut, user, min, possibl, offset, dictionari, select, propag, param, constructor, obtain, parallel, verbos, prior, load
-length, chang, grid, initi, otherwis, node, locat, save, modifi, observ, index, entri, column, dict, rang, Union, Display, Control, signatur, specif
-Interact, explicit, random, solut, likelihood, ABM, properti, evolv, aspect, VariableRef, filter, Becaus, discret, center, equival, abov, count, gradient, line, transform
-compon, consid, anim, relat, final, NamedTupl, report, match, Loss, space, evolut, collect, ac, Suppos, clock, scatterkwarg, algorithm, process, applic, linear
+exampl, julia, │, ×, row, data, specifi, default, function, datafram, result, set, follow, implement, tupl, element, return, option, ani, type
+sampl, note, int, allow, determin, string, class, information, ref, true, argument, target, inform, everi, paramet, i.e, assum, observ, origin, column
+contain, miss, name, dimens, jldoctest, float, symbol, extract, denot, rand, sens, nrow, featur, code, dataset, df, shuffl, concept, retriev, obsdim
+imbalanc, nob, oversampl, getob, datasubset, datat, datatables.jl, learnbase.getob, statsbase.nob, datatables.datat, ├─────┼───────────┼─────────────┼───┤, row->row, subsets, undersampl, stratifiedob, size, keyword, pass, conveni, call
+creat, length, addit, version, vector, empti, appli, togeth, encod, fraction, print, pair, object, fals, creation, global, generat, accord, possibl, identifi
+etc, mani, gener, omit, match, random, popul, sourc, sever, col, sum, dataframe, assert, cols, ⋮, bal, popdata, loci, nancycat, abstractvector
+frame, librari, requir, e.g, time, provid, linear, valu, onli, standard, subsampl, posit, initi, singl, nd, helper, appear, test, method, includ
+distribut, mean, add, deriv, exist, julia-repl, modifi, rest, proport, kept, model, preserv, vertic, longitud, latitud, fill, header, abstractstr, setup, array
+fs, frequenc, odd, key, accept, union, marker, char, largest, bigger, tri, multipl, noth, perform, activ, labels, parent, bool, list, relat
+value, perfect, consist, child, depend, repeat, behavior, bool=fals, remain, ommit, ad, info, loop, rd, uniqu, minimum, train, infer, weight, 64,1
 
 ################################# DIFF FREQUENCY ################################
 ################################# more frequent ################################
-model, Exampl, function, ref, argument, variabl, true, julia, set, return, constraint, note, call, onli, jldoctest, valu, optim, type, JuMP, Keyword
-provid, support, data, paramet, time, doe, Float, Ani, object, iter, default, Symbol, setup, correspond, fals, perform, vector, kwarg, step, input
-run, noth, construct, creat, requir, current, sampl, name, i.e, fit, output, includ, defin, generat, follow, pass, ad, instanc, error, pair
-print, add, method, label, Option, solver, Field, real, simul, direct, mode, contain, decid, list, befor, schedul, train, origin, form, indic
-automat, estim, addit, everi, specifi, Plot, result, agent, log, bridg, determin, progress, base, Bool, combin, singl, Predict, updat, tupl, constant
+│, row, ×, exampl, julia, data, specifi, default, datafram, result, information, class, allow, follow, implement, function, determin, sampl, note, option
+tupl, ani, element, type, string, set, int, datatables.jl, learnbase.getob, statsbase.nob, datatables.datat, ├─────┼───────────┼─────────────┼───┤, row->row, subsets, undersampl, stratifiedob, datasubset, imbalanc, datat, oversampl
+getob, nob, concept, obsdim, nrow, shuffl, sens, denot, retriev, rand, df, extract, miss, everi, target, observ, dataset, featur, assum, origin
+code, inform, i.e, column, dimens, symbol, contain, jldoctest, float, name, paramet, true, ref, argument, bal, cols, assert, ⋮, nancycat, dataframe
+loci, creation, popdata, sever, togeth, conveni, omit, col, popul, fraction, etc, identifi, encod, global, mani, addit, accord, sourc, empti, possibl
 
 ################################# less frequent ################################
-read, imag, Char, const, calcul, system, Void, ×, version, io, OGR, featur, factor, graph, julia-repl, Fetch, layer, doubl, Block, handl
-pars, UInt, VAL, frame, context, byte, format, id, width, tag, success, vertex, stream, angl, Link, Build, shape, charact, domain, complex
-64,1, action, Replac, pointer, project, buffer, Gener, sequenc, AbstractStr, pixel, signal, Update, segment, page, encod, word, https://portal.hdfgroup.org/display/HDF, libhdf, alloc, view
-Hid, request, root, height, img, dt, image, top, rand, OGRERR, filenam, Kernel, invers, absolut, download, OGRSpatialReferenceH, style, ptr, split, typic
-date, scene, str, day, bit, diagon, potenti, popul, hSRS, detect, tensor, densiti, main, depth, section, frac, materi, insert, recurs, Mesh
+comput, file, matrix, output, input, current, index, error, defin, variabl, path, integer, real, indic, calcul, node, convert, correspond, field, kwarg
+iter, base, refer, start, coordin, check, construct, graph, plot, line, dict, read, map, handl, run, otherwis, imag, store, write, format
+id, oper, grid, zero, direct, normal, algorithm, support, transform, const, doe, system, form, load, repres, step, updat, null, void, scale
+collect, filenam, chang, space, document, edg, remov, label, color, rang, integ, arg, center, maximum, distanc, process, unit, equal, equival, befor
+valid, entri, dim, io, ogr, save, structur, abstractarray, geometri, param, associ, filter, instanc, log, factor, select, count, user, descript, text
 
 ################################# FUNCTION NAMES ################################
-DiscreteForcing, EnsembleModel, EnsembleModel, Forcing, HydrostaticFreeSurfaceModel, IncompressibleModel, JLD2OutputWriter, Learner, MH, NameDef(  1:10  unregister, nothing), NameDef(  1:12  direct_model, nothing), NameDef(  1:17  set_optimize_hook, nothing), NameDef(  1:19  loss_and_prediction, nothing), NameDef(  1:24  set_optimizer_attributes, nothing), NameDef(  1:25  optimizer_with_attributes, nothing), NameDef(  1:5   Model, nothing), NameDef(  1:7   addrole, nothing), NameDef(  1:7   backend, nothing), NetCDFOutputWriter, RoutingData
-TunedModel, abm_data_exploration, abm_data_exploration, abm_play, abm_play, abm_plot, abm_plot, add_NL_constraint, add_constraint, add_parameters_to_cloud, add_to_function_constant, adjr2, all_constraints, all_variables, arxar, before, black_box_vi!, black_box_vimco!, copy, copy_conflict
-copy_model, dict_list, dp_parallel, dp_parallel, ensemblerun!, fit, fit_adsorption_isotherm, ftest, getnode, getnode, interacting_pairs, learn!, learning_curve, list_of_constraint_types, lp_sensitivity_report, lrtest, mapfit!, modelBackground, models, num_constraints
-objective_function, paramscan, predict!, primal_feasibility_report, r2, ransac, register, register, register, relax_integrality, return!, run!, run!, run_opt, set_NL_objective, set_objective, set_optimizer, simulate, simulate!, supports_add_constrained_variable
-supports_add_constrained_variables, supports_constraint, supports_default_copy_to, test_model_solution, train!, variable_by_name, 
+createRegressionSetting, loci_dataframe, one_hot_encode, oversample, simulate_sibship, stratifiedobs, undersample, vcat, 
 ############################### FUNCTION ORIGINS ################################
-Agents, Causal, ControlSystemIdentification, DPMMSubClusters, DrWatson, Forcings, GLM, GrowthMaps, HydrostaticFreeSurfaceModels, ImageProjectiveGeometry, IncompressibleModels, Inference, JuMP, Lighthouse, MLJ, MLJBase, MLJModels, MLJTuning, MathOptInterface, Models
-NeXLSpectrum, NetworkLearning, OutputWriters, PorousMaterials, SMC, Seleroute, Soss, StackedTimeSolver, StatsBase, StatsModels, Test, TinyModia, Train20, Utilities, tmp/Gen\probcomp-Gen, |tmp/CapacityExpansion\YoungFaithful-CapacityExpansion, |tmp/FluxTraining\lorenzoh-FluxTraining, |tmp/InteractiveChaos\JuliaDynamics-InteractiveDynamics, |tmp/InteractiveDynamics\JuliaDynamics-InteractiveDynamics, |tmp/JuMP\jump-dev-JuMP
-|tmp/LighthouseFlux\beacon-biosignals-LighthouseFlux, |tmp/QML\barche-QML, 
+DataFrames, FeatureSelectors, LinRegOutliers, MLDataPattern, PopGen, PopGenSims, 

@@ -52,6 +52,11 @@ function handle_FunctionContainer!(fc, data)
 	# i is now the index of the Function
 	#println("adding linked code block")
 	#5 add code block
+
+	#=block_id = codeblock_exists(fc.block, data)
+	if isnothing(block_id)
+		block_id = add_linked_code_block(i, fc.block, data)
+	end=#
 	block_id = add_linked_code_block(i, fc.block, data)
 	
 	#2 add calls
@@ -181,12 +186,7 @@ function handle_Scrape(fcs::Array{FileDef,1}, data; return_errors = false)
 	fails = []
 	for i in 1:length(fcs)
 		println("handling container $i")
-		#try
-			handle_FileDef!(fcs[i], data)
-		#catch e
-		#	println("error on container $i")
-		#	push!(fails, ("container $i", e))
-		#end
+		handle_FileDef!(fcs[i], data)		
 	end
 	if return_errors
 		data, fails

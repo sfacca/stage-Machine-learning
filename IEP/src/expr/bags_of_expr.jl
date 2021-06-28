@@ -16,13 +16,18 @@ function make_bag(dfb::doc_fun_block, stemmer=Stemmer("english"), tokenizer=punc
     fun = dfb.fun
     block = block_tokenize(dfb.block)
     if dfb.doc != ""
-        doc = lowercase.(rm_nums(string.(stem_tokenize_doc(TextAnalysis.StringDocument(dfb.doc); stemmer = stemmer, tokenizer = tokenizer))))
+        doc = rm_stopw(lowercase.(rm_nums(string.(stem_tokenize_doc(TextAnalysis.StringDocument(dfb.doc); stemmer = stemmer, tokenizer = tokenizer)))))
     else
         doc = Array{String,1}(undef,0)
     end
     doc_fun_block_bag(doc,fun,block)
 end
 
+__STOPWORDS = stopwords(Languages.English())
+
+function rm_stopw(arr)
+    filter((x)->!(x in __STOPWORDS),arr)
+end
 
 function block_to_bag(block::CSTParser.EXPR)
     #lowercase.(rm_nums(get_all_vals(block))) # this iterates 2n times

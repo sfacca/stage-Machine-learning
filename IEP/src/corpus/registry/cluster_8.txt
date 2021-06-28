@@ -1,46 +1,46 @@
 ############################## HIGHEST CENTER RATIO #############################
-class, weight, return, confus, matrix, julia, true, averag, valu, ith, classwis, posit, score, label, pred, ref, Predict, values, binari, vector
-noth, fals, Keyword, element, mean, Array, result, macro, name, negat, 
+vector, float, julia, element, int, data, return, type, symbol, array, matrix, argument, function, valu, df, string, default, contain, node, tupl
+ref, column, dim, structur, dimens, load, true, method, name, paramet, 
 ############################ CENTER NEAREST NEIGHBOHOR ############################
-weight, weight, weight, weight, weight, weight, weight, weight, weight, weight, class, class, class, class, class, class, class, class, class, class
-return, return, return, return, return, return, return, return, return, julia, julia, julia, julia, julia, julia, julia, julia, marked, marked, marked
-marked, marked, marked, marked, marked, true, true, true, true, true, true, true, matrix, matrix, matrix, matrix, matrix, matrix, matrix, confus
-confus, confus, confus, confus, confus, confus, valu, valu, valu, valu, valu, valu, averag, averag, averag, averag, averag, averag, ith, ith
-ith, ith, ith, classwis, classwis, classwis, classwis, classwis, ref, ref, ref, ref, label, label, label, label, values, values, values, values
-pred, pred, pred, pred, Keyword, Keyword, Keyword, vector, vector, vector, element, element, element, mean, mean, mean, result, result, result, Array
-Array, Array, macro, macro, macro, noth, noth, noth, binari, binari, binari, AVERAGE, AVERAGE, AVERAGE, argument, argument, specifi, specifi, posit, posit
-name, name, Float, Float, list, list, Normal, Normal, 64,1, 64,1, classif, classif, sum, sum, micro, micro, Exampl, calcul, Option, instead
-sampl, int, divid, julia-repl, string, object, fals, equal, condit, Bool, report, Predict, score, numer, correl, divis, es, normalize=tru, ignored, coeff
-denomin, whilst, matthew, informed, elementwis, sample-weight, sample-weigt, 
+vector, vector, vector, vector, vector, column, column, column, tupl, tupl, mean, mean, float, float, correspond, standard, deviat, return, int, comput
+dataset, loadeddatainfo, sdev, dinfo, dstat, 
 ################################### FREQUENCY ###################################
-true, Keyword, argument, vector, valu, return, sampl, object, noth, list, Predict, classif, confus, Exampl, element, matrix, fals, label, Bool, report
-weight, pred, julia, specifi, Option, posit, instead, int, mean, julia-repl, averag, string, name, Array, equal, macro, condit, Normal, class, binari
-divis, ignored, whilst, micro, ref, calcul, divid, result, values, numer, sum, ith, denomin, classwis, elementwis, sample-weight, sample-weigt, Float, 64,1, normalize=tru
-score, AVERAGE, accuraci, es, negat, arguments, index, balanc, Recal, rate, Loss, correl, coeff, matthew, sensit, classifi, ham, omiss, threat, instanc
-correct, discoveri, incorrect, weights, informed, marked, jaccard, call, set, threshold, default, type, defin, construct, determin, error, specif, dictionari, 1,2,3, param
-precis, ignor, coeffici, summari, preval, fowlk, mallow, refer, support, data, size, form, pass, Wrap, length, target, provid, measur, current, correspond
-Field, singl, Ani, output, function, appear, statist, appli, fit, median, test, method, note, otherwis, section, oper, level, print, │, comput
-zero, model, observ, subtyp, bound, Fill, io, pair, entri, contain, miss, dict, generat, Union, evalu, indic, integ, row, avail, event
-don, 1:100, perform, Forc, warn, axe, Replac, Check, etc, mode, restrict, manual, dure, befor, Mutat, resampl, repeat, produc, Gener, supervis
-strategi, uniqu, train, constructor, metric, ground, truth, Mont, Carlo, properti, obtain, aggreg, parallel, sort, isa, details, expect, machin, resourc, verbos
+vector, argument, return, int, float, julia, data, type, contain, array, element, function, matrix, exampl, valu, symbol, tupl, input, ref, ani
+column, output, paramet, relat, length, node, method, comput, real, list, key, size, true, coordin, string, optional, properti, default, dictionari, structur
+support, line, finit, load, requir, time, addit, result, dict, avail, help, bool, covari, etyp, coord, analysi, materi, jldoctest, fix, toler
+el, form, keyword, call, specifi, degre, freedom, object, shape, iter, noth, constructor, df, struc, structuralel, finiteel, initi, penalti, note, step
+dimens, block, option, mean, locat, fals, name, indic, row, displac, variabl, maximum, 64,1, parameter, converg, log-scal, fixed-displac, floatrang, set, onli
+sampl, index, forc, np, x-coordin, creat, correspond, left, tabl, store, generat, union, repres, plane, moment, e.g, singl, oper, direct, error
+id, check, num, collect, elast, estimat, pass, calcul, current, posit, appli, defin, dim, matric, run, entri, multipl, vectors, possibl, replac
+gener, weight, random, rectangular, tol, iterat, y-coordin, nodal, algorithm, measur, reduc, distanc, datafram, found, map, otherwis, exist, file, assum, allow
+pair, evalu, equal, path, absolut, depend, space, dimension, dis, maxit, quadrilater, logscalecov, shapecov, datacol, fm, fin, jfem, floalt, abstractvector, unit
+limit, format, empti, zero, observ, origin, fill, integ, update, previous, uniqu, featur, parallel, uint, edg, sourc, values, increment, region, cross
 
 ################################# DIFF FREQUENCY ################################
 ################################# more frequent ################################
-confus, classif, Predict, sampl, noth, list, pred, Keyword, report, label, weight, object, micro, whilst, divis, ignored, Bool, macro, class, averag
-binari, true, fals, condit, instead, julia-repl, equal, matrix, Normal, mean, element, posit, vector, classwis, sample-weight, sample-weigt, ith, elementwis, denomin, divid
-argument, Option, valu, values, numer, sum, specifi, calcul, Exampl, name, 64,1, result, string, Array, normalize=tru, int, julia, Float, ref, score
-AVERAGE, return, accuraci, es, negat, balanc, arguments, Recal, index, rate, matthew, coeff, correl, Loss, threat, omiss, ham, sensit, classifi, informed
-discoveri, marked, jaccard, incorrect, weights, correct, instanc, fowlk, mallow, preval, 1,2,3, summari, precis, ignor, threshold, coeffici, dictionari, specif, param, construct
+vector, argument, float, int, contain, element, type, data, array, symbol, matrix, julia, tupl, input, relat, column, exampl, valu, ani, node
+length, key, output, real, properti, return, optional, list, function, coordin, dictionari, finit, structur, etyp, covari, coord, method, help, analysi, materi
+el, addit, support, avail, fix, toler, structuralel, finiteel, line, struc, size, freedom, load, comput, paramet, requir, df, dict, constructor, penalti
+degre, shape, ref, fixed-displac, log-scal, floatrang, displac, parameter, block, converg, form, x-coordin, np, 64,1, bool, step, iter, initi, locat, row
+result, maximum, forc, time, moment, plane, noth, true, keyword, dimens, mean, elast, jldoctest, estimat, string, left, tabl, note, y-coordin, indic
 
 ################################# less frequent ################################
-function, paramet, creat, file, data, time, jldoctest, onli, input, tupl, Symbol, variabl, path, Integer, real, node, convert, AbstractStr, comput, dimens
-kwarg, add, iter, base, start, coordin, column, graph, Plot, line, read, map, handl, includ, run, imag, Char, store, format, id
-set, requir, implement, model, e.g, grid, direct, i.e, algorithm, transform, const, doe, system, initi, key, follow, load, repres, step, updat
-null, random, Void, scale, AbstractVector, collect, filenam, inform, chang, space, document, origin, code, edg, exist, remov, Multipl, color, rang, ×
-arg, allow, match, center, maximum, distanc, process, version, unit, vertic, equival, valid, assum, dim, relat, OGR, save, structur, AbstractArray, geometri
+model, const, add, null, document, center, convert, ogr, save, geometri, char, transform, system, accord, max, condit, attribut, success, void, optim
+construct, stream, simul, access, box, info, rate, pointer, solv, period, execut, set, https://portal.hdfgroup.org/display/hdf, libhdf, interpol, handl, hid, task, abstractarray, imag
+img, dt, file, final, config, image, energi, usage, ogrerr, written, fraction, parent, ogrspatialreferenceh, ptr, continu, select, mask, surfac, scene, translat
+rng, veloc, count, implement, termin, descript, bodi, potenti, hsrs, tensor, arguments, move, opt, upper, rule, copi, curv, pattern, particular, formula
+ts, frac, julia-repl, alpha, ctx, circl, cach, pix, activ, ensur, proj, res, discret, sim, resolut, html, align, ogrgeometryh, geom, draw
 
 ################################# FUNCTION NAMES ################################
-accuracy_score, balanced_accuracy_score, classification_report, condition_negative, condition_positive, confusion_matrix, correctly_classified, evaluate!, f1_score, false_discovery_rate, false_negative_rate, false_omission_rate, false_positive_rate, fowlkes_mallows_index, incorrectly_classified, informedness, jaccard_score, markedness, matthews_correlation_coeff, negative_predictive_value
-positive_predictive_value, precision_score, predicted_negative, predicted_positive, prevalence_threshold, recall_score, threat_score, 
+BlockMaxima, DataDep, GenerateNonlinearForm, String, ValMatrix, _compute_table_size_data, _rewrite, _sort!, _sort!, _topological_sort, accumulate_by_source, act!, addElements, autobuild, calculate_location, callingframe, cgasample, crosscor!, crosscov!, cudnnGetRNNWeightParams
+cvode, dcollect, dim, dim, dirsigtest, distance, draw_vector, dstat, dual_shape, enumerate_paths, evaluate!, exp_xform, features, findall, fit, fromSkyline, fsparv!, gaussian_field, generate_all_blocks, generate_getDerivatives!
+getElements, getPlotSignal, get_faces, get_faces, gevfit, gevfit, gevfit, gevfit, gevfitbayes, gevfitbayes, gpfit, gpfit, gpfit, gpfit, gpfitbayes, gpfitbayes, hamming_distance, heading, hinge!, idasol
+identify_separators, inference_triggers, isgridinregion, ispointinregion, ispointinregion, itrigs_higherorder_demo, kendall_tau_distance, linmul_sky!, loadtable, lobpcg, locations!, make_feature_vectors, make_zvals_vec, mapto_ibz, matrixintersect, measure_dissimilarity, mikolovptb, mixture, nearest_node, num_to_g!
+order_subexpressions, overpass_polygon_network_query, p41, p41, p42, p43, p44, p45, p46, p47, p51, p51_skyline, p61, p62, p63, p63_skyline, paths, pcgadirect, pcgalsqr, pmdi
+populations!, pplot, predict_point!, readrplraw, recursive_splitters, reduce_basis!, reject_candidate, remez, remove, rga, rigid_jointed!, rotation_matrix, scalar_reduce, scalarplot, scalarplot!, sort!, spabac!, svdl, tcollect, test_manifold
+timeagg, tsvd, update_initialstate!, visualize_flow, writetable, 
 ############################### FUNCTION ORIGINS ################################
-MLJBase, classification, 
+Augmentor, Base, BinaryBuilder, BridgeLandmarks, BrkgaMpIpr, CUDNN, ChemistryFeaturization, ClimateBase, CrossMappings, Dagger, DataDeps, Experimental, Filters, GMT, GeoRegions, GeostatInversion, GigaSOM, GradientRobustMultiPhysics, GridVisualize, ImageTracking
+IndependentComponentAnalysis, IterativeSolvers, Javis, JuMP, JuliaDB, KUparser, LightGraphs, LightOSM, LinRegOutliers, LoopVectorization, MLJBase, ModiaPlot, MutableArithmetics, NeXLSpectrum, OptiMimi, PDF, ParticleMDI, Plasmo, PopGen, PosDefManifold
+PrettyTables, PtFEM, ReferenceFEs, SMC, SimpleValueGraphs, StatsBase, Sundials, SymmetryReduceBZ, TSVD, TinyModia, Transducers, XLSX, _Derivatives, tmp/MIRT\JeffFessler-MIRT, tmp/NeuroAnalysis\Experica-NeuroAnalysis, |tmp/Extremes\jojal5-Extremes, |tmp/GeostatInversion\madsjulia-GeostatInversion, |tmp/Knet\denizyuret-Knet, |tmp/LowLevelParticleFilters\baggepinnen-LowLevelParticleFilters, |tmp/Manifolds\JuliaManifolds-Manifolds
+|tmp/NNFEM\kailaix-NNFEM, |tmp/PorousMaterials\SimonEnsemble-PorousMaterials, |tmp/SimpleDrawing\scheinerman-SimpleDrawing, |tmp/SnoopCompile\timholy-SnoopCompile, 

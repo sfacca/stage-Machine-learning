@@ -403,7 +403,7 @@ end
 
 function print_fapwm(arr, name="frequent and predictive words.md")
     open(name, "w") do io
-        write(io, "This file contains every word present in each cluster, ordered by the score given by the Frequent and Predictive words Method,\nwhich scores words based on the product of local frequency and predictiveness.\, For more informations, see https://iarjset.com/upload/2017/july-17/IARJSET%203.pdf\n")
+        write(io, "This file contains every word present in each cluster, ordered by the score given by the Frequent and Predictive words Method,\n which scores words based on the product of local frequency and predictiveness.\n For more informations, see https://iarjset.com/upload/2017/july-17/IARJSET%203.pdf\n")
         for i in 1:length(arr)
             write(io, "[Cluster $i](#cluster$i)\n")
         end

@@ -4,6 +4,10 @@
 function expression_exists(expr::String, data)
 	findfirst((x)->(x==expr), data[:,:math_expression])
 end
+"""searches data for a code_block of value expr, returns its index or nothing if none is found"""
+function codeblock_exists(expr::String, data)
+	findfirst((x)->(x==expr), data[:,:code_block])
+end
 
 """searches data for a language of value lang, returns its index or nothing if none is found"""
 function language_exists(lang::String, data)

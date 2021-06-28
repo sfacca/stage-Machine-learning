@@ -77,14 +77,6 @@ function clusters_distortion(kres)
     #sum(kres.costs)/length(kres.costs)    
 end
 
-function clusters_distance_to_center(kres, data, distance)
-    ds = zeros(data.n)
-    for i in 1:data.n 
-        ds[i] = distance(kres.centers[:,kres.assignments[i]], data[:,i])
-    end
-    ds
-end
-
 function mean_cluster_cheby(kres, data)
     cheb = clusters_distance_to_center(kres, data, chebyshev)
     counts = zeros(maximum(kres.assignments))
@@ -100,6 +92,16 @@ function mean_cluster_cheby(kres, data)
     end
     sums
 end 
+
+
+function clusters_distance_to_center(kres, data, distance)
+    ds = zeros(data.n)
+    for i in 1:data.n 
+        ds[i] = distance(kres.centers[:,kres.assignments[i]], data[:,i])
+    end
+    ds
+end
+
 
 function clusters_custom_distortion(kres, data, distance)
     sum(clusters_distance_to_center(kres, data, distance))/data.n

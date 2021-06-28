@@ -1,50 +1,40 @@
 ############################## HIGHEST CENTER RATIO #############################
-mean, ref, iter, Pset, weight, matric, conv, Option, converg, vector, 𝐏, multi-thread, real, algorithm, type, Normal, argument, posit, function, definit
-sum, Keyword, return, matrix, julia, tol, thread, logdet, metric, wasMean, 
+et, al, invertebr, vertebr, default, paramet, function, valu, produc, β, energi, norm, constant, rate, target, sourc, call, activ, expon, time
+embed, scale, argument, length, comput, binzer, allometr, delay, lag, model, 
 ############################ CENTER NEAREST NEIGHBOHOR ############################
-iter, iter, iter, iter, iter, iter, iter, iter, iter, iter, iter, iter, iter, iter, ref, ref, ref, ref, ref, ref
-ref, ref, ref, ref, ref, ref, mean, mean, mean, mean, mean, mean, mean, mean, mean, mean, mean, wasMean, wasMean, wasMean
-wasMean, wasMean, wasMean, wasMean, wasMean, wasMean, Pset, Pset, Pset, Pset, Pset, Pset, Pset, Pset, converg, converg, converg, converg, converg, converg
-converg, conv, conv, conv, conv, conv, conv, conv, Option, Option, Option, Option, Option, Option, weight, weight, weight, weight, weight, weight
-vector, vector, vector, vector, vector, matric, matric, matric, matric, matric, real, real, real, real, real, multi-thread, multi-thread, multi-thread, multi-thread, multi-thread
-𝐏, 𝐏, 𝐏, 𝐏, 𝐏, algorithm, algorithm, algorithm, algorithm, argument, argument, argument, argument, posit, posit, posit, posit, definit, definit, definit
-definit, Normal, Normal, Normal, Normal, tol, tol, tol, tol, Keyword, Keyword, Keyword, return, return, return, type, type, type, matrix, matrix
-matrix, sum, sum, sum, w=weight, w=weight, w=weight, julia, julia, pass, pass, time, time, provid, provid, tupl, tupl, default, default, initi
-initi, function, function, print, print, modifi, modifi, Array, Array, input, input, warn, warn, init, init, thread, thread, benchmark, benchmark, metric
-metric, Experiment, Experiment, diagon, diagon, attain, attain, unweight, unweight, ℍVector, ℍVector, 𝔻Vector, 𝔻Vector, Pset=randP, Pset=randP, ✓w=true, ✓w=true, ⏩=true, ⏩=true, Bhattacharyya
-Bhattacharyya, Wasserstein, Wasserstein, ⍰, ⍰, ⍰=true, ⍰=true, Exampl, data, true, call, set, requir, follow, automat, implement, correspond, instanc, chang, estim
-et, al, note, signific, alreadi, otherwis, diverg, allow, run, ←, result, Union, indic, avail, unicod, don, accord, relat, Check, repeat
-Gener, root, doe, uniqu, minus, propos, random, solut, vanish, satisfi, nearest, LinearAlgebra, disabl, success, bit, effect, circumst, toler, henc, squar
-BenchmarkTool, criterion, digit, instruct, half, Suppos, https://docs.julialang.org/en/v, manual/parallel-computing, logdet, non-neg, printed, init=Noth, weights, normalized, fixed-point, ℍ, keword, single-thread, PosDefManifold, NOTA
-BENE, multi-threaded, SPD, 🎓, 𝐏=randP, ⏩=false, Multi-Threading, computer, powerMean, ⍰=fals, closed-form, monothonically, happened, Base.ep, hasten, randP, init=G, Álvarez-Esteban, Wassertein, 
+et, et, et, et, et, et, et, et, et, al, al, al, al, al, al, al, al, al, paramet, paramet
+paramet, paramet, paramet, paramet, function, function, function, function, exponenti, exponenti, exponenti, exponenti, binzer, binzer, binzer, binzer, call, call, call, default
+default, default, norm, norm, norm, activ, activ, activ, constant, constant, constant, growth, growth, growth, energi, energi, energi, ehnes, ehnes, ehnes
+valu, valu, rate, rate, model, model, ba, ba, β, β, growthrat, growthrat, exponentialba, exponentialba, exp, exp, refer, exampl, keyword, argument
+pass, specifi, option, defin, mean, scale, normal, produc, example, coeffici, temperatur, brown, temp, boltzmann-arrhenius, boltzmann, expon, allometr, gillooli, boltzmann-arrhénius, 
 ################################### FREQUENCY ###################################
-ref, Exampl, julia, pass, time, vector, return, default, posit, function, type, definit, mean, matric, Array, real, thread, benchmark, random, BenchmarkTool
-instruct, https://docs.julialang.org/en/v, multi-thread, Pset, PosDefManifold, ℍVector, Pset=randP, 𝐏, Keyword, argument, call, set, provid, automat, Option, note, otherwis, allow, Normal, repeat
-Gener, weight, LinearAlgebra, Experiment, disabl, sum, manual/parallel-computing, non-neg, NOTA, BENE, 𝔻Vector, SPD, ✓w=true, ⏩=true, Multi-Threading, algorithm, follow, initi, alreadi, run
-unicod, don, doe, diagon, normalized, unweight, single-thread, 𝐏=randP, powerMean, wasMean, requir, chang, matrix, Union, iter, warn, metric, euclidean, weights, w=weight
-data, true, implement, correspond, tupl, estim, signific, diverg, print, input, indic, init, root, converg, vanish, satisfi, nearest, bit, tol, toler
-conv, squar, half, logdet, init=Noth, ℍ, attain, happened, Base.ep, hasten, randP, onli, modifi, log, uniqu, fisher, circumst, Suppos, multi-threaded, Bhattacharyya
-monothonically, init=G, result, avail, accord, Check, solut, closed-form, instanc, success, effect, henc, printed, fixed-point, keword, 🎓, ✓w=fals, ⏩=fals, alia, int
-paramet, gradient, relat, maximum, minus, Descent, yield, verbos, geometr, invers, criterion, digit, gain, maxit, verbose=tru, verbose=fals, textrm, ⏩=false, computer, attained
-element, et, al, divid, frac, comput, ←, zero, norm, mode, compar, power, usual, suggest, exp, digits, allowed, generalizedMean, Wasserstein, ⍰=fals
-⍰, ⍰=true, size, limit, faster, equat, Notic, Hermitian, arithmet, harmon, ip, geodes, ig, geometricMean, ←G, creat, valu, standard, Ani, output
+argument, valu, default, function, refer, et, al, mean, keyword, model, call, option, defin, paramet, exampl, pass, specifi, β, constant, produc
+expon, allometr, norm, temperatur, temp, vertebr, invertebr, gillooli, time, rate, perform, scale, normal, true, vector, ani, note, activ, similar, energi
+example, coeffici, data, correspond, return, type, na, comput, ba, dimens, repres, indic, scalar, brown, boltzmann-arrhenius, boltzmann-arrhénius, algorithm, process, filter, length
+distanc, opposit, axi, determin, zero, fals, look, interpret, trait, replac, mani, adjust, neighbor, opt, weight, predict, sign, space, converg, metabol
+sourc, values, maxim, metabolicr, exponenti, exponentialba, seri, reconstruct, kwarg, librari, target, measur, version, instanc, onli, deviat, window, sampl, equival, map
+detect, τ, dim, tempor, actual, build, construct, rang, align, negat, tri, extend, complex, interact, perfect, forward, embed, tree, root, report
+η, metric, attack, search, propos, euclidean, distances.jl, realiz, scienc, neighbors, chebyshev, exclud, nearest, dynam, draw, convent, packag, futur, applicat, usual
+cross, organ, squar, neighbour, instanti, distinguish, attackr, exp, binzer, backward, causal, delay, lag, minkowski, prediction, past, empir, mapping, rep, kdtree
+time-delay, georg, ccm, putat, crossmap, series, influenc, non-caus, ye, https://www.nature.com/articles/srep, sugihara, http://science.sciencemag.org/content/early, science, conform, transferentropy.jl, redm, https://cran.r-project.org/web/packages/redm/index.html, libsiz, theiler, nearestneighbors.jl
+brutetre, balltre, cityblock, statsbase.cor, coupl, ecosystems, hao, scientif, set, follow, width, gaussian, matrix, array, max, possibl, relat, handl, depend, maximum
 
 ################################# DIFF FREQUENCY ################################
 ################################# more frequent ################################
-𝐏, BenchmarkTool, Pset=randP, multi-thread, ℍVector, Pset, https://docs.julialang.org/en/v, PosDefManifold, instruct, benchmark, thread, matric, definit, random, mean, posit, real, pass, time, ✓w=true
-⏩=true, Multi-Threading, manual/parallel-computing, SPD, 𝔻Vector, NOTA, BENE, non-neg, LinearAlgebra, Experiment, disabl, repeat, default, automat, type, allow, sum, Gener, Normal, weight
-Array, otherwis, provid, ref, vector, Exampl, Keyword, note, julia, Option, call, function, powerMean, wasMean, single-thread, 𝐏=randP, normalized, unweight, unicod, don
-diagon, alreadi, set, follow, initi, doe, algorithm, run, argument, w=weight, weights, euclidean, metric, warn, chang, requir, iter, Union, matrix, happened
-Base.ep, hasten, init=Noth, attain, vanish, logdet, randP, ℍ, conv, signific, diverg, satisfi, half, nearest, converg, bit, init, tol, toler, root
+et, al, mean, default, refer, argument, valu, function, keyword, model, defin, option, call, paramet, pass, allometr, specifi, expon, β, produc
+constant, exampl, vertebr, invertebr, gillooli, temp, temperatur, norm, rate, perform, time, scale, normal, example, activ, energi, similar, coeffici, note, ani
+boltzmann-arrhénius, boltzmann-arrhenius, brown, ba, na, scalar, repres, true, dimens, correspond, indic, vector, exponentialba, metabolicr, metabol, trait, opposit, maxim, exponenti, interpret
+sign, adjust, converg, neighbor, look, opt, predict, seri, values, mani, replac, comput, axi, sourc, filter, process, distanc, space, algorithm, zero
+weight, determin, type, length, data, fals, binzer, ccm, crossmap, non-caus, https://www.nature.com/articles/srep, transferentropy.jl, redm, https://cran.r-project.org/web/packages/redm/index.html, libsiz, theiler, balltre, sugihara, http://science.sciencemag.org/content/early, nearestneighbors.jl
 
 ################################# less frequent ################################
-string, name, file, model, method, jldoctest, contain, Bool, Symbol, current, index, error, defin, noth, variabl, path, Integer, calcul, node, convert
-Field, AbstractStr, sampl, kwarg, add, base, refer, determin, start, coordin, construct, column, perform, graph, line, dict, read, map, handl, includ
-imag, Char, store, write, format, id, e.g, grid, test, transform, const, system, form, load, repres, updat, null, singl, Void, scale
-AbstractVector, filenam, inform, space, document, origin, code, edg, exist, remov, color, rang, integ, ×, arg, match, center, distanc, process, version
-unit, row, vertic, equal, pair, equival, valid, assum, entri, dim, io, OGR, structur, AbstractArray, geometri, linear, depend, param, associ, filter
+string, object, ref, jldoctest, integer, real, node, convert, abstractstr, union, add, generat, column, graph, line, read, run, otherwis, imag, char
+write, format, id, oper, test, support, const, doe, gener, null, random, singl, void, abstractvector, collect, code, edg, exist, label, color
+integ, ×, arg, center, unit, row, pair, befor, entri, io, ogr, structur, abstractarray, geometri, featur, log, count, descript, text, copi
+julia-repl, dataset, instead, standard, tabl, datafram, accord, fetch, bound, doubl, connect, condit, block, pars, uint, val, throw, frame, attribut, context
+modifi, miss, byte, definit, compat, num, tag, success, vertex, rotat, display, stream, angl, atom, local, found, mode, directori, automat, link
 
 ################################# FUNCTION NAMES ################################
-fVec, generalizedMean, generalizedMean, geometricMean, geometricMean, geometricpMean, logdet0Mean, logdet0Mean, means, powerMean, powerMean, wasMean, wasMean, 
+ccm, ccm_with_summary, continuation, convergentcrossmap, crossmap, diva3d, exponential_BA_attackr, exponential_BA_handlingt, exponential_BA_r, exponential_BA_x, extended_BA_attackr, extended_BA_x, extended_eppley_x, gaussian_attackr, gaussian_handlingt, gaussian_x, model_parameters, 
 ############################### FUNCTION ORIGINS ################################
-PosDefManifold, 
+BifurcationKit, CrossMappings, DIVAnd, |tmp/BioEnergeticFoodWebs\PoisotLab-BioEnergeticFoodWebs, 

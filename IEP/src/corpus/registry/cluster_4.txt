@@ -1,38 +1,115 @@
 ############################## HIGHEST CENTER RATIO #############################
-crystal, Atom, charg, molecul, bond, tol, Float, box, energi, argument, Bool, return, structur, int, grid, unit, distanc, appli, Array, true
-overlap, period, file, boundari, includ, rule, simul, Speci, LJForceField, symmetri, 
+julia, exampl, int, ref, array, jldoctest, element, return, true, float, matrix, ×, vector, function, valu, string, fals, │, type, argument
+im, data, graph, set, collect, iter, size, tupl, ⋅, io, 
 ############################ CENTER NEAREST NEIGHBOHOR ############################
-charg, charg, charg, charg, charg, true, true, true, molecul, molecul, molecul, crystal, crystal, crystal, fals, fals, onli, Ani, 
+ref, ref, ref, julia, julia, julia, exampl, true, fals, jldoctest, bitwis, 
 ################################### FREQUENCY ###################################
-crystal, argument, return, Atom, Float, Bool, structur, true, charg, inform, int, molecul, Array, appli, period, contain, ref, distanc, tol, unit
-boundari, calcul, coordin, includ, box, fraction, comput, Symbol, Check, bond, cell, determin, LJForceField, data, remov, fals, toler, pass, file, simul
-energi, set, valu, default, posit, print, filenam, base, condit, rule, overlap, coord, Net, Speci, pbc, tupl, onli, Ani, frac, pair
-name, dict, id, Interact, cartesian, verbos, rules, voronoi, molecular, type, appear, defin, matrix, system, zero, index, string, result, Forc, list
-absolut, infer, duplic, describ, sum, neutral, replic, crystal.charg, adsorb, e.g, Field, note, convert, imag, i.e, assum, mass, model, store, origin
-Fill, AbstractStr, look, label, dictionari, minimum, append, space, nearest, seek, information, temperatur, Van, der, Jone, Waal, Lennard, radius, grid, distance
-save, particl, allow, construct, potenti, read, Union, indic, insid, direct, accord, warn, min, ad, maximum, popul, neighborhood, precis, convent, write
-Kelvin, cif, comment, symmetri, CART, symmetry, wish, Ewald, electrostat, verbose=fals, summat, pts, bondingrul, species, crystal.atom, charges, atoms/charg, xtal, ljff, porous
-Exampl, correspond, Option, densiti, function, method, otherwis, graph, object, column, ensur, close, consid, equal, path, perform, error, factor, latter, throw
-Bool=tru, assign, Mont, Carlo, compar, flag, desir, iff, adjac, pressur, DM, cycl, sim, forcefield, coval, coords=tru, molecule-cryst, adsorpt, subtract, Wrap
+julia, exampl, jldoctest, return, ref, int, element, array, true, vector, function, ×, float, matrix, valu, argument, fals, string, type, data
+default, collect, specifi, set, method, julia-repl, compat, result, size, creat, note, requir, tupl, iter, ani, bool, 64,1, call, contain, integer
+object, graph, comput, length, onli, dimens, name, input, output, index, entri, abstractstr, noth, keyword, time, pass, error, path, union, equival
+dim, 64,2, provid, current, edg, generat, indic, integ, map, rand, zero, construct, multipl, e.g, follow, defin, store, key, mean, oper
+option, file, code, column, base, complex, perform, vertex, implement, convert, pair, symbol, variabl, add, row, appli, lightgraph, refer, correspond, determin
+direct, start, instead, abstractarray, equal, param, test, real, write, dict, process, version, io, dimension, support, includ, count, paramet, model, charact
+itr, │, remov, vertic, eltyp, miss, match, posit, i.e, setup, random, list, load, otherwis, init, ident, algorithm, form, singl, sampl
+sum, reshap, fill, im, abstractvector, filter, bound, copi, valid, doe, found, warn, possibl, check, befor, dims, simpl, exist, arg, max
+println, instanc, spars, usage, print, read, normal, typeof, th, diagon, view, empti, run, intern, optional, rng, 1:3, label, uint, except
+item, calcul, node, express, gener, val, code-block, repres, avail, factor, linear, imag, allow, plot, ad, access, returned, initi, text, sequenc
 
 ################################# DIFF FREQUENCY ################################
 ################################# more frequent ################################
-crystal, argument, Atom, Float, structur, Bool, charg, molecul, return, inform, period, true, appli, tol, distanc, boundari, contain, unit, int, Array
-coordin, calcul, bond, fraction, box, LJForceField, includ, cell, Check, Symbol, toler, ref, determin, remov, energi, simul, pbc, comput, Net, Speci
-overlap, coord, rule, condit, fals, print, molecular, voronoi, rules, filenam, pass, cartesian, Interact, frac, verbos, base, posit, pair, crystal.charg, adsorb
-neutral, replic, duplic, appear, infer, id, absolut, dict, Forc, describ, file, sum, Lennard, Jone, Waal, der, Van, seek, information, system
-nearest, mass, append, temperatur, zero, look, minimum, tupl, data, Fill, dictionari, onli, Ani, assum, crystal.atom, charges, atoms/charg, species, porous, symmetry
+julia, exampl, jldoctest, element, ref, int, ×, array, true, float, matrix, vector, return, fals, collect, compat, julia-repl, function, valu, 64,1
+argument, requir, string, iter, type, note, result, entri, 64,2, size, method, specifi, graph, tupl, bool, integer, rand, equival, dimens, dim
+lightgraph, ani, length, edg, complex, vertex, integ, itr, abstractstr, │, default, contain, eltyp, multipl, reshap, creat, noth, pair, call, dimension
+zero, code, follow, key, setup, im, charact, ident, init, dims, instead, union, pass, index, generat, map, e.g, row, 1:3, oper
+code-block, store, println, param, provid, abstractarray, keyword, typeof, miss, equal, path, data, onli, spars, count, diagon, input, mean, implement, 1:2
 
 ################################# less frequent ################################
-function, julia, vector, element, Exampl, paramet, time, jldoctest, size, input, Keyword, variabl, call, Integer, real, node, creat, kwarg, provid, output
-add, iter, generat, specifi, mean, Plot, line, handl, current, Char, format, object, Normal, support, transform, const, doe, key, form, load
-repres, Gener, step, updat, null, Void, AbstractVector, collect, chang, document, code, exist, Multipl, color, integ, ×, arg, match, process, version
-length, equival, valid, dim, io, relat, OGR, AbstractArray, linear, possibl, depend, param, filter, instanc, featur, empti, sourc, count, user, descript
-text, copi, julia-repl, dataset, avail, instead, express, tabl, Control, Draw, distribut, compon, Fetch, constraint, layer, bound, evalu, specif, doubl, level
+paramet, model, field, const, file, void, handl, null, id, ogr, coordin, constraint, name, geometri, kwarg, filenam, featur, atom, calcul, node
+action, correct, https://portal.hdfgroup.org/display/hdf, libhdf, solut, pointer, center, list, polygon, layer, condit, locat, ogrerr, hid, integr, ogrspatialreferenceh, success, doubl, attribut, veloc
+select, rate, step, averag, simul, hsrs, updat, fetch, system, curv, energi, compon, header, assign, local, project, offset, free, tensor, configur
+ogrgeometryh, tag, callback, solver, boundari, particl, height, verbos, constructor, helper, none, translat, gdal, line, ctx, entiti, ratio, bodi, radius, proj
+messag, char, diagram, raster, geom, width, failur, depth, driver, ptr, evalu, pressur, temperatur, sol, box, weight, mask, freed, surfac, format
 
 ################################# FUNCTION NAMES ################################
-Crystal, Crystal, adjacency_matrix, apply_symmetry_operations, apply_symmetry_operations, assign_charges, assign_charges, bonded_atoms, bonded_atoms, chemical_formula, chemical_formula, compare_bonds_in_crystal, compute_accessibility_grid, crystal_density, crystal_density, distance_matrix, distortion, electrostatic_potential_energy, energy_grid, find_energy_minimum
-find_energy_minimum_gridsearch, forcefield_coverage, has_charges, has_charges, henry_coefficient, henry_result_savename, infer_bonds!, infer_bonds!, infer_geometry_based_bonds!, infer_geometry_based_bonds!, inside, inside, is_bonded, is_bonded, isotherm_sim_results_to_dataframe, molecular_weight, molecular_weight, neighborhood, neighborhood, net_charge
-net_charge, neutral, neutral, overlap, overlap, remove_duplicate_atoms_and_charges, remove_duplicate_atoms_and_charges, remove_duplicates, remove_duplicates, replicate, replicate, strip_numbers_from_atom_labels!, strip_numbers_from_atom_labels!, total_electrostatic_potential_energy, total_vdw_energy, vdw_energy, write_bond_information, write_cif, μVT_sim, 
+, , , , , , , , , , , !, !, !==, *, *, *, *, *, *
++, +, -, -, -, /, <, <<, <=, >, >=, >>, >>, >>>, AdvectiveCFL, AnisotropicMinimumDissipation, Anonymous, Array, BagModel, BagNode
+Bidiagonal, BitArray, BitArray, BitVector, CDDate, Chains, Channel, CompoundPeriod, CubeGenerator, DDF, Date, DateTime, Diagonal, DiffusiveCFL, DiskTimeSeries, EMD, Euclidean, FixedTimeZone, FormatLogger, Framewise
+FunbArray, GridVisualizer, Hecke, Hermitian, HypothesisCoding, IOBuffer, IOBuffer, IOContext, InetAddr, JuliaContext, JuliaPropertyMap, JuliaVersionNumber, Matrix, MaxTree, Maxout, MersenneTwister, NGramDocument, NGramIterator, NGramMatrix, NMRData
+NaiveBayesClassifier, NoCopyArray, Non_negative, ProductModel, QuasiDiagonal, Repeat_stop, Repeat_until, SemCor, SimpleDiGraph, SimpleDiGraph, SimpleDiGraphFromIterator, SimpleGraph, SimpleGraph, SimpleGraphFromIterator, SymTridiagonal, Symmetric, TV_cuda, TessInst, TileIterator, Transducer
+Transducer, Tridiagonal, VI, Variational, WeightedBagNode, WindowedSpatialAverage, Zip, \, ^, ^, ^, _isvararg, _parsesub_tzdate, _ql!, _str2int_mapping, absorbvertex, accumulate, accumulate, accumulate!, activation_match!
+adapt, add_edge!, add_push!, add_vertices!, addenv, addprocs, adjacency_matrix, adjoint, adjoint, adjoint, adjoint!, after, alias_gensyms, alignment, all, all, all_induced_subgraphisomorph, all_isomorph, all_subgraphisomorph, allele_freqtable
+allunique, ando3, ando4, ando5, angle, angle_to_angle, angle_to_angleaxis, angleaxis_to_dcm, angleaxis_to_quat, angleaxis_to_quat, anonymous_signature, any, any, append, append!, append!, applycallbacks, applycallbacks, arg_hash, argmax
+argmax, argmax, argmin, argmin, argmin, artifact_meta, asdigraph, asgraph, asgraph, asmonoid, asoxide, aspect_ratio, asyncmap, augment, augment!, augmentbatch!, axes, bags, band, barabasi_albert
+barabasi_albert, barabasi_albert!, barplot, base64decode, basename, batched_mul, batched_vec, beam_gm, beam_km, beam_mm, beamform, beamform, betweenness_centrality, bickley, binary_focal_loss, binarycrossentropy, bind, bitreverse, bitsunionsize, bmat_nonaxi!
+boolean_mask, bothat, bounds, broadcast_axis, broadcastable, browse, bswap, build_tarballs, canonicalize, cart, ccd2rgb, cconj, cd, cd, ceil, ceil, center, center_extract, characteristicMatrix, check_allocs!
+checkbounds, checkindex, checksquare, checon, cholesky, cholesky, cholesky!, chop, chunk, circcopy!, circshift, circshift, circular_ladder_graph, cis, cispi, clamp!, class_confusion, classes, classify, classify
+classify, classify, classify, cld, closeness_centrality, closest, closing, cmdline, cmdline, cmp, cmp, cndint, code2lens, code_for, cohen_kappa_score, collect, collect, collect, collect, colorant2ansi
+common_neighbors, complex, compose_rotation, conc, concrete_term, conj!, connect!, connect!, consecutive_view, contains, content, content, contour, contourf, convert_a3d, coordinatwisemedians, copy, copy!, copy!, copy!
+copymutable, copyto!, copyto!, copyto!, copyto!, cosDocGetObject, could_have_isomorph, count, count, count, count!, count_induced_subgraphisomorph, count_isomorph, count_subgraphisomorph, countlines, countngrams, countngrams!, cp, cp, cp
+cross, crossentropy, crossjoin, cumprod, cumprod, cumsum, cwd, cycle_basis, d_dt, data, data_lens, dataimage, dayofweekofmonth, daysinmonth, decoder, default_worker_pool, defaultweight, define_editor, deform, degree_centrality
+degree_matrix, degrees, delete!, delete!, delete!, delete!, delete!, deleteat!, delta_k, deploy, dequeue!, dequeue!, dequeue_pair!, dequeue_pair!, destructure, det1, det1, dffit, diag, diagind
+diagm, diameter, diffrule, digits, dilate, dimension, disable_sigint, displaysize, dominates, dorogovtsev_mendes, dot, double_binary_tree, download, drawgrid, drop, drop_error, dropdims, dropstored!, dropstored!, dropstored!
+dropwhile, dropzeros, dropzeros, dst, dtm, duplicate, eachannulus, eachbatch, eachcol, eachindex, eachindex, eachline, eachmatch, eachobs, eachrow, eachrow, eachslice, edges, edit_distance, eduction
+egs_writer, eigmax, eigmin, eigs, eigvals, eigvals, eigvals!, eigvecs, eigvecs, eltype, embed_display, empty, endswith, endswith, erdos_renyi, erdos_renyi, erode, escape_string, estimate_background, euclidean_graph
+euclidean_graph, evalpoly, evalpoly, exit_on_sigint, exp, expand, expand, extract_transducer, extractscalar, extrema, extrema, extserialize, factorial, fail, fcollect, features, features, fetch_refspecs, fetchheads, fftfreq
+fieldindex, fieldoffset, fieldtypes, figure, filename, filter, filter, filter, filter, filter!, find_artifacts_toml, find_lens, find_zero!, findall, findall, findall, findall, findcaller, findfirst, findfirst
+findfirst, findfirst, findfirst, findlast, findlast, findlast, findlast, findmax, findmax, findmax, findmin, findmin, findmin, findnearest, findnext, findnext, findnext, findnext, findnext, findnonempty_lens
+findprev, findprev, findprev, findprev, findprev, findterminating, first, first, first, firstindex, firstrest, fit, fit, fit, fkdiag!, fkeep!, flamegraph, flatten, flatten, flatten_batch
+flatten_demo, fld, float, fmplat!, focal_loss, foo, foo, foreach, formm!, forwarddiff, freeze_params, freeze_weights!, frequent_terms, fromroots, frule, fsparm!, gcdx, generate_downsample, generate_imports, generate_mnmm_data
+genfun, geno_freqtable, geom_rect!, get, get, get, get, get, get_edgeval, get_edgeval, get_edgeval, get_edgeval, get_edgeval_or, get_params, get_source_fun, get_trainable_params, getcell, getdata, getindex, getindex
+getindices, getinverse, getnamedict, getproperty, getvarfrompop, git_url, gitdescribe, glob_to_axial, global_clustering_coefficient, glorot_normal, glorot_uniform, grid_0, grid_1, group, group, groupunique, groupunique, groupview, grpf, grpf
+hamming_loss, has_edge, has_induced_subgraphisomorph, has_isomorph, has_negative_weight_cycle, has_negative_weight_cycle, has_self_loops, has_subgraphisomorph, has_vertex, hasdiffrule, hash_dtv, haskey, haskey, haskey, haskey, haskey, haskey, haskey, hasmethod, hcat
+head_and_tail, heatmap, hex, hexahedron_xz!, hexbin, histogram, hold, hough_circle_gradient, hough_transform_standard, hrep, hs93basicsubset, hvcat, hydrograph, hypot, hypothesis_matrix, iaea_writer, ifunreduced, immutablevertex, imshow, imshow
+indegree, indentation, index2addr, index_hash, indexin, indicatormat, initialize, initnoise, inject, inline, inneighbors, insert!, insertafter!, intersect, inv, inv_rotation, invalidation_trees, invar, invariantvertex, inverse
+inverse, invmod, invoke_in_world, invperm, invpermute!, is_bipartite, is_connected, is_ordered, is_weakly_connected, isambiguous, isapprox, isascii, isassigned, isbanded, isbitstype, isbitsunion, isconcretetype, isderiving, isdiag, isdigit
+isdir, isexpr, isfile, isgreater, isheap, ishermitian, ishit, ishit, isidentifier, isimmutable, isjsvm, isless, isletter, islowercase, ismutable, isnull, isnumeric, isone, isosurface, isposdef
+isposdef!, ispossemdef, ispow2, ispunct, isreadonly, isreal, issorted, isspace, issparse, issymmetric, istaskdone, istaskfailed, istaskstarted, istril, istriu, isuppercase, isvalid, iszero, iterate, iterate
+itrigs_demo, ivec, jacknifedS, join, julia_cmd, juliafill, julian_period, k_core, k_corona, k_crust, k_shell, kaiming_normal, kaiming_uniform, keys, keys, keys, keys, keytype, kfolds, kfolds
+kldivergence, knots, knotsbetween, label, label_for, label_smoothing, labels, lambertw, lambertwbp, language!, lar2obj, larCellProd, larGrid, larGridSkeleton, larImageVerts, larVertProd, last, last, last, lastindex
+layout, ldiv!, leaveout, leftgroupjoin, legend, length, lens2code, libc, list_lens, list_psp, lmul!, loadapp, local_clustering_coefficient, log, log, logabsdet, logdet, logitbinarycrossentropy, logitcrossentropy, logspace
+lookahead, lowercasefirst, lstrip, lta, lu!, lu!, macroexpand, map, map, map!, map!, map_coefficients, map_coefficients, map_coefficients_inplace!, map_coefficients_inplace!, mapcols, mapcols!, mapdata, mapdomain, mapreduce
+mapreduce, mapslices, mapview, materialize!!, maximum, maximum, maximum_flow, maybe_usesimd, maybehot, maybehotbatch, measurement, median, merge, merge, merge!, merge_vertices, mergewith, mergewith!, midlist, minimum
+minimum, mkdir, mkngg, mkpath, mocouf, mocouq, mod, model_lens, modelcols, modularity, modules, morphogradient, morpholaplace, mse, mul!, mul!, muladd, muladd, mv, mv
+mv, mv, name, names, nand, nashsolve, ncodeunits, ndgrid, ndigits, ndigits0z, ndsranks, ne, nearestPosDef, neighbors, newton, nextind, nextpow, nextprime, nextprod, nfan
+ngrams!, nilang_ir, nlargest, nnz, nonunique, nonzeros, nor, norm, norm, normalize, normalize, normalize, normalize!, nullspace, num_self_loops, nworkers, occursin, offset, oftype, one
+onehot, open, open, opening, oplot, opnorm, opnorm, orthogonal, orthonormalize, outdegree, outneighbors, output!, outputsize, owner_model, pairs, pairwise, pairwise!, pairwise_identical, pairwise_identical, paraconj
+parallel, parcel, parent, parent, parentindices, parentmodule, parentmodule, parse, partialschur, partialsort!, partialsortperm, partialsortperm!, partition, partition, partition, pathof_noload, pause!, pause!, pdDocGetOutline, pdDocGetPageRange
+peakflops, peekiter, peel, percentsimilarity, periphery, permute!, permutedims, permutedims, permutedims, pin_jointed!, pixel, pixel_shuffle, place, plot, plot, plot3, polar, polarhistogram, pop!, pop!
+pop!, popat!, popfirst!, position, postimputing_dense, postwalk, pred_lens, predict, preimputing_dense, prepare!, preserve_buffer, prettyp, prevind, prevpow, prevprime, prewitt, print, print_source, printcoefficient, println
+printmenu, process, process, process, process, process, process, process, process, process, process, procs, prod, prod, product, product, productview, promote_shape, promote_symtype, promote_typejoin
+prune_json, push!, push_refspecs, push_url, pushfirst!, put!, put!, put!, put!, put!, put!, pw, pwd, ql, qr, qr!, quap, query, query!, quickactivate
+quot, radiality_centrality, radius, rand, randexp, randn, random_tournament_digraph, randsubseq, randsubseq!, rank, rdiv!, read, read, read, read_snoopl, readchomp, readdata, readdir, readdlm, readdlm
+readdlm, readdlm, readdlm, readline, readlines, readsvg, readuntil, realign, realign, realign!, realign!, recode!, reconstruct, record, recursive_setproperty!, redraw, reduce, reduce, reducingfunction, reducingfunction
+reflectinmodel, register_error_hint, relatedness_posthoc, rem_edge!, rem_vertex!, rem_vertex!, remez, remotecall, remotecall_fetch, remotecall_fetch, remotecall_wait, remove_case!, remove_frequent_terms!, remove_html_tags!, remove_if_not_eval!, remove_segment!, remove_sparse_terms!, rep, repeat, repeat
+repeat, repeat, repeat!, repeat!, repeated, repeatedly, replace, replace, replace, replace, replace!, replace!, replacein, replacenames, repr, repr, request, rescale, residuals, residues
+resize!, resizeprop!, resolvereference, restrict, retransform, retry, returnvalue, reverse, reverse, reverse, reverse, reverse!, reverseind, rfftfreq, richardson_lucy_iterative, right, rm, rmprocs, rmul!, rod_km!
+rot180, rot180, rotate, rotate, rotate!, rotate!, rotl90, rotl90, rotr90, rotr90, round, round, rowvals, rpad, rrule, rstrip, run!, run_tesseract, run_tesseract, sample
+sample_locus, sample_pix, sample_tiff, save, savefig, scale, scale, scale!, scale!, scale!, scatter, scatter3, scharr, schedule, schema, schur, schur!, scitype, seed!, seek
+seekstart, select_features, selectdim, servedocs_literate_example, set, set!, set!, set_Lattice, set_params!, set_vocab!, setconstructor, setdiff!, setindex, setindex, setindex!, setindex!, setinput, setproperties!!, shell_layout, shiftsignal
+shortname, show, showerror, shuffle, shuffle!, shuffle!, shufflebyclass!, sign, signbit, sim_pairs, simulate_sample, sincos, size, size, size, sizeof, skip, skipchars, skiphigherorder, skyline2sparse
+sliceinds, smallangle_to_dcm, smallangle_to_rot, snoop_bench, snoop_bot, sobel, softmax, sort, sort, sort!, sortperm, sortperm!, sortslices, sparin!, sparse_init, sparse_terms, sparsevec, sparsify, spdiagm, spdiagm
+spectral_layout, spikesfromrecord, splice!, splice!, splitdims, splitdimsview, splitext, splitpath, splitpath, sprandn, sprint, spzeros, src, stability, stack, stan_summary, stan_summary, start, startswith, startswith
+startswith, statustext, stem, step, step, stim_threshold, storage_typejoin, stress_centrality, stride, stride1, strides, strip, subplot, subsets, subtract, suggest, sum, sum, sum, sumOfSqr
+sumOfSqrTril, sumOfSqrTril, summarize, summary, surface, svdvals!, svgstring, swappartition!, symdiff, tag_scheme!, tail, take, take!, take!, take!, take!, take!, take!, take!, take!
+take!, takestrict, takewhile, targets, tcopy, tess_available_languages, tess_get_param, tess_get_param, tess_get_param, tess_image, tess_init, tess_initialized_languages, tess_loaded_languages, tess_recognize, tess_resolution, tess_set_debug_param, tess_set_debug_param, tess_set_debug_param, tess_set_param, tess_set_param
+tess_set_param, tess_set_param, tf, tf_idf, tf_version, theme, thisind, title, titlecase, to_q, to_Δ, today, todayat, toexpr, tofloat, tophat, touch, tr, tr1, train!
+train!, train!, train!, transcode, transform, transitions_from_chain, transitiveclosure, translate, translate!, transpose, transpose, transpose!, triangles, tricont, tril, tril, tril!, trim, triplet, trisurf
+triu, triu, triu!, truncate, truncate, truncate, tryparse_dayofmonth_function, tryparsenext, turan_graph, typeofMatrix, ul!, unescape_string, unfreeze_weights!, union!, unique, unique, unique!, unique!, unit, unit
+unpack, unsafe_get, unsigned, unsqueeze, unsqueeze, unwind, uparse, update!, update!, update!, uppercase, upsample_bilinear, url, uuid1, uuid4, uuid5, uweights, validate, valtype, values
+values, variable_dependencies, varmult, vcat, vec, vertex, vertices, vertices, view, view, walkdir, walkpage, watts_strogatz, weakly_connected_components, weightfunction, whiten, widemul, winsor, wireframe, withenv
+withmeasures, withprogress, wls, wrapCapture, wrapCaptureRhs, wrapInterface, wrench_sparsity, write!, write!, write!, write!, writedlm, writeline, xlabel, xlim, xor, ylim, zero, zero, zero
+zip, znodes, |, ∘, 
 ############################### FUNCTION ORIGINS ################################
-PorousMaterials, Xtals, 
+ADI, AbstractFFTs, AbstractPlotting, Actors, AcuteBenchmark, ApproximateVI, ArnoldiMethod, ArrayInterface, AstroImages, Augmentor, AutoGrad_gpu, BLASBenchmarksCPU, BandedMatrices, BangBang, Base, Base64, BinaryBuilder, BinaryProvider, CartesianGrids, CategoricalArrays
+Causal, ChainRulesCore, CmdStan, Colors, CombinedParsers, Common, CompileBot, ControlSystemIdentification, CorpusLoaders, Cos, CumulantsUpdates, DFTK, DPMMSubClusters, DSP, Data, DataFrames, DataFramesMeta, DataStructures, Dates, DeconvOptim
+DemoCards, Diagnostics, DiffRules, DispatcherCache, Distances, Distributed, Distributions, DrWatson, Epochs, Experimental, FeatureSelectors, FilePathsBase, FileTrees, Filesystem, Filters, FlameGraphs, Flux, Flux3D, Functors, GMT
+GR, Generic, GenericLinearAlgebra, GraphLaplacians, GraphPlot, GridVisualize, Grids, HCIToolbox, ImageFeatures, ImageFiltering, ImageInTerminal, ImageMorphology, ImageSegmentation, ImageTransformations, ImageView, Indexing, Inner, InteractiveUtils, Interop, Interpolations
+JLLWrappers, JSONSchema, JsonGrinder, JuMP, LRSLib, Laplacians, LarSurf, LibGit2, LightGraphs, LightGraphsFlows, LinRegOutliers, LinearAlgebra, LiveServer, LoggingExtras, Losses, Luxor, MCMCChains, MLDataPattern, MLJBase, MLJModelInterface
+MLLabelUtils, MSA, MacroTools, MakieGallery, MatrixFactorizations, Measurements, Messages, Metrics, Mill, Mocking, ModelingToolkit, ModularFormsModuloTwo, MsgPack, NCDatasets, NMRTools, NNlib, NaiveNASlib, NeXLCore, NiLangCore, Nullables
+OCReract, Octo, OmegaCore, OmegaRemix, PD, PDMats, Photometry, PhyloPlots, PhysOcean, PixelArt, Polyhedra, Polynomials, PopGen, PopGenSims, PosDefManifold, PtFEM, Publish, PyCall, QuasiArrays, RHEOS
+Random, RayTracer, ReferenceFrameRotations, RobotDynamics, Roots, RootsAndPoles, ScientificTypes, SequencerJ, Setfield, ShiftedArrays, ShortestPaths, SignalAnalysis, SimpleValueGraphs, SnoopCompile, Sockets, Soss, SparseArrays, SplitApplyCombine, StanOptimize, StaticArrays
+StatisticalRethinking, StatsBase, StatsModels, Stipple, StringDistances, SurrealNumbers, SymbolDFGs, SymbolicUtils, TZData, TensorFlow, TerminalMenus, Tesseract, TextAnalysis, Thorn, TiledIteration, TimeZones, TranscodingStreams, Transducers, TurbulenceClosures, Turing
+TypedTables, ULMFiT, Unitful, VectorizationBase, VoronoiFVM, WordTokenizers, XLSX, YAActL, Zygote, classification, tmp/AdaptiveResonance\AP6YC-AdaptiveResonance, tmp/BayesNets\sisl-BayesNets, tmp/BenchmarkFunctions\rbalexan-BenchmarkFunctions, tmp/DataStructures\JuliaCollections-DataStructures, tmp/GeneralizedGenerated\JuliaStaging-GeneralizedGenerated, tmp/HCIToolbox\JuliaHCI-HCIToolbox, tmp/JsonGrinder\CTUAvastLab-JsonGrinder, tmp/Mill\CTUAvastLab-Mill, tmp/Oceananigans\CliMA-Oceananigans, tmp/PhaseSpaceIO\jw3126-PhaseSpaceIO
+tmp/ReinforcementLearningCore\JuliaReinforcementLearning-ReinforcementLearningCore, tmp/TensorFlow\malmaud-TensorFlow, tmp/Tesseract\pixel27-Tesseract, |tmp/Adapt\JuliaGPU-Adapt, |tmp/AdaptiveResonance\AP6YC-AdaptiveResonance, |tmp/Arpack\JuliaLinearAlgebra-Arpack, |tmp/BrkgaMpIpr\ceandrade-BrkgaMpIpr, |tmp/CartesianGrids\JuliaIBPM-CartesianGrids, |tmp/Causal\zekeriyasari-Causal, |tmp/ColorSchemes\JuliaGraphics-ColorSchemes, |tmp/ColorVectorSpace\JuliaGraphics-ColorVectorSpace, |tmp/CombinedParsers\gkappler-CombinedParsers, |tmp/DeconvOptim\roflmaostc-DeconvOptim, |tmp/Documenter\JuliaDocs-Documenter, |tmp/Fatou\chakravala-Fatou, |tmp/FloatingTableView\pdeffebach-FloatingTableView, |tmp/Genie\GenieFramework-Genie, |tmp/GeoJSON\JuliaGeo-GeoJSON, |tmp/Graphics\JuliaGraphics-Graphics, |tmp/HTTP\JuliaWeb-HTTP
+|tmp/Hydrographs\petershintech-Hydrographs, |tmp/InitialValues\JuliaFolds-InitialValues, |tmp/Interpolations\JuliaMath-Interpolations, |tmp/IterTools\JuliaCollections-IterTools, |tmp/Jusdl\zekeriyasari-Causal, |tmp/LambertW\jlapeyre-LambertW, |tmp/LightGraphs\JuliaGraphs-LightGraphs, |tmp/MetaGraphsNext\JuliaGraphs-MetaGraphsNext, |tmp/Missings\JuliaData-Missings, |tmp/MuladdMacro\SciML-MuladdMacro, |tmp/NaNMath\mlubin-NaNMath, |tmp/Pluto\fonsp-Pluto, |tmp/Polynomials\JuliaMath-Polynomials, |tmp/Primes\JuliaMath-Primes, |tmp/QML\barche-QML, |tmp/RootsAndPoles\fgasdia-RootsAndPoles, |tmp/SnoopCompile\timholy-SnoopCompile, |tmp/Stipple\GenieFramework-Stipple, |tmp/SyntaxTree\chakravala-SyntaxTree, |tmp/TightBinding\cometscome-TightBinding
+|tmp/TimeZones\JuliaTime-TimeZones, |tmp/Transducers\JuliaFolds-Transducers, |tmp/URIs\JuliaWeb-URIs, |tmp/julia\julia-master\base\strings\io, |tmp/julia\julia-master\base\strings\search, |tmp/julia\julia-master\base\strings\unicode, |tmp/julia\julia-master\base\strings\util, |tmp/julia\julia-master\stdlib\Artifacts\src\Artifacts, |tmp/julia\julia-master\stdlib\DelimitedFiles\src\DelimitedFiles, |tmp/julia\julia-master\stdlib\LinearAlgebra\src\LinearAlgebra, |tmp/julia\julia-master\stdlib\Mmap\src\Mmap, |tmp/julia\julia-master\stdlib\Printf\src\Printf, |tmp/julia\julia-master\stdlib\Random\src\Random, |tmp/julia\julia-master\stdlib\SuiteSparse\src\spqr, |tmp/julia\julia-master\stdlib\SuiteSparse\src\umfpack, |tmp/julia\julia-master\stdlib\UUIDs\src\UUIDs, 
